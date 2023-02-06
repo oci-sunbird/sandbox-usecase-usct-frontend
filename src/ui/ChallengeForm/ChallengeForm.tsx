@@ -11,7 +11,7 @@ import {
   PinInputField,
   Spinner,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
@@ -41,7 +41,7 @@ export default function ChallengeForm({ flow, email }: IChallengeFormProps) {
           username: email,
           code: challenge.join(""),
         });
-        await authentication.signIn({username: email, password: ''})
+        await authentication.signIn({ username: email });
       }
     } catch (error) {
       actions.resetForm();

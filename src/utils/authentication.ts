@@ -46,16 +46,10 @@ export const authentication = {
       throw error as IAWSError;
     }
   },
-  signIn: async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
+  signIn: async ({ username }: { username: string }) => {
     try {
       await Auth.signIn(username);
-      window.dispatchEvent(new CustomEvent("authenticationEvent"));
+      // window.dispatchEvent(new CustomEvent("authenticationEvent"));
     } catch (error) {
       console.error("AUTH004: ", error);
       throw error as IAWSError;
@@ -74,6 +68,7 @@ export const authentication = {
     try {
       const session = await Auth.currentSession();
       return session;
+      // return true;
     } catch (error) {
       throw error;
     }

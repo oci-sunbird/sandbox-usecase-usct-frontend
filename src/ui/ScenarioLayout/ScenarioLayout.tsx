@@ -7,10 +7,10 @@ import {
   IconButton,
   Image,
   SimpleGrid,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { ReactElement, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function ScenarioHeader({
   children,
@@ -62,12 +62,7 @@ function ScenarioView({
       p="48px"
       alignItems="center"
     >
-      <Flex
-        w="100%"
-        h="100%"
-        maxW="1024px"
-        direction="column"
-      >
+      <Flex w="100%" h="100%" maxW="1024px" direction="column">
         <Flex
           alignItems="center"
           height="56px"
@@ -100,8 +95,18 @@ function ScenarioView({
               backgroundColor="main.300"
             ></Box>
           </Flex>
-          <Flex h="32px" borderRadius="4px" w="100%" backgroundColor="#fff" alignItems="center" textAlign="center" justifyContent="center">
-            <Text fontSize="12px" color="#9B9B9B;">openisland-ministry.govstack</Text>
+          <Flex
+            h="32px"
+            borderRadius="4px"
+            w="100%"
+            backgroundColor="#fff"
+            alignItems="center"
+            textAlign="center"
+            justifyContent="center"
+          >
+            <Text fontSize="12px" color="#9B9B9B;">
+              openisland-ministry.govstack
+            </Text>
           </Flex>
         </Flex>
         <Box
@@ -119,8 +124,10 @@ function ScenarioView({
 
 export default function ScenarioLayout({
   view,
+  children,
 }: {
   view: "mobile" | "desktop";
+  children: React.ReactElement[] | React.ReactElement;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
@@ -132,9 +139,7 @@ export default function ScenarioLayout({
             Transfer
           </Text>
         </ScenarioHeader>
-        <ScenarioView>
-          <Outlet />
-        </ScenarioView>
+        <ScenarioView>{children}</ScenarioView>
       </Flex>
       <Flex
         h="100%"
@@ -170,7 +175,6 @@ export default function ScenarioLayout({
           gap="8px"
           h="100%"
           direction="column"
-
           overflowY="scroll"
         >
           <Heading size="md">Lorem ipsum dolor sit amet consectetur.</Heading>
