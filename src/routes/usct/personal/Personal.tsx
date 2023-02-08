@@ -1,21 +1,101 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
   Flex,
-  Grid,
-  Heading,
-  Link,
-  Table,
-  TableContainer,
-  Tag,
-  Tbody,
-  Td,
-  Text,
-  Thead,
-  Tr,
+  Heading, Tag, Text
 } from "@chakra-ui/react";
+import BankInformation from "./BankInformation";
+import PersonalInformation from "./PersonalInformation";
+import PersonalInformationTable from "./PersonalInformationTable";
+
+const householdData = [
+  {
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+  },
+  {
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+  },
+  {
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+  },
+  {
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+  },
+];
+
+const documentsData = [
+  {
+    name: "Medical Certificate",
+    organization: "12345678910",
+    issuedOn: "Wife",
+    validUntil: "12.12.1975",
+    status:                   <Flex gap="8px">
+    <Tag colorScheme="green" size="sm" borderRadius="full" />
+    <Text>Uploaded</Text>
+  </Flex>,
+  },
+  {
+    name: "Medical Certificate",
+
+    organization: "12345678910",
+    issuedOn: "Wife",
+    validUntil: "12.12.1975",
+    status:                   <Flex gap="8px">
+    <Tag colorScheme="green" size="sm" borderRadius="full" />
+    <Text>Uploaded</Text>
+  </Flex>,
+  },
+  {
+    name: "Medical Certificate",
+
+    organization: "12345678910",
+    issuedOn: "Wife",
+    validUntil: "12.12.1975",
+    status:                   <Flex gap="8px">
+    <Tag colorScheme="green" size="sm" borderRadius="full" />
+    <Text>Uploaded</Text>
+  </Flex>,
+  },
+  {
+    name: "Medical Certificate",
+
+    organization: "12345678910",
+    issuedOn: "Wife",
+    validUntil: "12.12.1975",
+    status:                   <Flex gap="8px">
+    <Tag colorScheme="green" size="sm" borderRadius="full" />
+    <Text>Uploaded</Text>
+  </Flex>,
+  },
+];
+
+const personData = {
+  fullName: "Thomas Anderson",
+  dateOfBirth: "03.10.1994",
+  phoneNumber: "(+372) 53937064",
+  occupation: "Very Cool Guy",
+  idCode: "39410036813",
+  email: "veryCoolGuy@gmail.com",
+  socialCode: "0235920935kdtt",
+  fullAddress: "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe"
+};
 
 export default function Personal() {
   return (
@@ -27,209 +107,24 @@ export default function Personal() {
           <Button>Submit for eligibility review</Button>
         </ButtonGroup>
       </Flex>
-      <Flex gap="24px" direction="column">
-        <Heading fontSize="18px">Personal Information</Heading>
-        <Flex gap="40px">
-          <Avatar borderRadius="0" width="25%" height="auto" />
-          <Grid
-            w="100%"
-            gridTemplateRows="repeat(4, 1fr)"
-            gridTemplateColumns="repeat(2, 1fr)"
-          >
-            <Box>
-              <Text fontWeight="600">Name</Text>
-              <Text>Thomas Anderson</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Date of Birth</Text>
-              <Text>12.12.1975</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Personal ID Code</Text>
-              <Text>12345678910</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Social ID Code</Text>
-              <Text>123456789</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Home Address</Text>
-              <Text>Soo Street 12345 Lorem 098098</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Occupation</Text>
-              <Text>Unemployed</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">E-mail</Text>
-              <Text color="gray">tom@myspace.com</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Phone Number</Text>
-              <Text color="gray">(+00) 94 843 432</Text>
-            </Box>
-          </Grid>
-        </Flex>
-        <Text>
-          If the shown information is not up to date, please update the
-          information via the <Link href="#">citizen portal</Link>
-        </Text>
-      </Flex>
-      <Box>
-        <Heading variant="h3" fontSize="18px">
-          Household Information
-        </Heading>
-        <TableContainer>
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Td>Name</Td>
-                <Td>National ID</Td>
-                <Td>Relation</Td>
-                <Td>Date of Birth</Td>
-                <Td>Needs</Td>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>Ms Lorem Ipsum</Td>
-                <Td>12345678910</Td>
-                <Td>Wife</Td>
-                <Td>12.12.1975</Td>
-                <Td>Data</Td>
-              </Tr>
-              <Tr>
-                <Td>Liram Ipsum</Td>
-                <Td>12345678910</Td>
-                <Td>Father</Td>
-                <Td>12.12.1955</Td>
-                <Td>Data</Td>
-              </Tr>
-              <Tr>
-                <Td>Lorem Ipsum Jr 2</Td>
-                <Td>12345678910</Td>
-                <Td>Wife</Td>
-                <Td>12.12.2008</Td>
-                <Td>Data</Td>
-              </Tr>
-              <Tr>
-                <Td>Lorem Ipsum Jr 3</Td>
-                <Td>12345678910</Td>
-                <Td>Wife</Td>
-                <Td>12.12.2014</Td>
-                <Td>Data</Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
-      <Box>
-        <Heading variant="h3" fontSize="18px">
-          Documents
-        </Heading>
-        <TableContainer>
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Td>Document Name</Td>
-                <Td>Organization</Td>
-                <Td>Issued On</Td>
-                <Td>Valid Until</Td>
-                <Td>Status</Td>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>Medical Certificate</Td>
-                <Td>12345678910</Td>
-                <Td>12.12.1965</Td>
-                <Td>12.12.2025</Td>
-                <Td>
-                  <Flex gap="8px">
-                    <Tag colorScheme="green" size="sm" borderRadius="full" />
-                    <Text>Approved</Text>
-                  </Flex>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>Medical Certificate</Td>
-                <Td>12345678910</Td>
-                <Td>12.12.1965</Td>
-                <Td>12.12.2025</Td>
-                <Td>
-                  <Flex gap="8px">
-                    <Tag colorScheme="green" size="sm" borderRadius="full" />
-                    <Text>Approved</Text>
-                  </Flex>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>Medical Certificate</Td>
-                <Td>12345678910</Td>
-                <Td>12.12.1965</Td>
-                <Td>12.12.2025</Td>
-                <Td>
-                  <Flex gap="8px">
-                    <Tag colorScheme="yellow" size="sm" borderRadius="full" />
-                    <Text>Uploaded</Text>
-                  </Flex>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>Medical Certificate</Td>
-                <Td>12345678910</Td>
-                <Td>12.12.1965</Td>
-                <Td>12.12.2025</Td>
-                <Td>
-                  <Flex gap="8px">
-                    <Tag colorScheme="green" size="sm" borderRadius="full" />
-                    <Text>Uploaded</Text>
-                  </Flex>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td>Medical Certificate</Td>
-                <Td>12345678910</Td>
-                <Td>12.12.1965</Td>
-                <Td>12.12.2025</Td>
-                <Td>
-                  <Flex gap="8px">
-                    <Tag colorScheme="green" size="sm" borderRadius="full" />
-                    <Text>Uploaded</Text>
-                  </Flex>
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
+      <PersonalInformation person={personData} />
+      <PersonalInformationTable
+        title="Household Information"
+        columns={["Name", "National ID", "Relation", "Date of Birth", "Needs"]}
+        data={householdData}
+      />
+      <PersonalInformationTable
+        title="Documents"
+        columns={["Document Name", "Organization", "Issued On", "Valid Until", "Status"]}
+        data={documentsData}
+      />
       <Box>
         <Heading variant="h3" fontSize="18px">
           Active Programs
         </Heading>
         <Text>None</Text>
       </Box>
-      <Box>
-        <Heading variant="h3" fontSize="18px'">
-          Bank Account Information (Optional)
-        </Heading>
-        <Flex justifyContent="space-between">
-          <Box>
-            <Text fontWeight="600">Bank Account Owner Name</Text>
-            <Text>Thomas Anderson</Text>
-          </Box>
-          <Box>
-            <Text fontWeight="600">Bank Name</Text>
-            <Text>Sunshine Bank</Text>
-          </Box>
-          <Box>
-            <Text fontWeight="600">
-              Inetrnational Bank Account Number (IBAN)
-            </Text>
-            <Text>AA02300209000106531065</Text>
-          </Box>
-        </Flex>
-      </Box>
+      <BankInformation />
       <Flex justifyContent="flex-end">
         <ButtonGroup gap="12px">
           <Button variant="outline">Back</Button>
