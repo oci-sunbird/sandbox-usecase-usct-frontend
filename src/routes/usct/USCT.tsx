@@ -13,7 +13,6 @@ export default function USCT() {
           paddingLeft="80px"
           paddingBottom="80px"
           flexGrow="1"
-          gap="125px"
         >
           <Outlet />
         </Flex>

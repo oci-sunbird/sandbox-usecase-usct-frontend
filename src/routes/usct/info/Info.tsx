@@ -14,7 +14,7 @@ import {
 
 export default function Info() {
   return (
-    <>
+    <Flex gap="125px" direction="row">
       <Box>
         <Box marginBottom="40px">
           <Heading>Social Welfare Progam:</Heading>
@@ -97,6 +97,6 @@ export default function Info() {
           Contact Support
         </Button>
       </Flex>
-    </>
+    </Flex>
   );
 }

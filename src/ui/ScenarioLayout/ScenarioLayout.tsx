@@ -61,6 +61,7 @@ function ScenarioView({
       direction="column"
       p="48px"
       alignItems="center"
+      overflow="auto"
     >
       <Flex w="100%" h="100%" maxW="1024px" direction="column">
         <Flex
