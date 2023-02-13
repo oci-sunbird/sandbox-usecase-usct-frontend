@@ -3,8 +3,11 @@ import {
   Button,
   ButtonGroup,
   Flex,
-  Heading, Tag, Text
+  Heading,
+  Tag,
+  Text
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
@@ -46,10 +49,12 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status:                   <Flex gap="8px">
-    <Tag colorScheme="green" size="sm" borderRadius="full" />
-    <Text>Uploaded</Text>
-  </Flex>,
+    status: (
+      <Flex gap="8px">
+        <Tag colorScheme="green" size="sm" borderRadius="full" />
+        <Text>Uploaded</Text>
+      </Flex>
+    ),
   },
   {
     name: "Medical Certificate",
@@ -57,10 +62,12 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status:                   <Flex gap="8px">
-    <Tag colorScheme="green" size="sm" borderRadius="full" />
-    <Text>Uploaded</Text>
-  </Flex>,
+    status: (
+      <Flex gap="8px">
+        <Tag colorScheme="green" size="sm" borderRadius="full" />
+        <Text>Uploaded</Text>
+      </Flex>
+    ),
   },
   {
     name: "Medical Certificate",
@@ -68,10 +75,12 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status:                   <Flex gap="8px">
-    <Tag colorScheme="green" size="sm" borderRadius="full" />
-    <Text>Uploaded</Text>
-  </Flex>,
+    status: (
+      <Flex gap="8px">
+        <Tag colorScheme="green" size="sm" borderRadius="full" />
+        <Text>Uploaded</Text>
+      </Flex>
+    ),
   },
   {
     name: "Medical Certificate",
@@ -79,10 +88,12 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status:                   <Flex gap="8px">
-    <Tag colorScheme="green" size="sm" borderRadius="full" />
-    <Text>Uploaded</Text>
-  </Flex>,
+    status: (
+      <Flex gap="8px">
+        <Tag colorScheme="green" size="sm" borderRadius="full" />
+        <Text>Uploaded</Text>
+      </Flex>
+    ),
   },
 ];
 
@@ -94,7 +105,8 @@ const personData = {
   idCode: "39410036813",
   email: "veryCoolGuy@gmail.com",
   socialCode: "0235920935kdtt",
-  fullAddress: "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe"
+  fullAddress:
+    "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe",
 };
 
 export default function Personal() {
@@ -103,7 +115,9 @@ export default function Personal() {
       <Flex justifyContent="space-between" marginBottom="48px">
         <Heading fontSize="36px">My Information</Heading>
         <ButtonGroup>
-          <Button variant="outline">Back</Button>
+          <Button as={Link} to="../" variant="outline">
+            Back
+          </Button>
           <Button>Submit for eligibility review</Button>
         </ButtonGroup>
       </Flex>
@@ -115,7 +129,13 @@ export default function Personal() {
       />
       <PersonalInformationTable
         title="Documents"
-        columns={["Document Name", "Organization", "Issued On", "Valid Until", "Status"]}
+        columns={[
+          "Document Name",
+          "Organization",
+          "Issued On",
+          "Valid Until",
+          "Status",
+        ]}
         data={documentsData}
       />
       <Box>
@@ -127,7 +147,9 @@ export default function Personal() {
       <BankInformation />
       <Flex justifyContent="flex-end">
         <ButtonGroup gap="12px">
-          <Button variant="outline">Back</Button>
+          <Button as={Link} to="../" variant="outline">
+            Back
+          </Button>
           <Button>Submit for eligibility review</Button>
         </ButtonGroup>
       </Flex>

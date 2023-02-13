@@ -1,5 +1,13 @@
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { Button, Fade, Flex, IconButton, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Fade,
+  Flex,
+  IconButton,
+  Image,
+  Text
+} from "@chakra-ui/react";
 
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -84,7 +92,9 @@ export default function Navbar() {
                         height="40px"
                         transition="padding 0.3s ease-in-out"
                       >
-                        {child.icon}
+                        <Box w="24px" h="24px">
+                          {child.icon}
+                        </Box>
                         <Text
                           w={isOpen ? "100%" : "0"}
                           transition="width 0.3s ease-in-out"

@@ -43,7 +43,7 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
         }}
         onSubmit={async ({ username }) => {
           try {
-            await authentication.signIn({ username, password: ""});
+            await authentication.signIn({ username });
             setEmail(username);
           } catch (error) {
             setErrorMessage((error as IAWSError).code);

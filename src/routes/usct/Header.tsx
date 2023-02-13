@@ -5,7 +5,6 @@ export default function Header() {
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      marginBottom="126px"
       padding="32px 60px"
     >
       <Box textAlign="center">
