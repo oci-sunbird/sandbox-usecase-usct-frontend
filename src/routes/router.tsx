@@ -8,6 +8,8 @@ import Public from "./public/Public";
 import Root from "./Root";
 import SignIn from "./sign-in/SignIn";
 import SignUp from "./sign-up/SignUp";
+import AuthoriseCitizenServant from "./usct/authorise-citizen-servant/AuthoriseCitizenServant";
+import CaseManagement from "./usct/case-management/CaseManagement";
 import Info from "./usct/info/Info";
 import Personal from "./usct/personal/Personal";
 import Review from "./usct/review/Review";
@@ -83,8 +85,16 @@ export const router = createBrowserRouter([
         element: <USCT />,
         children: [
           {
-            element: <Info />,
+            element: <AuthoriseCitizenServant />,
             path: "",
+          },
+          {
+            element: <CaseManagement />,
+            path: "case-management",
+          },
+          {
+            element: <Info />,
+            path: "info",
           },
           {
             element: <Personal />,
