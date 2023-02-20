@@ -9,6 +9,7 @@ import Root from "./Root";
 import SignIn from "./sign-in/SignIn";
 import SignUp from "./sign-up/SignUp";
 import AuthoriseCitizenServant from "./usct/authorise-citizen-servant/AuthoriseCitizenServant";
+import CandidateList from "./usct/candidate-list/CandidateList";
 import CaseManagement from "./usct/case-management/CaseManagement";
 import Info from "./usct/info/Info";
 import Personal from "./usct/personal/Personal";
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
           {
             element: <CaseManagement />,
             path: "case-management",
+          },
+          {
+            element: <CandidateList />,
+            path: "candidate-list",
           },
           {
             element: <Info />,

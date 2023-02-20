@@ -9,8 +9,8 @@ export default function USCT() {
       <Flex direction="column" height="100%">
         <Header />
         <Flex
-          paddingRight="80px"
-          paddingLeft="80px"
+          paddingRight="60px"
+          paddingLeft="60px"
           paddingBottom="80px"
           flexGrow="1"
         >

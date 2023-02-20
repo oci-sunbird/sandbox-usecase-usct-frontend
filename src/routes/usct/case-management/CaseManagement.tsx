@@ -5,8 +5,9 @@ import {
   Heading,
   ListItem,
   Text,
-  UnorderedList,
+  UnorderedList
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { ReactComponent as HatIcon } from "../../../assets/icons/hat.svg";
 
 export default function CaseManagement() {
@@ -76,7 +77,7 @@ export default function CaseManagement() {
           </Flex>
         </Flex>
         <Flex justifyContent="flex-end">
-          <Button variant="outline" borderWidth="2px">
+          <Button as={Link} to="../candidate-list" variant="outline" borderWidth="2px">
             Review Cases
           </Button>
         </Flex>
