@@ -13,6 +13,7 @@ import CandidateList from "./usct/candidate-list/CandidateList";
 import CaseManagement from "./usct/case-management/CaseManagement";
 import Info from "./usct/info/Info";
 import Personal from "./usct/personal/Personal";
+import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
 import Review from "./usct/review/Review";
 import USCT from "./usct/USCT";
 
@@ -96,6 +97,10 @@ export const router = createBrowserRouter([
           {
             element: <CandidateList />,
             path: "candidate-list",
+          },
+          {
+            element: <ReviewCandidate />,
+            path: "review-candidate/:id",
           },
           {
             element: <Info />,
