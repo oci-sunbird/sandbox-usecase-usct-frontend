@@ -9,6 +9,7 @@ import Root from "./Root";
 import SignIn from "./sign-in/SignIn";
 import SignUp from "./sign-up/SignUp";
 import AuthoriseCitizenServant from "./usct/authorise-citizen-servant/AuthoriseCitizenServant";
+import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
 import CaseManagement from "./usct/case-management/CaseManagement";
 import Info from "./usct/info/Info";
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
           {
             element: <ReviewCandidate />,
             path: "review-candidate/:id",
+          },
+          {
+            element: <AuthoriseCitizen />,
+            path: "authorise-citizen",
           },
           {
             element: <Info />,

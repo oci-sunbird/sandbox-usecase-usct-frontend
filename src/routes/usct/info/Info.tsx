@@ -8,7 +8,7 @@ import {
   Button,
   Flex,
   Heading,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
@@ -121,7 +121,7 @@ export default function Info() {
           Please review your information and provide missing information if
           needed.
         </Text>
-        <Button to="review" as={Link}>
+        <Button to="../review" as={Link}>
           Review
         </Button>
         <Button marginTop="auto" variant="ghost">

@@ -7,7 +7,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
   Tab,
   Table,
   TabList,
@@ -21,6 +20,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export default function CandidateList() {
   return (
