@@ -8,13 +8,17 @@ import Public from "./public/Public";
 import Root from "./Root";
 import SignIn from "./sign-in/SignIn";
 import SignUp from "./sign-up/SignUp";
+import ActiveProgram from "./usct/active-program/ActiveProgram";
 import AuthoriseCitizenServant from "./usct/authorise-citizen-servant/AuthoriseCitizenServant";
 import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
+import CaseList from "./usct/case-list/CaseList";
 import CaseManagement from "./usct/case-management/CaseManagement";
+import Enrolment from "./usct/enrolment/Enrolment";
 import Info from "./usct/info/Info";
 import Personal from "./usct/personal/Personal";
 import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
+import ReviewCase from "./usct/review-case/ReviewCase";
 import Review from "./usct/review/Review";
 import USCT from "./usct/USCT";
 
@@ -100,8 +104,24 @@ export const router = createBrowserRouter([
             path: "candidate-list",
           },
           {
+            element: <CaseList />,
+            path: "case-list",
+          },
+          {
             element: <ReviewCandidate />,
             path: "review-candidate/:id",
+          },
+          {
+            element: <Enrolment />,
+            path: "enrolment",
+          },
+          {
+            element: <ActiveProgram />,
+            path: "active-program",
+          },
+          {
+            element: <ReviewCase />,
+            path: "review-case/:id",
           },
           {
             element: <AuthoriseCitizen />,

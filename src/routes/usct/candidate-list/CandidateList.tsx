@@ -1,12 +1,9 @@
-import { ArrowForwardIcon, SearchIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Button,
   ButtonGroup,
   Flex,
   Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Tab,
   Table,
   TabList,
@@ -43,10 +40,6 @@ export default function CandidateList() {
             </Flex>
             <Text>ASSIGNED CANDIDATES</Text>
           </Flex>
-          <InputGroup w="348px" borderRadius="8px" border="2px solid black">
-            <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-            <Input placeholder="Search" />
-          </InputGroup>
           <ButtonGroup>
             <Button>Export</Button>
             <Button>Filter</Button>
@@ -114,10 +107,6 @@ export default function CandidateList() {
               <strong>211</strong> ACTIVE CANDIDATES
             </Text>
           </Flex>
-          <InputGroup w="348px" borderRadius="8px" border="2px solid black">
-            <InputLeftElement pointerEvents="none" children={<SearchIcon />} />
-            <Input placeholder="Search" />
-          </InputGroup>
           <ButtonGroup>
             <Button>Export</Button>
             <Button>Filter</Button>

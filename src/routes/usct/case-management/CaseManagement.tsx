@@ -5,7 +5,7 @@ import {
   Heading,
   ListItem,
   Text,
-  UnorderedList
+  UnorderedList,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { ReactComponent as HatIcon } from "../../../assets/icons/hat.svg";
@@ -22,64 +22,85 @@ export default function CaseManagement() {
         <Heading>Hello, Lorem Ipsum!</Heading>
         <Text>You have 1 candidates, 0 cases up for review today!</Text>
         <Flex gap="20px">
-          <Flex
-            w="100%"
-            padding="28px 38px"
-            gap="35px"
-            border="2px solid black"
-            borderRadius="8px"
-          >
+          <Flex direction="column" gap="16px">
             <Flex
-              w="80px"
-              h="80px"
-              borderRadius="100%"
-              backgroundColor="main.900"
-              color="main.0"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink="0"
+              w="100%"
+              padding="28px 38px"
+              gap="35px"
+              border="2px solid black"
+              borderRadius="8px"
             >
-              <Text fontSize="36px" fontWeight="700">
-                1
-              </Text>
+              <Flex
+                w="80px"
+                h="80px"
+                borderRadius="100%"
+                backgroundColor="main.900"
+                color="main.0"
+                alignItems="center"
+                justifyContent="center"
+                flexShrink="0"
+              >
+                <Text fontSize="36px" fontWeight="700">
+                  1
+                </Text>
+              </Flex>
+              <Flex gap="14px" direction="column">
+                <Text>Assigned Candidates</Text>
+                <Text>Candidate assigned to you for your review</Text>
+              </Flex>
             </Flex>
-            <Flex gap="14px" direction="column">
-              <Text>Assigned Candidates</Text>
-              <Text>Candidate assigned to you for your review</Text>
+            <Flex justifyContent="flex-end">
+              <Button
+                as={Link}
+                to="../candidate-list"
+                variant="outline"
+                color="white"
+                backgroundColor="main.900"
+                border="0"
+              >
+                Review Candidates
+              </Button>
             </Flex>
           </Flex>
-          <Flex
-            w="100%"
-            padding="28px 38px"
-            gap="35px"
-            border="2px solid black"
-            borderRadius="8px"
-          >
+          <Flex direction="column" gap="16px">
             <Flex
-              w="80px"
-              h="80px"
-              borderRadius="100%"
-              backgroundColor="main.0"
-              color="main.900"
-              border="1px solid black"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink="0"
+              w="100%"
+              padding="28px 38px"
+              gap="35px"
+              border="2px solid black"
+              borderRadius="8px"
             >
-              <Text fontSize="36px" fontWeight="700">
-                0
-              </Text>
+              <Flex
+                w="80px"
+                h="80px"
+                borderRadius="100%"
+                backgroundColor="main.0"
+                color="main.900"
+                border="1px solid black"
+                alignItems="center"
+                justifyContent="center"
+                flexShrink="0"
+              >
+                <Text fontSize="36px" fontWeight="700">
+                  0
+                </Text>
+              </Flex>
+              <Flex gap="14px" direction="column">
+                <Text>Beneficiary Cases</Text>
+                <Text>Open Cases assigned to you for your review</Text>
+              </Flex>
             </Flex>
-            <Flex gap="14px" direction="column">
-              <Text>Cases</Text>
-              <Text>Open Cases assigned to you for your review</Text>
+            <Flex justifyContent="flex-end">
+              <Button
+                as={Link}
+                to="../case-list"
+                variant="outline"
+                borderWidth="2px"
+              >
+                Review Cases
+              </Button>
             </Flex>
           </Flex>
-        </Flex>
-        <Flex justifyContent="flex-end">
-          <Button as={Link} to="../candidate-list" variant="outline" borderWidth="2px">
-            Review Cases
-          </Button>
         </Flex>
       </Flex>
       <Flex>
