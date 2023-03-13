@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Icon,
@@ -17,6 +18,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export default function ActiveProgram() {
   return (
@@ -137,7 +139,7 @@ export default function ActiveProgram() {
             <Tab>Closed Conversations (0)</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel>
+            <TabPanel gap="20px" display="flex" flexDirection="column">
               <Table>
                 <Thead>
                   <Th>Date</Th>
@@ -148,6 +150,16 @@ export default function ActiveProgram() {
                 </Thead>
                 <Tbody></Tbody>
               </Table>
+              <Flex justifyContent="flex-end">
+                <Button
+                  color="white"
+                  backgroundColor="black"
+                  as={Link}
+                  to="../new-conversation"
+                >
+                  Start New Conversation
+                </Button>
+              </Flex>
             </TabPanel>
             <TabPanel>
               <Table>

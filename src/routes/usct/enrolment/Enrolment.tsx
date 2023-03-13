@@ -159,7 +159,7 @@ export default function Enrolment() {
         I reviewed Entitlements of Beneficiaries document and accept...
       </Checkbox>
       <Flex justifyContent="flex-end">
-        <Button w="167px" as={Link} to="../active-program">
+        <Button w="167px" as={Link} to="../candidate-list">
           Enroll
         </Button>
       </Flex>

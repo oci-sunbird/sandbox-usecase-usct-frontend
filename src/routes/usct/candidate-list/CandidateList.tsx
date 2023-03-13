@@ -48,7 +48,7 @@ export default function CandidateList() {
         <Tabs isFitted variant="enclosed">
           <TabList>
             <Tab>Eligibility (1)</Tab>
-            <Tab>Enrollment (0)</Tab>
+            <Tab>Enrollment (1)</Tab>
             <Tab>Active Beneficiaries (21)</Tab>
           </TabList>
           <TabPanels>
@@ -91,7 +91,42 @@ export default function CandidateList() {
               </Flex>
             </TabPanel>
             <TabPanel padding="0">
-              <p>enrollment tab</p>
+              <Flex direction="column" gap="20px">
+                <Table variant="simple">
+                  <Thead backgroundColor="main.700" color="main.0">
+                    <Tr>
+                      <Th color="main.0">Social ID</Th>
+                      <Th color="main.0">Household Size</Th>
+                      <Th color="main.0">Needs</Th>
+                      <Th color="main.0">Latest Update</Th>
+                      <Th color="main.0">Status</Th>
+                      <Th></Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>37793946215</Td>
+                      <Td>5</Td>
+                      <Td>High Priority</Td>
+                      <Td>Today</Td>
+                      <Td>Action Required</Td>
+                      <Td>
+                        <Button>...</Button>
+                      </Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+                <Flex justifyContent="flex-end">
+                  <Button
+                    as={Link}
+                    to="../review-candidate/2895379235?scheduling=true"
+                    backgroundColor="main.900"
+                    color="main.0"
+                  >
+                    Review the Candidate
+                  </Button>
+                </Flex>
+              </Flex>
             </TabPanel>
             <TabPanel padding="0">
               <p>active beneficiaries tab</p>

@@ -23,6 +23,8 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import BankInformation from "../personal/BankInformation";
 
 const personData = {
@@ -73,6 +75,7 @@ const householdData = [
 ];
 
 export default function ReviewCase() {
+  const [isInformed, setIsInformed] = useState(false);
   return (
     <Flex direction="column">
       <Flex
@@ -134,19 +137,29 @@ export default function ReviewCase() {
             >
               1
             </Flex>
-            <Text>
-              Automatic information to the payment provider regarding payment
-              not received.
-            </Text>
-            <Button flexShrink="0" color="white" backgroundColor="black">
-              Inform the Payment Provider
-            </Button>
+            {!isInformed ? (
+              <>
+                <Text>
+                  Automatic information to the payment provider regarding
+                  payment not received.
+                </Text>
+                <Button
+                  flexShrink="0"
+                  color="white"
+                  backgroundColor="black"
+                  onClick={() => setIsInformed(true)}
+                >
+                  Inform the Payment Provider
+                </Button>
+              </>
+            ) : null}
           </Flex>
           <Flex
             border="2px solid black"
             borderRadius="8px"
             alignItems="center"
             p="20px"
+            gap="20px"
           >
             <Flex
               w="64px"
@@ -160,11 +173,26 @@ export default function ReviewCase() {
             >
               2
             </Flex>
+            {isInformed ? (
+              <>
+                <Text>Please inform the beneficiary regarding the status.</Text>
+                <Button
+                  flexShrink="0"
+                  color="white"
+                  backgroundColor="black"
+                  as={Link}
+                  to="../conversation/19036813"
+                  onClick={() => setIsInformed(true)}
+                >
+                  Quick Respond to Beneficiary
+                </Button>
+              </>
+            ) : null}
           </Flex>
         </Flex>
       </Flex>
       <Flex
-        backgroundColor="lightgray"
+        backgroundColor="#fafafa"
         ml="-60px"
         mr="-60px"
         pl="60px"

@@ -7,7 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -143,7 +143,7 @@ export default function Review() {
               setCurrentStep(currentStep + 1);
               return;
             }
-            navigate("../personal")
+            navigate("../personal?done=true");
           }}
         >
           Next

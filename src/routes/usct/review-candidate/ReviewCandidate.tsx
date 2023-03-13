@@ -7,6 +7,7 @@ import {
   Grid,
   Heading,
   IconButton,
+  Input,
   Tab,
   Table,
   TabList,
@@ -22,7 +23,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const personData = {
   fullName: "Thomas Anderson",
@@ -136,23 +137,10 @@ const documentsData = [
 ];
 
 export default function ReviewCandidate() {
-  return (
-    <Flex w="100%" direction="column" gap="20px">
-      <Flex direction="column" gap="20px">
-        <Flex justifyContent="space-between">
-          <Flex alignItems="center" gap="12px">
-            <Heading variant="h2" fontSize="24px">
-              Candidate Info
-            </Heading>
-            <Tag>Action Required</Tag>
-          </Flex>
-          <ButtonGroup variant="ghost">
-            <Button>SCREEN</Button>
-            <Button>CONTACT</Button>
-            <Button>FLAG</Button>
-            <Button>REQUEST</Button>
-          </ButtonGroup>
-        </Flex>
+  const [searchParams, setSearchParams] = useSearchParams();
+  const Alert = () => {
+    if (searchParams.get("done")) {
+      return (
         <Flex
           alignItems="center"
           border="2px solid black"
@@ -173,13 +161,104 @@ export default function ReviewCandidate() {
             K
           </Flex>
           <Text>
-            Additional information required to <br /> continue the eligibility
-            process.
+            Candidate is eligible for unconditional cash transfer program.
           </Text>
-          <Button marginLeft="auto" as={Link} to="../authorise-citizen">
-            Ask For More Information
+          <Button marginLeft="auto" as={Link} to="../info?done=true">
+            Request to Assign the Candidate
           </Button>
         </Flex>
+      );
+    }
+    if (searchParams.get("scheduling")) {
+      return (
+        <Flex
+          alignItems="center"
+          border="2px solid black"
+          borderRadius="8px"
+          padding="18px 36px"
+        >
+          <Flex
+            flexShrink="0"
+            borderRadius="100%"
+            alignItems="center"
+            justifyContent="center"
+            w="64px"
+            h="64px"
+            backgroundColor="main.900"
+            color="white"
+            mr="54px"
+          >
+            K
+          </Flex>
+          <Text>
+            Scheduling the payment required for candidate to enroll in the
+            program.
+          </Text>
+          <Flex direction="column" marginLeft="auto" gap="10px">
+            <Flex gap="10px">
+              <Input placeholder="00/00/23" />
+              <Button>O</Button>
+            </Flex>
+            <Button
+              backgroundColor="black"
+              color="white"
+              as={Link}
+              to="../active-program"
+            >
+              Enroll Into the Program
+            </Button>
+          </Flex>
+        </Flex>
+      );
+    }
+    return (
+      <Flex
+        alignItems="center"
+        border="2px solid black"
+        borderRadius="8px"
+        padding="18px 36px"
+      >
+        <Flex
+          flexShrink="0"
+          borderRadius="100%"
+          alignItems="center"
+          justifyContent="center"
+          w="64px"
+          h="64px"
+          backgroundColor="main.900"
+          color="white"
+          mr="54px"
+        >
+          K
+        </Flex>
+        <Text>
+          Additional information required to <br /> continue the eligibility
+          process.
+        </Text>
+        <Button marginLeft="auto" as={Link} to="../authorise-citizen">
+          Ask For More Information
+        </Button>
+      </Flex>
+    );
+  };
+  return (
+    <Flex w="100%" direction="column" gap="20px">
+      <Flex direction="column" gap="20px">
+        <Flex justifyContent="space-between">
+          <Flex alignItems="center" gap="12px">
+            <Heading variant="h2" fontSize="24px">
+              Candidate Info
+            </Heading>
+            <Tag>Action Required</Tag>
+          </Flex>
+          <ButtonGroup variant="ghost">
+            <Button>SCREEN</Button>
+            <Button>CONTACT</Button>
+            <Button>FLAG</Button>
+            <Button>REQUEST</Button>
+          </ButtonGroup>
+        </Flex>
+        <Alert />
         <Box>
           <Heading variant="h3" fontSize="18px">
             Personal Information

@@ -5,9 +5,9 @@ import {
   Flex,
   Heading,
   Tag,
-  Text
+  Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
@@ -110,15 +110,35 @@ const personData = {
 };
 
 export default function Personal() {
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <Flex w="100%" gap="48px" direction="column">
-      <Flex justifyContent="space-between" marginBottom="48px">
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        marginBottom="48px"
+      >
         <Heading fontSize="36px">My Information</Heading>
         <ButtonGroup>
-          <Button as={Link} to="../" variant="outline">
-            Back
-          </Button>
-          <Button>Submit for eligibility review</Button>
+          {searchParams.get("done") ? (
+            <Button
+              as={Link}
+              to="../review-candidate/123123123?done=true"
+              backgroundColor="black"
+              color="white"
+            >
+              Submit for eligibility review
+            </Button>
+          ) : (
+            <Button
+              as={Link}
+              to="../review"
+              backgroundColor="black"
+              color="white"
+            >
+              Add Missing Information
+            </Button>
+          )}
         </ButtonGroup>
       </Flex>
       <PersonalInformation person={personData} />
@@ -150,7 +170,9 @@ export default function Personal() {
           <Button as={Link} to="../" variant="outline">
             Back
           </Button>
-          <Button>Submit for eligibility review</Button>
+          <Button as={Link} to="../review-candidate/123123123?done=true">
+            Submit for eligibility review
+          </Button>
         </ButtonGroup>
       </Flex>
     </Flex>

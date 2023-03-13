@@ -10,9 +10,10 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Info() {
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <Flex mt="128px" gap="125px" direction="row">
       <Box>
@@ -80,7 +81,7 @@ export default function Info() {
           </AccordionItem>
         </Accordion>
       </Box>
-      <Flex direction="column" gap="16px" width="33%">
+      <Flex direction="column" gap="16px" width="25%" flexShrink="0">
         <Flex gap="8px">
           <svg
             width="24"
@@ -113,20 +114,40 @@ export default function Info() {
           </svg>
           Your Eligibility
         </Flex>
-        <Text>
-          There is <strong>not enough information</strong> to decide your
-          eligibility for this program
-        </Text>
-        <Text>
-          Please review your information and provide missing information if
-          needed.
-        </Text>
-        <Button to="../review" as={Link}>
-          Review
-        </Button>
-        <Button marginTop="auto" variant="ghost">
-          Contact Support
-        </Button>
+        {searchParams.get("done") ? (
+          <>
+            <Text>
+              <strong>You are eligible</strong> for Unconditional Social Cash
+              Transfer Program!
+            </Text>
+            <Text>Please check your enrolment status from enrolment page.</Text>
+            <Button
+              as={Link}
+              to="../enrolment"
+              backgroundColor="black"
+              color="white"
+            >
+              Enrolment
+            </Button>
+            <Button as={Link} to="../personal?done=true">
+              My Information
+            </Button>
+          </>
+        ) : (
+          <>
+            <Text>
+              There is <strong>not enough information</strong> to decide your
+              eligibility for this program
+            </Text>
+            <Text>
+              Please review your information and provide missing information if
+              needed.
+            </Text>
+            <Button to="../personal" as={Link}>
+              Review
+            </Button>
+          </>
+        )}
       </Flex>
     </Flex>
   );

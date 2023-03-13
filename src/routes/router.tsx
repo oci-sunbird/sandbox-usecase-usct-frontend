@@ -14,12 +14,14 @@ import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
 import CaseList from "./usct/case-list/CaseList";
 import CaseManagement from "./usct/case-management/CaseManagement";
+import Conversation from "./usct/conversation/Conversation";
 import Enrolment from "./usct/enrolment/Enrolment";
 import Info from "./usct/info/Info";
 import Personal from "./usct/personal/Personal";
 import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
 import ReviewCase from "./usct/review-case/ReviewCase";
 import Review from "./usct/review/Review";
+import StartNewConversation from "./usct/start-new-conversation/StartNewConversation";
 import USCT from "./usct/USCT";
 
 Amplify.configure({
@@ -123,6 +125,11 @@ export const router = createBrowserRouter([
             element: <ReviewCase />,
             path: "review-case/:id",
           },
+          {
+            element: <Conversation />,
+            path: "conversation/:id",
+          },
+          { element: <StartNewConversation />, path: "new-conversation" },
           {
             element: <AuthoriseCitizen />,
             path: "authorise-citizen",

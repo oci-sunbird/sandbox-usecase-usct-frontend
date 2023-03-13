@@ -20,7 +20,7 @@ export default function CaseManagement() {
       </Box>
       <Flex direction="column" gap="20px">
         <Heading>Hello, Lorem Ipsum!</Heading>
-        <Text>You have 1 candidates, 0 cases up for review today!</Text>
+        <Text>You have 1 candidates, 1 cases up for review today!</Text>
         <Flex gap="20px">
           <Flex direction="column" gap="16px">
             <Flex
@@ -82,7 +82,7 @@ export default function CaseManagement() {
                 flexShrink="0"
               >
                 <Text fontSize="36px" fontWeight="700">
-                  0
+                  1
                 </Text>
               </Flex>
               <Flex gap="14px" direction="column">
