@@ -1,0 +1,17 @@
+:global {
+  .quill {
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 156px;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: white;
+    .ql-toolbar.ql-snow {
+      border: 0;
+    }
+    .ql-container.ql-snow {
+      border: 0;
+    }
+  }
+}

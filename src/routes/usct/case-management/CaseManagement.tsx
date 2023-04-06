@@ -7,14 +7,32 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as HatIcon } from "../../../assets/icons/hat.svg";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function CaseManagement() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CIVIL SERVANT CHECKS STUFF",
+      },
+      progress: 15,
+      userAuthorized: true,
+    });
+  }, []);
+
   return (
     <Flex gap="60px" mt="60px" direction="column">
       <Box>
-        <Heading>
+        <Heading variant="h1">
           Unconditional Social <br /> Cash Transfer Program
         </Heading>
       </Box>
@@ -34,15 +52,13 @@ export default function CaseManagement() {
                 w="80px"
                 h="80px"
                 borderRadius="100%"
-                backgroundColor="main.900"
-                color="main.0"
+                backgroundColor="black.900"
+                color="black.0"
                 alignItems="center"
                 justifyContent="center"
                 flexShrink="0"
               >
-                <Text fontSize="36px" fontWeight="700">
-                  1
-                </Text>
+                <Heading color="black.0">1</Heading>
               </Flex>
               <Flex gap="14px" direction="column">
                 <Text>Assigned Candidates</Text>
@@ -51,12 +67,10 @@ export default function CaseManagement() {
             </Flex>
             <Flex justifyContent="flex-end">
               <Button
+                colorScheme="admin"
                 as={Link}
                 to="../candidate-list"
-                variant="outline"
-                color="white"
-                backgroundColor="main.900"
-                border="0"
+                variant="solid"
               >
                 Review Candidates
               </Button>
@@ -74,16 +88,14 @@ export default function CaseManagement() {
                 w="80px"
                 h="80px"
                 borderRadius="100%"
-                backgroundColor="main.0"
-                color="main.900"
+                backgroundColor="black.0"
+                color="black.900"
                 border="1px solid black"
                 alignItems="center"
                 justifyContent="center"
                 flexShrink="0"
               >
-                <Text fontSize="36px" fontWeight="700">
-                  1
-                </Text>
+                <Heading>1</Heading>
               </Flex>
               <Flex gap="14px" direction="column">
                 <Text>Beneficiary Cases</Text>
@@ -92,6 +104,7 @@ export default function CaseManagement() {
             </Flex>
             <Flex justifyContent="flex-end">
               <Button
+                colorScheme="admin"
                 as={Link}
                 to="../case-list"
                 variant="outline"

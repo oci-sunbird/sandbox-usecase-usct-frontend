@@ -8,12 +8,29 @@ import {
   Button,
   Flex,
   Heading,
-  Text,
+  Text
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function Info() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex mt="128px" gap="125px" direction="row">
       <Box>
@@ -121,15 +138,15 @@ export default function Info() {
               Transfer Program!
             </Text>
             <Text>Please check your enrolment status from enrolment page.</Text>
-            <Button
-              as={Link}
-              to="../enrolment"
-              backgroundColor="black"
-              color="white"
-            >
+            <Button as={Link} to="../enrolment" colorScheme="citizen">
               Enrolment
             </Button>
-            <Button as={Link} to="../personal?done=true">
+            <Button
+              colorScheme="citizen"
+              variant="outline"
+              as={Link}
+              to="../personal?done=true"
+            >
               My Information
             </Button>
           </>
@@ -143,7 +160,7 @@ export default function Info() {
               Please review your information and provide missing information if
               needed.
             </Text>
-            <Button to="../personal" as={Link}>
+            <Button colorScheme="citizen" to="../personal" as={Link}>
               Review
             </Button>
           </>

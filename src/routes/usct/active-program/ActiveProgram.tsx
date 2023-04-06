@@ -18,9 +18,26 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function ActiveProgram() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex direction="column" gap="20px">
       <Flex direction="column">
@@ -133,7 +150,7 @@ export default function ActiveProgram() {
           Please start a conversation if you need any help, or if you have any
           questions
         </Text>
-        <Tabs w="100%" isFitted variant="enclosed">
+        <Tabs w="100%" isFitted variant="enclosed-colored" colorScheme="admin">
           <TabList>
             <Tab>My Active Conversations (0)</Tab>
             <Tab>Closed Conversations (0)</Tab>
@@ -151,12 +168,7 @@ export default function ActiveProgram() {
                 <Tbody></Tbody>
               </Table>
               <Flex justifyContent="flex-end">
-                <Button
-                  color="white"
-                  backgroundColor="black"
-                  as={Link}
-                  to="../new-conversation"
-                >
+                <Button colorScheme="admin" as={Link} to="../new-conversation">
                   Start New Conversation
                 </Button>
               </Flex>

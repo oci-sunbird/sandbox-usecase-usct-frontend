@@ -12,9 +12,26 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function CaseList() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 99 - CASE LIST",
+        subtitle: "DUNNO",
+      },
+      progress: 30,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex w="100%" direction="column" gap="60px">
       <Flex gap="20px" direction="column">
@@ -23,7 +40,7 @@ export default function CaseList() {
           <Flex gap="10px" flexShrink="0" alignItems="center">
             <Flex
               color="white"
-              backgroundColor="main.900"
+              backgroundColor="black.900"
               flexShrink="0"
               alignItems="center"
               justifyContent="center"
@@ -42,13 +59,13 @@ export default function CaseList() {
         </Flex>
         <Flex direction="column" gap="20px">
           <Table variant="simple">
-            <Thead backgroundColor="main.700" color="main.0">
+            <Thead backgroundColor="main.700" color="black.0">
               <Tr>
-                <Th color="main.0">#</Th>
-                <Th color="main.0">Topic</Th>
-                <Th color="main.0">Case Created</Th>
-                <Th color="main.0">Case Closed</Th>
-                <Th color="main.0">Status</Th>
+                <Th color="black.0">#</Th>
+                <Th color="black.0">Topic</Th>
+                <Th color="black.0">Case Created</Th>
+                <Th color="black.0">Case Closed</Th>
+                <Th color="black.0">Status</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -69,8 +86,8 @@ export default function CaseList() {
             <Button
               as={Link}
               to="../review-case/2895379235"
-              backgroundColor="main.900"
-              color="main.0"
+              backgroundColor="black.900"
+              color="black.0"
             >
               Review Next Case
             </Button>
@@ -91,13 +108,13 @@ export default function CaseList() {
           </ButtonGroup>
         </Flex>
         <Table variant="simple">
-          <Thead backgroundColor="main.700" color="main.0">
+          <Thead backgroundColor="main.700" color="black.0">
             <Tr>
-              <Th color="main.0">#</Th>
-              <Th color="main.0">Topic</Th>
-              <Th color="main.0">Case Created</Th>
-              <Th color="main.0">Case Closed</Th>
-              <Th color="main.0">Status</Th>
+              <Th color="black.0">#</Th>
+              <Th color="black.0">Topic</Th>
+              <Th color="black.0">Case Created</Th>
+              <Th color="black.0">Case Closed</Th>
+              <Th color="black.0">Status</Th>
               <Th></Th>
             </Tr>
           </Thead>

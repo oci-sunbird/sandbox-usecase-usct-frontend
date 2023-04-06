@@ -7,7 +7,9 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
@@ -111,6 +113,21 @@ const personData = {
 
 export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex w="100%" gap="48px" direction="column">
       <Flex
@@ -119,23 +136,13 @@ export default function Personal() {
         marginBottom="48px"
       >
         <Heading fontSize="36px">My Information</Heading>
-        <ButtonGroup>
+        <ButtonGroup colorScheme="citizen">
           {searchParams.get("done") ? (
-            <Button
-              as={Link}
-              to="../review-candidate/123123123?done=true"
-              backgroundColor="black"
-              color="white"
-            >
+            <Button as={Link} to="../review-candidate/123123123?state=done">
               Submit for eligibility review
             </Button>
           ) : (
-            <Button
-              as={Link}
-              to="../review"
-              backgroundColor="black"
-              color="white"
-            >
+            <Button as={Link} to="../review">
               Add Missing Information
             </Button>
           )}
@@ -166,11 +173,11 @@ export default function Personal() {
       </Box>
       <BankInformation />
       <Flex justifyContent="flex-end">
-        <ButtonGroup gap="12px">
+        <ButtonGroup colorScheme="citizen" gap="12px">
           <Button as={Link} to="../" variant="outline">
             Back
           </Button>
-          <Button as={Link} to="../review-candidate/123123123?done=true">
+          <Button as={Link} to="../review-candidate/123123123?state=done">
             Submit for eligibility review
           </Button>
         </ButtonGroup>

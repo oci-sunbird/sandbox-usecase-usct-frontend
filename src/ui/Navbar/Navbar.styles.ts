@@ -1,5 +1,6 @@
 import { Link } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import { colors } from "../../chakra-overrides/colors";
 
 interface INavProps {
   isOpen: boolean;
@@ -28,13 +29,13 @@ export const Nav = styled.div<INavProps>`
 `;
 
 export const NavigationLink = styled(Link)`
-  color: var(--chakra-colors-main-0);
+  color: ${colors.black[0]};
   white-space: nowrap;
   margin-top: 0;
   width: 100%;
   padding: 0 24px;
   :hover {
-    background-color: var(--chakra-colors-main-0);
+    background-color: ${colors.black[0]};
     color: #090251;
   }
 `;

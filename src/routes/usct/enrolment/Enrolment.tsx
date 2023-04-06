@@ -14,9 +14,26 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function Enrolment() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex direction="column" gap="20px">
       <Flex direction="column">
@@ -159,7 +176,12 @@ export default function Enrolment() {
         I reviewed Entitlements of Beneficiaries document and accept...
       </Checkbox>
       <Flex justifyContent="flex-end">
-        <Button w="167px" as={Link} to="../candidate-list">
+        <Button
+          w="167px"
+          colorScheme="citizen"
+          as={Link}
+          to="../candidate-list"
+        >
           Enroll
         </Button>
       </Flex>

@@ -6,7 +6,7 @@ export default function Header() {
     <Flex
       borderWidth="2px"
       borderStyle="solid"
-      borderColor="main.900"
+      borderColor="black.900"
       padding="16px 24px"
       alignItems="center"
       justifyContent="space-between"
@@ -23,12 +23,12 @@ export default function Header() {
           as={Link}
           to="/sign-in"
           variant="outline"
-          borderColor="main.900"
+          borderColor="black.900"
           borderWidth="2px"
         >
           Login
         </Button>
-        <Button as={Link} to="/sign-up" background="main.900" color="main.0">
+        <Button as={Link} to="/sign-up" background="black.900" color="black.0">
           Sign Up
         </Button>
       </ButtonGroup>

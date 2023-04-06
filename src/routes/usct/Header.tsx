@@ -1,28 +1,56 @@
-import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { USCTUser } from "../../ui/USCTUser/USCTUser";
+import { EUserType } from "./USCT";
 
-export default function Header() {
+interface HeaderProps {
+  userType: EUserType | null;
+  userAuthorized: boolean;
+}
+
+export default function Header(props: HeaderProps) {
   return (
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      padding="32px 60px"
+      height={props.userType === EUserType.CITIZEN ? "100px" : "72px"}
+      flexShrink="0"
+      borderBottom={
+        props.userType === EUserType.CITIZEN_SERVANT
+          ? "1px solid black.900"
+          : ""
+      }
+      paddingLeft={
+        props.userType === EUserType.CITIZEN_SERVANT ? "80px" : "61px"
+      }
+      marginBottom="20px"
     >
-      <Box textAlign="center">
-        <Heading fontSize="10px">Open Island</Heading>
-        <Text fontSize="10px">Ministry of Social Welfare</Text>
-        <Text fontSize="10px">- - - -</Text>
-      </Box>
-      <Flex gap="8px" alignItems="center">
-        <Avatar h="32px" w="32px" />
+      <Flex alignItems="center" gap="12px">
+        <Image
+          src={
+            props.userType === EUserType.CITIZEN_SERVANT
+              ? "/images/open-island-citizen-servant.svg"
+              : "/images/open-island-citizen.svg"
+          }
+          alt=""
+          w="38px"
+          h="38px"
+        />
         <Box>
-          <Text fontSize="14px" fontWeight="600">
-            Thomas Anderson
-          </Text>
-          <Text fontSize="10px" fontWeight="400">
-            ID: 1234567810
+          <Heading fontSize="12px" fontWeight="900" lineHeight="15px">
+            Open Island
+          </Heading>
+          <Text fontSize="10px" fontWeight="400" lineHeight="12px">
+            Ministry of Social Welfare
+            {props.userType === EUserType.CITIZEN && (
+              <>
+                <br />
+                Self-Service Portal
+              </>
+            )}
           </Text>
         </Box>
       </Flex>
+      {props.userAuthorized && <USCTUser userType={props.userType} />}
     </Flex>
   );
 }

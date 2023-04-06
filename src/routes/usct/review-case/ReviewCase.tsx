@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   ButtonGroup,
@@ -25,6 +24,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
+import TextEditor from "../../../ui/TextEditor/TextEditor";
 import BankInformation from "../personal/BankInformation";
 
 const personData = {
@@ -71,6 +72,45 @@ const householdData = [
     dateOfBirth: "12.12.1975",
     reason: "Data",
     needs: ["Food", "Health Care", "Education"],
+  },
+];
+
+const conversation = [
+  {
+    id: "hdfhdrf5",
+    timestamp: 1678891185842,
+    content: "hello i need cash quick",
+    user: "Shady Man",
+  },
+  {
+    id: "sy43y3s45s35",
+    timestamp: 1678891285842,
+    content: "im sorry, get a better job?",
+    user: "GovStack Person",
+  },
+  {
+    id: "1h3g13f13f",
+    timestamp: 1678891385842,
+    content: "i want to talk to your manager",
+    user: "Shady Man",
+  },
+  {
+    id: "srtsrts315135",
+    timestamp: 1678891485842,
+    content: "hello i am the manager",
+    user: "GovStack Person",
+  },
+  {
+    id: "13gg131e13e",
+    timestamp: 1678891585842,
+    content: "i want money",
+    user: "Shady Man",
+  },
+  {
+    id: "1351035askpdk",
+    timestamp: 1678891685842,
+    content: "no",
+    user: "GovStack Person",
   },
 ];
 
@@ -210,77 +250,11 @@ export default function ReviewCase() {
           <TabPanels>
             <TabPanel pl="0" pr="0" pt="20px">
               <Flex direction="column" gap="20px" mb="20px">
-                <Flex gap="16px">
-                  <Avatar h="48px" w="48px" />
-                  <Flex
-                    border="2px solid black"
-                    borderRadius="8px"
-                    minH="112px"
-                    w="40%"
-                    direction="column"
-                  >
-                    <Flex p="24px" h="100%">
-                      Lorem Ipsum Lorem Ipsum
-                    </Flex>
-                    <Flex p="8px 14px" justifyContent="flex-end">
-                      Thomas Anderson
-                    </Flex>
-                  </Flex>
-                  <Flex alignSelf="center" direction="column">
-                    <Text>12.12.2022</Text>
-                    <Text>10:20 PM</Text>
-                  </Flex>
-                </Flex>
-                <Flex gap="16px">
-                  <Avatar h="48px" w="48px" />
-                  <Flex
-                    border="2px solid black"
-                    borderRadius="8px"
-                    minH="112px"
-                    w="40%"
-                    direction="column"
-                  >
-                    <Flex p="24px" h="100%">
-                      Lorem Ipsum Lorem Ipsum
-                    </Flex>
-                    <Flex p="8px 14px" justifyContent="flex-end">
-                      Thomas Anderson
-                    </Flex>
-                  </Flex>
-                  <Flex alignSelf="center" direction="column">
-                    <Text>12.12.2022</Text>
-                    <Text>10:20 PM</Text>
-                  </Flex>
-                </Flex>
-                <Flex gap="16px" flexDirection="row-reverse">
-                  <Avatar h="48px" w="48px" />
-                  <Flex
-                    border="2px solid black"
-                    borderRadius="8px"
-                    minH="112px"
-                    w="40%"
-                    direction="column"
-                  >
-                    <Flex p="24px" h="100%">
-                      Lorem Ipsum Lorem Ipsum
-                    </Flex>
-                    <Flex p="8px 14px" justifyContent="flex-end">
-                      Thomas Anderson
-                    </Flex>
-                  </Flex>
-                  <Flex alignSelf="center" direction="column">
-                    <Text>12.12.2022</Text>
-                    <Text>10:20 PM</Text>
-                  </Flex>
-                </Flex>
+                {conversation.map((message) => (
+                  <ChatMessage key={message.id} message={message} />
+                ))}
               </Flex>
-              <Box
-                border="2px solid black"
-                borderRadius="8px"
-                w="100%"
-                h="150px"
-                backgroundColor="white"
-              ></Box>
+              <TextEditor />
             </TabPanel>
             <TabPanel padding="0" pt="20px">
               <Flex direction="column" gap="20px">
@@ -335,7 +309,7 @@ export default function ReviewCase() {
                               mb="12px"
                               variant="outline"
                             >
-                              <TagLabel color="main.900">{need}</TagLabel>
+                              <TagLabel color="black.900">{need}</TagLabel>
                             </Tag>
                           );
                         })}

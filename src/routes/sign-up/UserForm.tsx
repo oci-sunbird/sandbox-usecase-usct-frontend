@@ -10,7 +10,7 @@ import {
   Input,
   Select,
   Stack,
-  StackDivider
+  StackDivider,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
@@ -55,8 +55,8 @@ export default function UserForm({
       p={7}
       borderStyle="solid"
       borderWidth="2px"
-      borderColor="main.900"
-      backgroundColor="main.0"
+      borderColor="black.900"
+      backgroundColor="black.0"
     >
       <Formik
         initialValues={{
@@ -129,8 +129,8 @@ export default function UserForm({
                 </Button>
                 <Button
                   type="submit"
-                  backgroundColor="main.900"
-                  color="main.0"
+                  backgroundColor="black.900"
+                  color="black.0"
                   isLoading={isSubmitting}
                 >
                   Create Account

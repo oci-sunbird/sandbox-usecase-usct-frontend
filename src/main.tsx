@@ -2,22 +2,29 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
+import { colors } from "./chakra-overrides/colors";
+import { Heading } from "./chakra-overrides/Heading";
+import { Progress } from "./chakra-overrides/Progress";
+import { Text } from "./chakra-overrides/Text";
 import "./index.css";
 import { router } from "./routes/router";
 
 const theme = extendTheme({
-  colors: {
-    main: {
-      0: "#ffffff",
-      50: "#f5f5f5",
-      100: "#e6e6e6",
-      300: "#c8c8c8",
-      500: "#a0a0a0",
-      700: "#646464",
-      900: "#000000"
+  styles: {
+    global: {
+      "html, body": {
+        "font-family": "Inter",
+        color: "black.900",
+      },
     },
   },
-})
+  colors,
+  components: {
+    Heading: Heading,
+    Text: Text,
+    Progress: Progress,
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

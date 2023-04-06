@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import TextEditor from "../../../ui/TextEditor/TextEditor";
 
 export default function StartNewConversation() {
   return (
@@ -59,20 +60,9 @@ export default function StartNewConversation() {
         <strong>Message</strong>
       </Text>
       <Text>Please explain the lorem ipsum</Text>
-      <Box
-        border="2px solid black"
-        borderRadius="8px"
-        w="100%"
-        h="150px"
-        backgroundColor="white"
-      ></Box>
+      <TextEditor />
       <Flex justifyContent="flex-end">
-        <Button
-          color="white"
-          as={Link}
-          to="../case-management"
-          backgroundColor="black"
-        >
+        <Button colorScheme="citizen" as={Link} to="../case-management">
           Send message
         </Button>
       </Flex>

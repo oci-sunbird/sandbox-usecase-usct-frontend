@@ -6,9 +6,8 @@ import {
   Flex,
   IconButton,
   Image,
-  Text
+  Text,
 } from "@chakra-ui/react";
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { authentication } from "../../utils/authentication";
@@ -26,7 +25,7 @@ export default function Navbar() {
         <Fade in={isOpen}>
           <Flex gap="8px" w="100%" alignItems="center">
             <Image h="32px" w="32px" src="/govstack-logo.png" />
-            <Text color="main.0" whiteSpace="nowrap">
+            <Text color="black.0" whiteSpace="nowrap">
               Open Sandbox
             </Text>
           </Flex>
@@ -41,7 +40,7 @@ export default function Navbar() {
           aria-label="Toggle Menu"
           icon={<ArrowLeftIcon />}
           background="transparent"
-          color="main.0"
+          color="black.0"
           w={isOpen ? "40px" : "100%"}
           h="40px"
           transitionProperty="width, border-radius, transform, right"
@@ -73,7 +72,7 @@ export default function Navbar() {
                   height="40px"
                   padding="0 24px"
                   whiteSpace="nowrap"
-                  color="main.0"
+                  color="black.0"
                 >
                   <strong>{category.name}</strong>
                 </Text>
@@ -99,6 +98,7 @@ export default function Navbar() {
                           w={isOpen ? "100%" : "0"}
                           transition="width 0.3s ease-in-out"
                           overflow="hidden"
+                          color="blacks.0"
                         >
                           {child.name}
                         </Text>
@@ -111,7 +111,7 @@ export default function Navbar() {
           );
         })}
       </Flex>
-      <Button color="main.900" marginTop="auto" onClick={onSignOut}>
+      <Button color="black.900" marginTop="auto" onClick={onSignOut}>
         LOG OUT
       </Button>
     </Nav>

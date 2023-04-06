@@ -10,7 +10,7 @@ import {
   Heading,
   Input,
   Stack,
-  StackDivider
+  StackDivider,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
@@ -32,10 +32,10 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
       shadow="xl"
       w="400px"
       p={7}
-      borderColor="main.900"
+      borderColor="black.900"
       borderWidth="2px"
       borderStyle="solid"
-      backgroundColor="main.0"
+      backgroundColor="black.0"
     >
       <Formik
         initialValues={{
@@ -80,8 +80,8 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
                 </Button>
                 <Button
                   type="submit"
-                  backgroundColor="main.900"
-                  color="main.0"
+                  backgroundColor="black.900"
+                  color="black.0"
                   isLoading={isSubmitting}
                 >
                   Next

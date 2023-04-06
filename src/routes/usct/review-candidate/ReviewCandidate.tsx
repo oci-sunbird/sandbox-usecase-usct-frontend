@@ -7,7 +7,6 @@ import {
   Grid,
   Heading,
   IconButton,
-  Input,
   Tab,
   Table,
   TabList,
@@ -23,224 +22,29 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Link, useSearchParams } from "react-router-dom";
-
-const personData = {
-  fullName: "Thomas Anderson",
-  dateOfBirth: "03.10.1994",
-  phoneNumber: "(+372) 53937064",
-  occupation: "Very Cool Guy",
-  idCode: "39410036813",
-  email: "veryCoolGuy@gmail.com",
-  socialCode: "0235920935kdtt",
-  fullAddress:
-    "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe",
-};
-
-const householdNeeds = [
-  "Housing",
-  "Food",
-  "Health Care",
-  "Education",
-  "Child Care",
-  "Financial Security",
-  "Special Support",
-];
-
-const householdData = [
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: [],
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Hearing Support", "Special Support"],
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Child Care", "Financial Security"],
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Food", "Health Care", "Education"],
-  },
-];
-
-const documentsData = [
-  {
-    name: "Medical Certificate",
-    organization: "12345678910",
-    issuedOn: "Wife",
-    validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
-  },
-  {
-    name: "Medical Certificate",
-
-    organization: "12345678910",
-    issuedOn: "Wife",
-    validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
-  },
-  {
-    name: "Medical Certificate",
-
-    organization: "12345678910",
-    issuedOn: "Wife",
-    validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
-  },
-  {
-    name: "Medical Certificate",
-
-    organization: "12345678910",
-    issuedOn: "Wife",
-    validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
-  },
-];
+import { useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
+import { ActionAlert } from "./ActionAlert";
+import { documentsData, householdData, personData } from "./data";
 
 export default function ReviewCandidate() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const Alert = () => {
-    if (searchParams.get("done")) {
-      return (
-        <Flex
-          alignItems="center"
-          border="2px solid black"
-          borderRadius="8px"
-          padding="18px 36px"
-        >
-          <Flex
-            flexShrink="0"
-            borderRadius="100%"
-            alignItems="center"
-            justifyContent="center"
-            w="64px"
-            h="64px"
-            backgroundColor="main.900"
-            color="white"
-            mr="54px"
-          >
-            K
-          </Flex>
-          <Text>
-            Candidate is eligible for unconditional cash transfer program.
-          </Text>
-          <Button marginLeft="auto" as={Link} to="../info?done=true">
-            Request to Assign the Candidate
-          </Button>
-        </Flex>
-      );
-    }
-    if (searchParams.get("scheduling")) {
-      return (
-        <Flex
-          alignItems="center"
-          border="2px solid black"
-          borderRadius="8px"
-          padding="18px 36px"
-        >
-          <Flex
-            flexShrink="0"
-            borderRadius="100%"
-            alignItems="center"
-            justifyContent="center"
-            w="64px"
-            h="64px"
-            backgroundColor="main.900"
-            color="white"
-            mr="54px"
-          >
-            K
-          </Flex>
-          <Text>
-            Scheduling the payment required for candidate to enroll in the
-            program.
-          </Text>
-          <Flex direction="column" marginLeft="auto" gap="10px">
-            <Flex gap="10px">
-              <Input placeholder="00/00/23" />
-              <Button>O</Button>
-            </Flex>
-            <Button
-              backgroundColor="black"
-              color="white"
-              as={Link}
-              to="../active-program"
-            >
-              Enroll Into the Program
-            </Button>
-          </Flex>
-        </Flex>
-      );
-    }
-    return (
-      <Flex
-        alignItems="center"
-        border="2px solid black"
-        borderRadius="8px"
-        padding="18px 36px"
-      >
-        <Flex
-          flexShrink="0"
-          borderRadius="100%"
-          alignItems="center"
-          justifyContent="center"
-          w="64px"
-          h="64px"
-          backgroundColor="main.900"
-          color="white"
-          mr="54px"
-        >
-          K
-        </Flex>
-        <Text>
-          Additional information required to <br /> continue the eligibility
-          process.
-        </Text>
-        <Button marginLeft="auto" as={Link} to="../authorise-citizen">
-          Ask For More Information
-        </Button>
-      </Flex>
-    );
-  };
+  const { state, dispatch } = useContext(SimulationContext);
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
+
   return (
     <Flex w="100%" direction="column" gap="20px">
       <Flex direction="column" gap="20px">
@@ -249,21 +53,21 @@ export default function ReviewCandidate() {
             <Heading variant="h2" fontSize="24px">
               Candidate Info
             </Heading>
-            <Tag>Action Required</Tag>
+            <Tag colorScheme="info">Action Required</Tag>
           </Flex>
-          <ButtonGroup variant="ghost">
+          <ButtonGroup colorScheme="black" variant="ghost">
             <Button>SCREEN</Button>
             <Button>CONTACT</Button>
             <Button>FLAG</Button>
             <Button>REQUEST</Button>
           </ButtonGroup>
         </Flex>
-        <Alert />
+        <ActionAlert state={searchParams.get("state")} />
         <Box>
           <Heading variant="h3" fontSize="18px">
             Personal Information
           </Heading>
-          <Heading variant="h3" fontSize="18px" color="main.500">
+          <Heading variant="h3" fontSize="18px" color="black.500">
             Social ID: {personData.socialCode}
           </Heading>
         </Box>
@@ -312,8 +116,13 @@ export default function ReviewCandidate() {
                 .flatMap((person) => person.needs)
                 .map((need) => {
                   return (
-                    <Tag p="6px 12px" mb="12px" variant="outline">
-                      <TagLabel color="main.900">{need}</TagLabel>
+                    <Tag
+                      p="6px 12px"
+                      mb="12px"
+                      colorScheme="admin"
+                      variant="outline"
+                    >
+                      <TagLabel>{need}</TagLabel>
                     </Tag>
                   );
                 })}
@@ -330,7 +139,7 @@ export default function ReviewCandidate() {
           </Flex>
         </Flex>
       </Flex>
-      <Tabs isFitted variant="enclosed">
+      <Tabs colorScheme="admin" isFitted variant="enclosed-colored">
         <TabList>
           <Tab>Household Information</Tab>
           <Tab>Documents & Certificates</Tab>
@@ -340,13 +149,13 @@ export default function ReviewCandidate() {
           <TabPanel padding="0">
             <Flex direction="column" gap="20px">
               <Table variant="simple">
-                <Thead backgroundColor="main.700" color="main.0">
+                <Thead backgroundColor="main.700" color="black.0">
                   <Tr>
-                    <Th color="main.0">National ID</Th>
-                    <Th color="main.0">Name</Th>
-                    <Th color="main.0">Relation</Th>
-                    <Th color="main.0">Date of Birth</Th>
-                    <Th color="main.0">Individual Needs</Th>
+                    <Th color="black.0">National ID</Th>
+                    <Th color="black.0">Name</Th>
+                    <Th color="black.0">Relation</Th>
+                    <Th color="black.0">Date of Birth</Th>
+                    <Th color="black.0">Individual Needs</Th>
                     <Th>
                       <IconButton
                         borderRadius="100%"
@@ -367,8 +176,12 @@ export default function ReviewCandidate() {
                         <Td>
                           <Flex wrap="wrap" gap="4px">
                             {person.needs.map((need) => (
-                              <Tag p="6px 12px" variant="outline">
-                                <TagLabel color="main.900">{need}</TagLabel>
+                              <Tag
+                                p="6px 12px"
+                                variant="outline"
+                                colorScheme="admin"
+                              >
+                                <TagLabel>{need}</TagLabel>
                               </Tag>
                             ))}
                           </Flex>
@@ -385,13 +198,13 @@ export default function ReviewCandidate() {
           </TabPanel>
           <TabPanel padding="0">
             <Table variant="simple">
-              <Thead backgroundColor="main.700" color="main.0">
+              <Thead backgroundColor="main.700" color="black.0">
                 <Tr>
-                  <Th color="main.0">Document Name</Th>
-                  <Th color="main.0">Organization</Th>
-                  <Th color="main.0">Issued On</Th>
-                  <Th color="main.0">Valid Until</Th>
-                  <Th color="main.0">Status</Th>
+                  <Th color="black.0">Document Name</Th>
+                  <Th color="black.0">Organization</Th>
+                  <Th color="black.0">Issued On</Th>
+                  <Th color="black.0">Valid Until</Th>
+                  <Th color="black.0">Status</Th>
                 </Tr>
               </Thead>
               <Tbody>

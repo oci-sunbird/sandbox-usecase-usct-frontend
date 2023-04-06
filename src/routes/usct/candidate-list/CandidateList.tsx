@@ -17,9 +17,26 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function CandidateList() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CIVIL SERVANT CHECKS DIFFERENT STUFF",
+      },
+      progress: 20,
+    });
+  }, []);
+
   return (
     <Flex w="100%" direction="column" gap="60px">
       <Flex gap="20px" direction="column">
@@ -28,7 +45,7 @@ export default function CandidateList() {
           <Flex gap="10px" flexShrink="0" alignItems="center">
             <Flex
               color="white"
-              backgroundColor="main.900"
+              backgroundColor="black.900"
               flexShrink="0"
               alignItems="center"
               justifyContent="center"
@@ -40,12 +57,12 @@ export default function CandidateList() {
             </Flex>
             <Text>ASSIGNED CANDIDATES</Text>
           </Flex>
-          <ButtonGroup>
-            <Button>Export</Button>
-            <Button>Filter</Button>
+          <ButtonGroup colorScheme="black">
+            <Button variant="ghost">Export</Button>
+            <Button variant="ghost">Filter</Button>
           </ButtonGroup>
         </Flex>
-        <Tabs isFitted variant="enclosed">
+        <Tabs isFitted variant="enclosed-colored">
           <TabList>
             <Tab>Eligibility (1)</Tab>
             <Tab>Enrollment (1)</Tab>
@@ -55,13 +72,13 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="main.0">
+                  <Thead backgroundColor="main.700" color="black.0">
                     <Tr>
-                      <Th color="main.0">Social ID</Th>
-                      <Th color="main.0">Household Size</Th>
-                      <Th color="main.0">Needs</Th>
-                      <Th color="main.0">Latest Update</Th>
-                      <Th color="main.0">Status</Th>
+                      <Th color="black.0">Social ID</Th>
+                      <Th color="black.0">Household Size</Th>
+                      <Th color="black.0">Needs</Th>
+                      <Th color="black.0">Latest Update</Th>
+                      <Th color="black.0">Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -82,8 +99,7 @@ export default function CandidateList() {
                   <Button
                     as={Link}
                     to="../review-candidate/2895379235"
-                    backgroundColor="main.900"
-                    color="main.0"
+                    colorScheme="admin"
                   >
                     Review Next Candidate
                   </Button>
@@ -93,13 +109,13 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="main.0">
+                  <Thead backgroundColor="main.700" color="black.0">
                     <Tr>
-                      <Th color="main.0">Social ID</Th>
-                      <Th color="main.0">Household Size</Th>
-                      <Th color="main.0">Needs</Th>
-                      <Th color="main.0">Latest Update</Th>
-                      <Th color="main.0">Status</Th>
+                      <Th color="black.0">Social ID</Th>
+                      <Th color="black.0">Household Size</Th>
+                      <Th color="black.0">Needs</Th>
+                      <Th color="black.0">Latest Update</Th>
+                      <Th color="black.0">Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -111,7 +127,9 @@ export default function CandidateList() {
                       <Td>Today</Td>
                       <Td>Action Required</Td>
                       <Td>
-                        <Button>...</Button>
+                        <Button colorScheme="black" variant="ghost">
+                          ...
+                        </Button>
                       </Td>
                     </Tr>
                   </Tbody>
@@ -119,9 +137,8 @@ export default function CandidateList() {
                 <Flex justifyContent="flex-end">
                   <Button
                     as={Link}
-                    to="../review-candidate/2895379235?scheduling=true"
-                    backgroundColor="main.900"
-                    color="main.0"
+                    to="../review-candidate/2895379235?state=scheduling"
+                    colorScheme="admin"
                   >
                     Review the Candidate
                   </Button>
@@ -142,12 +159,12 @@ export default function CandidateList() {
               <strong>211</strong> ACTIVE CANDIDATES
             </Text>
           </Flex>
-          <ButtonGroup>
-            <Button>Export</Button>
-            <Button>Filter</Button>
+          <ButtonGroup colorScheme="black">
+            <Button variant="ghost">Export</Button>
+            <Button variant="ghost">Filter</Button>
           </ButtonGroup>
         </Flex>
-        <Tabs isFitted variant="enclosed">
+        <Tabs isFitted variant="enclosed-colored">
           <TabList>
             <Tab>Eligibility</Tab>
             <Tab>Enrollment</Tab>
@@ -158,13 +175,13 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="main.0">
+                  <Thead backgroundColor="main.700" color="black.0">
                     <Tr>
-                      <Th color="main.0">Social ID</Th>
-                      <Th color="main.0">Reviewer</Th>
-                      <Th color="main.0">Household Size</Th>
-                      <Th color="main.0">Latest Update</Th>
-                      <Th color="main.0">Status</Th>
+                      <Th color="black.0">Social ID</Th>
+                      <Th color="black.0">Reviewer</Th>
+                      <Th color="black.0">Household Size</Th>
+                      <Th color="black.0">Latest Update</Th>
+                      <Th color="black.0">Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -176,20 +193,24 @@ export default function CandidateList() {
                       <Td>Yesterday</Td>
                       <Td>Pending</Td>
                       <Td>
-                        <Button>...</Button>
+                        <Button colorScheme="black" variant="ghost">
+                          ...
+                        </Button>
                       </Td>
                     </Tr>
                   </Tbody>
                 </Table>
                 <Flex justifyContent="space-between">
-                  <ButtonGroup>
-                    <Button>1</Button>
-                    <Button>2</Button>
-                    <Button>3</Button>
-                    <Button>4</Button>
-                    <Button rightIcon={<ArrowForwardIcon />}>Next</Button>
+                  <ButtonGroup colorScheme="black">
+                    <Button variant="ghost">1</Button>
+                    <Button variant="ghost">2</Button>
+                    <Button variant="ghost">3</Button>
+                    <Button variant="ghost">4</Button>
+                    <Button variant="ghost" rightIcon={<ArrowForwardIcon />}>
+                      Next
+                    </Button>
                   </ButtonGroup>
-                  <Button backgroundColor="main.900" color="main.0">
+                  <Button colorScheme="admin">
                     Request to Assign New Candidate
                   </Button>
                 </Flex>

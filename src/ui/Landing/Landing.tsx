@@ -4,7 +4,14 @@ import { Link } from "react-router-dom";
 export default function Landing() {
   return (
     <Grid templateColumns="3fr 1fr" h="100%">
-      <Flex paddingTop="128px" gap="64px" direction="column" paddingLeft="110px" paddingRight="80px" alignItems="center">
+      <Flex
+        paddingTop="128px"
+        gap="64px"
+        direction="column"
+        paddingLeft="110px"
+        paddingRight="80px"
+        alignItems="center"
+      >
         <Text fontSize="4xl" textAlign="center">
           <strong>Open Sandbox</strong> is a{" "}
           <strong>free and public demo</strong> to{" "}
@@ -13,7 +20,12 @@ export default function Landing() {
           Island.
         </Text>
         <Flex direction="column" gap="16px" alignItems="center">
-          <Button backgroundColor="main.900" color="main.0" as={Link} to="/sign-up">
+          <Button
+            backgroundColor="black.900"
+            color="black.0"
+            as={Link}
+            to="/sign-up"
+          >
             Enter Open Island now
           </Button>
           <Text>

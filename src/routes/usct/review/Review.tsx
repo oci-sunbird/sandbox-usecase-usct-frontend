@@ -9,12 +9,28 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function Review() {
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "PHASE 56 - SOMETHING SOMETHING",
+        subtitle: "DUNNO",
+      },
+      progress: 60,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Box w="100%">
       <Button
