@@ -1,8 +1,25 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TextEditor from "../../../ui/TextEditor/TextEditor";
+import { EUserType, SimulationContext } from "../USCT";
 
 export default function StartNewConversation() {
+  const { state, dispatch } = useContext(SimulationContext);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM",
+      },
+      progress: 70,
+      userAuthorized: true,
+    });
+  }, []);
   return (
     <Flex direction="column" w="100%" gap="20px">
       <Heading>Start a New Conversation</Heading>
@@ -62,7 +79,7 @@ export default function StartNewConversation() {
       <Text>Please explain the lorem ipsum</Text>
       <TextEditor />
       <Flex justifyContent="flex-end">
-        <Button colorScheme="citizen" as={Link} to="../case-management">
+        <Button colorScheme="citizen" as={Link} to="../case-management?done=true">
           Send message
         </Button>
       </Flex>

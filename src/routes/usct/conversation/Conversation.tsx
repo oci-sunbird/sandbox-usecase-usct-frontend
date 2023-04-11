@@ -8,7 +8,7 @@ import {
   Flex,
   Grid,
   Heading,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { EUserType, SimulationContext } from "../USCT";
@@ -22,10 +22,10 @@ export default function Conversation() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CITIZEN RESOLVED THE CASE",
       },
-      progress: 60,
+      progress: 95,
       userAuthorized: true,
     });
   }, []);

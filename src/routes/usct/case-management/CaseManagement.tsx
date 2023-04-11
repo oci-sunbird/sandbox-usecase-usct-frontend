@@ -5,15 +5,16 @@ import {
   Heading,
   ListItem,
   Text,
-  UnorderedList,
+  UnorderedList
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { ReactComponent as HatIcon } from "../../../assets/icons/hat.svg";
 import { EUserType, SimulationContext } from "../USCT";
 
 export default function CaseManagement() {
   const { state, dispatch } = useContext(SimulationContext);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch({
@@ -21,10 +22,10 @@ export default function CaseManagement() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 1 - ELIGIBILITY",
-        subtitle: "CIVIL SERVANT CHECKS STUFF",
+        title: searchParams.get("done") ? "PHASE 3 - PAYMENT" : "PHASE 1 - ELIGIBILITY",
+        subtitle: searchParams.get("done") ? "CIVIL SERVANT REVIEWS BENEFICIARY CASES" : "CIVIL SERVANT CHECKS ONGOING RESPONSIBILITES",
       },
-      progress: 15,
+      progress: searchParams.get("done") ? 75 : 5,
       userAuthorized: true,
     });
   }, []);
@@ -38,7 +39,7 @@ export default function CaseManagement() {
       </Box>
       <Flex direction="column" gap="20px">
         <Heading>Hello, Lorem Ipsum!</Heading>
-        <Text>You have 1 candidates, 1 cases up for review today!</Text>
+        <Text>You have 1 candidates, 0 cases up for review today!</Text>
         <Flex gap="20px">
           <Flex direction="column" gap="16px">
             <Flex
@@ -58,7 +59,7 @@ export default function CaseManagement() {
                 justifyContent="center"
                 flexShrink="0"
               >
-                <Heading color="black.0">1</Heading>
+                <Heading color="black.0">{searchParams.get("done") ? 0 : 1}</Heading>
               </Flex>
               <Flex gap="14px" direction="column">
                 <Text>Assigned Candidates</Text>
@@ -95,7 +96,7 @@ export default function CaseManagement() {
                 justifyContent="center"
                 flexShrink="0"
               >
-                <Heading>1</Heading>
+                <Heading>{searchParams.get("done") ? 1 : 0}</Heading>
               </Flex>
               <Flex gap="14px" direction="column">
                 <Text>Beneficiary Cases</Text>

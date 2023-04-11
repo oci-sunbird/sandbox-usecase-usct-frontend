@@ -5,10 +5,11 @@ import {
   Flex,
   Heading,
   Tag,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { TCitizen } from "../../../mirage/types";
 import { EUserType, SimulationContext } from "../USCT";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
@@ -99,21 +100,10 @@ const documentsData = [
   },
 ];
 
-const personData = {
-  fullName: "Thomas Anderson",
-  dateOfBirth: "03.10.1994",
-  phoneNumber: "(+372) 53937064",
-  occupation: "Very Cool Guy",
-  idCode: "39410036813",
-  email: "veryCoolGuy@gmail.com",
-  socialCode: "0235920935kdtt",
-  fullAddress:
-    "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe",
-};
-
 export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
+  const [citizen, setCitizen] = useState<TCitizen | null>(null);
 
   useEffect(() => {
     dispatch({
@@ -121,13 +111,24 @@ export default function Personal() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: searchParams.get("done") ? "CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW" : "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      progress: 60,
+      progress: searchParams.get("done") ? 35 : 30,
       userAuthorized: true,
     });
   }, []);
+
+  useEffect(() => {
+    const f = async () => {
+      const req = await fetch('/api/users');
+      const res = await req.json();
+      console.log(res.users[0]);
+      setCitizen(res.users[0]);
+    }
+    f();
+  }, [])
+
   return (
     <Flex w="100%" gap="48px" direction="column">
       <Flex
@@ -143,12 +144,12 @@ export default function Personal() {
             </Button>
           ) : (
             <Button as={Link} to="../review">
-              Add Missing Information
+              Update Information
             </Button>
           )}
         </ButtonGroup>
       </Flex>
-      <PersonalInformation person={personData} />
+      <PersonalInformation person={citizen} />
       <PersonalInformationTable
         title="Household Information"
         columns={["Name", "National ID", "Relation", "Date of Birth", "Needs"]}

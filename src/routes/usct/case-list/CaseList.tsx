@@ -10,7 +10,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -25,10 +25,10 @@ export default function CaseList() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 99 - CASE LIST",
-        subtitle: "DUNNO",
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CIVIL SERVANT REVIEWS THE ACTIVE CASE",
       },
-      progress: 30,
+      progress: 80,
       userAuthorized: true,
     });
   }, []);
@@ -52,14 +52,14 @@ export default function CaseList() {
             </Flex>
             <Text>ACTIVE CASES</Text>
           </Flex>
-          <ButtonGroup>
+          <ButtonGroup variant="ghost" colorScheme="black">
             <Button>Export</Button>
             <Button>Filter</Button>
           </ButtonGroup>
         </Flex>
         <Flex direction="column" gap="20px">
           <Table variant="simple">
-            <Thead backgroundColor="main.700" color="black.0">
+            <Thead backgroundColor="black.700" color="black.0">
               <Tr>
                 <Th color="black.0">#</Th>
                 <Th color="black.0">Topic</Th>
@@ -77,7 +77,7 @@ export default function CaseList() {
                 <Td>Yesterday</Td>
                 <Td>Action Required</Td>
                 <Td>
-                  <Button>...</Button>
+                  <Button variant="ghost" colorScheme="black">...</Button>
                 </Td>
               </Tr>
             </Tbody>
@@ -86,8 +86,7 @@ export default function CaseList() {
             <Button
               as={Link}
               to="../review-case/2895379235"
-              backgroundColor="black.900"
-              color="black.0"
+              colorScheme="admin"
             >
               Review Next Case
             </Button>
@@ -102,13 +101,13 @@ export default function CaseList() {
               <strong>211</strong> CLOSED CASES
             </Text>
           </Flex>
-          <ButtonGroup>
+          <ButtonGroup variant="ghost" colorScheme="black">
             <Button>Export</Button>
             <Button>Filter</Button>
           </ButtonGroup>
         </Flex>
         <Table variant="simple">
-          <Thead backgroundColor="main.700" color="black.0">
+          <Thead backgroundColor="black.700" color="black.0">
             <Tr>
               <Th color="black.0">#</Th>
               <Th color="black.0">Topic</Th>
@@ -126,13 +125,13 @@ export default function CaseList() {
               <Td>Yesterday</Td>
               <Td>Pending</Td>
               <Td>
-                <Button>...</Button>
+                <Button variant="ghost" colorScheme="black">...</Button>
               </Td>
             </Tr>
           </Tbody>
         </Table>
         <Flex justifyContent="flex-end">
-          <ButtonGroup>
+          <ButtonGroup variant="ghost" colorScheme="black">
             <Button>1</Button>
             <Button>2</Button>
             <Button>3</Button>

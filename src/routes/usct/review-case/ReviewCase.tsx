@@ -20,25 +20,15 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { TCitizen } from "../../../mirage/types";
 import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
 import TextEditor from "../../../ui/TextEditor/TextEditor";
 import BankInformation from "../personal/BankInformation";
-
-const personData = {
-  fullName: "Thomas Anderson",
-  dateOfBirth: "03.10.1994",
-  phoneNumber: "(+372) 53937064",
-  occupation: "Very Cool Guy",
-  idCode: "39410036813",
-  email: "veryCoolGuy@gmail.com",
-  socialCode: "0235920935kdtt",
-  fullAddress:
-    "Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe",
-};
+import { EUserType, SimulationContext } from "../USCT";
 
 const householdData = [
   {
@@ -116,6 +106,31 @@ const conversation = [
 
 export default function ReviewCase() {
   const [isInformed, setIsInformed] = useState(false);
+  const { state, dispatch } = useContext(SimulationContext);
+  const [citizen, setCitizen] = useState<TCitizen | null>(null);
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN_SERVANT,
+      description: {
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION",
+      },
+      progress: 85,
+      userAuthorized: true,
+    });
+  }, []);
+  useEffect(() => {
+    const f = async () => {
+      const req = await fetch('/api/users');
+      const res = await req.json();
+      console.log(res.users[0]);
+      setCitizen(res.users[0]);
+    }
+    f();
+  }, [])
   return (
     <Flex direction="column">
       <Flex
@@ -125,7 +140,7 @@ export default function ReviewCase() {
         mb="20px"
       >
         <Heading fontSize="24px">Case #3779394</Heading>
-        <ButtonGroup>
+        <ButtonGroup variant="ghost" colorScheme="black">
           <Button>Screen</Button>
           <Button>Contact</Button>
           <Button>Flag</Button>
@@ -185,8 +200,7 @@ export default function ReviewCase() {
                 </Text>
                 <Button
                   flexShrink="0"
-                  color="white"
-                  backgroundColor="black"
+                  colorScheme="admin"
                   onClick={() => setIsInformed(true)}
                 >
                   Inform the Payment Provider
@@ -218,8 +232,7 @@ export default function ReviewCase() {
                 <Text>Please inform the beneficiary regarding the status.</Text>
                 <Button
                   flexShrink="0"
-                  color="white"
-                  backgroundColor="black"
+                  colorScheme="admin"
                   as={Link}
                   to="../conversation/19036813"
                   onClick={() => setIsInformed(true)}
@@ -266,31 +279,31 @@ export default function ReviewCase() {
                 >
                   <Box>
                     <Text fontWeight="600">Name</Text>
-                    <Text>{personData.fullName}</Text>
+                    <Text>{citizen?.fullName}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">Occupation</Text>
-                    <Text>{personData.occupation}</Text>
+                    <Text>{citizen?.occupation}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">Personal ID Code</Text>
-                    <Text>{personData.idCode}</Text>
+                    <Text>{citizen?.idCode}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">Home Address</Text>
-                    <Text>{personData.fullAddress}</Text>
+                    <Text>{citizen?.fullAddress}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">Phone Number</Text>
-                    <Text>{personData.phoneNumber}</Text>
+                    <Text>{citizen?.phoneNumber}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">E-mail</Text>
-                    <Text>{personData.email}</Text>
+                    <Text>{citizen?.email}</Text>
                   </Box>
                   <Box>
                     <Text fontWeight="600">Date of Birth</Text>
-                    <Text>{personData.dateOfBirth}</Text>
+                    <Text>{citizen?.dateOfBirth ? new Date(citizen?.dateOfBirth).toLocaleDateString('et') : ''}</Text>
                   </Box>
                 </Grid>
                 <Flex gap="20px">

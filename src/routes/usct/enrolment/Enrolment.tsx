@@ -12,7 +12,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -27,10 +27,10 @@ export default function Enrolment() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: "PHASE 2 - ENROLMENT",
+        subtitle: "CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT",
       },
-      progress: 60,
+      progress: 50,
       userAuthorized: true,
     });
   }, []);
@@ -180,7 +180,7 @@ export default function Enrolment() {
           w="167px"
           colorScheme="citizen"
           as={Link}
-          to="../candidate-list"
+          to="../candidate-list?state=enrolled"
         >
           Enroll
         </Button>

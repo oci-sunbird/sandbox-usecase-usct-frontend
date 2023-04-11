@@ -16,7 +16,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -29,12 +29,12 @@ export default function ActiveProgram() {
     dispatch({
       type: "SET_ALL",
       ...state,
-      userType: EUserType.CITIZEN_SERVANT,
+      userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION",
       },
-      progress: 60,
+      progress: 65,
       userAuthorized: true,
     });
   }, []);
@@ -150,7 +150,7 @@ export default function ActiveProgram() {
           Please start a conversation if you need any help, or if you have any
           questions
         </Text>
-        <Tabs w="100%" isFitted variant="enclosed-colored" colorScheme="admin">
+        <Tabs w="100%" isFitted variant="enclosed-colored" colorScheme="citizen">
           <TabList>
             <Tab>My Active Conversations (0)</Tab>
             <Tab>Closed Conversations (0)</Tab>
@@ -168,7 +168,7 @@ export default function ActiveProgram() {
                 <Tbody></Tbody>
               </Table>
               <Flex justifyContent="flex-end">
-                <Button colorScheme="admin" as={Link} to="../new-conversation">
+                <Button colorScheme="citizen" as={Link} to="../new-conversation">
                   Start New Conversation
                 </Button>
               </Flex>

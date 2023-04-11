@@ -20,30 +20,67 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { TCitizen } from "../../../mirage/types";
 import { EUserType, SimulationContext } from "../USCT";
 import { ActionAlert } from "./ActionAlert";
-import { documentsData, householdData, personData } from "./data";
+import { documentsData, householdData } from "./data";
+
+const getSubtitle = (state: string | null) => {
+  if(state === "done") {
+    return {
+      description: {
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE",
+      },
+      progress: 40,
+    }
+  }
+  if(state === "scheduling") {
+    return {
+      description: {
+        title: "PHASE 2 - ENROLMENT",
+        subtitle: "CIVIL SERVANT SCHEDULES THE PAYMENTS",
+      },
+      progress: 60,
+    }
+  }
+  return {
+    description: {
+      title: "PHASE 1 - ELIGIBILITY",
+      subtitle: "CIVIL SERVANT REVIEWS THE CANDIDATE",
+    },
+    progress: 15,
+  }
+}
 
 export default function ReviewCandidate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
+  const [citizen, setCitizen] = useState<TCitizen>();
   useEffect(() => {
     dispatch({
       type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
-      description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
-      },
-      progress: 60,
       userAuthorized: true,
+      ...getSubtitle(searchParams.get("state"))
     });
   }, []);
+
+  useEffect(() => {
+    const f = async () => {
+      const req = await fetch('/api/users');
+      const res = await req.json();
+      setCitizen(res.users[0]);
+    }
+    f();
+  }, [])
+
+  console.log(citizen);
 
   return (
     <Flex w="100%" direction="column" gap="20px">
@@ -68,7 +105,7 @@ export default function ReviewCandidate() {
             Personal Information
           </Heading>
           <Heading variant="h3" fontSize="18px" color="black.500">
-            Social ID: {personData.socialCode}
+            Social ID: {citizen?.socialCode}
           </Heading>
         </Box>
         <Grid
@@ -79,31 +116,31 @@ export default function ReviewCandidate() {
         >
           <Box>
             <Text fontWeight="600">Name</Text>
-            <Text>{personData.fullName}</Text>
+            <Text>{citizen?.fullName}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Occupation</Text>
-            <Text>{personData.occupation}</Text>
+            <Text>{citizen?.occupation}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Personal ID Code</Text>
-            <Text>{personData.idCode}</Text>
+            <Text>{citizen?.idCode}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Home Address</Text>
-            <Text>{personData.fullAddress}</Text>
+            <Text>{citizen?.fullAddress}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">E-mail</Text>
-            <Text color="gray">{personData.email}</Text>
+            <Text color="gray">{citizen?.email}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Phone Number</Text>
-            <Text color="gray">{personData.phoneNumber}</Text>
+            <Text color="gray">{citizen?.phoneNumber}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Date of Birth</Text>
-            <Text>{personData.dateOfBirth}</Text>
+            <Text>{citizen?.dateOfBirth.toLocaleString('et')}</Text>
           </Box>
         </Grid>
         <Flex>
@@ -121,6 +158,7 @@ export default function ReviewCandidate() {
                       mb="12px"
                       colorScheme="admin"
                       variant="outline"
+                      key={need}
                     >
                       <TagLabel>{need}</TagLabel>
                     </Tag>
@@ -149,7 +187,7 @@ export default function ReviewCandidate() {
           <TabPanel padding="0">
             <Flex direction="column" gap="20px">
               <Table variant="simple">
-                <Thead backgroundColor="main.700" color="black.0">
+                <Thead backgroundColor="black.700" color="black.0">
                   <Tr>
                     <Th color="black.0">National ID</Th>
                     <Th color="black.0">Name</Th>
@@ -168,7 +206,7 @@ export default function ReviewCandidate() {
                 <Tbody>
                   {householdData.map((person) => {
                     return (
-                      <Tr>
+                      <Tr key={person.personalCode}>
                         <Td>{person.personalCode}</Td>
                         <Td>{person.name}</Td>
                         <Td>{person.relation}</Td>
@@ -180,6 +218,7 @@ export default function ReviewCandidate() {
                                 p="6px 12px"
                                 variant="outline"
                                 colorScheme="admin"
+                                key={need}
                               >
                                 <TagLabel>{need}</TagLabel>
                               </Tag>
@@ -198,7 +237,7 @@ export default function ReviewCandidate() {
           </TabPanel>
           <TabPanel padding="0">
             <Table variant="simple">
-              <Thead backgroundColor="main.700" color="black.0">
+              <Thead backgroundColor="black.700" color="black.0">
                 <Tr>
                   <Th color="black.0">Document Name</Th>
                   <Th color="black.0">Organization</Th>
@@ -208,9 +247,9 @@ export default function ReviewCandidate() {
                 </Tr>
               </Thead>
               <Tbody>
-                {documentsData.map((document) => {
+                {documentsData.map((document, index) => {
                   return (
-                    <Tr>
+                    <Tr key={index}>
                       <Td>{document.name}</Td>
                       <Td>{document.organization}</Td>
                       <Td>{document.issuedOn}</Td>

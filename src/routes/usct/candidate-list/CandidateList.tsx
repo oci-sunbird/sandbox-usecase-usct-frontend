@@ -15,14 +15,19 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { EUserType, SimulationContext } from "../USCT";
 
 export default function CandidateList() {
   const { state, dispatch } = useContext(SimulationContext);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+
+
 
   useEffect(() => {
     dispatch({
@@ -30,10 +35,10 @@ export default function CandidateList() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 1 - ELIGIBILITY",
-        subtitle: "CIVIL SERVANT CHECKS DIFFERENT STUFF",
+        title: searchParams.get("state") === "enrolled" ? "PHASE 2 - ENROLMENT" : "PHASE 1 - ELIGIBILITY",
+        subtitle: searchParams.get("state") === "enrolled" ? "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES" : "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
       },
-      progress: 20,
+      progress: searchParams.get("state") === "enrolled" ? 55 : 10,
     });
   }, []);
 
@@ -72,7 +77,7 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="black.0">
+                  <Thead backgroundColor="black.700" color="black.0">
                     <Tr>
                       <Th color="black.0">Social ID</Th>
                       <Th color="black.0">Household Size</Th>
@@ -90,7 +95,7 @@ export default function CandidateList() {
                       <Td>Yesterday</Td>
                       <Td>Action Required</Td>
                       <Td>
-                        <Button>...</Button>
+                        <Button colorScheme="black" variant="ghost">...</Button>
                       </Td>
                     </Tr>
                   </Tbody>
@@ -109,7 +114,7 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="black.0">
+                  <Thead backgroundColor="black.700" color="black.0">
                     <Tr>
                       <Th color="black.0">Social ID</Th>
                       <Th color="black.0">Household Size</Th>
@@ -175,7 +180,7 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="main.700" color="black.0">
+                  <Thead backgroundColor="black.700" color="black.0">
                     <Tr>
                       <Th color="black.0">Social ID</Th>
                       <Th color="black.0">Reviewer</Th>

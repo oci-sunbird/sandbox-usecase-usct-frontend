@@ -7,13 +7,14 @@ import { Heading } from "./chakra-overrides/Heading";
 import { Progress } from "./chakra-overrides/Progress";
 import { Text } from "./chakra-overrides/Text";
 import "./index.css";
+import { startMirage } from "./mirage";
 import { router } from "./routes/router";
 
 const theme = extendTheme({
   styles: {
     global: {
       "html, body": {
-        "font-family": "Inter",
+        fontFamily: "Inter",
         color: "black.900",
       },
     },
@@ -25,6 +26,8 @@ const theme = extendTheme({
     Progress: Progress,
   },
 });
+
+startMirage();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

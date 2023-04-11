@@ -12,10 +12,10 @@ export default function AuthoriseCitizen() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 2 - SOMETHING SOMETHING",
-        subtitle: "PERSON LOGS IN OR SOMETHING",
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CITIZEN LOGS IN",
       },
-      progress: 30,
+      progress: 20,
       userAuthorized: false,
     });
   }, []);

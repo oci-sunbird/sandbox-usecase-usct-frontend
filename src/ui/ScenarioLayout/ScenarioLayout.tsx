@@ -1,4 +1,12 @@
-import { Box, Checkbox, Flex, Heading, Progress, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Checkbox,
+  Flex,
+  Heading,
+  Progress,
+  SimpleGrid,
+  Text
+} from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { SimulationContext } from "../../routes/usct/USCT";
 import DIAL from "../DIAL/DIAL";
@@ -26,25 +34,38 @@ export default function ScenarioLayout({
           </Text>
         </ScenarioHeader>
         <ScenarioView>{children}</ScenarioView>
-        <Flex
+        <SimpleGrid
+          gridTemplateColumns="150px 1fr 150px"
           justifyContent="space-between"
+          justifyItems="center"
           gap="64px"
           maxW="1024px"
           w="100%"
           margin="0 auto"
           padding="0 64px"
         >
-          <Box
-            flexShrink="0"
-            w="100px"
-            h="100px"
-            border="1px solid black"
-          ></Box>
+          <Box w="100%">
+            {/* <Flex
+              w="48px"
+              h="48px"
+              alignItems="center"
+              justifyContent="center"
+              borderRadius="100%"
+              flexShrink="0"
+              backgroundColor={colors.secondary[900]}
+            >
+              {state.userType === EUserType.CITIZEN_SERVANT ? (
+                <LandmarkIcon />
+              ) : (
+                <HomeIcon />
+              )}
+            </Flex> */}
+          </Box>
           <Box w="100%">
             <Progress
               colorScheme="admin"
               isAnimated
-              value={!state.progress ? 5 : state.progress}
+              value={!state.progress ? 1 : state.progress}
             ></Progress>
             <Flex justifyContent="space-between">
               <Text fontWeight={700} fontSize={12}>
@@ -56,8 +77,9 @@ export default function ScenarioLayout({
             </Flex>
             <Text fontSize={12}>{state.description.subtitle}</Text>
           </Box>
-          <Box flexShrink="0">
+          <Box justifySelf="flex-end" w="100%" flexShrink="0">
             <Checkbox
+            colorScheme="citizen"
               onChange={(e) =>
                 dispatch({
                   type: "SET_OVERLAYS",
@@ -69,7 +91,7 @@ export default function ScenarioLayout({
               hide all overlays
             </Checkbox>
           </Box>
-        </Flex>
+        </SimpleGrid>
         <Flex mt="22px" justifyContent="center" gap="16px" p="8px">
           <Text>GovStack 2023</Text>
           <Text>FAQ</Text>

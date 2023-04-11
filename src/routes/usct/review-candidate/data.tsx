@@ -25,7 +25,7 @@ export const householdNeeds = [
 export const householdData = [
   {
     name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
+    personalCode: "123456728910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
     reason: "Data",
@@ -33,7 +33,7 @@ export const householdData = [
   },
   {
     name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
+    personalCode: "12312245678910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
     reason: "Data",
@@ -41,7 +41,7 @@ export const householdData = [
   },
   {
     name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
+    personalCode: "12345226789310",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
     reason: "Data",
@@ -49,7 +49,7 @@ export const householdData = [
   },
   {
     name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
+    personalCode: "12345633785910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
     reason: "Data",

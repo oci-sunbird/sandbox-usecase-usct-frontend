@@ -7,7 +7,7 @@ import {
   FormLabel,
   Heading,
   Input,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,10 +24,10 @@ export default function Review() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      progress: 60,
+      progress: 35,
       userAuthorized: true,
     });
   }, []);

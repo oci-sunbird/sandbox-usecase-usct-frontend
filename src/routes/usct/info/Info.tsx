@@ -24,10 +24,10 @@ export default function Info() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 56 - SOMETHING SOMETHING",
-        subtitle: "DUNNO",
+        title: searchParams.get("done") ? "PHASE 2 - ENROLMENT" : "PHASE 1 - ELIGIBILITY",
+        subtitle: searchParams.get("done") ? "CITIZEN REVIEWS ELIGIBILITY STATUS" : "CITIZEN CHECKS THE BENEFICIARY PROGRAM",
       },
-      progress: 60,
+      progress: searchParams.get("done") ? 45 : 25,
       userAuthorized: true,
     });
   }, []);

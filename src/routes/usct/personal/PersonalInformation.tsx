@@ -1,9 +1,10 @@
 import { Avatar, Box, Flex, Grid, Heading, Link, Text } from "@chakra-ui/react";
+import { TCitizen } from "../../../mirage/types";
 
 export default function PersonalInformation({
-  person,
+  person: person,
 }: {
-  person: Record<string, any>;
+  person: TCitizen | null;
 }) {
   return (
     <Flex gap="24px" direction="column">
@@ -18,35 +19,35 @@ export default function PersonalInformation({
         >
           <Box>
             <Text fontWeight="600">Name</Text>
-            <Text>{person.fullName}</Text>
+            <Text>{person?.fullName}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Date of Birth</Text>
-            <Text>{person.dateOfBirth}</Text>
+            <Text>{person?.dateOfBirth ? new Date(person.dateOfBirth).toLocaleDateString('et') : ''}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Personal ID Code</Text>
-            <Text>{person.idCode}</Text>
+            <Text>{person?.idCode}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Social ID Code</Text>
-            <Text>{person.socialCode}</Text>
+            <Text>{person?.socialCode}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Home Address</Text>
-            <Text>{person.fullAddress}</Text>
+            <Text>{person?.fullAddress}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Occupation</Text>
-            <Text>{person.occupation}</Text>
+            <Text>{person?.occupation}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">E-mail</Text>
-            <Text color="gray">{person.email}</Text>
+            <Text color="gray">{person?.email}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Phone Number</Text>
-            <Text color="gray">{person.phoneNumber}</Text>
+            <Text color="gray">{person?.phoneNumber}</Text>
           </Box>
         </Grid>
       </Flex>
