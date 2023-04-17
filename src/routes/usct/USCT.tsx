@@ -58,29 +58,6 @@ const simulationReducer = (
         userType: action.userType,
         userAuthorized: action.userAuthorized,
       };
-    case "SET_PROGRESS":
-      return {
-        ...state,
-        progress: action.progress,
-      };
-    case "SET_DESCRIPTION":
-      return {
-        ...state,
-        description: {
-          title: action.description?.title,
-          subtitle: action.description?.subtitle,
-        },
-      };
-    case "SET_OVERLAYS":
-      return {
-        ...state,
-        overlays: action.overlays,
-      };
-    case "SET_USERTYPE":
-      return {
-        ...state,
-        userType: action.userType,
-      };
     default:
       return state;
   }

@@ -79,7 +79,7 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
               Lorem Ipsum
             </Text>
             <Text fontSize="10px" fontWeight="400" lineHeight="20px">
-              Workd ID: 1234567810
+              Work ID: 1234567810
             </Text>
           </Box>
         </Flex>

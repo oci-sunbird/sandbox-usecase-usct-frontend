@@ -20,7 +20,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -30,23 +30,23 @@ import { ActionAlert } from "./ActionAlert";
 import { documentsData, householdData } from "./data";
 
 const getSubtitle = (state: string | null) => {
-  if(state === "done") {
+  if (state === "done") {
     return {
       description: {
         title: "PHASE 1 - ELIGIBILITY",
         subtitle: "CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE",
       },
       progress: 40,
-    }
+    };
   }
-  if(state === "scheduling") {
+  if (state === "scheduling") {
     return {
       description: {
         title: "PHASE 2 - ENROLMENT",
         subtitle: "CIVIL SERVANT SCHEDULES THE PAYMENTS",
       },
       progress: 60,
-    }
+    };
   }
   return {
     description: {
@@ -54,8 +54,8 @@ const getSubtitle = (state: string | null) => {
       subtitle: "CIVIL SERVANT REVIEWS THE CANDIDATE",
     },
     progress: 15,
-  }
-}
+  };
+};
 
 export default function ReviewCandidate() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -67,18 +67,18 @@ export default function ReviewCandidate() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getSubtitle(searchParams.get("state"))
+      ...getSubtitle(searchParams.get("state")),
     });
   }, []);
 
   useEffect(() => {
     const f = async () => {
-      const req = await fetch('/api/users');
+      const req = await fetch("/api/users");
       const res = await req.json();
       setCitizen(res.users[0]);
-    }
+    };
     f();
-  }, [])
+  }, []);
 
   console.log(citizen);
 
@@ -140,7 +140,15 @@ export default function ReviewCandidate() {
           </Box>
           <Box>
             <Text fontWeight="600">Date of Birth</Text>
-            <Text>{citizen?.dateOfBirth.toLocaleString('et')}</Text>
+            <Text>
+              {citizen?.dateOfBirth
+                ? new Date(citizen?.dateOfBirth).toLocaleString("et", {
+                    day: "2-digit",
+                    year: "numeric",
+                    month: "2-digit",
+                  })
+                : ""}
+            </Text>
           </Box>
         </Grid>
         <Flex>

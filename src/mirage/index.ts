@@ -13,11 +13,6 @@ export function startMirage() {
     },
     routes() {
       this.namespace = "api";
-      this.get("/my-tasks", (schema: AppSchema, request) => {
-        const candidates = schema.all("candidates");
-        const cases = schema.all("cases");
-        return new Response(200, {}, {candidates, cases});
-      })
 
       this.get("/users", (schema: AppSchema, request) => {
         const users = schema.all("user");
@@ -32,6 +27,6 @@ export function startMirage() {
     },
   });
   server.logging = true;
-  server.passthrough('https://exchange.dial.global/**');
+  server.passthrough("https://exchange.dial.global/**");
   console.log({ dump: server.db.dump() });
 }

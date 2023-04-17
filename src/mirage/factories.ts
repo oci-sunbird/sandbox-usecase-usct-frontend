@@ -16,7 +16,7 @@ const userFactory = Factory.extend<TCitizen>({
     return faker.date.birthdate();
   },
   phoneNumber() {
-    return faker.phone.number('(+###) #### ####');
+    return faker.phone.number("(+###) #### ####");
   },
   occupation() {
     return "Unemployed";
@@ -25,11 +25,11 @@ const userFactory = Factory.extend<TCitizen>({
     return faker.helpers.unique(faker.random.numeric, [10]);
   },
   email() {
-    return faker.internet.email(this.fullName as string, ' ');
+    return faker.internet.email(this.fullName as string, " ");
   },
   socialCode() {
     return faker.helpers.unique(faker.random.numeric, [10]);
-  }
+  },
 });
 
 export const factories = {

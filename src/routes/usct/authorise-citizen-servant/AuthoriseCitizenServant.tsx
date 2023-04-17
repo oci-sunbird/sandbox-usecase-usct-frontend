@@ -1,6 +1,7 @@
 import { Button, Center, Heading, Text, VStack } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
 import { EUserType, SimulationContext } from "../USCT";
 
 export default function AuthoriseCitizenServant() {
@@ -21,14 +22,19 @@ export default function AuthoriseCitizenServant() {
   }, []);
   return (
     <Center w="100%">
-      <VStack maxW="312px" textAlign="center" gap="20px">
+      <VStack maxW="312px" textAlign="center" gap="20px" position="relative">
         <Heading>Ministry of Social Welfare Log In</Heading>
         <Text>
           Please use your National ID Card or Work ID Card to enter the system.
         </Text>
-        <Button as={Link} to="./case-management" colorScheme="admin" w="100%">
-          ID Card
-        </Button>
+        <Tooltip
+          letter="A"
+          content="Lorem ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet"
+        >
+          <Button as={Link} to="./case-management" colorScheme="admin" w="100%">
+            ID Card
+          </Button>
+        </Tooltip>
         <Button as={Link} to="./case-management" colorScheme="admin" w="100%">
           Work ID Card
         </Button>

@@ -303,7 +303,11 @@ export default function ReviewCase() {
                   </Box>
                   <Box>
                     <Text fontWeight="600">Date of Birth</Text>
-                    <Text>{citizen?.dateOfBirth ? new Date(citizen?.dateOfBirth).toLocaleDateString('et') : ''}</Text>
+                    <Text>{citizen?.dateOfBirth ? new Date(citizen?.dateOfBirth).toLocaleDateString('et', {
+                    day: "2-digit",
+                    year: "numeric",
+                    month: "2-digit",
+                  }) : ''}</Text>
                   </Box>
                 </Grid>
                 <Flex gap="20px">

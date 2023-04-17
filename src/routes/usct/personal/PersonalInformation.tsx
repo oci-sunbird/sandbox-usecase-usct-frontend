@@ -23,7 +23,15 @@ export default function PersonalInformation({
           </Box>
           <Box>
             <Text fontWeight="600">Date of Birth</Text>
-            <Text>{person?.dateOfBirth ? new Date(person.dateOfBirth).toLocaleDateString('et') : ''}</Text>
+            <Text>
+              {person?.dateOfBirth
+                ? new Date(person.dateOfBirth).toLocaleDateString("et", {
+                    day: "2-digit",
+                    year: "numeric",
+                    month: "2-digit",
+                  })
+                : ""}
+            </Text>
           </Box>
           <Box>
             <Text fontWeight="600">Personal ID Code</Text>
