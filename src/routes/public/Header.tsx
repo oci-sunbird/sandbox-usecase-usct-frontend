@@ -1,5 +1,6 @@
 import { Button, ButtonGroup, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
 
 export default function Header() {
   return (
@@ -28,7 +29,12 @@ export default function Header() {
         >
           Login
         </Button>
-        <Button as={Link} to="/sign-up" background="black.900" color="black.0">
+        <Button
+          as={Link}
+          to="/sign-up"
+          background="black.900"
+          color={colors.secondary[0]}
+        >
           Sign Up
         </Button>
       </ButtonGroup>

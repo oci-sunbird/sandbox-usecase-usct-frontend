@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Grid, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
 
 export default function Landing() {
   return (
@@ -22,7 +23,7 @@ export default function Landing() {
         <Flex direction="column" gap="16px" alignItems="center">
           <Button
             backgroundColor="black.900"
-            color="black.0"
+            color={colors.secondary[0]}
             as={Link}
             to="/sign-up"
           >

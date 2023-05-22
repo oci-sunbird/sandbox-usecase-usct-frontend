@@ -16,6 +16,7 @@ import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { colors } from "../../chakra-overrides/colors";
 import { authentication, IAWSError } from "../../utils/authentication";
 
 const SignInSchema = Yup.object().shape({
@@ -35,7 +36,7 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
       borderColor="black.900"
       borderWidth="2px"
       borderStyle="solid"
-      backgroundColor="black.0"
+      backgroundColor={colors.secondary[0]}
     >
       <Formik
         initialValues={{
@@ -81,7 +82,7 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
                 <Button
                   type="submit"
                   backgroundColor="black.900"
-                  color="black.0"
+                  color={colors.secondary[0]}
                   isLoading={isSubmitting}
                 >
                   Next

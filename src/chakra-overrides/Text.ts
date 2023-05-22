@@ -10,6 +10,10 @@ export const Text = defineStyleConfig({
     bold: {
       fontWeight: 600,
     },
+    caps: {
+      textTransform: "uppercase",
+      fontWeight: 600,
+    },
   },
   sizes: {
     sm: {

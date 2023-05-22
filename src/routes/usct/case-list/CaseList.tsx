@@ -10,10 +10,11 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
 import { EUserType, SimulationContext } from "../USCT";
 
 export default function CaseList() {
@@ -59,13 +60,13 @@ export default function CaseList() {
         </Flex>
         <Flex direction="column" gap="20px">
           <Table variant="simple">
-            <Thead backgroundColor="black.700" color="black.0">
+            <Thead backgroundColor="black.700" color={colors.secondary[0]}>
               <Tr>
-                <Th color="black.0">#</Th>
-                <Th color="black.0">Topic</Th>
-                <Th color="black.0">Case Created</Th>
-                <Th color="black.0">Case Closed</Th>
-                <Th color="black.0">Status</Th>
+                <Th color={colors.secondary[0]}>#</Th>
+                <Th color={colors.secondary[0]}>Topic</Th>
+                <Th color={colors.secondary[0]}>Case Created</Th>
+                <Th color={colors.secondary[0]}>Case Closed</Th>
+                <Th color={colors.secondary[0]}>Status</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -77,7 +78,9 @@ export default function CaseList() {
                 <Td>Yesterday</Td>
                 <Td>Action Required</Td>
                 <Td>
-                  <Button variant="ghost" colorScheme="black">...</Button>
+                  <Button variant="ghost" colorScheme="black">
+                    ...
+                  </Button>
                 </Td>
               </Tr>
             </Tbody>
@@ -107,13 +110,13 @@ export default function CaseList() {
           </ButtonGroup>
         </Flex>
         <Table variant="simple">
-          <Thead backgroundColor="black.700" color="black.0">
+          <Thead backgroundColor="black.700" color={colors.secondary[0]}>
             <Tr>
-              <Th color="black.0">#</Th>
-              <Th color="black.0">Topic</Th>
-              <Th color="black.0">Case Created</Th>
-              <Th color="black.0">Case Closed</Th>
-              <Th color="black.0">Status</Th>
+              <Th color={colors.secondary[0]}>#</Th>
+              <Th color={colors.secondary[0]}>Topic</Th>
+              <Th color={colors.secondary[0]}>Case Created</Th>
+              <Th color={colors.secondary[0]}>Case Closed</Th>
+              <Th color={colors.secondary[0]}>Status</Th>
               <Th></Th>
             </Tr>
           </Thead>
@@ -125,7 +128,9 @@ export default function CaseList() {
               <Td>Yesterday</Td>
               <Td>Pending</Td>
               <Td>
-                <Button variant="ghost" colorScheme="black">...</Button>
+                <Button variant="ghost" colorScheme="black">
+                  ...
+                </Button>
               </Td>
             </Tr>
           </Tbody>

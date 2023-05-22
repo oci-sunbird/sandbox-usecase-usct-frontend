@@ -1,24 +1,25 @@
 import { Avatar, Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { colors } from "../../chakra-overrides/colors";
 import { EUserType } from "../../routes/usct/USCT";
 
 export function USCTUser({ userType }: { userType: EUserType | null }) {
   if (userType === EUserType.CITIZEN) {
     return (
       <Flex
-        backgroundColor="#3E3E3E"
-        borderBottomLeftRadius="36px"
-        h="100%"
+        backgroundColor={colors.secondary[600]}
+        borderRadius="36px"
         justifyContent="center"
         alignItems="center"
-        padding="0 60px"
+        padding="11px 48px"
+        marginRight="36px"
       >
         <Flex gap="8px" alignItems="center">
           <Avatar h="32px" w="32px" />
           <Box>
-            <Text fontSize="14px" fontWeight="600" color="black.0">
-              CITIZEN SERVANT
+            <Text size="sm" color={colors.secondary[0]}>
+              Applicant
             </Text>
-            <Text fontSize="10px" fontWeight="400" color="black.0">
+            <Text size="sm" color={colors.secondary[0]}>
               ID: 1234567810
             </Text>
           </Box>

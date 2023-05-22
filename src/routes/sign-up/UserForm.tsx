@@ -15,6 +15,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { colors } from "../../chakra-overrides/colors";
 import { authentication } from "../../utils/authentication";
 
 const signUpSchema = Yup.object().shape({
@@ -56,7 +57,7 @@ export default function UserForm({
       borderStyle="solid"
       borderWidth="2px"
       borderColor="black.900"
-      backgroundColor="black.0"
+      backgroundColor={colors.secondary[0]}
     >
       <Formik
         initialValues={{
@@ -130,7 +131,7 @@ export default function UserForm({
                 <Button
                   type="submit"
                   backgroundColor="black.900"
-                  color="black.0"
+                  color={colors.secondary[0]}
                   isLoading={isSubmitting}
                 >
                   Create Account

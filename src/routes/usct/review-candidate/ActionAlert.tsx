@@ -105,7 +105,7 @@ export const ActionAlert = ({ state }: { state: string | null }) => {
         as={Link}
         to="../authorise-citizen"
       >
-        Ask For More Information
+        Ask For Validation
       </Button>
     </Flex>
   );

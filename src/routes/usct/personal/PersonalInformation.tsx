@@ -1,10 +1,9 @@
 import { Avatar, Box, Flex, Grid, Heading, Link, Text } from "@chakra-ui/react";
-import { TCitizen } from "../../../mirage/types";
 
 export default function PersonalInformation({
   person: person,
 }: {
-  person: TCitizen | null;
+  person: any | null;
 }) {
   return (
     <Flex gap="24px" direction="column">

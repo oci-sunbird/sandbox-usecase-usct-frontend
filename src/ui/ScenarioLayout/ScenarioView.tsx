@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { ReactElement } from "react";
+import { colors } from "../../chakra-overrides/colors";
 
 export default function ScenarioView({
   children,
@@ -53,7 +54,7 @@ export default function ScenarioView({
             h="32px"
             borderRadius="4px"
             w="100%"
-            backgroundColor="black.0"
+            backgroundColor={colors.secondary[0]}
             alignItems="center"
             textAlign="center"
             justifyContent="center"
@@ -68,6 +69,8 @@ export default function ScenarioView({
           h="100%"
           borderBottomRadius="16px"
           overflow="auto"
+          backgroundColor="#fff"
+          position="relative"
         >
           {children}
         </Box>

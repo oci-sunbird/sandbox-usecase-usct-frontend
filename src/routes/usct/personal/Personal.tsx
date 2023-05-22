@@ -5,11 +5,10 @@ import {
   Flex,
   Heading,
   Tag,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { TCitizen } from "../../../mirage/types";
 import { EUserType, SimulationContext } from "../USCT";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
@@ -103,7 +102,7 @@ const documentsData = [
 export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
-  const [citizen, setCitizen] = useState<TCitizen | null>(null);
+  const [citizen, setCitizen] = useState<any | null>(null);
 
   useEffect(() => {
     dispatch({
@@ -112,22 +111,14 @@ export default function Personal() {
       userType: EUserType.CITIZEN,
       description: {
         title: "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("done") ? "CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW" : "CITIZEN VALIDATES THEIR INFORMATION",
+        subtitle: searchParams.get("done")
+          ? "CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW"
+          : "CITIZEN VALIDATES THEIR INFORMATION",
       },
       progress: searchParams.get("done") ? 35 : 30,
       userAuthorized: true,
     });
   }, []);
-
-  useEffect(() => {
-    const f = async () => {
-      const req = await fetch('/api/users');
-      const res = await req.json();
-      console.log(res.users[0]);
-      setCitizen(res.users[0]);
-    }
-    f();
-  }, [])
 
   return (
     <Flex w="100%" gap="48px" direction="column">
@@ -139,12 +130,17 @@ export default function Personal() {
         <Heading fontSize="36px">My Information</Heading>
         <ButtonGroup colorScheme="citizen">
           {searchParams.get("done") ? (
-            <Button as={Link} to="../review-candidate/123123123?state=done">
-              Submit for eligibility review
-            </Button>
+            <>
+              <Button as={Link} to="../personal" variant="outline">
+                Cancel
+              </Button>
+              <Button as={Link} to="../case-management?done=true">
+                Submit for eligibility review
+              </Button>
+            </>
           ) : (
             <Button as={Link} to="../review">
-              Update Information
+              Validate the information
             </Button>
           )}
         </ButtonGroup>
@@ -174,13 +170,21 @@ export default function Personal() {
       </Box>
       <BankInformation />
       <Flex justifyContent="flex-end">
-        <ButtonGroup colorScheme="citizen" gap="12px">
-          <Button as={Link} to="../" variant="outline">
-            Back
-          </Button>
-          <Button as={Link} to="../review-candidate/123123123?state=done">
-            Submit for eligibility review
-          </Button>
+        <ButtonGroup colorScheme="citizen">
+          {searchParams.get("done") ? (
+            <>
+              <Button as={Link} to="../personal" variant="outline">
+                Cancel
+              </Button>
+              <Button as={Link} to="../case-management?done=true">
+                Submit for eligibility review
+              </Button>
+            </>
+          ) : (
+            <Button as={Link} to="../review">
+              Validate the information
+            </Button>
+          )}
         </ButtonGroup>
       </Flex>
     </Flex>

@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
 import { authentication } from "../../utils/authentication";
 import { Nav, NavigationLink } from "./Navbar.styles";
 import { LINKS } from "./routes";
@@ -25,7 +26,7 @@ export default function Navbar() {
         <Fade in={isOpen}>
           <Flex gap="8px" w="100%" alignItems="center">
             <Image h="32px" w="32px" src="/govstack-logo.png" />
-            <Text color="black.0" whiteSpace="nowrap">
+            <Text color={colors.secondary[0]} whiteSpace="nowrap">
               Open Sandbox
             </Text>
           </Flex>
@@ -40,7 +41,7 @@ export default function Navbar() {
           aria-label="Toggle Menu"
           icon={<ArrowLeftIcon />}
           background="transparent"
-          color="black.0"
+          color={colors.secondary[0]}
           w={isOpen ? "40px" : "100%"}
           h="40px"
           transitionProperty="width, border-radius, transform, right"
@@ -72,7 +73,7 @@ export default function Navbar() {
                   height="40px"
                   padding="0 24px"
                   whiteSpace="nowrap"
-                  color="black.0"
+                  color={colors.secondary[0]}
                 >
                   <strong>{category.name}</strong>
                 </Text>

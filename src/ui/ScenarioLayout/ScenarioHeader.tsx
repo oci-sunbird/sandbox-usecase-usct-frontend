@@ -2,7 +2,6 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { Button, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 
 export default function ScenarioHeader({
   children,
@@ -17,17 +16,15 @@ export default function ScenarioHeader({
       padding="24px 12px"
     >
       <Button
-        backgroundColor="transparent"
-        border="2px solid black.900"
-        borderRadius="8px"
         justifySelf="flex-start"
         display="flex"
-        alignItems="center"
-        leftIcon={<ChevronLeftIcon fontSize="24px" />}
+        leftIcon={<ChevronLeftIcon />}
         as={Link}
+        colorScheme="light"
         to="/dashboard"
+        variant="outline"
       >
-        Exit Scenario
+        Exit
       </Button>
       <Flex gap="16px" justifySelf="center" alignItems="center">
         <Image
@@ -38,14 +35,6 @@ export default function ScenarioHeader({
         />
         {children}
       </Flex>
-      <Button
-        as={Link}
-        to="/experience-govstack/USCT"
-        variant="ghost"
-        leftIcon={<RefreshIcon />}
-      >
-        RESTART SIMULATION
-      </Button>
     </SimpleGrid>
   );
 }

@@ -29,13 +29,13 @@ export const Nav = styled.div<INavProps>`
 `;
 
 export const NavigationLink = styled(Link)`
-  color: ${colors.black[0]};
+  color: ${colors.secondary[0]};
   white-space: nowrap;
   margin-top: 0;
   width: 100%;
   padding: 0 24px;
   :hover {
-    background-color: ${colors.black[0]};
+    background-color: ${colors.secondary[0]};
     color: #090251;
   }
 `;

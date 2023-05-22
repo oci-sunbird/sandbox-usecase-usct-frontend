@@ -1,15 +1,6 @@
 import { Amplify } from "aws-amplify";
-import { createBrowserRouter, redirect } from "react-router-dom";
-import Landing from "../ui/Landing/Landing";
-import { authentication } from "../utils/authentication";
-import Dashboard from "./Dashboard";
-import ErrorPage from "./ErrorPage";
-import Public from "./public/Public";
-import Root from "./Root";
-import SignIn from "./sign-in/SignIn";
-import SignUp from "./sign-up/SignUp";
+import { createBrowserRouter } from "react-router-dom";
 import ActiveProgram from "./usct/active-program/ActiveProgram";
-import AuthoriseCitizenServant from "./usct/authorise-citizen-servant/AuthoriseCitizenServant";
 import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
 import CaseList from "./usct/case-list/CaseList";
@@ -34,69 +25,16 @@ Amplify.configure({
 
 export const router = createBrowserRouter([
   {
-    path: "/dashboard",
-    element: <Root />,
-    loader: async () => {
-      try {
-        // await authentication.isLoggedIn();
-      } catch (error) {
-        return redirect("/sign-in");
-      }
-    },
-    errorElement: <ErrorPage />,
+    path: "",
     children: [
       {
-        index: true,
-        element: <Dashboard />,
-      },
-    ],
-  },
-  {
-    path: "/",
-    element: <Public />,
-    loader: async () => {
-      try {
-        const user = await authentication.isLoggedIn();
-        if (user) {
-          return redirect("/dashboard");
-        }
-      } catch (error) {
-        return;
-      }
-    },
-    children: [
-      {
-        index: true,
-        element: <Landing />,
-      },
-      {
-        path: "sign-in",
-        element: <SignIn />,
-      },
-      {
-        path: "sign-up",
-        element: <SignUp />,
-      },
-    ],
-  },
-  {
-    loader: async () => {
-      try {
-        // await authentication.isLoggedIn();
-      } catch (error) {
-        return redirect("/sign-in");
-      }
-    },
-    path: "experience-govstack",
-    children: [
-      {
-        path: "USCT",
+        path: "",
         element: <USCT />,
         children: [
-          {
-            element: <AuthoriseCitizenServant />,
-            path: "",
-          },
+          // {
+          //   element: <AuthoriseCitizenServant />,
+          //   path: "",
+          // },
           {
             element: <CaseManagement />,
             path: "case-management",
@@ -151,3 +89,123 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+// export const router = createBrowserRouter([
+//   {
+//     path: "/dashboard",
+//     element: <Root />,
+//     loader: async () => {
+//       try {
+//         // await authentication.isLoggedIn();
+//       } catch (error) {
+//         return redirect("/sign-in");
+//       }
+//     },
+//     errorElement: <ErrorPage />,
+//     children: [
+//       {
+//         index: true,
+//         element: <Dashboard />,
+//       },
+//     ],
+//   },
+//   {
+//     path: "/",
+//     element: <Public />,
+//     loader: async () => {
+//       try {
+//         const user = await authentication.isLoggedIn();
+//         if (user) {
+//           return redirect("/dashboard");
+//         }
+//       } catch (error) {
+//         return;
+//       }
+//     },
+//     children: [
+//       {
+//         index: true,
+//         element: <Landing />,
+//       },
+//       {
+//         path: "sign-in",
+//         element: <SignIn />,
+//       },
+//       {
+//         path: "sign-up",
+//         element: <SignUp />,
+//       },
+//     ],
+//   },
+//   {
+//     loader: async () => {
+//       try {
+//         // await authentication.isLoggedIn();
+//       } catch (error) {
+//         return redirect("/sign-in");
+//       }
+//     },
+//     path: "experience-govstack",
+//     children: [
+//       {
+//         path: "USCT",
+//         element: <USCT />,
+//         children: [
+//           {
+//             element: <AuthoriseCitizenServant />,
+//             path: "",
+//           },
+//           {
+//             element: <CaseManagement />,
+//             path: "case-management",
+//           },
+//           {
+//             element: <CandidateList />,
+//             path: "candidate-list",
+//           },
+//           {
+//             element: <CaseList />,
+//             path: "case-list",
+//           },
+//           {
+//             element: <ReviewCandidate />,
+//             path: "review-candidate/:id",
+//           },
+//           {
+//             element: <Enrolment />,
+//             path: "enrolment",
+//           },
+//           {
+//             element: <ActiveProgram />,
+//             path: "active-program",
+//           },
+//           {
+//             element: <ReviewCase />,
+//             path: "review-case/:id",
+//           },
+//           {
+//             element: <Conversation />,
+//             path: "conversation/:id",
+//           },
+//           { element: <StartNewConversation />, path: "new-conversation" },
+//           {
+//             element: <AuthoriseCitizen />,
+//             path: "authorise-citizen",
+//           },
+//           {
+//             element: <Info />,
+//             path: "info",
+//           },
+//           {
+//             element: <Personal />,
+//             path: "personal",
+//           },
+//           {
+//             element: <Review />,
+//             path: "review",
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ]);

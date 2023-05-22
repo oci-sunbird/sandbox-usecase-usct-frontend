@@ -15,10 +15,11 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
 import { EUserType, SimulationContext } from "../USCT";
 
 export default function CandidateList() {
@@ -26,17 +27,20 @@ export default function CandidateList() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-
-
-
   useEffect(() => {
     dispatch({
       type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: searchParams.get("state") === "enrolled" ? "PHASE 2 - ENROLMENT" : "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("state") === "enrolled" ? "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES" : "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
+        title:
+          searchParams.get("state") === "enrolled"
+            ? "PHASE 2 - ENROLMENT"
+            : "PHASE 1 - ELIGIBILITY",
+        subtitle:
+          searchParams.get("state") === "enrolled"
+            ? "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES"
+            : "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
       },
       progress: searchParams.get("state") === "enrolled" ? 55 : 10,
     });
@@ -77,13 +81,16 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="black.700" color="black.0">
+                  <Thead
+                    backgroundColor="black.700"
+                    color={colors.secondary[0]}
+                  >
                     <Tr>
-                      <Th color="black.0">Social ID</Th>
-                      <Th color="black.0">Household Size</Th>
-                      <Th color="black.0">Needs</Th>
-                      <Th color="black.0">Latest Update</Th>
-                      <Th color="black.0">Status</Th>
+                      <Th color={colors.secondary[0]}>Social ID</Th>
+                      <Th color={colors.secondary[0]}>Household Size</Th>
+                      <Th color={colors.secondary[0]}>Needs</Th>
+                      <Th color={colors.secondary[0]}>Latest Update</Th>
+                      <Th color={colors.secondary[0]}>Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -95,7 +102,9 @@ export default function CandidateList() {
                       <Td>Yesterday</Td>
                       <Td>Action Required</Td>
                       <Td>
-                        <Button colorScheme="black" variant="ghost">...</Button>
+                        <Button colorScheme="black" variant="ghost">
+                          ...
+                        </Button>
                       </Td>
                     </Tr>
                   </Tbody>
@@ -114,13 +123,16 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="black.700" color="black.0">
+                  <Thead
+                    backgroundColor="black.700"
+                    color={colors.secondary[0]}
+                  >
                     <Tr>
-                      <Th color="black.0">Social ID</Th>
-                      <Th color="black.0">Household Size</Th>
-                      <Th color="black.0">Needs</Th>
-                      <Th color="black.0">Latest Update</Th>
-                      <Th color="black.0">Status</Th>
+                      <Th color={colors.secondary[0]}>Social ID</Th>
+                      <Th color={colors.secondary[0]}>Household Size</Th>
+                      <Th color={colors.secondary[0]}>Needs</Th>
+                      <Th color={colors.secondary[0]}>Latest Update</Th>
+                      <Th color={colors.secondary[0]}>Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -180,13 +192,16 @@ export default function CandidateList() {
             <TabPanel padding="0">
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
-                  <Thead backgroundColor="black.700" color="black.0">
+                  <Thead
+                    backgroundColor="black.700"
+                    color={colors.secondary[0]}
+                  >
                     <Tr>
-                      <Th color="black.0">Social ID</Th>
-                      <Th color="black.0">Reviewer</Th>
-                      <Th color="black.0">Household Size</Th>
-                      <Th color="black.0">Latest Update</Th>
-                      <Th color="black.0">Status</Th>
+                      <Th color={colors.secondary[0]}>Social ID</Th>
+                      <Th color={colors.secondary[0]}>Reviewer</Th>
+                      <Th color={colors.secondary[0]}>Household Size</Th>
+                      <Th color={colors.secondary[0]}>Latest Update</Th>
+                      <Th color={colors.secondary[0]}>Status</Th>
                       <Th></Th>
                     </Tr>
                   </Thead>
@@ -207,17 +222,27 @@ export default function CandidateList() {
                 </Table>
                 <Flex justifyContent="space-between">
                   <ButtonGroup colorScheme="black">
-                    <Button variant="ghost">1</Button>
-                    <Button variant="ghost">2</Button>
-                    <Button variant="ghost">3</Button>
-                    <Button variant="ghost">4</Button>
-                    <Button variant="ghost" rightIcon={<ArrowForwardIcon />}>
+                    <Button disabled variant="solid">
+                      1
+                    </Button>
+                    <Button disabled variant="outline">
+                      2
+                    </Button>
+                    <Button disabled variant="outline">
+                      3
+                    </Button>
+                    <Button disabled variant="outline">
+                      4
+                    </Button>
+                    <Button
+                      disabled
+                      variant="outline"
+                      rightIcon={<ArrowForwardIcon />}
+                    >
                       Next
                     </Button>
                   </ButtonGroup>
-                  <Button colorScheme="admin">
-                    Request to Assign New Candidate
-                  </Button>
+                  <Button disabled>Request to Assign New Candidate</Button>
                 </Flex>
               </Flex>
             </TabPanel>

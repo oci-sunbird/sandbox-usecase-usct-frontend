@@ -23,7 +23,7 @@ function Tooltip({
         backgroundColor={colors.green[400]}
         left="calc(100% + 16px)"
         top="50%"
-        color={colors.black[900]}
+        color={colors.secondary[1000]}
         alignItems="center"
         justifyContent="center"
         onMouseEnter={() => setVisible(true)}
