@@ -14,7 +14,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -49,6 +49,8 @@ const getSubtitle = (state: string | null) => {
       subtitle: "CIVIL SERVANT REVIEWS THE CANDIDATE",
     },
     progress: 15,
+    nextStep: "../authorise-citizen",
+    previousStep: "../candidate-list",
   };
 };
 
@@ -172,7 +174,7 @@ export default function ReviewCandidate() {
             Household information
           </Heading>
           <Table variant="simple" size="sm">
-            <Thead backgroundColor="black.700" color={colors.secondary[0]}>
+            <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
               <Tr>
                 <Th color={colors.secondary[0]}>National ID</Th>
                 <Th color={colors.secondary[0]}>Name</Th>

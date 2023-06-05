@@ -18,6 +18,8 @@ export default function AuthoriseCitizen() {
       },
       progress: 20,
       userAuthorized: false,
+      previousStep: "../review-candidate/2895379235",
+      nextStep: "../info",
     });
   }, []);
   return (

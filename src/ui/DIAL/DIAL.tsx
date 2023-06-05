@@ -14,7 +14,7 @@ import {
   Slide,
   SlideFade,
   Text,
-  useDisclosure,
+  useDisclosure
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -74,7 +74,6 @@ export default function DIAL() {
 
   const { isOpen, onToggle } = useDisclosure();
   const [active, setActive] = useState<null | any>();
-  console.log(active);
   return (
     <Box position="absolute" bottom="1rem" left="1rem">
       <Button

@@ -35,19 +35,19 @@ export default function ScenarioView({
               borderRadius="100%"
               height="16px"
               width="16px"
-              backgroundColor="black.900"
+              backgroundColor={colors.secondary[900]}
             ></Box>
             <Box
               borderRadius="100%"
               height="16px"
               width="16px"
-              backgroundColor="black.500"
+              backgroundColor={colors.secondary[500]}
             ></Box>
             <Box
               borderRadius="100%"
               height="16px"
               width="16px"
-              backgroundColor="black.300"
+              backgroundColor={colors.secondary[300]}
             ></Box>
           </Flex>
           <Flex

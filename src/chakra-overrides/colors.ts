@@ -84,7 +84,7 @@ export const colors = {
   },
   admin: {
     50: "#e6ebfc",
-    500: "#0428a1",
+    500: "#02185f",
     600: "#02185f",
   },
   citizen: {

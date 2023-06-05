@@ -10,12 +10,13 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Tag,
   Tbody,
   Td,
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -43,6 +44,8 @@ export default function CandidateList() {
             : "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
       },
       progress: searchParams.get("state") === "enrolled" ? 55 : 10,
+      nextStep: "../review-candidate/2895379235",
+      previousStep: "../case-management",
     });
   }, []);
 
@@ -82,7 +85,7 @@ export default function CandidateList() {
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
                   <Thead
-                    backgroundColor="black.700"
+                    backgroundColor={colors.secondary[800]}
                     color={colors.secondary[0]}
                   >
                     <Tr>
@@ -124,7 +127,7 @@ export default function CandidateList() {
               <Flex direction="column" gap="20px">
                 <Table variant="simple">
                   <Thead
-                    backgroundColor="black.700"
+                    backgroundColor={colors.secondary[800]}
                     color={colors.secondary[0]}
                   >
                     <Tr>
@@ -181,19 +184,9 @@ export default function CandidateList() {
             <Button variant="ghost">Filter</Button>
           </ButtonGroup>
         </Flex>
-        <Tabs isFitted variant="enclosed-colored">
-          <TabList>
-            <Tab>Eligibility</Tab>
-            <Tab>Enrollment</Tab>
-            <Tab>Active Beneficiaries</Tab>
-            <Tab>Not Eligible</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel padding="0">
-              <Flex direction="column" gap="20px">
-                <Table variant="simple">
+        <Table variant="simple">
                   <Thead
-                    backgroundColor="black.700"
+                    backgroundColor={colors.secondary[800]}
                     color={colors.secondary[0]}
                   >
                     <Tr>
@@ -211,9 +204,9 @@ export default function CandidateList() {
                       <Td>(unassigned)</Td>
                       <Td>High Priority</Td>
                       <Td>Yesterday</Td>
-                      <Td>Pending</Td>
+                      <Td><Tag justifyContent="center" w="140px">Pending</Tag></Td>
                       <Td>
-                        <Button colorScheme="black" variant="ghost">
+                        <Button size="sm" colorScheme="black" variant="ghost">
                           ...
                         </Button>
                       </Td>
@@ -221,7 +214,7 @@ export default function CandidateList() {
                   </Tbody>
                 </Table>
                 <Flex justifyContent="space-between">
-                  <ButtonGroup colorScheme="black">
+                  <ButtonGroup colorScheme="secondary">
                     <Button disabled variant="solid">
                       1
                     </Button>
@@ -244,16 +237,6 @@ export default function CandidateList() {
                   </ButtonGroup>
                   <Button disabled>Request to Assign New Candidate</Button>
                 </Flex>
-              </Flex>
-            </TabPanel>
-            <TabPanel padding="0">
-              <p>enrollment tab</p>
-            </TabPanel>
-            <TabPanel padding="0">
-              <p>active beneficiaries tab</p>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
       </Flex>
     </Flex>
   );

@@ -4,13 +4,11 @@ import {
   ButtonGroup,
   Flex,
   Heading,
-  Table,
-  Tbody,
+  Table, Tag, Tbody,
   Td,
   Text,
   Th,
-  Thead,
-  Tr,
+  Thead, Tr
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -60,7 +58,7 @@ export default function CaseList() {
         </Flex>
         <Flex direction="column" gap="20px">
           <Table variant="simple">
-            <Thead backgroundColor="black.700" color={colors.secondary[0]}>
+            <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
               <Tr>
                 <Th color={colors.secondary[0]}>#</Th>
                 <Th color={colors.secondary[0]}>Topic</Th>
@@ -110,7 +108,7 @@ export default function CaseList() {
           </ButtonGroup>
         </Flex>
         <Table variant="simple">
-          <Thead backgroundColor="black.700" color={colors.secondary[0]}>
+          <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
             <Tr>
               <Th color={colors.secondary[0]}>#</Th>
               <Th color={colors.secondary[0]}>Topic</Th>
@@ -126,7 +124,7 @@ export default function CaseList() {
               <Td>(unassigned)</Td>
               <Td>High Priority</Td>
               <Td>Yesterday</Td>
-              <Td>Pending</Td>
+              <Td><Tag width="140px" justifyContent="center">Pending</Tag></Td>
               <Td>
                 <Button variant="ghost" colorScheme="black">
                   ...

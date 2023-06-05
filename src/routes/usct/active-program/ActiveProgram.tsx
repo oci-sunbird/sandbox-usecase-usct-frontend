@@ -11,6 +11,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Tag,
   Tbody,
   Td,
   Text,
@@ -137,7 +138,7 @@ export default function ActiveProgram() {
               <Td>Bank Payment</Td>
               <Td>1 234.00</Td>
               <Td>USCT - Monthly Benefit Package</Td>
-              <Td>Pending</Td>
+              <Td><Tag width="140px" justifyContent="center">Pending</Tag></Td>
               <Td>#123456789</Td>
             </Tr>
           </Tbody>

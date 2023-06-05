@@ -5,7 +5,7 @@ import {
   Heading,
   ListItem,
   Text,
-  UnorderedList,
+  UnorderedList
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -33,8 +33,10 @@ export default function CaseManagement() {
       },
       progress: searchParams.get("done") ? 75 : 5,
       userAuthorized: true,
+      nextStep: "../candidate-list",
+      previousStep: "../case-management"
     });
-  }, []);
+  }, [searchParams]);
 
   return (
     <FakeLoader
@@ -63,7 +65,7 @@ export default function CaseManagement() {
                   w="80px"
                   h="80px"
                   borderRadius="100%"
-                  backgroundColor="black.900"
+                  backgroundColor={colors.secondary[1000]}
                   color={colors.secondary[0]}
                   alignItems="center"
                   justifyContent="center"

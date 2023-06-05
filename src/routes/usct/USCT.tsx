@@ -20,6 +20,8 @@ export interface ISimulationState {
   overlays: boolean;
   userType: EUserType | null;
   userAuthorized: boolean;
+  nextStep: string;
+  previousStep: string;
 }
 
 export interface ISimulationAction extends ISimulationState {
@@ -40,12 +42,15 @@ const initialSimulationState: ISimulationState = {
   overlays: true,
   userType: null,
   userAuthorized: false,
+  nextStep: '',
+  previousStep: '',
 };
 
 const simulationReducer = (
   state: ISimulationState,
   action: ISimulationAction
 ) => {
+  console.log(action);
   switch (action.type) {
     case "SET_ALL":
       return {
@@ -57,6 +62,8 @@ const simulationReducer = (
         },
         userType: action.userType,
         userAuthorized: action.userAuthorized,
+        previousStep: action.previousStep,
+        nextStep: action.nextStep,
       };
     default:
       return state;

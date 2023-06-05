@@ -1,5 +1,6 @@
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
 
 export const ActionAlert = ({ state }: { state: string | null }) => {
   if (state === "done") {
@@ -89,7 +90,7 @@ export const ActionAlert = ({ state }: { state: string | null }) => {
         justifyContent="center"
         w="64px"
         h="64px"
-        backgroundColor="black.900"
+        backgroundColor={colors.secondary[1000]}
         color="white"
         mr="54px"
       >
