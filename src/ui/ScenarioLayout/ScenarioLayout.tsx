@@ -7,7 +7,7 @@ import {
   IconButton,
   SimpleGrid,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
@@ -24,31 +24,47 @@ import { ReactComponent as SchedulingIcon } from "../../assets/icons/scheduling.
 import { ReactComponent as SecurityIcon } from "../../assets/icons/security.svg";
 import { ReactComponent as WorkflowIcon } from "../../assets/icons/workflow.svg";
 import { colors } from "../../chakra-overrides/colors";
-import { SimulationContext } from "../../routes/usct/USCT";
+import {
+  ActiveBuildingBlockContext,
+  SimulationContext,
+} from "../../routes/usct/USCT";
+import { BUILDING_BLOCK } from "../../routes/usct/utils";
 import BuildingBlock from "../Activity/BuildingBlock";
 import DIAL from "../DIAL/DIAL";
 import ScenarioHeader from "./ScenarioHeader";
 import ScenarioView from "./ScenarioView";
 
 const buildingBlockActivity = [
-  { label: "Consent", icon: <ConsentIcon />, active: false },
-  { label: "ID & Authentication", icon: <PassportIcon />, active: true },
+  { label: "Consent", icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
+  {
+    label: "ID & Authentication",
+    icon: <PassportIcon />,
+    id: BUILDING_BLOCK.AUTHENTICATION,
+  },
   {
     label: "Information Mediator",
     icon: <InformationMediatorIcon />,
-    active: false,
+    id: BUILDING_BLOCK.INFORMATION_MEDIATOR,
   },
   {
     label: "Digital Registries",
     icon: <DigitalRegistriesIcon />,
-    active: true,
+    id: BUILDING_BLOCK.DIGITAL_REGISTRIES,
   },
-  { label: "Messaging", icon: <MessagingIcon />, active: true },
-  { label: "Payment", icon: <PaymentIcon />, active: false },
-  { label: "Registration", icon: <RegistrationIcon />, active: false },
-  { label: "Scheduling", icon: <SchedulingIcon />, active: true },
-  { label: "Workflow", icon: <WorkflowIcon />, active: true },
-  { label: "Security", icon: <SecurityIcon />, active: true },
+  { label: "Messaging", icon: <MessagingIcon />, id: BUILDING_BLOCK.MESSAGING },
+  { label: "Payment", icon: <PaymentIcon />, id: BUILDING_BLOCK.PAYMENT },
+  {
+    label: "Registration",
+    icon: <RegistrationIcon />,
+    id: BUILDING_BLOCK.REGISTRATION,
+  },
+  {
+    label: "Scheduling",
+    icon: <SchedulingIcon />,
+    id: BUILDING_BLOCK.SCHEDULING,
+  },
+  { label: "Workflow", icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
+  { label: "Security", icon: <SecurityIcon />, id: BUILDING_BLOCK.SECURITY },
 ];
 
 export default function ScenarioLayout({
@@ -58,6 +74,7 @@ export default function ScenarioLayout({
   view: "mobile" | "desktop";
   children: React.ReactElement[] | React.ReactElement;
 }) {
+  const { activeBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const { state, dispatch } = useContext(SimulationContext);
@@ -168,9 +185,10 @@ export default function ScenarioLayout({
           <VStack mb="1rem">
             {buildingBlockActivity.map((buildingBlock) => (
               <BuildingBlock
-                active={buildingBlock.active}
+                active={activeBuildingBlocks[buildingBlock.id]}
                 label={buildingBlock.label}
                 icon={buildingBlock.icon}
+                key={buildingBlock.id}
               />
             ))}
           </VStack>

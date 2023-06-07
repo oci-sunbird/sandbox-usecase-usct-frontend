@@ -1,8 +1,9 @@
 import { Flex } from "@chakra-ui/react";
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { Outlet } from "react-router-dom";
 import ScenarioLayout from "../../ui/ScenarioLayout/ScenarioLayout";
 import Header from "./Header";
+import { BUILDING_BLOCK } from "./utils";
 
 export interface IRouteDescription {
   title: string;
@@ -42,15 +43,14 @@ const initialSimulationState: ISimulationState = {
   overlays: true,
   userType: null,
   userAuthorized: false,
-  nextStep: '',
-  previousStep: '',
+  nextStep: "",
+  previousStep: "",
 };
 
 const simulationReducer = (
   state: ISimulationState,
   action: ISimulationAction
 ) => {
-  console.log(action);
   switch (action.type) {
     case "SET_ALL":
       return {
@@ -80,30 +80,62 @@ export const SimulationContext = createContext<ISimulationContext>({
   dispatch: () => {},
 });
 
+const activeBuildingBlockState = {
+  [BUILDING_BLOCK.CONSENT]: false,
+  [BUILDING_BLOCK.AUTHENTICATION]: false,
+  [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+  [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
+  [BUILDING_BLOCK.MESSAGING]: false,
+  [BUILDING_BLOCK.PAYMENT]: false,
+  [BUILDING_BLOCK.REGISTRATION]: false,
+  [BUILDING_BLOCK.SCHEDULING]: false,
+  [BUILDING_BLOCK.WORKFLOW]: false,
+  [BUILDING_BLOCK.SECURITY]: false,
+};
+
+export interface ActiveBuildingBlockContext {
+  activeBuildingBlocks: Record<BUILDING_BLOCK, boolean>;
+  setActiveBuildingBlocks: Function;
+}
+
+export const ActiveBuildingBlockContext =
+  createContext<ActiveBuildingBlockContext>({
+    activeBuildingBlocks: activeBuildingBlockState,
+    setActiveBuildingBlocks: () => {},
+  });
+
 export default function USCT() {
   const [state, dispatch] = useReducer(
     simulationReducer,
     initialSimulationState
   );
 
+  const [activeBuildingBlocks, setActiveBuildingBlocks] = useState(
+    activeBuildingBlockState
+  );
+
   return (
-    <SimulationContext.Provider value={{ state, dispatch }}>
-      <ScenarioLayout view="mobile">
-        <Flex direction="column" height="100%">
-          <Header
-            userType={state.userType}
-            userAuthorized={state.userAuthorized}
-          />
-          <Flex
-            paddingRight="60px"
-            paddingLeft="60px"
-            paddingBottom="80px"
-            flexGrow="1"
-          >
-            <Outlet />
+    <ActiveBuildingBlockContext.Provider
+      value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
+    >
+      <SimulationContext.Provider value={{ state, dispatch }}>
+        <ScenarioLayout view="mobile">
+          <Flex direction="column" height="100%">
+            <Header
+              userType={state.userType}
+              userAuthorized={state.userAuthorized}
+            />
+            <Flex
+              paddingRight="60px"
+              paddingLeft="60px"
+              paddingBottom="80px"
+              flexGrow="1"
+            >
+              <Outlet />
+            </Flex>
           </Flex>
-        </Flex>
-      </ScenarioLayout>
-    </SimulationContext.Provider>
+        </ScenarioLayout>
+      </SimulationContext.Provider>
+    </ActiveBuildingBlockContext.Provider>
   );
 }

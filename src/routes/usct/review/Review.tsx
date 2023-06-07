@@ -12,7 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function Review() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -32,6 +37,24 @@ export default function Review() {
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
   return (
     <Box w="100%">
       <Button

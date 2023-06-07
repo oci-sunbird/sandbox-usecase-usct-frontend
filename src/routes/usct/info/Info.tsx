@@ -8,11 +8,16 @@ import {
   Button,
   Flex,
   Heading,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function Info() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -24,13 +29,35 @@ export default function Info() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: searchParams.get("done") ? "PHASE 2 - ENROLMENT" : "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("done") ? "CITIZEN REVIEWS ELIGIBILITY STATUS" : "CITIZEN CHECKS THE BENEFICIARY PROGRAM",
+        title: searchParams.get("done")
+          ? "PHASE 2 - ENROLMENT"
+          : "PHASE 1 - ELIGIBILITY",
+        subtitle: searchParams.get("done")
+          ? "CITIZEN REVIEWS ELIGIBILITY STATUS"
+          : "CITIZEN CHECKS THE BENEFICIARY PROGRAM",
       },
       progress: searchParams.get("done") ? 45 : 25,
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: true,
+    });
+  }, []);
+
   return (
     <Flex mt="128px" gap="125px" direction="row">
       <Box>

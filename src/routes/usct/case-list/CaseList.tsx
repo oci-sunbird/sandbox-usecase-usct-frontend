@@ -4,16 +4,24 @@ import {
   ButtonGroup,
   Flex,
   Heading,
-  Table, Tag, Tbody,
+  Table,
+  Tag,
+  Tbody,
   Td,
   Text,
   Th,
-  Thead, Tr
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { colors } from "../../../chakra-overrides/colors";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -31,6 +39,23 @@ export default function CaseList() {
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
   return (
     <Flex w="100%" direction="column" gap="60px">
       <Flex gap="20px" direction="column">
@@ -58,7 +83,10 @@ export default function CaseList() {
         </Flex>
         <Flex direction="column" gap="20px">
           <Table variant="simple">
-            <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
+            <Thead
+              backgroundColor={colors.secondary[800]}
+              color={colors.secondary[0]}
+            >
               <Tr>
                 <Th color={colors.secondary[0]}>#</Th>
                 <Th color={colors.secondary[0]}>Topic</Th>
@@ -108,7 +136,10 @@ export default function CaseList() {
           </ButtonGroup>
         </Flex>
         <Table variant="simple">
-          <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
+          <Thead
+            backgroundColor={colors.secondary[800]}
+            color={colors.secondary[0]}
+          >
             <Tr>
               <Th color={colors.secondary[0]}>#</Th>
               <Th color={colors.secondary[0]}>Topic</Th>
@@ -124,7 +155,11 @@ export default function CaseList() {
               <Td>(unassigned)</Td>
               <Td>High Priority</Td>
               <Td>Yesterday</Td>
-              <Td><Tag width="140px" justifyContent="center">Pending</Tag></Td>
+              <Td>
+                <Tag width="140px" justifyContent="center">
+                  Pending
+                </Tag>
+              </Td>
               <Td>
                 <Button variant="ghost" colorScheme="black">
                   ...

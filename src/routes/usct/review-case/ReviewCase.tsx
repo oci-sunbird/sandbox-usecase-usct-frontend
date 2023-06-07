@@ -20,7 +20,7 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -28,7 +28,12 @@ import { TCitizen } from "../../../mirage/types";
 import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
 import TextEditor from "../../../ui/TextEditor/TextEditor";
 import BankInformation from "../personal/BankInformation";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const householdData = [
   {
@@ -122,15 +127,24 @@ export default function ReviewCase() {
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
   useEffect(() => {
-    const f = async () => {
-      const req = await fetch('/api/users');
-      const res = await req.json();
-      console.log(res.users[0]);
-      setCitizen(res.users[0]);
-    }
-    f();
-  }, [])
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
   return (
     <Flex direction="column">
       <Flex
@@ -303,11 +317,18 @@ export default function ReviewCase() {
                   </Box>
                   <Box>
                     <Text fontWeight="600">Date of Birth</Text>
-                    <Text>{citizen?.dateOfBirth ? new Date(citizen?.dateOfBirth).toLocaleDateString('et', {
-                    day: "2-digit",
-                    year: "numeric",
-                    month: "2-digit",
-                  }) : ''}</Text>
+                    <Text>
+                      {citizen?.dateOfBirth
+                        ? new Date(citizen?.dateOfBirth).toLocaleDateString(
+                            "et",
+                            {
+                              day: "2-digit",
+                              year: "numeric",
+                              month: "2-digit",
+                            }
+                          )
+                        : ""}
+                    </Text>
                   </Box>
                 </Grid>
                 <Flex gap="20px">

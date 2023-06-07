@@ -14,13 +14,18 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { colors } from "../../../chakra-overrides/colors";
 import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 import { ActionAlert } from "./ActionAlert";
 import { householdData } from "./data";
 
@@ -65,6 +70,22 @@ export default function ReviewCandidate() {
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
       ...getSubtitle(searchParams.get("state")),
+    });
+  }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
 
@@ -174,7 +195,10 @@ export default function ReviewCandidate() {
             Household information
           </Heading>
           <Table variant="simple" size="sm">
-            <Thead backgroundColor={colors.secondary[800]} color={colors.secondary[0]}>
+            <Thead
+              backgroundColor={colors.secondary[800]}
+              color={colors.secondary[0]}
+            >
               <Tr>
                 <Th color={colors.secondary[0]}>National ID</Th>
                 <Th color={colors.secondary[0]}>Name</Th>

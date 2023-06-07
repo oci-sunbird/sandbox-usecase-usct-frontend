@@ -9,7 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
@@ -120,6 +125,22 @@ export default function Personal() {
     });
   }, []);
 
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: false,
+      [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
   return (
     <Flex w="100%" gap="48px" direction="column">
       <Flex

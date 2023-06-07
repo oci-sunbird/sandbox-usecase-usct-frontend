@@ -12,11 +12,16 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function Enrolment() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -28,12 +33,31 @@ export default function Enrolment() {
       userType: EUserType.CITIZEN,
       description: {
         title: "PHASE 2 - ENROLMENT",
-        subtitle: "CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT",
+        subtitle:
+          "CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT",
       },
       progress: 50,
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: false,
+      [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
   return (
     <Flex direction="column" gap="20px">
       <Flex direction="column">

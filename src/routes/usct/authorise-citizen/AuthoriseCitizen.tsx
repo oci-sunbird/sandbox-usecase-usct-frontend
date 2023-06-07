@@ -2,7 +2,12 @@ import { Button, Center, Heading, Text, VStack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function AuthoriseCitizen() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -22,6 +27,24 @@ export default function AuthoriseCitizen() {
       nextStep: "../info",
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: true,
+    });
+  }, []);
+
   return (
     <FakeLoader label="Changing perspective to applicant">
       <Center w="100%">

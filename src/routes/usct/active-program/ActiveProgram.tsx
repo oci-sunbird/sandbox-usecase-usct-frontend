@@ -17,11 +17,16 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { EUserType, SimulationContext } from "../USCT";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -39,6 +44,24 @@ export default function ActiveProgram() {
       userAuthorized: true,
     });
   }, []);
+
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: true,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: true,
+    });
+  }, []);
+
   return (
     <Flex direction="column" gap="20px">
       <Flex direction="column">
@@ -138,7 +161,11 @@ export default function ActiveProgram() {
               <Td>Bank Payment</Td>
               <Td>1 234.00</Td>
               <Td>USCT - Monthly Benefit Package</Td>
-              <Td><Tag width="140px" justifyContent="center">Pending</Tag></Td>
+              <Td>
+                <Tag width="140px" justifyContent="center">
+                  Pending
+                </Tag>
+              </Td>
               <Td>#123456789</Td>
             </Tr>
           </Tbody>
@@ -151,7 +178,12 @@ export default function ActiveProgram() {
           Please start a conversation if you need any help, or if you have any
           questions
         </Text>
-        <Tabs w="100%" isFitted variant="enclosed-colored" colorScheme="citizen">
+        <Tabs
+          w="100%"
+          isFitted
+          variant="enclosed-colored"
+          colorScheme="citizen"
+        >
           <TabList>
             <Tab>My Active Conversations (0)</Tab>
             <Tab>Closed Conversations (0)</Tab>
@@ -169,7 +201,11 @@ export default function ActiveProgram() {
                 <Tbody></Tbody>
               </Table>
               <Flex justifyContent="flex-end">
-                <Button colorScheme="citizen" as={Link} to="../new-conversation">
+                <Button
+                  colorScheme="citizen"
+                  as={Link}
+                  to="../new-conversation"
+                >
                   Start New Conversation
                 </Button>
               </Flex>
