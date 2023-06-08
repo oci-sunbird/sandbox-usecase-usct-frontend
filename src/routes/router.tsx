@@ -1,5 +1,7 @@
 import { Amplify } from "aws-amplify";
 import { createBrowserRouter } from "react-router-dom";
+import DriverPoc from "./driver-poc/DriverPoc";
+import USCT from "./usct/USCT";
 import ActiveProgram from "./usct/active-program/ActiveProgram";
 import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
@@ -13,7 +15,6 @@ import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
 import ReviewCase from "./usct/review-case/ReviewCase";
 import Review from "./usct/review/Review";
 import StartNewConversation from "./usct/start-new-conversation/StartNewConversation";
-import USCT from "./usct/USCT";
 
 Amplify.configure({
   Auth: {
@@ -28,13 +29,13 @@ export const router = createBrowserRouter([
     path: "",
     children: [
       {
+        path: 'driver-poc',
+        element: <DriverPoc />
+      },
+      {
         path: "",
         element: <USCT />,
         children: [
-          // {
-          //   element: <AuthoriseCitizenServant />,
-          //   path: "",
-          // },
           {
             element: <CaseManagement />,
             path: "case-management",
