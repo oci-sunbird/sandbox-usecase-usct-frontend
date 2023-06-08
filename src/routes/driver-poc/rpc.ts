@@ -14,13 +14,16 @@ export default class RPC {
     return JSON.parse(rpc);
   }
   async getCandidates(callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/users`).then(async (res) => callback(await res.json()));
+    const request = fetch(`${this.apiEndpoint}/users`).then(async (res) =>
+      callback(await res.json())
+    );
     return request;
   }
-  async getCandidate(id: string) {
-    const request = await fetch(`${this.apiEndpoint}/user/${id}`);
-    const response = await request.json();
-    return response;
+  async getCandidate(id: string, callback: Function) {
+    const request = fetch(`${this.apiEndpoint}/user/${id}`).then(async (res) =>
+      callback(await res.json())
+    );
+    return request;
   }
   async createCandidate() {}
   async getPaymentInformation() {}

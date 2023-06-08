@@ -18,7 +18,7 @@ import RPC from "./rpc";
 export default function DriverPoc() {
   const rpc = new RPC({});
 
-  const [candidates, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState();
   const [candidate, setCandidate] = useState();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function DriverPoc() {
                 <Td textAlign="center">
                   <Button
                     colorScheme="admin"
-                    onClick={() => rpc.getCandidateInfo(candidate.id).then(setCandidate)}
+                    onClick={() => rpc.getCandidate(candidate.id, setCandidate)}
                   >
                     check
                   </Button>
@@ -66,9 +66,9 @@ export default function DriverPoc() {
         </Table>
         {candidate && (
           <VStack>
-            <Text>SSN: {candidate.information.ssn}</Text>
-            <Text>email: {candidate.information.email}</Text>
-            <Text>phone: {candidate.information.phone}</Text>
+            <Text>SSN: {candidate.ssn}</Text>
+            <Text>email: {candidate.email}</Text>
+            <Text>phone: {candidate.phone}</Text>
           </VStack>
         )}
       </SimpleGrid>
