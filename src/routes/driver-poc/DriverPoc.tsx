@@ -1,20 +1,16 @@
 // @ts-nocheck
 
-const candidatesResponseMapper = (candidatesResponse) => {
-    return candidatesResponse.users;
-}
-
 import {
-    Button,
-    SimpleGrid,
-    Table,
-    Tbody,
-    Td,
-    Text,
-    Th,
-    Thead,
-    Tr,
-    VStack
+  Button,
+  SimpleGrid,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { colors } from "../../chakra-overrides/colors";
@@ -26,7 +22,7 @@ export default function DriverPoc() {
   const [candidate, setCandidate] = useState();
 
   useEffect(() => {
-    rpc.getCandidates().then(res => setCandidates(candidatesResponseMapper(res)));
+    rpc.getCandidates(setCandidates);
   }, [])
 
   return (
@@ -47,7 +43,7 @@ export default function DriverPoc() {
             </Tr>
           </Thead>
           <Tbody>
-            {candidates?.map((candidate: any) => (
+            {candidates?.users?.map((candidate: any) => (
               <Tr key={candidate.id}>
                 <Td>
                   <Text>{candidate.ssn}</Text>

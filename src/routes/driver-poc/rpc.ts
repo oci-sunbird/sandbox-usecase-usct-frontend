@@ -13,33 +13,16 @@ export default class RPC {
     }
     return JSON.parse(rpc);
   }
-  async getCandidates() {
-    const request = await fetch(`${this.apiEndpoint}/users`);
-    const response = await request.json();
-    return response;
+  async getCandidates(callback: Function) {
+    const request = fetch(`${this.apiEndpoint}/users`).then(async (res) => callback(await res.json()));
+    return request;
   }
   async getCandidate(id: string) {
     const request = await fetch(`${this.apiEndpoint}/user/${id}`);
     const response = await request.json();
     return response;
   }
-  async getRegisteredPrograms(id: string) {
-    // fetch registered programs
-    return {
-      key: "value",
-    };
-  }
-  async getPaymentInformation(id: string) {
-    // fetch payment information
-    return {
-      key: "value",
-    };
-  }
-  async updatePaymentInformation(id: string, paymentInformation: any) {
-    // update payment information
-  }
-  async getCandidateInfo(id: string) {
-    const promises = await Promise.all([this.getCandidate(id), this.getPaymentInformation(id), this.getRegisteredPrograms(id)]);
-    return { information: promises[0], payment: promises[1], programs: promises[2] };
-  }
+  async createCandidate() {}
+  async getPaymentInformation() {}
+  async updatePaymentInformation() {}
 }
