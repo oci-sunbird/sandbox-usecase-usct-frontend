@@ -11,14 +11,7 @@ import "./index.css";
 import { router } from "./routes/router";
 
 const theme = extendTheme({
-  styles: {
-    global: {
-      "html, body": {
-        fontFamily: "Inter",
-        color: "black.900",
-      },
-    },
-  },
+  styles: {},
   colors,
   components: {
     Heading: Heading,

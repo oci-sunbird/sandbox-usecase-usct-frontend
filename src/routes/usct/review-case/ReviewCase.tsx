@@ -24,7 +24,6 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { TCitizen } from "../../../mirage/types";
 import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
 import TextEditor from "../../../ui/TextEditor/TextEditor";
 import BankInformation from "../personal/BankInformation";
@@ -112,7 +111,7 @@ const conversation = [
 export default function ReviewCase() {
   const [isInformed, setIsInformed] = useState(false);
   const { state, dispatch } = useContext(SimulationContext);
-  const [citizen, setCitizen] = useState<TCitizen | null>(null);
+  const [citizen, setCitizen] = useState<any | null>(null);
 
   useEffect(() => {
     dispatch({

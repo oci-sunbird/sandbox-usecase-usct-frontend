@@ -27,10 +27,7 @@ export default function AuthoriseCitizenServant() {
         <Text>
           Please use your National ID Card or Work ID Card to enter the system.
         </Text>
-        <Tooltip
-          letter="A"
-          content="Lorem ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet ipsum doler sit amet"
-        >
+        <Tooltip letter="A">
           <Button as={Link} to="./case-management" colorScheme="admin" w="100%">
             ID Card
           </Button>
