@@ -1,12 +1,12 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 
 export default function BankInformation() {
   return (
     <Box>
       <Heading variant="h3" fontSize="18px'">
-        Bank Account Information (Optional)
+        Bank Account Information
       </Heading>
-      <Flex justifyContent="space-between">
+      <SimpleGrid columns={2} gap="20px" justifyContent="space-between">
         <Box>
           <Text fontWeight="600">Bank Account Owner Name</Text>
           <Text>Thomas Anderson</Text>
@@ -19,7 +19,7 @@ export default function BankInformation() {
           <Text fontWeight="600">Inetrnational Bank Account Number (IBAN)</Text>
           <Text>AA02300209000106531065</Text>
         </Box>
-      </Flex>
+      </SimpleGrid>
     </Box>
   );
 }

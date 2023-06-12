@@ -9,7 +9,13 @@ export default function PersonalInformation({
     <Flex gap="24px" direction="column">
       <Heading fontSize="18px">Personal Information</Heading>
       <Flex gap="40px">
-        <Avatar borderRadius="0" width="25%" height="auto" />
+        <Avatar
+          borderRadius="8px"
+          maxH="254px"
+          maxW="192px"
+          width="100%"
+          height="auto"
+        />
         <Grid
           w="100%"
           gridTemplateRows="repeat(4, min-content)"
@@ -18,7 +24,7 @@ export default function PersonalInformation({
         >
           <Box>
             <Text fontWeight="600">Name</Text>
-            <Text>{person?.fullName}</Text>
+            <Text>{`${person?.firstName} ${person?.lastName}`}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Date of Birth</Text>
