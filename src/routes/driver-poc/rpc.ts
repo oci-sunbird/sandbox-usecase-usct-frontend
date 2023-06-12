@@ -112,10 +112,11 @@ export default class RPC {
     );
     return request;
   }
-  async getPackages(callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/packages`).then(async (res) =>
-      // callback(await res.json())
-      callback(mockPackages)
+  async getPackages(callback?: Function) {
+    const request = fetch(`${this.apiEndpoint}/packages`).then(
+      async (res) =>
+        // callback(await res.json())
+        callback && callback(mockPackages)
     );
     return request;
   }
@@ -152,7 +153,7 @@ export default class RPC {
     candidates: DriverPOC.Candidate[],
     callback: Function
   ) {
-    const request = fetch(`${this.apiEndpoint}/beneficaries/validate}`).then(
+    const request = fetch(`${this.apiEndpoint}/beneficaries/validate`).then(
       async (res) =>
         // callback(await res.json())
         setTimeout(() => {
