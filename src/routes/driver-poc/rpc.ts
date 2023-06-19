@@ -36,12 +36,12 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: "1",
     firstName: "Guy",
     lastName: "Man",
-    eligiblePackages: ["UBI", "TPA", "CFS"],
+    eligiblePackages: [1, 2, 4],
     idCode: "111-111-111-111a",
     dateOfBirth: "1994-03-10",
     household: mockHouseholdDate,
     benefitPackage: {
-      id: "UBI",
+      id: 1,
       status: "ACTION_REQUIRED",
     },
   },
@@ -54,7 +54,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     dateOfBirth: "1994-03-10",
     household: mockHouseholdDate,
     benefitPackage: {
-      id: "UBI",
+      id: 2,
       status: "ACTION_REQUIRED",
     },
   },
@@ -62,12 +62,12 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: "3",
     firstName: "Another",
     lastName: "Person",
-    eligiblePackages: ["TPA"],
+    eligiblePackages: [3],
     idCode: "333-333-333-333c",
     dateOfBirth: "1994-03-10",
     household: mockHouseholdDate,
     benefitPackage: {
-      id: "UBI",
+      id: 1,
       status: "ACTION_REQUIRED",
     },
   },
@@ -75,25 +75,25 @@ const mockCandidateList: DriverPOC.Candidate[] = [
 
 const mockPackages: DriverPOC.Package[] = [
   {
-    id: "UBI",
+    id: 1,
     name: "Universal Basic Income (UBI)",
     description:
       "Providing a fixed cash transfer to all eligible individuals, regardless of income, for a minimum standard of living.",
   },
   {
-    id: "TPA",
+    id: 2,
     name: "Targeted Poverty Alleviation (TPA)",
     description:
       "Offering additional financial assistance to those living below the poverty line to alleviate poverty effectively",
   },
   {
-    id: "SP",
+    id: 3,
     name: "Social Pension",
     description:
       "Ensuring economic security during retirement by providing regular cash transfers to elderly citizens.",
   },
   {
-    id: "CFS",
+    id: 4,
     name: "Child and Family Support (CFS)",
     description:
       "Providing financial assistance to families with children to improve child well-being and reduce child poverty.",
@@ -108,7 +108,7 @@ export default class RPC {
   async getCandidateList(callback: Function) {
     const request = fetch(`${this.apiEndpoint}/candidates`).then(
       async (res) => {
-        callback(mockCandidateList);
+        callback && callback(await res.json());
       },
       async (err) => {
         callback(mockCandidateList);
@@ -135,7 +135,6 @@ export default class RPC {
   }
   async getCandidateInfo(id: string, callback: Function) {
     const request = fetch(`${this.apiEndpoint}/user/${id}`).then(
-      // callback(await res.json())
       async (res) => {
         callback(mockCandidateList.find((candidate) => candidate.id === id));
       },

@@ -3,12 +3,12 @@ export namespace DriverPOC {
         id: string;
         firstName: string;
         lastName: string;
-        eligiblePackages: string[];
+        eligiblePackages: number[];
         idCode: string;
         dateOfBirth: string;
         household: any[];
         benefitPackage: {
-            id: string;
+            id: number;
             status: string;
         };
         dateOfPayment?: string;
@@ -16,7 +16,7 @@ export namespace DriverPOC {
     export interface Package {
         name: string;
         description: string;
-        id: string;
+        id: number;
     }
     export interface PaymentInformation
 }
