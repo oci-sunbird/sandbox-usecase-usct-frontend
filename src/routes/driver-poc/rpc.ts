@@ -117,7 +117,12 @@ export default class RPC {
     return request;
   }
   async getPackages(callback?: Function) {
-    const request = fetch(`${this.apiEndpoint}/packages`).then(
+    const request = fetch(`${this.apiEndpoint}/packages`, {
+      mode: 'cors',
+      headers: {
+          'Content-Type': 'application/json',
+      }
+    }).then(
       async (res) => {
           // callback && callback(mockPackages);
           console.log(res);
