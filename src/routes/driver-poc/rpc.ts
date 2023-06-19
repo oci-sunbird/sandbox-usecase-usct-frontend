@@ -106,24 +106,36 @@ export default class RPC {
     this.apiEndpoint = apiEndpoint;
   }
   async getCandidateList(callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/candidates`).then(async (res) =>
-      // callback(await res.json())
-      callback(mockCandidateList)
+    const request = fetch(`${this.apiEndpoint}/candidates`).then(
+      async (res) => {
+        callback(mockCandidateList);
+      },
+      async (err) => {
+        callback(mockCandidateList);
+      }
     );
     return request;
   }
   async getPackages(callback?: Function) {
     const request = fetch(`${this.apiEndpoint}/packages`).then(
-      async (res) =>
-        // callback(await res.json())
-        callback && callback(mockPackages)
+      async (res) => {
+        callback && callback(mockPackages);
+      },
+      async (err) => {
+        callback && callback(mockPackages);
+      }
     );
     return request;
   }
   async getCandidateInfo(id: string, callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/user/${id}`).then(async (res) =>
+    const request = fetch(`${this.apiEndpoint}/user/${id}`).then(
       // callback(await res.json())
-      callback(mockCandidateList.find((candidate) => candidate.id === id))
+      async (res) => {
+        callback(mockCandidateList.find((candidate) => candidate.id === id));
+      },
+      async (err) => {
+        callback(mockCandidateList.find((candidate) => candidate.id === id));
+      }
     );
     return request;
   }
@@ -137,7 +149,10 @@ export default class RPC {
         // callback(await res.json())
         setTimeout(() => {
           callback(true);
-        }, 1500)
+        }, 1500),
+      async (err) => {
+        callback(true);
+      }
     );
     return request;
   }
@@ -145,7 +160,8 @@ export default class RPC {
     const request = fetch(`${this.apiEndpoint}/beneficaries`).then(
       async (res) =>
         // callback(await res.json())
-        callback(mockCandidateList)
+        callback(mockCandidateList),
+      async (err) => callback(mockCandidateList)
     );
     return request;
   }
@@ -165,13 +181,27 @@ export default class RPC {
               };
             })
           );
+        }, 1500),
+      async (err) =>
+        // callback(await res.json())
+        setTimeout(() => {
+          callback(
+            candidates.map((c) => {
+              return {
+                ...c,
+                dateOfPayment: new Date(Date.now()).toISOString(),
+              };
+            })
+          );
         }, 1500)
     );
     return request;
   }
   async executePayments(candidates: DriverPOC.Candidate[], callback: Function) {
     const request = fetch(`${this.apiEndpoint}/payments/execute`).then(
-      async (res) => setTimeout(() => callback(true), 1500)
+      async (res) => setTimeout(() => callback(true), 1500),
+      async (err) => setTimeout(() => callback(true), 1500)
+
     );
     return request;
   }
