@@ -125,7 +125,7 @@ export default class RPC {
     }).then(
       async (res) => {
           // callback && callback(mockPackages);
-          console.log(res);
+        callback && callback(await res.json());
       },
       async (err) => {
         callback && callback(mockPackages);
