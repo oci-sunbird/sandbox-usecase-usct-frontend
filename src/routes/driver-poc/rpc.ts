@@ -119,7 +119,8 @@ export default class RPC {
   async getPackages(callback?: Function) {
     const request = fetch(`${this.apiEndpoint}/packages`).then(
       async (res) => {
-        callback && callback(mockPackages);
+          // callback && callback(mockPackages);
+          console.log(res);
       },
       async (err) => {
         callback && callback(mockPackages);
