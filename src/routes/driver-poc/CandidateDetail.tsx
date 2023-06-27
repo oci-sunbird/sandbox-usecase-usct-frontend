@@ -11,35 +11,47 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
+import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
-import PersonalInformationTable from "../usct/personal/PersonalInformationTable";
-import RPC from "./rpc";
+import { RPCContext } from "./rpc";
 import { DriverPOC } from "./types";
 
 export default function CandidateDetail() {
-  const rpc = new RPC({});
-  const { id } = useParams();
-  const [candidate, setCandidate] = useState<DriverPOC.Candidate>();
-  const [selectedPackage, setSelectedPackage] = useState<string>();
-  const [packages, setPackages] = useState<DriverPOC.Package[]>();
+  const { id } = useParams<{ id: string }>();
+  const [selectedPackage, setSelectedPackage] = useState<DriverPOC.Package>();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
-  useEffect(() => {
-    if (id) {
-      rpc.getCandidateInfo(id, setCandidate);
+  const rpc = useContext(RPCContext);
+
+  const { data: packages } = useQuery("packages", rpc.getPackages);
+
+  const { data: candidate, isFetching } = useQuery(
+    `candidate-${id}`,
+    async () => {
+      if (id) {
+        return rpc.getCandidateInfo(+id);
+      }
     }
-    rpc.getPackages(setPackages);
-  }, [id]);
-  const handleEnroll = (id: string, packageId: string) => {
-    if (packageId) {
+  );
+
+  const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
+    if (candidate && selectedPackage) {
       setIsEnrolling(true);
-      rpc.enrollCandidate(id, packageId, setIsEnrolled);
+      const res = await rpc.enrollCandidate(candidate.person, selectedPackage);
+      if (res) {
+        setIsEnrolled(true);
+      }
     }
   };
+  if (isFetching) {
+    <Center>
+      <Spinner />
+    </Center>;
+  }
   if (isEnrolled) {
     return (
       <Center display="flex" margin="auto">
@@ -97,8 +109,8 @@ export default function CandidateDetail() {
       <Heading>Assign candidate to the program</Heading>
       {candidate ? (
         <>
-          <PersonalInformation person={candidate} />
-          <PersonalInformationTable
+          <PersonalInformation person={candidate.person} />
+          {/* <PersonalInformationTable
             title="Household Information"
             columns={[
               "Name",
@@ -108,7 +120,7 @@ export default function CandidateDetail() {
               "Needs",
             ]}
             data={candidate.household}
-          />
+          /> */}
           <BankInformation />
           <Flex direction="column" gap="20px">
             <Heading size="md">Select a Benefit Package</Heading>
@@ -124,19 +136,19 @@ export default function CandidateDetail() {
                       flexDirection: "column",
                       border: `1px solid ${colors.secondary[1000]}`,
                       padding: "20px",
-                      color: candidate.eligiblePackages.some(
-                        (eligiblePackage) => eligiblePackage === p.id
+                      color: candidate.packages.some(
+                        (candidatePackage) => candidatePackage.id === p.id
                       )
                         ? colors.secondary[1000]
                         : colors.secondary[200],
                     }}
                     key={p.id}
                     disabled={
-                      !candidate.eligiblePackages.some(
-                        (eligiblePackage) => eligiblePackage === p.id
+                      !candidate.packages.some(
+                        (candidatePackage) => candidatePackage.id === p.id
                       )
                     }
-                    onClick={() => setSelectedPackage(p.id)}
+                    onClick={() => setSelectedPackage(p)}
                   >
                     <Flex justifyContent="space-between" gap="20px" w="100%">
                       <Text textAlign="left" size="lg">
@@ -149,15 +161,15 @@ export default function CandidateDetail() {
                         borderRadius="100%"
                         border={`1px solid ${colors.secondary[1000]}`}
                         backgroundColor={
-                          selectedPackage === p.id
+                          selectedPackage?.id === p.id
                             ? colors.secondary[1000]
                             : colors.secondary[0]
                         }
                       ></Box>
                     </Flex>
                     <Text textAlign="left">{p.description}</Text>
-                    {!candidate.eligiblePackages.some(
-                      (eligiblePackage) => eligiblePackage === p.id
+                    {!candidate.packages.some(
+                      (candidatePackage) => candidatePackage.id === p.id
                     ) && (
                       <Text
                         color={colors.secondary[200]}
@@ -179,10 +191,7 @@ export default function CandidateDetail() {
               <Button as={Link} to="/driver-poc" w="180px" variant="outline">
                 Back
               </Button>
-              <Button
-                w="180px"
-                onClick={() => handleEnroll(candidate.id, selectedPackage)}
-              >
+              <Button w="180px" onClick={() => handleEnroll(selectedPackage)}>
                 Enroll
               </Button>
             </ButtonGroup>

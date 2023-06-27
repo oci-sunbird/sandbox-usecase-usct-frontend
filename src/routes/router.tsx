@@ -4,6 +4,7 @@ import BeneficiaryList from "./driver-poc/BeneficiaryList";
 import CandidateDetail from "./driver-poc/CandidateDetail";
 import CandidatesList from "./driver-poc/CandidatesList";
 import DriverPoc from "./driver-poc/DriverPoc";
+import USCT from "./usct/USCT";
 import ActiveProgram from "./usct/active-program/ActiveProgram";
 import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
 import CandidateList from "./usct/candidate-list/CandidateList";
@@ -17,7 +18,6 @@ import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
 import ReviewCase from "./usct/review-case/ReviewCase";
 import Review from "./usct/review/Review";
 import StartNewConversation from "./usct/start-new-conversation/StartNewConversation";
-import USCT from "./usct/USCT";
 
 Amplify.configure({
   Auth: {
@@ -64,6 +64,7 @@ export const router = createBrowserRouter([
           {
             element: <CaseManagement />,
             path: "case-management",
+            index: true,
           },
           {
             element: <CandidateList />,
