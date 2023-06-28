@@ -346,7 +346,7 @@ export default function ReviewCase() {
                               mb="12px"
                               variant="outline"
                             >
-                              <TagLabel color="black.900">{need}</TagLabel>
+                              <TagLabel color="secondary.1000">{need}</TagLabel>
                             </Tag>
                           );
                         })}

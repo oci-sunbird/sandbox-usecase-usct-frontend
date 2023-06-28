@@ -80,7 +80,7 @@ export default function DIAL() {
         onClick={onToggle}
         h="72px"
         w="72px"
-        backgroundColor="black.900542"
+        backgroundColor="secondary.1000"
         borderWidth="2px"
         borderStyle="solid"
         borderColor="#ffC107"

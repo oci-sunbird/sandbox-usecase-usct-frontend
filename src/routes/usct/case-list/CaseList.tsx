@@ -64,7 +64,7 @@ export default function CaseList() {
           <Flex gap="10px" flexShrink="0" alignItems="center">
             <Flex
               color="white"
-              backgroundColor="black.900"
+              backgroundColor="secondary.1000"
               flexShrink="0"
               alignItems="center"
               justifyContent="center"

@@ -56,7 +56,7 @@ export default function UserForm({
       p={7}
       borderStyle="solid"
       borderWidth="2px"
-      borderColor="black.900"
+      borderColor="secondary.1000"
       backgroundColor={colors.secondary[0]}
     >
       <Formik
@@ -130,7 +130,7 @@ export default function UserForm({
                 </Button>
                 <Button
                   type="submit"
-                  backgroundColor="black.900"
+                  backgroundColor="secondary.1000"
                   color={colors.secondary[0]}
                   isLoading={isSubmitting}
                 >

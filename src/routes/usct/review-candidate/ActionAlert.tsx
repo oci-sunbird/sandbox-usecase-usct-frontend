@@ -18,7 +18,7 @@ export const ActionAlert = ({ state }: { state: string | null }) => {
           justifyContent="center"
           w="64px"
           h="64px"
-          backgroundColor="black.900"
+          backgroundColor="secondary.1000"
           color="white"
           mr="54px"
         >
@@ -54,7 +54,7 @@ export const ActionAlert = ({ state }: { state: string | null }) => {
           justifyContent="center"
           w="64px"
           h="64px"
-          backgroundColor="black.900"
+          backgroundColor="secondary.1000"
           color="white"
           mr="54px"
         >

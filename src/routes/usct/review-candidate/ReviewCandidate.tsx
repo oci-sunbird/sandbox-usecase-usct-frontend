@@ -1,4 +1,4 @@
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -15,47 +15,49 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import { colors } from "../../../chakra-overrides/colors";
-import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
+} from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { colors } from '../../../chakra-overrides/colors';
+import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
-import { ActionAlert } from "./ActionAlert";
-import { householdData } from "./data";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import { ActionAlert } from './ActionAlert';
+import { householdData, historyData } from './data';
+import Timeline from '@ui/Timeline/Timeline';
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
 
 const getSubtitle = (state: string | null) => {
-  if (state === "done") {
+  if (state === 'done') {
     return {
       description: {
-        title: "PHASE 1 - ELIGIBILITY",
-        subtitle: "CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE",
+        title: 'PHASE 1 - ELIGIBILITY',
+        subtitle: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
       },
       progress: 40,
     };
   }
-  if (state === "scheduling") {
+  if (state === 'scheduling') {
     return {
       description: {
-        title: "PHASE 2 - ENROLMENT",
-        subtitle: "CIVIL SERVANT SCHEDULES THE PAYMENTS",
+        title: 'PHASE 2 - ENROLMENT',
+        subtitle: 'CIVIL SERVANT SCHEDULES THE PAYMENTS',
       },
       progress: 60,
     };
   }
   return {
     description: {
-      title: "PHASE 1 - ELIGIBILITY",
-      subtitle: "CIVIL SERVANT REVIEWS THE CANDIDATE",
+      title: 'PHASE 1 - ELIGIBILITY',
+      subtitle: 'CIVIL SERVANT REVIEWS THE CANDIDATE',
     },
     progress: 15,
-    nextStep: "../authorise-citizen",
-    previousStep: "../candidate-list",
+    nextStep: '../authorise-citizen',
+    previousStep: '../candidate-list',
   };
 };
 
@@ -65,11 +67,11 @@ export default function ReviewCandidate() {
   const [citizen] = useState<any>();
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getSubtitle(searchParams.get("state")),
+      ...getSubtitle(searchParams.get('state')),
     });
   }, []);
 
@@ -92,9 +94,9 @@ export default function ReviewCandidate() {
   return (
     <FakeLoader
       label="Changing perspective to civil servant"
-      override={!!searchParams.get("state")}
+      override={!!searchParams.get('state')}
     >
-      <Flex w="100%" direction="column" gap="20px">
+      <Flex w="100%" direction="column" gap="60px">
         <Flex direction="column" gap="20px">
           <Flex justifyContent="space-between">
             <Flex alignItems="center" gap="12px">
@@ -104,7 +106,7 @@ export default function ReviewCandidate() {
               <Tag colorScheme="info">Action Required</Tag>
             </Flex>
           </Flex>
-          <ActionAlert state={searchParams.get("state")} />
+          <ActionAlert state={searchParams.get('state')} />
           <Box>
             <Heading variant="h3" fontSize="18px">
               Personal Information
@@ -147,12 +149,12 @@ export default function ReviewCandidate() {
               <Text fontWeight="600">Date of Birth</Text>
               <Text>
                 {citizen?.dateOfBirth
-                  ? new Date(citizen?.dateOfBirth).toLocaleString("et", {
-                      day: "2-digit",
-                      year: "numeric",
-                      month: "2-digit",
+                  ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
+                      day: '2-digit',
+                      year: 'numeric',
+                      month: '2-digit',
                     })
-                  : ""}
+                  : ''}
               </Text>
             </Box>
           </Grid>
@@ -247,12 +249,6 @@ export default function ReviewCandidate() {
           </Table>
         </Flex>
         <Box>
-          <Heading variant="h3" fontSize="18px">
-            Active Programs
-          </Heading>
-          <Text>None</Text>
-        </Box>
-        <Box>
           <Heading variant="h3" fontSize="18px" mb="20px">
             Bank Account Information
           </Heading>
@@ -271,6 +267,16 @@ export default function ReviewCandidate() {
               </Text>
               <Text>AA02300209000106531065</Text>
             </Box>
+          </Flex>
+        </Box>
+        <Box>
+          <Heading variant="h3" size="sm" mb="20px">
+            Bank Account Information
+          </Heading>
+          <Flex flexDirection="column" gap="20px">
+            {historyData.map((historyItem) => (
+              <Timeline key={historyItem.title} {...historyItem}></Timeline>
+            ))}
           </Flex>
         </Box>
       </Flex>

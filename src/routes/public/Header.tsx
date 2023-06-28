@@ -7,7 +7,7 @@ export default function Header() {
     <Flex
       borderWidth="2px"
       borderStyle="solid"
-      borderColor="black.900"
+      borderColor="secondary.1000"
       padding="16px 24px"
       alignItems="center"
       justifyContent="space-between"
@@ -24,7 +24,7 @@ export default function Header() {
           as={Link}
           to="/sign-in"
           variant="outline"
-          borderColor="black.900"
+          borderColor="secondary.1000"
           borderWidth="2px"
         >
           Login
@@ -32,7 +32,7 @@ export default function Header() {
         <Button
           as={Link}
           to="/sign-up"
-          background="black.900"
+          background="secondary.1000"
           color={colors.secondary[0]}
         >
           Sign Up

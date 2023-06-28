@@ -6,19 +6,24 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { ReactComponent as HatIcon } from "../../../assets/icons/hat.svg";
-import { colors } from "../../../chakra-overrides/colors";
-import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
-import Tooltip from "../../../ui/Tooltip/Tooltip";
+} from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
+import { ReactComponent as PigIcon } from '@assets/icons/pig.svg';
+import { ReactComponent as HeartShakeIcon } from '@assets/icons/heartshake.svg';
+import { ReactComponent as UsersIcon } from '@assets/icons/users.svg';
+import { ReactComponent as GitCompareIcon } from '@assets/icons/git-compare.svg';
+import { colors } from '../../../chakra-overrides/colors';
+import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
+import Tooltip from '../../../ui/Tooltip/Tooltip';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import IconCard from '@ui/IconCard/IconCard';
 
 export default function CaseManagement() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -27,21 +32,21 @@ export default function CaseManagement() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: searchParams.get("done")
-          ? "PHASE 3 - PAYMENT"
-          : "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("done")
-          ? "CIVIL SERVANT REVIEWS BENEFICIARY CASES"
-          : "CIVIL SERVANT CHECKS ONGOING RESPONSIBILITES",
+        title: searchParams.get('done')
+          ? 'PHASE 3 - PAYMENT'
+          : 'PHASE 1 - ELIGIBILITY',
+        subtitle: searchParams.get('done')
+          ? 'CIVIL SERVANT REVIEWS BENEFICIARY CASES'
+          : 'CIVIL SERVANT CHECKS ONGOING RESPONSIBILITES',
       },
-      progress: searchParams.get("done") ? 75 : 5,
+      progress: searchParams.get('done') ? 75 : 5,
       userAuthorized: true,
-      nextStep: "../candidate-list",
-      previousStep: "../case-management",
+      nextStep: '../candidate-list',
+      previousStep: '../case-management',
     });
   }, [searchParams]);
 
@@ -63,7 +68,7 @@ export default function CaseManagement() {
   return (
     <FakeLoader
       label="CHANGING PERSPECTIVE TO CIVIL SERVANT"
-      override={!!searchParams.get("done")}
+      override={!!searchParams.get('done')}
     >
       <Flex gap="60px" mt="60px" direction="column">
         <Box>
@@ -95,7 +100,7 @@ export default function CaseManagement() {
                     flexShrink="0"
                   >
                     <Heading color={colors.secondary[0]}>
-                      {searchParams.get("done") ? 0 : 1}
+                      {searchParams.get('done') ? 0 : 1}
                     </Heading>
                   </Flex>
                   <Flex gap="14px" direction="column">
@@ -129,13 +134,13 @@ export default function CaseManagement() {
                     h="80px"
                     borderRadius="100%"
                     backgroundColor={colors.secondary[0]}
-                    color="black.900"
+                    color="secondary.1000"
                     border="1px solid black"
                     alignItems="center"
                     justifyContent="center"
                     flexShrink="0"
                   >
-                    <Heading>{searchParams.get("done") ? 1 : 0}</Heading>
+                    <Heading>{searchParams.get('done') ? 1 : 0}</Heading>
                   </Flex>
                   <Flex gap="14px" direction="column">
                     <Text>Beneficiary Cases</Text>
@@ -159,8 +164,8 @@ export default function CaseManagement() {
         </Flex>
         <Box position="relative">
           <Tooltip letter="C">
-            <Flex>
-              <Box w="50%">
+            <Flex direction={{ "sm": "column", "xl": "row" }} marginBottom="60px">
+              <Box w="100%" marginBottom={{ "sm": "60px", "xl": 0 }}>
                 <Heading mb="20px">Program Description</Heading>
                 <Text>
                   Unconditional Social Cash Transfer helps families meet their
@@ -171,14 +176,14 @@ export default function CaseManagement() {
                 </Text>
               </Box>
               <Flex
-                w="50%"
-                textAlign="right"
+                w="100%"
+                textAlign={{ "sm": "left", "xl": "right" }}
                 direction="column"
-                alignItems="flex-end"
+                alignItems={{ "sm": "flex-start", "xl": "flex-end" }}
                 gap="20px"
               >
                 <Heading>Benefit Packages</Heading>
-                <Flex gap="20px">
+                <Flex gap="20px" direction={{ "sm": "row-reverse", "xl": "row" }}>
                   <Box>
                     <Text fontWeight="600" fontSize="16px">
                       Monthly Package
@@ -193,10 +198,10 @@ export default function CaseManagement() {
                     borderRadius="8px"
                     border="2px solid black"
                   >
-                    <HatIcon stroke="black" />
+                    <CalendarIcon stroke="black" />
                   </Flex>
                 </Flex>
-                <Flex gap="20px">
+                <Flex gap="20px" direction={{ "sm": "row-reverse", "xl": "row" }}>
                   <Box>
                     <Text fontWeight="600" fontSize="16px">
                       Short-Term Package
@@ -211,10 +216,10 @@ export default function CaseManagement() {
                     borderRadius="8px"
                     border="2px solid black"
                   >
-                    <HatIcon stroke="black" />
+                    <PigIcon stroke="black" />
                   </Flex>
                 </Flex>
-                <Flex gap="20px">
+                <Flex gap="20px" direction={{ "sm": "row-reverse", "xl": "row" }}>
                   <Box>
                     <Text fontWeight="600" fontSize="16px">
                       Special Package
@@ -229,186 +234,13 @@ export default function CaseManagement() {
                     borderRadius="8px"
                     border="2px solid black"
                   >
-                    <HatIcon stroke="black" />
+                    <HeartShakeIcon stroke="black" />
                   </Flex>
                 </Flex>
               </Flex>
             </Flex>
-            <Flex direction="column" gap="20px">
-              <Heading>Program Overview</Heading>
-              <Flex gap="24px">
-                <Flex
-                  w="100%"
-                  border="2px solid black"
-                  borderRadius="8px"
-                  minH="200px"
-                  direction="column"
-                >
-                  <Box h="60px" position="relative" w="100%">
-                    <Flex
-                      position="absolute"
-                      left="0"
-                      top="0"
-                      w="60px"
-                      h="60px"
-                      borderBottomRightRadius="35px"
-                      borderColor="black"
-                      borderBottomWidth="2px"
-                      borderRightWidth="2px"
-                    >
-                      <Box position="relative" left="12px" top="12px">
-                        <HatIcon stroke="black" />
-                      </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent="center"
-                      alignItems="center"
-                      h="100%"
-                      w="100%"
-                      textAlign="center"
-                    >
-                      <Text>Budget</Text>
-                    </Flex>
-                  </Box>
-                  <Flex
-                    alignItems="center"
-                    justifyContent="center"
-                    direction="column"
-                  >
-                    <Heading fontSize="24px">$ 160 324.00</Heading>
-                    <Text>funded until 2023/12</Text>
-                  </Flex>
-                </Flex>
-                <Flex
-                  w="100%"
-                  border="2px solid black"
-                  borderRadius="8px"
-                  minH="200px"
-                  direction="column"
-                >
-                  <Box h="60px" position="relative" w="100%">
-                    <Flex
-                      position="absolute"
-                      left="0"
-                      top="0"
-                      w="60px"
-                      h="60px"
-                      borderBottomRightRadius="35px"
-                      borderColor="black"
-                      borderBottomWidth="2px"
-                      borderRightWidth="2px"
-                    >
-                      <Box position="relative" left="12px" top="12px">
-                        <HatIcon stroke="black" />
-                      </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent="center"
-                      alignItems="center"
-                      h="100%"
-                      w="100%"
-                      textAlign="center"
-                    >
-                      <Text>Budget</Text>
-                    </Flex>
-                  </Box>
-                  <Flex
-                    alignItems="center"
-                    justifyContent="center"
-                    direction="column"
-                  >
-                    <Heading fontSize="24px">$ 160 324.00</Heading>
-                    <Text>funded until 2023/12</Text>
-                  </Flex>
-                </Flex>
-                <Flex
-                  w="100%"
-                  border="2px solid black"
-                  borderRadius="8px"
-                  minH="200px"
-                  direction="column"
-                >
-                  <Box h="60px" position="relative" w="100%">
-                    <Flex
-                      position="absolute"
-                      left="0"
-                      top="0"
-                      w="60px"
-                      h="60px"
-                      borderBottomRightRadius="35px"
-                      borderColor="black"
-                      borderBottomWidth="2px"
-                      borderRightWidth="2px"
-                    >
-                      <Box position="relative" left="12px" top="12px">
-                        <HatIcon stroke="black" />
-                      </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent="center"
-                      alignItems="center"
-                      h="100%"
-                      w="100%"
-                      textAlign="center"
-                    >
-                      <Text>Budget</Text>
-                    </Flex>
-                  </Box>
-                  <Flex
-                    alignItems="center"
-                    justifyContent="center"
-                    direction="column"
-                  >
-                    <Heading fontSize="24px">$ 160 324.00</Heading>
-                    <Text>funded until 2023/12</Text>
-                  </Flex>
-                </Flex>
-                <Flex
-                  w="100%"
-                  border="2px solid black"
-                  borderRadius="8px"
-                  minH="200px"
-                  direction="column"
-                >
-                  <Box h="60px" position="relative" w="100%">
-                    <Flex
-                      position="absolute"
-                      left="0"
-                      top="0"
-                      w="60px"
-                      h="60px"
-                      borderBottomRightRadius="35px"
-                      borderColor="black"
-                      borderBottomWidth="2px"
-                      borderRightWidth="2px"
-                    >
-                      <Box position="relative" left="12px" top="12px">
-                        <HatIcon stroke="black" />
-                      </Box>
-                    </Flex>
-                    <Flex
-                      justifyContent="center"
-                      alignItems="center"
-                      h="100%"
-                      w="100%"
-                      textAlign="center"
-                    >
-                      <Text>Budget</Text>
-                    </Flex>
-                  </Box>
-                  <Flex
-                    alignItems="center"
-                    justifyContent="center"
-                    direction="column"
-                  >
-                    <Heading fontSize="24px">$ 160 324.00</Heading>
-                    <Text>funded until 2023/12</Text>
-                  </Flex>
-                </Flex>
-              </Flex>
-            </Flex>
-            <Flex>
-              <Box w="50%">
+            <Flex gap="60px" direction={{ "sm": "column", "xl": "row" }}>
+              <Box w="100%">
                 <Heading mb="20px">Eligibility Conditions</Heading>
                 <Text>
                   The eligibility criteria for an unconditional cash transfer
@@ -427,74 +259,30 @@ export default function CaseManagement() {
                   </ListItem>
                 </UnorderedList>
               </Box>
-              <Flex
-                w="50%"
-                textAlign="right"
-                direction="column"
-                alignItems="flex-end"
-                gap="20px"
-              >
-                <Heading>Benefit Packages</Heading>
-                <Flex gap="20px">
-                  <Flex
-                    w="57px"
-                    h="57px"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="8px"
-                    border="2px solid black"
+              <Box w="100%">
+                <Heading mb="20px" textAlign={{ "sm": "left", "xl": "right" }}>
+                  Program Overview
+                </Heading>
+                <Flex gap={{ sm: "2px", lg: "24px" }}>
+                  <IconCard
+                    icon={<UsersIcon stroke="black" />}
+                    title="Beneficiaries"
                   >
-                    <HatIcon stroke="black" />
-                  </Flex>
-                  <Flex
-                    w="57px"
-                    h="57px"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="8px"
-                    border="2px solid black"
+                      <Heading fontSize="24px" marginTop="5px">2212</Heading>
+                      <Text marginBottom="5px">Households</Text>
+                      <Heading fontSize="24px">10105</Heading>
+                      <Text>Individuals</Text>
+                  </IconCard>
+                  <IconCard
+                    icon={<GitCompareIcon stroke="black" />}
+                    title="Active Cases"
                   >
-                    <HatIcon stroke="black" />
-                  </Flex>
-                  <Flex
-                    w="57px"
-                    h="57px"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="8px"
-                    border="2px solid black"
-                  >
-                    <HatIcon stroke="black" />
-                  </Flex>
-                  <Flex
-                    w="57px"
-                    h="57px"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="8px"
-                    border="2px solid black"
-                  >
-                    <HatIcon stroke="black" />
-                  </Flex>
-                  <Flex
-                    w="57px"
-                    h="57px"
-                    alignItems="center"
-                    justifyContent="center"
-                    borderRadius="8px"
-                    border="2px solid black"
-                  >
-                    <HatIcon stroke="black" />
-                  </Flex>
+                      <Heading fontSize="36px" marginTop="24px">32</Heading>
+                      <Text>Active Cases</Text>
+                  </IconCard>
                 </Flex>
-                <Box>
-                  <Text>Unemployment Allowance Programs</Text>
-                  <Text>Education Support Programs</Text>
-                  <Text>Social Safety Net Programs</Text>
-                  <Text>Food Support Programs</Text>
-                  <Text>Public Works Programs</Text>
-                </Box>
-              </Flex>
+              </Box>
+              
             </Flex>
           </Tooltip>
         </Box>
