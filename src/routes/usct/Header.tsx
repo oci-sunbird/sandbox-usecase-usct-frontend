@@ -16,7 +16,7 @@ export default function Header(props: HeaderProps) {
       flexShrink="0"
       borderBottom={
         props.userType === EUserType.CITIZEN_SERVANT
-          ? "1px solid black.900"
+          ? "1px solid secondary.1000"
           : ""
       }
       paddingLeft={

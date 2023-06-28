@@ -16,7 +16,7 @@ function Tooltip({
     <Box
       display="contents"
       _after={{
-        content: `"."`,
+        content: `""`,
         border: `5px dashed ${colors.green[400]}`,
         position: "absolute",
         inset: "-8px",

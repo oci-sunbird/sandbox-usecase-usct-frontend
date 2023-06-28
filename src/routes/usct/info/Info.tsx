@@ -76,15 +76,15 @@ export default function Info() {
         </Box>
         <Accordion>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   How does it work?
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -92,15 +92,15 @@ export default function Info() {
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Eligibility and Requirements
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -108,15 +108,15 @@ export default function Info() {
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>
-            <h2>
-              <AccordionButton>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Similar Programs
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris

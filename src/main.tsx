@@ -9,6 +9,7 @@ import { Progress } from "./chakra-overrides/Progress";
 import { Text } from "./chakra-overrides/Text";
 import "./index.css";
 import { router } from "./routes/router";
+import Tabs from "./chakra-overrides/Tabs";
 
 const theme = extendTheme({
   styles: {},
@@ -17,6 +18,7 @@ const theme = extendTheme({
     Heading: Heading,
     Text: Text,
     Progress: Progress,
+    Tabs: Tabs,
   },
 });
 

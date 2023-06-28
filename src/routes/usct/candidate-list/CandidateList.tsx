@@ -1,4 +1,4 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -18,17 +18,17 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { colors } from "../../../chakra-overrides/colors";
-import Tooltip from "../../../ui/Tooltip/Tooltip";
+} from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { colors } from '../../../chakra-overrides/colors';
+import Tooltip from '../../../ui/Tooltip/Tooltip';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 export default function CandidateList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -37,22 +37,22 @@ export default function CandidateList() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
         title:
-          searchParams.get("state") === "enrolled"
-            ? "PHASE 2 - ENROLMENT"
-            : "PHASE 1 - ELIGIBILITY",
+          searchParams.get('state') === 'enrolled'
+            ? 'PHASE 2 - ENROLMENT'
+            : 'PHASE 1 - ELIGIBILITY',
         subtitle:
-          searchParams.get("state") === "enrolled"
-            ? "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES"
-            : "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
+          searchParams.get('state') === 'enrolled'
+            ? 'CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES'
+            : 'CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES',
       },
-      progress: searchParams.get("state") === "enrolled" ? 55 : 10,
-      nextStep: "../review-candidate/2895379235",
-      previousStep: "../case-management",
+      progress: searchParams.get('state') === 'enrolled' ? 55 : 10,
+      nextStep: '../review-candidate/2895379235',
+      previousStep: '../case-management',
     });
   }, []);
 
@@ -80,8 +80,7 @@ export default function CandidateList() {
         <Flex justifyContent="space-between">
           <Flex gap="10px" flexShrink="0" alignItems="center">
             <Flex
-              color="white"
-              backgroundColor="black.900"
+              backgroundColor="secondary.1000"
               flexShrink="0"
               alignItems="center"
               justifyContent="center"
@@ -89,14 +88,16 @@ export default function CandidateList() {
               w="24px"
               h="24px"
             >
-              22
+              <Text color="white" fontWeight="700" fontSize="12">
+                1
+              </Text>
             </Flex>
-            <Text>ASSIGNED CANDIDATES</Text>
+            <Text fontSize="12" color="secondary.700">ASSIGNED CANDIDATES</Text>
           </Flex>
         </Flex>
         <Box position="relative">
           <Tooltip letter="A">
-            <Tabs isFitted variant="enclosed-colored">
+            <Tabs isFitted>
               <TabList>
                 <Tab>Eligibility (1)</Tab>
                 <Tab>Enrollment (1)</Tab>

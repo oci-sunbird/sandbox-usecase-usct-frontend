@@ -22,7 +22,7 @@ export default function Landing() {
         </Text>
         <Flex direction="column" gap="16px" alignItems="center">
           <Button
-            backgroundColor="black.900"
+            backgroundColor="secondary.1000"
             color={colors.secondary[0]}
             as={Link}
             to="/sign-up"
