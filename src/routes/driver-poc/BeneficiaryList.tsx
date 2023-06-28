@@ -1,10 +1,6 @@
 import {
-  Box,
   Button,
-  ButtonGroup,
-  Center,
   Checkbox,
-  CircularProgress,
   Flex,
   Heading,
   Spinner,
@@ -16,169 +12,139 @@ import {
   Th,
   Thead,
   Tr,
-  VStack,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
-import RPC from "./rpc";
-import { DriverPOC } from "./types";
+import { RPCContext } from "./rpc";
 
 export default function BeneficiaryList() {
-  const rpc = new RPC({});
+  const rpc = useContext(RPCContext);
   const navigate = useNavigate();
-  const [beneficiaries, setBeneficiaries] = useState<DriverPOC.Candidate[]>();
-  const [checkedCandidates, setCheckedCandidates] = useState<
-    DriverPOC.Candidate[]
-  >([]);
   const [isValidating, setIsValidating] = useState(false);
-  const [validatedBeneficiaries, setValidatedBeneficiaries] = useState<
-    DriverPOC.Candidate[]
-  >([]);
-  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
-  const [isPaymentProcessed, setIsPaymentProcessed] = useState(false);
+  const [checkedBeneficiaries, setCheckedBeneficiaries] = useState<number[]>(
+    []
+  );
 
-  const handleChecked = (candidateToAdd: DriverPOC.Candidate) => {
-    if (
-      checkedCandidates?.some((candidate) => candidate.id === candidateToAdd.id)
-    ) {
-      setCheckedCandidates(
-        checkedCandidates.filter(
-          (candidate) => candidate.id !== candidateToAdd.id
-        )
+  const { data: beneficiaries } = useQuery(
+    `beneficiaries`,
+    rpc.getBeneficiariesList
+  );
+
+  const handleCheck = (id: number) => {
+    if (checkedBeneficiaries.includes(id)) {
+      setCheckedBeneficiaries(
+        [...checkedBeneficiaries].filter((b) => b !== id)
       );
     } else {
-      setCheckedCandidates([...checkedCandidates, candidateToAdd]);
+      setCheckedBeneficiaries([...checkedBeneficiaries, id]);
     }
   };
 
-  useEffect(() => {
-    rpc.getBeneficiariesList(setBeneficiaries);
-  }, []);
+  const handleOrderPayment = () => {};
 
-  const handleOrderPayment = () => {
-    if (!checkedCandidates?.length) {
-      return;
-    }
-    setIsValidating(true);
-    rpc.validateBeneficiaries(checkedCandidates, setValidatedBeneficiaries);
-  };
+  // if (isPaymentProcessed) {
+  //   return (
+  //     <Center display="flex" margin="auto">
+  //       <VStack maxW="640px" gap="40px">
+  //         <Heading size="md" mb="20px">
+  //           Thank you! Payment Order received.
+  //         </Heading>
+  //         <Box>
+  //           <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
+  //             Home
+  //           </Button>
+  //           <ButtonGroup
+  //             maxW="380px"
+  //             w="100%"
+  //             colorScheme="admin"
+  //             variant="outline"
+  //             gap="20px"
+  //           >
+  //             <Button as={Link} to="/driver-poc" w="100%">
+  //               Candidate List
+  //             </Button>
+  //             {/* <Button onClick={() => handleReset()} w="100%">
+  //               Beneficiary List
+  //             </Button> */}
+  //           </ButtonGroup>
+  //         </Box>
+  //       </VStack>
+  //     </Center>
+  //   );
+  // }
 
-  const handleConfirmPayment = () => {
-    setIsPaymentProcessing(true);
-    rpc.executePayments(validatedBeneficiaries, setIsPaymentProcessed);
-  };
+  // if (isPaymentProcessing) {
+  //   return (
+  //     <Center display="flex" margin="auto">
+  //       <VStack gap="40px">
+  //         <CircularProgress isIndeterminate size={100} mb="40px" />
+  //         <Heading mb="20px">Receiving Payment Order!</Heading>
+  //         <Text>Please wait! This process might take some time.</Text>
+  //       </VStack>
+  //     </Center>
+  //   );
+  // }
 
-  const handleReset = () => {
-    setIsValidating(false);
-    setCheckedCandidates([]);
-    setIsPaymentProcessed(false);
-    setIsPaymentProcessing(false);
-    setValidatedBeneficiaries([]);
-    rpc.getBeneficiariesList(setBeneficiaries);
-  };
-
-  if (isPaymentProcessed) {
-    return (
-      <Center display="flex" margin="auto">
-        <VStack maxW="640px" gap="40px">
-          <Heading size="md" mb="20px">
-            Thank you! Payment Order received.
-          </Heading>
-          <Box>
-            <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
-              Home
-            </Button>
-            <ButtonGroup
-              maxW="380px"
-              w="100%"
-              colorScheme="admin"
-              variant="outline"
-              gap="20px"
-            >
-              <Button as={Link} to="/driver-poc" w="100%">
-                Candidate List
-              </Button>
-              <Button onClick={() => handleReset()} w="100%">
-                Beneficiary List
-              </Button>
-            </ButtonGroup>
-          </Box>
-        </VStack>
-      </Center>
-    );
-  }
-
-  if (isPaymentProcessing) {
-    return (
-      <Center display="flex" margin="auto">
-        <VStack gap="40px">
-          <CircularProgress isIndeterminate size={100} mb="40px" />
-          <Heading mb="20px">Receiving Payment Order!</Heading>
-          <Text>Please wait! This process might take some time.</Text>
-        </VStack>
-      </Center>
-    );
-  }
-
-  if (validatedBeneficiaries.length) {
-    return (
-      <Flex direction="column" gap="60px">
-        <Heading>Confirmation</Heading>
-        <Text>
-          Please confirm that the payment order will be sent for the candidates
-          listed below.
-        </Text>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Name</Th>
-              <Th>National ID</Th>
-              <Th>Benefit Package</Th>
-              <Th>Payment Due Date Approximation</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {validatedBeneficiaries.map((vb) => {
-              return (
-                <Tr key={vb.id}>
-                  <Td>
-                    <Text>{`${vb.firstName} ${vb.lastName}`}</Text>
-                  </Td>
-                  <Td>
-                    <Text>{vb.idCode}</Text>
-                  </Td>
-                  <Td>
-                    <Text>{vb.benefitPackage.id}</Text>
-                  </Td>
-                  <Td>
-                    <Text>{vb.dateOfPayment}</Text>
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-        <Flex justifyContent="flex-end">
-          <ButtonGroup colorScheme="admin" gap="20px">
-            <Button
-              onClick={() => {
-                setIsValidating(false);
-                setValidatedBeneficiaries([]);
-              }}
-              w="180px"
-              variant="outline"
-            >
-              Cancel
-            </Button>
-            <Button onClick={() => handleConfirmPayment()} w="180px">
-              Confirm
-            </Button>
-          </ButtonGroup>
-        </Flex>
-      </Flex>
-    );
-  }
+  // if (validatedBeneficiaries.length) {
+  //   return (
+  //     <Flex direction="column" gap="60px">
+  //       <Heading>Confirmation</Heading>
+  //       <Text>
+  //         Please confirm that the payment order will be sent for the candidates
+  //         listed below.
+  //       </Text>
+  //       {/* <Table>
+  //         <Thead>
+  //           <Tr>
+  //             <Th>Name</Th>
+  //             <Th>National ID</Th>
+  //             <Th>Benefit Package</Th>
+  //             <Th>Payment Due Date Approximation</Th>
+  //           </Tr>
+  //         </Thead>
+  //         <Tbody>
+  //           {validatedBeneficiaries.map((vb) => {
+  //             return (
+  //               <Tr key={vb.id}>
+  //                 <Td>
+  //                   <Text>{`${vb.firstName} ${vb.lastName}`}</Text>
+  //                 </Td>
+  //                 <Td>
+  //                   <Text>{vb.idCode}</Text>
+  //                 </Td>
+  //                 <Td>
+  //                   <Text>{vb.benefitPackage.id}</Text>
+  //                 </Td>
+  //                 <Td>
+  //                   <Text>{vb.dateOfPayment}</Text>
+  //                 </Td>
+  //               </Tr>
+  //             );
+  //           })}
+  //         </Tbody>
+  //       </Table> */}
+  //       <Flex justifyContent="flex-end">
+  //         <ButtonGroup colorScheme="admin" gap="20px">
+  //           <Button
+  //             onClick={() => {
+  //               setIsValidating(false);
+  //               setValidatedBeneficiaries([]);
+  //             }}
+  //             w="180px"
+  //             variant="outline"
+  //           >
+  //             Cancel
+  //           </Button>
+  //           {/* <Button onClick={() => handleConfirmPayment()} w="180px">
+  //             Confirm
+  //           </Button> */}
+  //         </ButtonGroup>
+  //       </Flex>
+  //     </Flex>
+  //   );
+  // }
 
   return (
     <>
@@ -230,21 +196,20 @@ export default function BeneficiaryList() {
             <Tr
               key={beneficiary.id}
               _hover={{
-                cursor: "pointer",
                 background: colors.secondary[100],
               }}
-              onClick={() => handleChecked(beneficiary)}
             >
               <Td>
                 <Checkbox
                   size="lg"
-                  isChecked={checkedCandidates.some(
-                    (b) => beneficiary.id === b.id
+                  isChecked={checkedBeneficiaries.some(
+                    (b) => beneficiary.id === b
                   )}
+                  onChange={() => handleCheck(beneficiary.id)}
                 />
               </Td>
               <Td>
-                <Text>{`${beneficiary.firstName} ${beneficiary.lastName}`}</Text>
+                <Text>{`${beneficiary.person.firstName} ${beneficiary.person.lastName}`}</Text>
               </Td>
               <Td>
                 <Tag
@@ -253,7 +218,7 @@ export default function BeneficiaryList() {
                   backgroundColor={colors.secondary[800]}
                   w="140px"
                 >
-                  {beneficiary.benefitPackage.id}
+                  {beneficiary.enrolledPackage.name}
                 </Tag>
               </Td>
               <Td>
@@ -262,8 +227,9 @@ export default function BeneficiaryList() {
                   color={colors.secondary[0]}
                   backgroundColor={colors.secondary[800]}
                   w="140px"
+                  textAlign="center"
                 >
-                  {beneficiary.benefitPackage.status}
+                  {beneficiary.paymentStatus}
                 </Tag>
               </Td>
               <Td></Td>

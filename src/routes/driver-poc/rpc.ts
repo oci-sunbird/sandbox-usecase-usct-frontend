@@ -1,213 +1,37 @@
+import { createContext } from "react";
+import RPCProviderFactory from "./RPCProviderFactory";
 import { DriverPOC } from "./types";
 
-const mockHouseholdDate = [
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-  },
-  {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-  },
-];
-
-const mockCandidateList: DriverPOC.Candidate[] = [
-  {
-    id: "1",
-    firstName: "Guy",
-    lastName: "Man",
-    eligiblePackages: [1, 2, 4],
-    idCode: "111-111-111-111a",
-    dateOfBirth: "1994-03-10",
-    household: mockHouseholdDate,
-    benefitPackage: {
-      id: 1,
-      status: "ACTION_REQUIRED",
-    },
-  },
-  {
-    id: "2",
-    firstName: "Other",
-    lastName: "Guy",
-    eligiblePackages: [],
-    idCode: "222-222-222-222b",
-    dateOfBirth: "1994-03-10",
-    household: mockHouseholdDate,
-    benefitPackage: {
-      id: 2,
-      status: "ACTION_REQUIRED",
-    },
-  },
-  {
-    id: "3",
-    firstName: "Another",
-    lastName: "Person",
-    eligiblePackages: [3],
-    idCode: "333-333-333-333c",
-    dateOfBirth: "1994-03-10",
-    household: mockHouseholdDate,
-    benefitPackage: {
-      id: 1,
-      status: "ACTION_REQUIRED",
-    },
-  },
-];
-
-const mockPackages: DriverPOC.Package[] = [
-  {
-    id: 1,
-    name: "Universal Basic Income (UBI)",
-    description:
-      "Providing a fixed cash transfer to all eligible individuals, regardless of income, for a minimum standard of living.",
-  },
-  {
-    id: 2,
-    name: "Targeted Poverty Alleviation (TPA)",
-    description:
-      "Offering additional financial assistance to those living below the poverty line to alleviate poverty effectively",
-  },
-  {
-    id: 3,
-    name: "Social Pension",
-    description:
-      "Ensuring economic security during retirement by providing regular cash transfers to elderly citizens.",
-  },
-  {
-    id: 4,
-    name: "Child and Family Support (CFS)",
-    description:
-      "Providing financial assistance to families with children to improve child well-being and reduce child poverty.",
-  },
-];
-
 export default class RPC {
-  private readonly apiEndpoint: string;
-  constructor({ apiEndpoint = import.meta.env.VITE_API_ENDPOINT as string }) {
-    this.apiEndpoint = apiEndpoint;
-  }
-  async getCandidateList(callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/candidates`).then(
-      async (res) => {
-        callback && callback(await res.json());
-      },
-      async (err) => {
-        callback(mockCandidateList);
-      }
-    );
-    return request;
-  }
-  async getPackages(callback?: Function) {
-    const request = fetch(`${this.apiEndpoint}/packages`, {
-      mode: 'cors',
-      headers: {
-          'Content-Type': 'application/json',
-      }
-    }).then(
-      async (res) => {
-          // callback && callback(mockPackages);
-        callback && callback(await res.json());
-      },
-      async (err) => {
-        callback && callback(mockPackages);
-      }
-    );
-    return request;
-  }
-  async getCandidateInfo(id: string, callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/user/${id}`).then(
-      async (res) => {
-        callback(mockCandidateList.find((candidate) => candidate.id === id));
-      },
-      async (err) => {
-        callback(mockCandidateList.find((candidate) => candidate.id === id));
-      }
-    );
-    return request;
-  }
-  async enrollCandidate(
-    candidateId: string,
-    packageId: string,
-    callback: Function
-  ) {
-    const request = fetch(`${this.apiEndpoint}/candidate/enroll`).then(
-      async (res) =>
-        // callback(await res.json())
-        setTimeout(() => {
-          callback(true);
-        }, 1500),
-      async (err) => {
-        callback(true);
-      }
-    );
-    return request;
-  }
-  async getBeneficiariesList(callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/beneficaries`).then(
-      async (res) =>
-        // callback(await res.json())
-        callback(mockCandidateList),
-      async (err) => callback(mockCandidateList)
-    );
-    return request;
-  }
-  async validateBeneficiaries(
-    candidates: DriverPOC.Candidate[],
-    callback: Function
-  ) {
-    const request = fetch(`${this.apiEndpoint}/beneficaries/validate`).then(
-      async (res) =>
-        // callback(await res.json())
-        setTimeout(() => {
-          callback(
-            candidates.map((c) => {
-              return {
-                ...c,
-                dateOfPayment: new Date(Date.now()).toISOString(),
-              };
-            })
-          );
-        }, 1500),
-      async (err) =>
-        // callback(await res.json())
-        setTimeout(() => {
-          callback(
-            candidates.map((c) => {
-              return {
-                ...c,
-                dateOfPayment: new Date(Date.now()).toISOString(),
-              };
-            })
-          );
-        }, 1500)
-    );
-    return request;
-  }
-  async executePayments(candidates: DriverPOC.Candidate[], callback: Function) {
-    const request = fetch(`${this.apiEndpoint}/payments/execute`).then(
-      async (res) => setTimeout(() => callback(true), 1500),
-      async (err) => setTimeout(() => callback(true), 1500)
-
-    );
-    return request;
-  }
+  RPCProviderFactory: RPCProviderFactory = new RPCProviderFactory();
+  getCandidateList = () => {
+    return this.RPCProviderFactory.getProvider(
+      "getCandidateList"
+    ).getCandidateList();
+  };
+  getPackages = () => {
+    return this.RPCProviderFactory.getProvider("getPackages").getPackages();
+  };
+  getCandidateInfo = (id: number) => {
+    return this.RPCProviderFactory.getProvider(
+      "getCandidateInfo"
+    ).getCandidateInfo(id);
+  };
+  enrollCandidate = (
+    person: DriverPOC.Person,
+    selectedPackage: DriverPOC.Package
+  ) => {
+    return this.RPCProviderFactory.getProvider(
+      "enrollCandidate"
+    ).enrollCandidate(person, selectedPackage);
+  };
+  getBeneficiariesList = () => {
+    return this.RPCProviderFactory.getProvider(
+      "getBeneficiariesList"
+    ).getBeneficiariesList();
+  };
+  validateBeneficiaries = () => {};
+  executePayments = () => {};
 }
+
+export const RPCContext = createContext(new RPC());

@@ -12,21 +12,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
-import RPC from "./rpc";
-import { DriverPOC } from "./types";
+import { RPCContext } from "./rpc";
 
 export default function CandidatesList() {
-  const rpc = new RPC({});
+  const rpc = useContext(RPCContext);
   const navigate = useNavigate();
-  const [candidates, setCandidates] = useState<DriverPOC.Candidate[]>();
-
-  useEffect(() => {
-    rpc.getCandidateList(setCandidates);
-  }, []);
-
+  const { data: candidates, isLoading } = useQuery(
+    "candidates",
+    rpc.getCandidateList
+  );
   return (
     <>
       <Heading mb="40px">Candidate List</Heading>
@@ -67,7 +65,7 @@ export default function CandidatesList() {
           </Tr>
         </Thead>
         <Tbody>
-          {!candidates && (
+          {isLoading && (
             <Tr>
               <Td colSpan={4}>
                 <Flex justifyContent="center" alignItems="center" w="100%">
@@ -87,24 +85,24 @@ export default function CandidatesList() {
             >
               <Td>{index + 1}</Td>
               <Td>
-                <Text>{`${candidate.firstName} ${candidate.lastName}`}</Text>
+                <Text>{`${candidate.person.firstName} ${candidate.person.lastName}`}</Text>
               </Td>
               <Td>
-                <Text>{candidate.idCode}</Text>
+                <Text>{candidate.person.foundationalId}</Text>
               </Td>
               <Td>
-                {candidate.eligiblePackages?.length > 0 ? (
+                {candidate.packages?.length > 0 ? (
                   <HStack gap="10px">
-                    {candidate?.eligiblePackages.map((p) => {
+                    {candidate?.packages.map((p) => {
                       return (
                         <Tag
                           justifyContent="center"
                           color={colors.secondary[0]}
                           backgroundColor={colors.secondary[800]}
                           w="140px"
-                          key={p}
+                          key={p.id}
                         >
-                          {p}
+                          {p.name}
                         </Tag>
                       );
                     })}
