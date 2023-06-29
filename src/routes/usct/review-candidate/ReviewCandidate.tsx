@@ -29,7 +29,7 @@ import { BUILDING_BLOCK } from '../utils';
 import { ActionAlert } from './ActionAlert';
 import { householdData, historyData } from './data';
 import Timeline from '@ui/Timeline/Timeline';
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+
 
 const getSubtitle = (state: string | null) => {
   if (state === 'done') {

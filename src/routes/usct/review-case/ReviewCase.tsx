@@ -5,6 +5,9 @@ import {
   Flex,
   Grid,
   Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
   Select,
   SimpleGrid,
   Tab,
@@ -21,90 +24,110 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
-import TextEditor from "../../../ui/TextEditor/TextEditor";
-import BankInformation from "../personal/BankInformation";
+} from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import ChatMessage from '../../../ui/ChatMessage/ChatMessage';
+import TextEditor from '../../../ui/TextEditor/TextEditor';
+import BankInformation from '../personal/BankInformation';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import Timeline from '@ui/Timeline/Timeline';
+import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
+import { ReactComponent as ChatIcon } from '@assets/icons/chat.svg';
+import { ReactComponent as ArrowIcon } from '@assets/icons/chevron-right.svg';
+import Alert from '@ui/Alert/Alert';
 
 const householdData = [
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
     needs: [],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Hearing Support", "Special Support"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Hearing Support', 'Special Support'],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Child Care", "Financial Security"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Child Care', 'Financial Security'],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Food", "Health Care", "Education"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Food', 'Health Care', 'Education'],
   },
 ];
 
 const conversation = [
   {
-    id: "hdfhdrf5",
+    id: 'hdfhdrf5',
     timestamp: 1678891185842,
-    content: "hello i need cash quick",
-    user: "Shady Man",
+    content: 'hello i need cash quick',
+    user: 'Shady Man',
   },
   {
-    id: "sy43y3s45s35",
+    id: 'sy43y3s45s35',
     timestamp: 1678891285842,
-    content: "im sorry, get a better job?",
-    user: "GovStack Person",
+    content: 'im sorry, get a better job?',
+    user: 'GovStack Person',
   },
   {
-    id: "1h3g13f13f",
+    id: '1h3g13f13f',
     timestamp: 1678891385842,
-    content: "i want to talk to your manager",
-    user: "Shady Man",
+    content: 'i want to talk to your manager',
+    user: 'Shady Man',
   },
   {
-    id: "srtsrts315135",
+    id: 'srtsrts315135',
     timestamp: 1678891485842,
-    content: "hello i am the manager",
-    user: "GovStack Person",
+    content: 'hello i am the manager',
+    user: 'GovStack Person',
   },
   {
-    id: "13gg131e13e",
+    id: '13gg131e13e',
     timestamp: 1678891585842,
-    content: "i want money",
-    user: "Shady Man",
+    content: 'i want money',
+    user: 'Shady Man',
   },
   {
-    id: "1351035askpdk",
+    id: '1351035askpdk',
     timestamp: 1678891685842,
-    content: "no",
-    user: "GovStack Person",
+    content: 'no',
+    user: 'GovStack Person',
+  },
+];
+
+const caseHistoryEvents = [
+  {
+    name: 'Case opened',
+    date: '23.04.2017',
+    info: '#97654321',
+    completed: true,
+  },
+  {
+    name: 'Informing the Beneficary',
+    date: '23.04.2017',
+    info: '#97654321',
+    completed: true,
   },
 ];
 
@@ -115,12 +138,12 @@ export default function ReviewCase() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 3 - PAYMENT",
-        subtitle: "CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION",
+        title: 'PHASE 3 - PAYMENT',
+        subtitle: 'CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION',
       },
       progress: 85,
       userAuthorized: true,
@@ -185,77 +208,26 @@ export default function ReviewCase() {
           the beneficiary selected. Please control beneficiaries message before
           using these actions.
         </Text>
-        <Flex gap="20px">
-          <Flex
-            border="2px solid black"
-            borderRadius="8px"
-            alignItems="center"
-            gap="20px"
-            p="20px"
-          >
-            <Flex
-              w="64px"
-              h="64px"
-              backgroundColor="black"
-              color="white"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink="0"
-              borderRadius="100%"
-            >
-              1
+        <Alert
+          icon={<ChatIcon />}
+          content={
+            <Text>
+              Automatic information to the payment provider <br/> regarding payment
+              not received.
+            </Text>
+          }
+          actions={
+            <Flex direction="column" gap="12px">
+              <InputGroup color="secondary.600">
+                <InputLeftElement>
+                  <ArrowIcon />
+                </InputLeftElement>
+                <Input placeholder="#37 - Package Information" />
+              </InputGroup>
+              <Button colorScheme="admin">Send Message</Button>
             </Flex>
-            {!isInformed ? (
-              <>
-                <Text>
-                  Automatic information to the payment provider regarding
-                  payment not received.
-                </Text>
-                <Button
-                  flexShrink="0"
-                  colorScheme="admin"
-                  onClick={() => setIsInformed(true)}
-                >
-                  Inform the Payment Provider
-                </Button>
-              </>
-            ) : null}
-          </Flex>
-          <Flex
-            border="2px solid black"
-            borderRadius="8px"
-            alignItems="center"
-            p="20px"
-            gap="20px"
-          >
-            <Flex
-              w="64px"
-              h="64px"
-              backgroundColor="black"
-              color="white"
-              alignItems="center"
-              justifyContent="center"
-              flexShrink="0"
-              borderRadius="100%"
-            >
-              2
-            </Flex>
-            {isInformed ? (
-              <>
-                <Text>Please inform the beneficiary regarding the status.</Text>
-                <Button
-                  flexShrink="0"
-                  colorScheme="admin"
-                  as={Link}
-                  to="../conversation/19036813"
-                  onClick={() => setIsInformed(true)}
-                >
-                  Quick Respond to Beneficiary
-                </Button>
-              </>
-            ) : null}
-          </Flex>
-        </Flex>
+          }
+        ></Alert>
       </Flex>
       <Flex
         backgroundColor="#fafafa"
@@ -271,7 +243,7 @@ export default function ReviewCase() {
           <TabList>
             <Tab>Conversation</Tab>
             <Tab>Beneficiary Info</Tab>
-            <Tab>Direct the Case</Tab>
+            {/* <Tab>Direct the Case</Tab> */}
           </TabList>
           <TabPanels>
             <TabPanel pl="0" pr="0" pt="20px">
@@ -319,14 +291,14 @@ export default function ReviewCase() {
                     <Text>
                       {citizen?.dateOfBirth
                         ? new Date(citizen?.dateOfBirth).toLocaleDateString(
-                            "et",
+                            'et',
                             {
-                              day: "2-digit",
-                              year: "numeric",
-                              month: "2-digit",
+                              day: '2-digit',
+                              year: 'numeric',
+                              month: '2-digit',
                             }
                           )
-                        : ""}
+                        : ''}
                     </Text>
                   </Box>
                 </Grid>
@@ -356,36 +328,22 @@ export default function ReviewCase() {
                     <Heading variant="h3" fontSize="18px">
                       Assigned Benefit Package
                     </Heading>
-                    <Text>
-                      Additional information required to decide eligibility and
-                      recommend benefit packages
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Flex>
-            </TabPanel>
-            <TabPanel padding="0" pt="20px">
-              <Flex gap="20px" direction="column">
-                <Text>Please explain the reason of directing the case:</Text>
-                <Flex gap="20px">
-                  <Box
-                    w="60%"
-                    h="112px"
-                    backgroundColor="white"
-                    border="2px solid black"
-                    borderRadius="8px"
-                  ></Box>
-                  <Flex direction="column" flexGrow="1" gap="20px">
-                    <Select w="100%">
-                      <option>Option</option>
-                      <option>Option</option>
-                      <option>Option</option>
-                      <option>Option</option>
-                      <option>Option</option>
-                    </Select>
-                    <Button w="min-content" alignSelf="flex-end">
-                      Direct the Case
-                    </Button>
+                    <Flex gap="20px">
+                      <Flex
+                        h="56px"
+                        w="56px"
+                        alignItems="center"
+                        justifyContent="center"
+                        borderRadius="8px"
+                        border="2px solid var(--chakra-colors-secondary-1000)"
+                      >
+                        <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
+                      </Flex>
+                      <Text>
+                        Monthly Package <br /> Monthly Cash help for families in
+                        need.
+                      </Text>
+                    </Flex>
                   </Flex>
                 </Flex>
               </Flex>
@@ -418,7 +376,17 @@ export default function ReviewCase() {
           </Tbody>
         </Table>
       </Flex>
-      <BankInformation />
+      <Box mb="60px">
+        <BankInformation />
+      </Box>
+      <Heading size="sm" mb="20px">
+        Case History
+      </Heading>
+      <Timeline
+        icon={<></>}
+        title="Case opened"
+        events={caseHistoryEvents}
+      ></Timeline>
     </Flex>
   );
 }
