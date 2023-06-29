@@ -1,7 +1,11 @@
 import {
+  Box,
   Button,
   Checkbox,
+  Collapse,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   Icon,
   Radio,
@@ -13,28 +17,36 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+} from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
+import { ReactComponent as CreditCardIcon } from '@assets/icons/credit-card.svg';
+import { ReactComponent as MobilePaymentIcon } from '@assets/icons/mobile-payment.svg';
+import { ReactComponent as HashIcon } from '@assets/icons/hash.svg';
+import { ReactComponent as WalletIcon } from '@assets/icons/wallet.svg';
+import radioCheck from '@assets/icons/radio-check.svg';
 
 export default function Enrolment() {
   const { state, dispatch } = useContext(SimulationContext);
 
+  const [paymentMethodSelected, setPaymentMethodSelected] = useState(false);
+
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 2 - ENROLMENT",
+        title: 'PHASE 2 - ENROLMENT',
         subtitle:
-          "CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT",
+          'CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT',
       },
       progress: 50,
       userAuthorized: true,
@@ -82,9 +94,13 @@ export default function Enrolment() {
             flexShrink="0"
             w="64px"
             h="64px"
-            border="2px dotted black"
+            border="2px dashed var(--chakra-colors-secondary-1000)"
           >
-            <Icon w="28px" h="28px" />
+            <BanknoteIcon
+              width="34px"
+              height="34px"
+              color="var(--chakra-colors-secondary-1000)"
+            />
           </Flex>
           <Flex direction="column" gap="8px">
             <Heading fontSize="16px">Monthly cash</Heading>
@@ -101,9 +117,13 @@ export default function Enrolment() {
             flexShrink="0"
             w="64px"
             h="64px"
-            border="2px dotted black"
+            border="2px dashed var(--chakra-colors-secondary-1000)"
           >
-            <Icon w="28px" h="28px" />
+            <BanknoteIcon
+              width="34px"
+              height="34px"
+              color="var(--chakra-colors-secondary-1000)"
+            />
           </Flex>
           <Flex direction="column" gap="4px">
             <Heading fontSize="16px">Career assessment</Heading>
@@ -138,28 +158,69 @@ export default function Enrolment() {
           Please select your payment method to enroll into the program.
         </Text>
         <Flex direction="column" gap="12px">
-          <Flex
+          <Box
             borderRadius="8px"
-            border="2px solid lightgray"
-            p="26px 29px"
-            gap="20px"
-            alignItems="center"
+            border={`2px solid ${
+              paymentMethodSelected
+                ? 'var(--chakra-colors-secondary-1000)'
+                : 'lightgray'
+            }`}
           >
-            <Icon w="34px" h="34px" flexShrink="0" />
-            <Flex direction="column" gap="8px">
-              <Heading fontSize="16px">Bank Payment</Heading>
-              <Text>Direct cash transfer to your bank account.</Text>
+            <Flex p="32px 24px" gap="20px" alignItems="center">
+              <CreditCardIcon />
+              <Flex direction="column" gap="8px">
+                <Heading fontSize="16px">Bank Payment</Heading>
+                <Text>Direct cash transfer to your bank account.</Text>
+              </Flex>
+              <Radio
+                size="lg"
+                ml="auto"
+                borderColor="secondary.1000"
+                _checked={{
+                  background: 'black',
+                  content: `url(${radioCheck})`,
+                }}
+                onChange={() => setPaymentMethodSelected(true)}
+              />
             </Flex>
-            <Radio size="lg" ml="auto" />
-          </Flex>
+            <Collapse in={paymentMethodSelected}>
+              <Box px="24px" pb="20px">
+                <Text mb="16px">
+                  With this method, the arranged amount will be transferred
+                  directly to your bank account at the designated time for each
+                  month.
+                </Text>
+                <Text mb="24px">
+                  Please review your bank account information:
+                </Text>
+                <Grid marginBottom="24px" gap="12px" templateColumns={{ sm: "1fr", xl: "1fr 1fr" }}>
+                  <GridItem>
+                    <Text size="sm" fontWeight="bold">Bank Account Owner Name</Text>
+                    <Text size="sm">Thomas Anderson</Text>
+                  </GridItem>
+                  <GridItem>
+                    <Text size="sm" fontWeight="bold">International Bank Account Number (IBAN)</Text>
+                    <Text size="sm">AA02300209000106531065</Text>
+                  </GridItem>
+                  <GridItem>
+                    <Text size="sm" fontWeight="bold">Bank Name</Text>
+                    <Text size="sm">Sunshine Bank</Text>
+                  </GridItem>
+                </Grid>
+                <Text align="right" textDecorationLine="underline" color="secondary.500">Change Account</Text>
+              </Box>
+            </Collapse>
+          </Box>
+
           <Flex
             borderRadius="8px"
             border="2px solid lightgray"
             p="26px 29px"
             gap="20px"
             alignItems="center"
+            color="secondary.600"
           >
-            <Icon w="34px" h="34px" flexShrink="0" />
+            <MobilePaymentIcon />
             <Flex direction="column" gap="8px">
               <Heading fontSize="16px">Mobile Money</Heading>
               <Text>Direct cash transfer to mobile money account.</Text>
@@ -172,8 +233,9 @@ export default function Enrolment() {
             p="26px 29px"
             gap="20px"
             alignItems="center"
+            color="secondary.600"
           >
-            <Icon w="34px" h="34px" flexShrink="0" />
+            <HashIcon />
             <Flex direction="column" gap="8px">
               <Heading fontSize="16px">Cash Payment</Heading>
               <Text>Direct cash transfer to your bank account.</Text>
@@ -186,8 +248,9 @@ export default function Enrolment() {
             p="26px 29px"
             gap="20px"
             alignItems="center"
+            color="secondary.600"
           >
-            <Icon w="34px" h="34px" flexShrink="0" />
+            <WalletIcon />
             <Flex direction="column" gap="8px">
               <Heading fontSize="16px">Bank Payment</Heading>
               <Text>Direct cash transfer to your bank account.</Text>
