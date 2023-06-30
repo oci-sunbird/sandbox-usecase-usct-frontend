@@ -7,6 +7,7 @@ import {
   Heading,
   Tab,
   Table,
+  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
@@ -92,7 +93,9 @@ export default function CandidateList() {
                 1
               </Text>
             </Flex>
-            <Text fontSize="12" color="secondary.700">ASSIGNED CANDIDATES</Text>
+            <Text fontSize="12" color="secondary.700">
+              ASSIGNED CANDIDATES
+            </Text>
           </Flex>
         </Flex>
         <Box position="relative">
@@ -106,35 +109,38 @@ export default function CandidateList() {
               <TabPanels>
                 <TabPanel padding="0">
                   <Flex direction="column" gap="20px">
-                    <Table variant="simple">
-                      <Thead
-                        backgroundColor={colors.secondary[800]}
-                        color={colors.secondary[0]}
-                      >
-                        <Tr>
-                          <Th color={colors.secondary[0]}>Social ID</Th>
-                          <Th color={colors.secondary[0]}>Household Size</Th>
-                          <Th color={colors.secondary[0]}>Needs</Th>
-                          <Th color={colors.secondary[0]}>Latest Update</Th>
-                          <Th color={colors.secondary[0]}>Status</Th>
-                          <Th></Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        <Tr>
-                          <Td>37793946215</Td>
-                          <Td>5</Td>
-                          <Td>High Priority</Td>
-                          <Td>Yesterday</Td>
-                          <Td>Action Required</Td>
-                          <Td>
-                            <Button colorScheme="black" variant="ghost">
-                              ...
-                            </Button>
-                          </Td>
-                        </Tr>
-                      </Tbody>
-                    </Table>
+                    <TableContainer>
+                      <Table variant="simple">
+                        <Thead
+                          backgroundColor={colors.secondary[800]}
+                          color={colors.secondary[0]}
+                        >
+                          <Tr>
+                            <Th color={colors.secondary[0]}>Social ID</Th>
+                            <Th color={colors.secondary[0]}>Household Size</Th>
+                            <Th color={colors.secondary[0]}>Needs</Th>
+                            <Th color={colors.secondary[0]}>Latest Update</Th>
+                            <Th color={colors.secondary[0]}>Status</Th>
+                            <Th></Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Td>37793946215</Td>
+                            <Td>5</Td>
+                            <Td>High Priority</Td>
+                            <Td>Yesterday</Td>
+                            <Td>Action Required</Td>
+                            <Td>
+                              <Button colorScheme="black" variant="ghost">
+                                ...
+                              </Button>
+                            </Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+
                     <Flex justifyContent="flex-end">
                       <Button
                         as={Link}
@@ -148,35 +154,38 @@ export default function CandidateList() {
                 </TabPanel>
                 <TabPanel padding="0">
                   <Flex direction="column" gap="20px">
-                    <Table variant="simple">
-                      <Thead
-                        backgroundColor={colors.secondary[800]}
-                        color={colors.secondary[0]}
-                      >
-                        <Tr>
-                          <Th color={colors.secondary[0]}>Social ID</Th>
-                          <Th color={colors.secondary[0]}>Household Size</Th>
-                          <Th color={colors.secondary[0]}>Needs</Th>
-                          <Th color={colors.secondary[0]}>Latest Update</Th>
-                          <Th color={colors.secondary[0]}>Status</Th>
-                          <Th></Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        <Tr>
-                          <Td>37793946215</Td>
-                          <Td>5</Td>
-                          <Td>High Priority</Td>
-                          <Td>Today</Td>
-                          <Td>Action Required</Td>
-                          <Td>
-                            <Button colorScheme="black" variant="ghost">
-                              ...
-                            </Button>
-                          </Td>
-                        </Tr>
-                      </Tbody>
-                    </Table>
+                    <TableContainer>
+                      <Table variant="simple">
+                        <Thead
+                          backgroundColor={colors.secondary[800]}
+                          color={colors.secondary[0]}
+                        >
+                          <Tr>
+                            <Th color={colors.secondary[0]}>Social ID</Th>
+                            <Th color={colors.secondary[0]}>Household Size</Th>
+                            <Th color={colors.secondary[0]}>Needs</Th>
+                            <Th color={colors.secondary[0]}>Latest Update</Th>
+                            <Th color={colors.secondary[0]}>Status</Th>
+                            <Th></Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
+                          <Tr>
+                            <Td>37793946215</Td>
+                            <Td>5</Td>
+                            <Td>High Priority</Td>
+                            <Td>Today</Td>
+                            <Td>Action Required</Td>
+                            <Td>
+                              <Button colorScheme="black" variant="ghost">
+                                ...
+                              </Button>
+                            </Td>
+                          </Tr>
+                        </Tbody>
+                      </Table>
+                    </TableContainer>
+
                     <Flex justifyContent="flex-end">
                       <Button
                         as={Link}
@@ -207,40 +216,43 @@ export default function CandidateList() {
         </Flex>
         <Box position="relative">
           <Tooltip letter="B">
-            <Table variant="simple" mb="20px">
-              <Thead
-                backgroundColor={colors.secondary[800]}
-                color={colors.secondary[0]}
-              >
-                <Tr>
-                  <Th color={colors.secondary[0]}>Social ID</Th>
-                  <Th color={colors.secondary[0]}>Reviewer</Th>
-                  <Th color={colors.secondary[0]}>Household Size</Th>
-                  <Th color={colors.secondary[0]}>Latest Update</Th>
-                  <Th color={colors.secondary[0]}>Status</Th>
-                  <Th></Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                <Tr>
-                  <Td>37793946215</Td>
-                  <Td>(unassigned)</Td>
-                  <Td>High Priority</Td>
-                  <Td>Yesterday</Td>
-                  <Td>
-                    <Tag justifyContent="center" w="140px">
-                      Pending
-                    </Tag>
-                  </Td>
-                  <Td>
-                    <Button size="sm" colorScheme="black" variant="ghost">
-                      ...
-                    </Button>
-                  </Td>
-                </Tr>
-              </Tbody>
-            </Table>
-            <Flex justifyContent="space-between">
+            <TableContainer mb="20px">
+              <Table variant="simple">
+                <Thead
+                  backgroundColor={colors.secondary[800]}
+                  color={colors.secondary[0]}
+                >
+                  <Tr>
+                    <Th color={colors.secondary[0]}>Social ID</Th>
+                    <Th color={colors.secondary[0]}>Reviewer</Th>
+                    <Th color={colors.secondary[0]}>Household Size</Th>
+                    <Th color={colors.secondary[0]}>Latest Update</Th>
+                    <Th color={colors.secondary[0]}>Status</Th>
+                    <Th></Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>37793946215</Td>
+                    <Td>(unassigned)</Td>
+                    <Td>High Priority</Td>
+                    <Td>Yesterday</Td>
+                    <Td>
+                      <Tag justifyContent="center" w="140px">
+                        Pending
+                      </Tag>
+                    </Td>
+                    <Td>
+                      <Button size="sm" colorScheme="black" variant="ghost">
+                        ...
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+
+            <Flex justifyContent="space-between" gap="20px" flexDirection={{ sm: "column", xl: "row" }}>
               <ButtonGroup colorScheme="secondary">
                 <Button disabled variant="solid">
                   1

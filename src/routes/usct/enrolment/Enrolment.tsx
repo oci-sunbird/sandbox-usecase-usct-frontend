@@ -11,6 +11,7 @@ import {
   Radio,
   SimpleGrid,
   Table,
+  TableContainer,
   Tbody,
   Td,
   Text,
@@ -37,6 +38,7 @@ export default function Enrolment() {
   const { state, dispatch } = useContext(SimulationContext);
 
   const [paymentMethodSelected, setPaymentMethodSelected] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -133,24 +135,26 @@ export default function Enrolment() {
       </SimpleGrid>
       <Flex direction="column" gap="20px">
         <Heading fontSize="18px">Package payment</Heading>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Start Date</Th>
-              <Th>Payment Details</Th>
-              <Th>Duration</Th>
-              <Th>Amount</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>01.01.2023</Td>
-              <Td>USCT - Monthly Benefit Package</Td>
-              <Td>6 Months</Td>
-              <Td>$1 234.000</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <TableContainer>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Start Date</Th>
+                <Th>Payment Details</Th>
+                <Th>Duration</Th>
+                <Th>Amount</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>01.01.2023</Td>
+                <Td>USCT - Monthly Benefit Package</Td>
+                <Td>6 Months</Td>
+                <Td>$1 234.000</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
       </Flex>
       <Flex direction="column" gap="20px">
         <Heading fontSize="18px">Preferred Payment Method:</Heading>
@@ -193,21 +197,37 @@ export default function Enrolment() {
                 <Text mb="24px">
                   Please review your bank account information:
                 </Text>
-                <Grid marginBottom="24px" gap="12px" templateColumns={{ sm: "1fr", xl: "1fr 1fr" }}>
+                <Grid
+                  marginBottom="24px"
+                  gap="12px"
+                  templateColumns={{ sm: '1fr', xl: '1fr 1fr' }}
+                >
                   <GridItem>
-                    <Text size="sm" fontWeight="bold">Bank Account Owner Name</Text>
+                    <Text size="sm" fontWeight="bold">
+                      Bank Account Owner Name
+                    </Text>
                     <Text size="sm">Thomas Anderson</Text>
                   </GridItem>
                   <GridItem>
-                    <Text size="sm" fontWeight="bold">International Bank Account Number (IBAN)</Text>
+                    <Text size="sm" fontWeight="bold">
+                      International Bank Account Number (IBAN)
+                    </Text>
                     <Text size="sm">AA02300209000106531065</Text>
                   </GridItem>
                   <GridItem>
-                    <Text size="sm" fontWeight="bold">Bank Name</Text>
+                    <Text size="sm" fontWeight="bold">
+                      Bank Name
+                    </Text>
                     <Text size="sm">Sunshine Bank</Text>
                   </GridItem>
                 </Grid>
-                <Text align="right" textDecorationLine="underline" color="secondary.500">Change Account</Text>
+                <Text
+                  align="right"
+                  textDecorationLine="underline"
+                  color="secondary.500"
+                >
+                  Change Account
+                </Text>
               </Box>
             </Collapse>
           </Box>
@@ -259,7 +279,14 @@ export default function Enrolment() {
           </Flex>
         </Flex>
       </Flex>
-      <Checkbox size="lg">
+      <Checkbox
+        size="lg"
+        borderColor="secondary.1000"
+        colorScheme="black"
+        onChange={(e) => {
+          setAcceptedTerms(e.target.checked);
+        }}
+      >
         I reviewed Entitlements of Beneficiaries document and accept...
       </Checkbox>
       <Flex justifyContent="flex-end">
@@ -268,6 +295,8 @@ export default function Enrolment() {
           colorScheme="citizen"
           as={Link}
           to="../candidate-list?state=enrolled"
+          isDisabled={!paymentMethodSelected || !acceptedTerms}
+          _disabled={{ bg: 'secondary.400' }}
         >
           Enroll
         </Button>

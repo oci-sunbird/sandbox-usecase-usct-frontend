@@ -2,6 +2,7 @@ import { Button, Flex, Input, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as TimerIcon } from '@assets/icons/timer.svg';
 import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
 import Alert from '@ui/Alert/Alert';
 
 const getActionAlertProps = (state: string | null) => {
@@ -39,7 +40,7 @@ const getActionAlertProps = (state: string | null) => {
           <Flex direction="column" marginLeft="auto" gap="10px">
             <Flex gap="10px">
               <Input placeholder="00/00/23" />
-              <Button>O</Button>
+              <Button><CalendarIcon /></Button>
             </Flex>
             <Button colorScheme="admin" as={Link} to="../active-program">
               Enroll Into the Program

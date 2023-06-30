@@ -3,10 +3,10 @@ import {
   Button,
   Flex,
   Heading,
-  Icon,
   SimpleGrid,
   Tab,
   Table,
+  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
@@ -18,27 +18,28 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+} from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
 
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 3 - PAYMENT",
-        subtitle: "CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION",
+        title: 'PHASE 3 - PAYMENT',
+        subtitle: 'CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION',
       },
       progress: 65,
       userAuthorized: true,
@@ -63,7 +64,7 @@ export default function ActiveProgram() {
   }, []);
 
   return (
-    <Flex direction="column" gap="20px">
+    <Flex direction="column" gap="20px" width="100%">
       <Flex direction="column">
         <Heading fontSize="36px">Active Program:</Heading>
         <Heading fontSize="24px">Unconditional Social Cash Transfer</Heading>
@@ -75,6 +76,41 @@ export default function ActiveProgram() {
           self-sufficiency.
         </Text>
       </Flex>
+
+      <Flex background="theme.light" direction="column" gap='20px' padding="20px 60px" mx="-60px">
+        <Heading>Conversations</Heading>
+        <Text>Conversations</Text>
+
+        <Tabs
+          isFitted
+        >
+          <TabList>
+            <Tab>My Active Conversations (1)</Tab>
+            <Tab>Closed Conversations (0)</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel gap="20px" display="flex" flexDirection="column">
+              <TableContainer>
+                <Table>
+                  <Thead>
+                    <Th>Date</Th>
+                    <Th>Topic</Th>
+                    <Th>Attachment</Th>
+                    <Th>Status</Th>
+                    <Th>#</Th>
+                  </Thead>
+                  <Tbody></Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+            <TabPanel>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+
+        <Button colorScheme='citizen' ml="auto">Review Conversation</Button>
+      </Flex>
+
       <Flex direction="column" gap="20px">
         <Flex direction="column">
           <Heading fontSize="18px">Assigned Benefit Package:</Heading>
@@ -89,9 +125,13 @@ export default function ActiveProgram() {
               flexShrink="0"
               w="64px"
               h="64px"
-              border="2px dotted black"
+              border="2px dashed black"
             >
-              <Icon w="28px" h="28px" />
+              <BanknoteIcon
+                width="34px"
+                height="34px"
+                color="var(--chakra-colors-secondary-1000)"
+              />
             </Flex>
             <Flex direction="column" gap="8px">
               <Text>
@@ -108,9 +148,13 @@ export default function ActiveProgram() {
               flexShrink="0"
               w="64px"
               h="64px"
-              border="2px dotted black"
+              border="2px dashed black"
             >
-              <Icon w="28px" h="28px" />
+              <BanknoteIcon
+                width="34px"
+                height="34px"
+                color="var(--chakra-colors-secondary-1000)"
+              />
             </Flex>
             <Flex direction="column" gap="4px">
               <Text>
@@ -144,86 +188,36 @@ export default function ActiveProgram() {
       </Flex>
       <Flex direction="column" gap="20px">
         <Heading fontSize="18px">Package payment</Heading>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Date</Th>
-              <Th>Method</Th>
-              <Th>Amount</Th>
-              <Th>Payment Details</Th>
-              <Th>Status</Th>
-              <Th>Invoice</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>01.01.2023</Td>
-              <Td>Bank Payment</Td>
-              <Td>1 234.00</Td>
-              <Td>USCT - Monthly Benefit Package</Td>
-              <Td>
-                <Tag width="140px" justifyContent="center">
-                  Pending
-                </Tag>
-              </Td>
-              <Td>#123456789</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <TableContainer>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Date</Th>
+                <Th>Method</Th>
+                <Th>Amount</Th>
+                <Th>Payment Details</Th>
+                <Th>Status</Th>
+                <Th>Invoice</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>01.01.2023</Td>
+                <Td>Bank Payment</Td>
+                <Td>1 234.00</Td>
+                <Td>USCT - Monthly Benefit Package</Td>
+                <Td>
+                  <Tag width="140px" justifyContent="center">
+                    Pending
+                  </Tag>
+                </Td>
+                <Td>#123456789</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+
         <Text fontWeight="600">Next Payment: 02.01.2023</Text>
-      </Flex>
-      <Flex direction="column" gap="20px">
-        <Heading fontSize="18px">Package payment</Heading>
-        <Text>
-          Please start a conversation if you need any help, or if you have any
-          questions
-        </Text>
-        <Tabs
-          w="100%"
-          isFitted
-          variant="enclosed-colored"
-          colorScheme="citizen"
-        >
-          <TabList>
-            <Tab>My Active Conversations (0)</Tab>
-            <Tab>Closed Conversations (0)</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel gap="20px" display="flex" flexDirection="column">
-              <Table>
-                <Thead>
-                  <Th>Date</Th>
-                  <Th>Topic</Th>
-                  <Th>Attachment</Th>
-                  <Th>Status</Th>
-                  <Th>#</Th>
-                </Thead>
-                <Tbody></Tbody>
-              </Table>
-              <Flex justifyContent="flex-end">
-                <Button
-                  colorScheme="citizen"
-                  as={Link}
-                  to="../new-conversation"
-                >
-                  Start New Conversation
-                </Button>
-              </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Table>
-                <Thead>
-                  <Th>Date</Th>
-                  <Th>Topic</Th>
-                  <Th>Attachment</Th>
-                  <Th>Status</Th>
-                  <Th>#</Th>
-                </Thead>
-                <Tbody></Tbody>
-              </Table>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
       </Flex>
     </Flex>
   );
