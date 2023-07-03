@@ -18,6 +18,7 @@ import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
 import ReviewCase from "./usct/review-case/ReviewCase";
 import Review from "./usct/review/Review";
 import StartNewConversation from "./usct/start-new-conversation/StartNewConversation";
+import Feedback from "./usct/feedback/Feedback";
 
 Amplify.configure({
   Auth: {
@@ -111,6 +112,10 @@ export const router = createBrowserRouter([
             element: <Review />,
             path: "review",
           },
+          {
+            element: <Feedback />,
+            path: "feedback",
+          }
         ],
       },
     ],
