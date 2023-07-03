@@ -52,16 +52,16 @@ export default function CaseManagement() {
 
   useEffect(() => {
     setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,
       [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
-      [BUILDING_BLOCK.SCHEDULING]: true,
-      [BUILDING_BLOCK.WORKFLOW]: false,
-      [BUILDING_BLOCK.SECURITY]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
 

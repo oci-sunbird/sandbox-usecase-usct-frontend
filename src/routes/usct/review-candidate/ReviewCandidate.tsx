@@ -78,12 +78,12 @@ export default function ReviewCandidate() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   useEffect(() => {
     setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: true,
-      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,
-      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,

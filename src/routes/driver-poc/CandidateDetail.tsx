@@ -11,16 +11,19 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
+import { ActiveBuildingBlockContext } from "../usct/USCT";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
+import { BUILDING_BLOCK } from "../usct/utils";
 import { RPCContext } from "./rpc";
 import { DriverPOC } from "./types";
 
 export default function CandidateDetail() {
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const { id } = useParams<{ id: string }>();
   const [selectedPackage, setSelectedPackage] = useState<DriverPOC.Package>();
   const [isEnrolling, setIsEnrolling] = useState(false);
@@ -37,6 +40,21 @@ export default function CandidateDetail() {
       }
     }
   );
+
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.SECURITY]: true,
+    });
+  }, []);
 
   const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
     if (candidate && selectedPackage) {

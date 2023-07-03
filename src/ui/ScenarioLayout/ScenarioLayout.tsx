@@ -21,7 +21,6 @@ import { ReactComponent as PaymentIcon } from "../../assets/icons/payments.svg";
 import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
 import { ReactComponent as RegistrationIcon } from "../../assets/icons/registration.svg";
 import { ReactComponent as SchedulingIcon } from "../../assets/icons/scheduling.svg";
-import { ReactComponent as SecurityIcon } from "../../assets/icons/security.svg";
 import { ReactComponent as WorkflowIcon } from "../../assets/icons/workflow.svg";
 import { colors } from "../../chakra-overrides/colors";
 import {
@@ -64,7 +63,6 @@ const buildingBlockActivity = [
     id: BUILDING_BLOCK.SCHEDULING,
   },
   { label: "Workflow", icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
-  { label: "Security", icon: <SecurityIcon />, id: BUILDING_BLOCK.SECURITY },
 ];
 
 export default function ScenarioLayout({
