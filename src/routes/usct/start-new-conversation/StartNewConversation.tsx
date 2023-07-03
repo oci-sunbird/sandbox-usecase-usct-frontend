@@ -1,20 +1,24 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import TextEditor from "../../../ui/TextEditor/TextEditor";
-import { EUserType, SimulationContext } from "../USCT";
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import TextEditor from '../../../ui/TextEditor/TextEditor';
+import { EUserType, SimulationContext } from '../USCT';
+import ConversationTopic from './ConversationTopic';
 
 export default function StartNewConversation() {
   const { state, dispatch } = useContext(SimulationContext);
 
+  const [topicSelected, setTopicSelected] = useState(false);
+
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 3 - PAYMENT",
-        subtitle: "CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM",
+        title: 'PHASE 3 - PAYMENT',
+        subtitle:
+          'CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM',
       },
       progress: 70,
       userAuthorized: true,
@@ -22,7 +26,7 @@ export default function StartNewConversation() {
   }, []);
   return (
     <Flex direction="column" w="100%" gap="20px">
-      <Heading>Start a New Conversation</Heading>
+      <Heading>Start New Conversation</Heading>
       <Text>
         <strong>Topic</strong>
       </Text>
@@ -30,57 +34,35 @@ export default function StartNewConversation() {
         Please select the topic you would like to discuss. Lorem ipsum.
       </Text>
       <Flex gap="20px">
-        <Box
-          h="157px"
-          borderRadius="8px"
-          p="20px"
-          w="100%"
-          border="2px solid black"
-        >
-          <Heading fontSize="14px">Payment Not Received</Heading>
-          <Text fontSize="10px">Lorem ipsum dolor sit amet.</Text>
-        </Box>
-        <Box
-          h="157px"
-          borderRadius="8px"
-          p="20px"
-          w="100%"
-          color="gray"
-          border="1px solid gray"
-        >
-          <Heading fontSize="14px">Change Payment Method</Heading>
-          <Text fontSize="10px">Lorem ipsum dolor sit amet.</Text>
-        </Box>
-        <Box
-          h="157px"
-          borderRadius="8px"
-          p="20px"
-          w="100%"
-          color="gray "
-          border="1px solid gray"
-        >
-          <Heading fontSize="14px">Benefits Questions</Heading>
-          <Text fontSize="10px">Lorem ipsum dolor sit amet.</Text>
-        </Box>
-        <Box
-          h="157px"
-          borderRadius="8px"
-          p="20px"
-          w="100%"
-          border="1px solid black"
-        >
-          <Heading fontSize="14px">Other</Heading>
-          <Text fontSize="10px">Lorem ipsum dolor sit amet.</Text>
-        </Box>
+        <ConversationTopic
+          topic="Package Information"
+          available
+          onSelect={() => setTopicSelected(true)}
+        />
+        <ConversationTopic topic="Change Payment Method" />
+        <ConversationTopic topic="Payment Not Received" />
+        <ConversationTopic topic="Other" />
       </Flex>
       <Text>
         <strong>Message</strong>
       </Text>
       <Text>Please explain the lorem ipsum</Text>
-      <TextEditor />
+      <TextEditor
+        value={
+          topicSelected
+            ? '(Autofilled) Would you please provide me more detail about my package information?'
+            : undefined
+        }
+      />
       <Flex justifyContent="flex-end">
-        <Button colorScheme="citizen" as={Link} to="../case-management?done=true">
-          Send message
+        <Button
+          colorScheme="citizen"
+          as={Link}
+          to="../case-management?done=true"
+          isDisabled={!topicSelected}
+          _disabled={{ bg: 'secondary.400' }}
+        >
+          Submit
         </Button>
       </Flex>
     </Flex>

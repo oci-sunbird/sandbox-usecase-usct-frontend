@@ -1,10 +1,11 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Button,
   ButtonGroup,
   Flex,
   Heading,
   Table,
+  TableContainer,
   Tag,
   Tbody,
   Td,
@@ -12,28 +13,28 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { colors } from "../../../chakra-overrides/colors";
+} from '@chakra-ui/react';
+import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { colors } from '../../../chakra-overrides/colors';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 3 - PAYMENT",
-        subtitle: "CIVIL SERVANT REVIEWS THE ACTIVE CASE",
+        title: 'PHASE 3 - PAYMENT',
+        subtitle: 'CIVIL SERVANT REVIEWS THE ACTIVE CASE',
       },
       progress: 80,
       userAuthorized: true,
@@ -82,35 +83,38 @@ export default function CaseList() {
           </ButtonGroup>
         </Flex>
         <Flex direction="column" gap="20px">
-          <Table variant="simple">
-            <Thead
-              backgroundColor={colors.secondary[800]}
-              color={colors.secondary[0]}
-            >
-              <Tr>
-                <Th color={colors.secondary[0]}>#</Th>
-                <Th color={colors.secondary[0]}>Topic</Th>
-                <Th color={colors.secondary[0]}>Case Created</Th>
-                <Th color={colors.secondary[0]}>Case Closed</Th>
-                <Th color={colors.secondary[0]}>Status</Th>
-                <Th></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>37793946215</Td>
-                <Td>5</Td>
-                <Td>High Priority</Td>
-                <Td>Yesterday</Td>
-                <Td>Action Required</Td>
-                <Td>
-                  <Button variant="ghost" colorScheme="black">
-                    ...
-                  </Button>
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead
+                backgroundColor={colors.secondary[800]}
+                color={colors.secondary[0]}
+              >
+                <Tr>
+                  <Th color={colors.secondary[0]}>#</Th>
+                  <Th color={colors.secondary[0]}>Topic</Th>
+                  <Th color={colors.secondary[0]}>Case Created</Th>
+                  <Th color={colors.secondary[0]}>Case Closed</Th>
+                  <Th color={colors.secondary[0]}>Status</Th>
+                  <Th></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>37793946215</Td>
+                  <Td>5</Td>
+                  <Td>High Priority</Td>
+                  <Td>Yesterday</Td>
+                  <Td>Action Required</Td>
+                  <Td>
+                    <Button variant="ghost" colorScheme="black">
+                      ...
+                    </Button>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+
           <Flex justifyContent="flex-end">
             <Button
               as={Link}
@@ -135,39 +139,42 @@ export default function CaseList() {
             <Button>Filter</Button>
           </ButtonGroup>
         </Flex>
-        <Table variant="simple">
-          <Thead
-            backgroundColor={colors.secondary[800]}
-            color={colors.secondary[0]}
-          >
-            <Tr>
-              <Th color={colors.secondary[0]}>#</Th>
-              <Th color={colors.secondary[0]}>Topic</Th>
-              <Th color={colors.secondary[0]}>Case Created</Th>
-              <Th color={colors.secondary[0]}>Case Closed</Th>
-              <Th color={colors.secondary[0]}>Status</Th>
-              <Th></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>37793946215</Td>
-              <Td>(unassigned)</Td>
-              <Td>High Priority</Td>
-              <Td>Yesterday</Td>
-              <Td>
-                <Tag width="140px" justifyContent="center">
-                  Pending
-                </Tag>
-              </Td>
-              <Td>
-                <Button variant="ghost" colorScheme="black">
-                  ...
-                </Button>
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <TableContainer>
+          <Table variant="simple">
+            <Thead
+              backgroundColor={colors.secondary[800]}
+              color={colors.secondary[0]}
+            >
+              <Tr>
+                <Th color={colors.secondary[0]}>#</Th>
+                <Th color={colors.secondary[0]}>Topic</Th>
+                <Th color={colors.secondary[0]}>Case Created</Th>
+                <Th color={colors.secondary[0]}>Case Closed</Th>
+                <Th color={colors.secondary[0]}>Status</Th>
+                <Th></Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>37793946215</Td>
+                <Td>(unassigned)</Td>
+                <Td>High Priority</Td>
+                <Td>Yesterday</Td>
+                <Td>
+                  <Tag width="140px" justifyContent="center">
+                    Pending
+                  </Tag>
+                </Td>
+                <Td>
+                  <Button variant="ghost" colorScheme="black">
+                    ...
+                  </Button>
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+
         <Flex justifyContent="flex-end">
           <ButtonGroup variant="ghost" colorScheme="black">
             <Button>1</Button>

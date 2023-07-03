@@ -12,6 +12,7 @@ import {
   SimpleGrid,
   Tab,
   Table,
+  TableContainer,
   TabList,
   TabPanel,
   TabPanels,
@@ -212,8 +213,8 @@ export default function ReviewCase() {
           icon={<ChatIcon />}
           content={
             <Text>
-              Automatic information to the payment provider <br/> regarding payment
-              not received.
+              Automatic information to the payment provider <br /> regarding
+              payment not received.
             </Text>
           }
           actions={
@@ -353,28 +354,30 @@ export default function ReviewCase() {
       </Flex>
       <Flex direction="column" gap="8px">
         <Heading fontSize="16px">Case Attachments</Heading>
-        <Table mb="20px">
-          <Thead>
-            <Tr>
-              <Th>File name</Th>
-              <Th>File type</Th>
-              <Th>Description</Th>
-              <Th>Uploaded</Th>
-              <Th>Source</Th>
-              <Th>icon</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>None</Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
-              <Td></Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <TableContainer mb="20px">
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>File name</Th>
+                <Th>File type</Th>
+                <Th>Description</Th>
+                <Th>Uploaded</Th>
+                <Th>Source</Th>
+                <Th>icon</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>None</Td>
+                <Td></Td>
+                <Td></Td>
+                <Td></Td>
+                <Td></Td>
+                <Td></Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
       </Flex>
       <Box mb="60px">
         <BankInformation />
