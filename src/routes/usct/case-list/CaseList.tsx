@@ -1,7 +1,5 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Button,
-  ButtonGroup,
   Flex,
   Heading,
   Table,
@@ -23,6 +21,8 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
+import Pagination from '@ui/Pagination/Pagination';
+import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -72,15 +72,15 @@ export default function CaseList() {
               borderRadius="100%"
               w="24px"
               h="24px"
+              fontSize="12px"
+              fontWeight="700"
             >
               1
             </Flex>
-            <Text>ACTIVE CASES</Text>
+            <Text color="secondary.500" fontSize="12px">
+              ACTIVE CASES
+            </Text>
           </Flex>
-          <ButtonGroup variant="ghost" colorScheme="black">
-            <Button>Export</Button>
-            <Button>Filter</Button>
-          </ButtonGroup>
         </Flex>
         <Flex direction="column" gap="20px">
           <TableContainer>
@@ -106,9 +106,7 @@ export default function CaseList() {
                   <Td>Yesterday</Td>
                   <Td>Action Required</Td>
                   <Td>
-                    <Button variant="ghost" colorScheme="black">
-                      ...
-                    </Button>
+                    <MoreIcon />
                   </Td>
                 </Tr>
               </Tbody>
@@ -129,15 +127,14 @@ export default function CaseList() {
       <Flex gap="20px" direction="column">
         <Heading>Closed Cases</Heading>
         <Flex justifyContent="space-between">
-          <Flex gap="10px" flexShrink="0" alignItems="center">
-            <Text>
-              <strong>211</strong> CLOSED CASES
+          <Flex gap="8px" flexShrink="0" alignItems="center">
+            <Text fontSize="12" fontWeight="bold">
+              211
+            </Text>
+            <Text color="secondary.700" fontSize="12">
+              CLOSED CASES
             </Text>
           </Flex>
-          <ButtonGroup variant="ghost" colorScheme="black">
-            <Button>Export</Button>
-            <Button>Filter</Button>
-          </ButtonGroup>
         </Flex>
         <TableContainer>
           <Table variant="simple">
@@ -166,9 +163,7 @@ export default function CaseList() {
                   </Tag>
                 </Td>
                 <Td>
-                  <Button variant="ghost" colorScheme="black">
-                    ...
-                  </Button>
+                  <MoreIcon />
                 </Td>
               </Tr>
             </Tbody>
@@ -176,13 +171,7 @@ export default function CaseList() {
         </TableContainer>
 
         <Flex justifyContent="flex-end">
-          <ButtonGroup variant="ghost" colorScheme="black">
-            <Button>1</Button>
-            <Button>2</Button>
-            <Button>3</Button>
-            <Button>4</Button>
-            <Button rightIcon={<ArrowForwardIcon />}>Next</Button>
-          </ButtonGroup>
+          <Pagination />
         </Flex>
       </Flex>
     </Flex>

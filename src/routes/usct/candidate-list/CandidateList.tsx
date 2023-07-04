@@ -30,6 +30,9 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
+import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as HighPriorityIcon } from '@assets/icons/high-priority.svg';
+import Pagination from '@ui/Pagination/Pagination';
 
 export default function CandidateList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -128,13 +131,19 @@ export default function CandidateList() {
                           <Tr>
                             <Td>37793946215</Td>
                             <Td>5</Td>
-                            <Td>High Priority</Td>
-                            <Td>Yesterday</Td>
-                            <Td>Action Required</Td>
                             <Td>
-                              <Button colorScheme="black" variant="ghost">
-                                ...
-                              </Button>
+                              <Flex gap="10px" alignItems="center">
+                                <HighPriorityIcon /> High Priority
+                              </Flex>
+                            </Td>
+                            <Td>Yesterday</Td>
+                            <Td>
+                              <Tag justifyContent="center" w="140px">
+                                Action Required
+                              </Tag>
+                            </Td>
+                            <Td>
+                              <MoreIcon />
                             </Td>
                           </Tr>
                         </Tbody>
@@ -173,13 +182,19 @@ export default function CandidateList() {
                           <Tr>
                             <Td>37793946215</Td>
                             <Td>5</Td>
-                            <Td>High Priority</Td>
-                            <Td>Today</Td>
-                            <Td>Action Required</Td>
                             <Td>
-                              <Button colorScheme="black" variant="ghost">
-                                ...
-                              </Button>
+                              <Flex gap="10px" alignItems="center">
+                                <HighPriorityIcon /> High Priority
+                              </Flex>
+                            </Td>
+                            <Td>Today</Td>
+                            <Td>
+                              <Tag justifyContent="center" w="140px">
+                                Action Required
+                              </Tag>
+                            </Td>
+                            <Td>
+                              <MoreIcon />
                             </Td>
                           </Tr>
                         </Tbody>
@@ -235,7 +250,11 @@ export default function CandidateList() {
                   <Tr>
                     <Td>37793946215</Td>
                     <Td>(unassigned)</Td>
-                    <Td>High Priority</Td>
+                    <Td>
+                      <Flex gap="10px" alignItems="center">
+                        <HighPriorityIcon /> High Priority
+                      </Flex>
+                    </Td>
                     <Td>Yesterday</Td>
                     <Td>
                       <Tag justifyContent="center" w="140px">
@@ -243,37 +262,19 @@ export default function CandidateList() {
                       </Tag>
                     </Td>
                     <Td>
-                      <Button size="sm" colorScheme="black" variant="ghost">
-                        ...
-                      </Button>
+                      <MoreIcon />
                     </Td>
                   </Tr>
                 </Tbody>
               </Table>
             </TableContainer>
 
-            <Flex justifyContent="space-between" gap="20px" flexDirection={{ sm: "column", xl: "row" }}>
-              <ButtonGroup colorScheme="secondary">
-                <Button disabled variant="solid">
-                  1
-                </Button>
-                <Button disabled variant="outline">
-                  2
-                </Button>
-                <Button disabled variant="outline">
-                  3
-                </Button>
-                <Button disabled variant="outline">
-                  4
-                </Button>
-                <Button
-                  disabled
-                  variant="outline"
-                  rightIcon={<ArrowForwardIcon />}
-                >
-                  Next
-                </Button>
-              </ButtonGroup>
+            <Flex
+              justifyContent="space-between"
+              gap="20px"
+              flexDirection={{ sm: 'column', xl: 'row' }}
+            >
+              <Pagination />
               <Button disabled>Request to Assign New Candidate</Button>
             </Flex>
           </Tooltip>

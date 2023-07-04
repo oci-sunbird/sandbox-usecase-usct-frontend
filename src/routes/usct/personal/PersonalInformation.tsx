@@ -1,10 +1,18 @@
-import { Avatar, Box, Flex, Grid, Heading, Link, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react';
+import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
 
 export default function PersonalInformation({
-  person: person,
+  person,
+  simulation,
+  reviewed,
 }: {
   person: any | null;
+  simulation?: boolean;
+  reviewed?: boolean;
 }) {
+  const SimulationIcon = reviewed ? YisIcon : FileWarningIcon;
+
   return (
     <Flex gap="24px" direction="column">
       <Heading fontSize="18px">Personal Information</Heading>
@@ -30,12 +38,12 @@ export default function PersonalInformation({
             <Text fontWeight="600">Date of Birth</Text>
             <Text>
               {person?.dateOfBirth
-                ? new Date(person.dateOfBirth).toLocaleDateString("et", {
-                    day: "2-digit",
-                    year: "numeric",
-                    month: "2-digit",
+                ? new Date(person.dateOfBirth).toLocaleDateString('et', {
+                    day: '2-digit',
+                    year: 'numeric',
+                    month: '2-digit',
                   })
-                : ""}
+                : ''}
             </Text>
           </Box>
           <Box>
@@ -55,18 +63,28 @@ export default function PersonalInformation({
             <Text>{person?.occupation}</Text>
           </Box>
           <Box>
-            <Text fontWeight="600">E-mail</Text>
+            <Flex alignItems="center" gap="10px">
+              <Text fontWeight="600">E-mail</Text>
+              {simulation && <SimulationIcon height="20px" width="20px" />}
+            </Flex>
             <Text color="gray">{person?.email}</Text>
           </Box>
           <Box>
-            <Text fontWeight="600">Phone Number</Text>
+            <Flex alignItems="center" gap="10px">
+              <Text fontWeight="600">Phone Number</Text>
+              {simulation && <SimulationIcon height="20px" width="20px"/>}
+            </Flex>
             <Text color="gray">{person?.phoneNumber}</Text>
           </Box>
         </Grid>
       </Flex>
       <Text>
         If the shown information is not up to date, please update the
-        information via the <Link href="#">citizen portal</Link>
+        information via the{' '}
+        <Link textDecoration="underline" href="#">
+          citizen portal
+        </Link>
+        .
       </Text>
     </Flex>
   );
