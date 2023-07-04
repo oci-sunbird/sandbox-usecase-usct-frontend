@@ -18,6 +18,8 @@ import { BUILDING_BLOCK } from "../utils";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
+import { ReactComponent as YisIcon } from "@assets/icons/yis-circle.svg"
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg"
 
 const householdData = [
   {
@@ -25,30 +27,32 @@ const householdData = [
     personalCode: "12345678910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
-    reason: "Data",
+    reason: null,
   },
   {
     name: "Ms Lorem Ipsum",
     personalCode: "12345678910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
-    reason: "Data",
+    reason: <Tag variant="outline">Hearing support</Tag>,
   },
   {
     name: "Ms Lorem Ipsum",
     personalCode: "12345678910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
-    reason: "Data",
+    reason: <Tag variant="outline">Special care</Tag>,
   },
   {
     name: "Ms Lorem Ipsum",
     personalCode: "12345678910",
     relation: "Wife",
     dateOfBirth: "12.12.1975",
-    reason: "Data",
+    reason: null,
   },
 ];
+
+const DocumentStatus = <Flex alignItems="center" gap="10px"><YisIcon />Approved</Flex>
 
 const documentsData = [
   {
@@ -56,12 +60,7 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
+    status: DocumentStatus,
   },
   {
     name: "Medical Certificate",
@@ -69,12 +68,7 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
+    status: DocumentStatus,
   },
   {
     name: "Medical Certificate",
@@ -82,12 +76,7 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
+    status: DocumentStatus,
   },
   {
     name: "Medical Certificate",
@@ -95,12 +84,7 @@ const documentsData = [
     organization: "12345678910",
     issuedOn: "Wife",
     validUntil: "12.12.1975",
-    status: (
-      <Flex gap="8px">
-        <Tag colorScheme="green" size="sm" borderRadius="full" />
-        <Text>Uploaded</Text>
-      </Flex>
-    ),
+    status: DocumentStatus,
   },
 ];
 
@@ -160,13 +144,13 @@ export default function Personal() {
               </Button>
             </>
           ) : (
-            <Button as={Link} to="../review">
+            <Button as={Link} to="../review" leftIcon={<FileWarningIcon height="20" width="20"/>}>
               Validate the information
             </Button>
           )}
         </ButtonGroup>
       </Flex>
-      <PersonalInformation person={citizen} />
+      <PersonalInformation person={citizen} simulation reviewed={!!searchParams.get("done")} />
       <PersonalInformationTable
         title="Household Information"
         columns={["Name", "National ID", "Relation", "Date of Birth", "Needs"]}
@@ -183,12 +167,6 @@ export default function Personal() {
         ]}
         data={documentsData}
       />
-      <Box>
-        <Heading variant="h3" fontSize="18px">
-          Active Programs
-        </Heading>
-        <Text>None</Text>
-      </Box>
       <BankInformation />
       <Flex justifyContent="flex-end">
         <ButtonGroup colorScheme="citizen">
@@ -202,7 +180,7 @@ export default function Personal() {
               </Button>
             </>
           ) : (
-            <Button as={Link} to="../review">
+            <Button as={Link} to="../review" leftIcon={<FileWarningIcon height="20" width="20"/>}>
               Validate the information
             </Button>
           )}

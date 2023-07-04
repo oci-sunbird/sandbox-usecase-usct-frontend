@@ -32,6 +32,7 @@ import { householdData, historyData } from './data';
 import Timeline from '@ui/Timeline/Timeline';
 import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
 import { ReactComponent as CardIcon } from '@assets/icons/credit-card-simple.svg';
+import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
 
 const getSubtitle = (state: string | null) => {
   if (state === 'done') {
@@ -289,7 +290,7 @@ export default function ReviewCandidate() {
                         </Flex>
                       </Td>
                       <Td>
-                        <Button size="xs">...</Button>
+                        <MoreIcon />
                       </Td>
                     </Tr>
                   );

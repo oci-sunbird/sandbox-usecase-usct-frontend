@@ -20,7 +20,6 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -28,6 +27,7 @@ import {
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
 import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
+import { ReactComponent as MaybeCircleIcon } from '@assets/icons/maybe-circle.svg';
 
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -77,21 +77,25 @@ export default function ActiveProgram() {
         </Text>
       </Flex>
 
-      <Flex background="theme.light" direction="column" gap='20px' padding="20px 60px" mx="-60px">
+      <Flex
+        background="theme.light"
+        direction="column"
+        gap="20px"
+        padding="20px 60px"
+        mx="-60px"
+      >
         <Heading>Conversations</Heading>
         <Text>Conversations</Text>
 
-        <Tabs
-          isFitted
-        >
+        <Tabs isFitted>
           <TabList>
             <Tab>My Active Conversations (1)</Tab>
             <Tab>Closed Conversations (0)</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel gap="20px" display="flex" flexDirection="column">
+            <TabPanel gap="20px" display="flex" flexDirection="column" padding={0}>
               <TableContainer>
-                <Table>
+                <Table background="white">
                   <Thead>
                     <Th>Date</Th>
                     <Th>Topic</Th>
@@ -99,7 +103,19 @@ export default function ActiveProgram() {
                     <Th>Status</Th>
                     <Th>#</Th>
                   </Thead>
-                  <Tbody></Tbody>
+                  <Tbody>
+                    <Tr>
+                      <Td>01.01.2023</Td>
+                      <Td>Package Information</Td>
+                      <Td>USCT - Monthly Benefit Package</Td>
+                      <Td>
+                        <Flex gap="10px" alignItems="center">
+                          <MaybeCircleIcon /> In Progress
+                        </Flex>
+                      </Td>
+                      <Td>3779394</Td>
+                    </Tr>
+                  </Tbody>
                 </Table>
               </TableContainer>
             </TabPanel>
@@ -108,7 +124,9 @@ export default function ActiveProgram() {
           </TabPanels>
         </Tabs>
 
-        <Button colorScheme='citizen' ml="auto">Review Conversation</Button>
+        <Button colorScheme="citizen" ml="auto">
+          Review Conversation
+        </Button>
       </Flex>
 
       <Flex direction="column" gap="20px">
@@ -207,9 +225,9 @@ export default function ActiveProgram() {
                 <Td>1 234.00</Td>
                 <Td>USCT - Monthly Benefit Package</Td>
                 <Td>
-                  <Tag width="140px" justifyContent="center">
-                    Pending
-                  </Tag>
+                  <Flex gap="10px" alignItems="center">
+                    <MaybeCircleIcon /> In Progress
+                  </Flex>
                 </Td>
                 <Td>#123456789</Td>
               </Tr>
