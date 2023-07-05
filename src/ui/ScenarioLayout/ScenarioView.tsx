@@ -12,7 +12,7 @@ export default function ScenarioView({
       w="100%"
       height="100%"
       direction="column"
-      p="16px 64px 32px 64px"
+      p={{ sm: "4px 16px 8px 16px", lg: "16px 64px 32px 64px" }}
       flexGrow="1"
       alignItems="center"
       overflow="auto"

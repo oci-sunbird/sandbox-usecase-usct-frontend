@@ -79,7 +79,11 @@ export default function ScenarioLayout({
 
   return (
     <Flex h="100vh" position="relative">
-      <Flex w="calc(100% - 320px)" direction="column" position="relative">
+      <Flex
+        w={{ base: "100%", md: "calc(100% - 320px)" }}
+        direction="column"
+        position="relative"
+      >
         <ScenarioHeader>
           <Text>
             <strong>Use Case Simulation</strong> Unconditional Social Cash
@@ -166,6 +170,14 @@ export default function ScenarioLayout({
         direction="column"
         zIndex={1}
       >
+        <IconButton
+          position="absolute"
+          left="-32px"
+          top="0"
+          w="32px"
+          icon={<ConsentIcon />}
+          aria-label={"expand"}
+        ></IconButton>
         <Flex
           boxSizing="border-box"
           p="24px"

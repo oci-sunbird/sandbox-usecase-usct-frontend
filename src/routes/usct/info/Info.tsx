@@ -72,7 +72,11 @@ export default function Info() {
   }, []);
 
   return (
-    <Flex mt="128px" gap="125px" direction="row">
+    <Flex
+      mt="128px"
+      gap={{ sm: "20px", lg: "125px" }}
+      direction={{ sm: "column", lg: "row" }}
+    >
       <Box>
         <Box marginBottom="40px">
           <Heading>Social Welfare Progam:</Heading>
@@ -138,7 +142,7 @@ export default function Info() {
           </AccordionItem>
         </Accordion>
       </Box>
-      <Flex direction="column" gap="16px" width="25%" flexShrink="0">
+      <Flex direction="column" gap="16px" width={{ lg: "25%" }} flexShrink="0">
         <Flex gap="8px">
           <svg
             width="24"

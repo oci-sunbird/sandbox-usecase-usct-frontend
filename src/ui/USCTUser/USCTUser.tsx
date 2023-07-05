@@ -10,12 +10,12 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         borderRadius="36px"
         justifyContent="center"
         alignItems="center"
-        padding="11px 48px"
+        padding={{ sm: "12px", lg: "11px 48px" }}
         marginRight="36px"
       >
         <Flex gap="8px" alignItems="center">
           <Avatar h="32px" w="32px" />
-          <Box>
+          <Box display={{ sm: "none", lg: "block" }}>
             <Text size="sm" color={colors.secondary[0]}>
               Applicant
             </Text>
@@ -75,7 +75,7 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         />
         <Flex gap="8px" alignItems="center" height="100%">
           <Avatar h="32px" w="32px" />
-          <Box>
+          <Box display={{ sm: "none", lg: "block" }}>
             <Text fontSize="14px" fontWeight="600" lineHeight="20px">
               Lorem Ipsum
             </Text>

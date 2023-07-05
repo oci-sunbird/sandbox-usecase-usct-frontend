@@ -96,7 +96,7 @@ export default function CaseManagement() {
         <Flex direction="column" gap="20px">
           <Heading>Hello, Lorem Ipsum!</Heading>
           <Text>You have 1 candidates, 0 cases up for review today!</Text>
-          <Flex gap="20px">
+          <Flex gap="20px" direction={{ sm: "column", xl: "row" }}>
             <Flex direction="column" gap="16px" position="relative">
               <Tooltip letter="A">
                 <Flex
@@ -282,7 +282,10 @@ export default function CaseManagement() {
                 <Heading mb="20px" textAlign={{ sm: "left", xl: "right" }}>
                   Program Overview
                 </Heading>
-                <Flex gap={{ sm: "2px", lg: "24px" }}>
+                <Flex
+                  gap={{ sm: "2px", lg: "24px" }}
+                  flexDirection={{ sm: "column", lg: "row" }}
+                >
                   <IconCard
                     icon={<UsersIcon stroke="black" />}
                     title="Beneficiaries"

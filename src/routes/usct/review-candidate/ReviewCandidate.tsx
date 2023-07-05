@@ -134,7 +134,7 @@ export default function ReviewCandidate() {
           <Grid
             w="100%"
             gridTemplateRows="repeat(4, min-content)"
-            gridTemplateColumns="repeat(2, 1fr)"
+            gridTemplateColumns={{ sm: "1fr", lg: "repeat(2, 1fr)" }}
             gap="23px"
           >
             <Box>
@@ -175,7 +175,7 @@ export default function ReviewCandidate() {
             </Box>
           </Grid>
           <Flex direction="column" gap="30px">
-            <Flex>
+            <Flex direction={{ sm: "column", lg: "row" }}>
               <Flex w="100%" direction="column" gap="12px">
                 <Heading variant="h3" fontSize="18px">
                   Household needs

@@ -72,28 +72,36 @@ export default function Review() {
           <Text mb="16px">
             Please confirm that the information shown below is correct
           </Text>
-          <Flex direction="column" gap="16px" w="50%">
+          <Flex direction="column" gap="16px" w={{ sm: "100%", xl: "50%" }}>
             <FormControl
-              flexDirection="row"
-              alignItems="center"
+              flexDirection={{ sm: "column", lg: "row" }}
+              alignItems={{ sm: "flex-start", lg: "center" }}
               display="flex"
               gap="16px"
             >
-              <FormLabel fontWeight="600" width="30%" m="0">
+              <FormLabel
+                fontWeight="600"
+                width={{ sm: "100%", lg: "30%" }}
+                m="0"
+              >
                 Email Address
               </FormLabel>
-              <Input w="70%" value="tom@myspace.com" />
+              <Input w={{ sm: "100%", lg: "70%" }} value="tom@myspace.com" />
             </FormControl>
             <FormControl
-              flexDirection="row"
-              alignItems="center"
+              flexDirection={{ sm: "column", lg: "row" }}
+              alignItems={{ sm: "flex-start", lg: "center" }}
               display="flex"
               gap="16px"
             >
-              <FormLabel fontWeight="600" width="30%" m="0">
+              <FormLabel
+                fontWeight="600"
+                width={{ sm: "100%", lg: "30%" }}
+                m="0"
+              >
                 Phone Number
               </FormLabel>
-              <Input value="(+00) 94 843 432" w="70%" />
+              <Input value="(+00) 94 843 432" w={{ sm: "100%", lg: "70%" }} />
             </FormControl>
           </Flex>
         </Box>

@@ -97,11 +97,11 @@ export default function Personal() {
       userType: EUserType.CITIZEN,
       description: {
         title: "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("done")
+        subtitle: !!searchParams.get("done")
           ? "CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW"
           : "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      nextStep: searchParams.get("done")
+      nextStep: !!searchParams.get("done")
         ? "../case-management?state=submitted"
         : "../review",
       previousStep: searchParams.get("done") ? "../review" : "../info",
@@ -125,14 +125,17 @@ export default function Personal() {
     });
   }, []);
   return (
-    <Flex w="100%" gap="48px" direction="column">
+    <Flex w="100%" gap={{ sm: "24px", xl: "48px" }} direction="column">
       <Flex
-        alignItems="center"
-        justifyContent="space-between"
-        marginBottom="48px"
+        alignItems={{ sm: "flex-start", xl: "center" }}
+        gap="20px"
+        justifyContent={{ sm: "flex-start", xl: "space-between" }}
+        marginBottom={{ sm: "12px", xl: "48px" }}
+        direction={{ sm: "column", xl: "row" }}
+        w="100%"
       >
         <Heading fontSize="36px">My Information</Heading>
-        <ButtonGroup colorScheme="citizen">
+        <ButtonGroup colorScheme="citizen" alignSelf={{ sm: "flex-end" }}>
           {searchParams.get("done") ? (
             <>
               <Button as={Link} to="../personal" variant="outline">

@@ -25,17 +25,19 @@ export default function Header(props: HeaderProps) {
       marginBottom="20px"
     >
       <Flex alignItems="center" gap="12px">
-        <Image
-          src={
-            props.userType === EUserType.CITIZEN_SERVANT
-              ? "/images/open-island-citizen-servant.svg"
-              : "/images/open-island-citizen.svg"
-          }
-          alt=""
-          w="38px"
-          h="38px"
-        />
-        <Box>
+        <Flex flexShrink="0">
+          <Image
+            src={
+              props.userType === EUserType.CITIZEN_SERVANT
+                ? "/images/open-island-citizen-servant.svg"
+                : "/images/open-island-citizen.svg"
+            }
+            alt=""
+            w="38px"
+            h="38px"
+          />
+        </Flex>
+        <Box display={{ base: "none", lg: "block" }}>
           <Heading fontSize="12px" fontWeight="900" lineHeight="15px">
             Open Island
           </Heading>
