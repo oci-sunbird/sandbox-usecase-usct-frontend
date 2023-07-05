@@ -10,6 +10,7 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
 import { useContext, useEffect } from "react";
 import { Link, useNavigation } from "react-router-dom";
 import {
@@ -65,60 +66,62 @@ export default function Review() {
       >
         Back
       </Button>
-      <Flex direction="column" w="100%" mb="76px">
-        <Heading mb="24px">Validate the Information</Heading>
-        <Box>
-          <Text mb="16px">
-            Please confirm that the information shown below is correct
-          </Text>
-          <Flex direction="column" gap="16px" w={{ sm: "100%", xl: "50%" }}>
-            <FormControl
-              flexDirection={{ sm: "column", lg: "row" }}
-              alignItems={{ sm: "flex-start", lg: "center" }}
-              display="flex"
-              gap="16px"
-            >
-              <FormLabel
-                fontWeight="600"
-                width={{ sm: "100%", lg: "30%" }}
-                m="0"
+      <Tooltip letter="A" letterPosition="right-center">
+        <Flex direction="column" w="100%" mb="76px">
+          <Heading mb="24px">Validate the Information</Heading>
+          <Box>
+            <Text mb="16px">
+              Please confirm that the information shown below is correct
+            </Text>
+            <Flex direction="column" gap="16px" w={{ sm: "100%", xl: "50%" }}>
+              <FormControl
+                flexDirection={{ sm: "column", lg: "row" }}
+                alignItems={{ sm: "flex-start", lg: "center" }}
+                display="flex"
+                gap="16px"
               >
-                Email Address
-              </FormLabel>
-              <Input w={{ sm: "100%", lg: "70%" }} value="tom@myspace.com" />
-            </FormControl>
-            <FormControl
-              flexDirection={{ sm: "column", lg: "row" }}
-              alignItems={{ sm: "flex-start", lg: "center" }}
-              display="flex"
-              gap="16px"
-            >
-              <FormLabel
-                fontWeight="600"
-                width={{ sm: "100%", lg: "30%" }}
-                m="0"
+                <FormLabel
+                  fontWeight="600"
+                  width={{ sm: "100%", lg: "30%" }}
+                  m="0"
+                >
+                  Email Address
+                </FormLabel>
+                <Input w={{ sm: "100%", lg: "70%" }} value="tom@myspace.com" />
+              </FormControl>
+              <FormControl
+                flexDirection={{ sm: "column", lg: "row" }}
+                alignItems={{ sm: "flex-start", lg: "center" }}
+                display="flex"
+                gap="16px"
               >
-                Phone Number
-              </FormLabel>
-              <Input value="(+00) 94 843 432" w={{ sm: "100%", lg: "70%" }} />
-            </FormControl>
-          </Flex>
-        </Box>
-      </Flex>
-      <Flex gap="8px" alignItems="center" justifyContent="flex-end">
-        <ButtonGroup colorScheme="citizen">
-          <Button as={Link} to="../personal" variant="outline">
-            Back
-          </Button>
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            as={Link}
-            to="../personal?done=true"
-          >
-            Next
-          </Button>
-        </ButtonGroup>
-      </Flex>
+                <FormLabel
+                  fontWeight="600"
+                  width={{ sm: "100%", lg: "30%" }}
+                  m="0"
+                >
+                  Phone Number
+                </FormLabel>
+                <Input value="(+00) 94 843 432" w={{ sm: "100%", lg: "70%" }} />
+              </FormControl>
+            </Flex>
+          </Box>
+        </Flex>
+        <Flex gap="8px" alignItems="center" justifyContent="flex-end">
+          <ButtonGroup colorScheme="citizen">
+            <Button as={Link} to="../personal" variant="outline">
+              Back
+            </Button>
+            <Button
+              rightIcon={<ArrowForwardIcon />}
+              as={Link}
+              to="../personal?done=true"
+            >
+              Next
+            </Button>
+          </ButtonGroup>
+        </Flex>
+      </Tooltip>
     </Box>
   );
 }

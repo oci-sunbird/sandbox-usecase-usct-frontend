@@ -13,7 +13,7 @@ export default function FakeLoader({
   label,
   override,
 }: {
-  children: React.ReactElement;
+  children: React.ReactNode;
   label: string;
   override?: boolean;
 }) {

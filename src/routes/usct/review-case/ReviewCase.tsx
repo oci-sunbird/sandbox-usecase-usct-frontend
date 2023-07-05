@@ -1,6 +1,6 @@
-import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
-import { ReactComponent as ChatIcon } from "@assets/icons/chat.svg";
-import { ReactComponent as ArrowIcon } from "@assets/icons/chevron-right.svg";
+import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
+import { ReactComponent as ChatIcon } from '@assets/icons/chat.svg';
+import { ReactComponent as ArrowIcon } from '@assets/icons/chevron-right.svg';
 import {
   Box,
   Button,
@@ -27,105 +27,106 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import Alert from "@ui/Alert/Alert";
-import Timeline from "@ui/Timeline/Timeline";
-import { useContext, useEffect, useState } from "react";
-import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
-import TextEditor from "../../../ui/TextEditor/TextEditor";
-import BankInformation from "../personal/BankInformation";
+} from '@chakra-ui/react';
+import Alert from '@ui/Alert/Alert';
+import Timeline from '@ui/Timeline/Timeline';
+import { useContext, useEffect, useState } from 'react';
+import ChatMessage from '../../../ui/ChatMessage/ChatMessage';
+import TextEditor from '../../../ui/TextEditor/TextEditor';
+import BankInformation from '../personal/BankInformation';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import Tooltip from '@ui/Tooltip/Tooltip';
 
 const householdData = [
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
     needs: [],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Hearing Support", "Special Support"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Hearing Support', 'Special Support'],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Child Care", "Financial Security"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Child Care', 'Financial Security'],
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
-    needs: ["Food", "Health Care", "Education"],
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
+    needs: ['Food', 'Health Care', 'Education'],
   },
 ];
 
 const conversation = [
   {
-    id: "hdfhdrf5",
+    id: 'hdfhdrf5',
     timestamp: 1678891185842,
-    content: "hello i need cash quick",
-    user: "Shady Man",
+    content: 'hello i need cash quick',
+    user: 'Shady Man',
   },
   {
-    id: "sy43y3s45s35",
+    id: 'sy43y3s45s35',
     timestamp: 1678891285842,
-    content: "im sorry, get a better job?",
-    user: "GovStack Person",
+    content: 'im sorry, get a better job?',
+    user: 'GovStack Person',
   },
   {
-    id: "1h3g13f13f",
+    id: '1h3g13f13f',
     timestamp: 1678891385842,
-    content: "i want to talk to your manager",
-    user: "Shady Man",
+    content: 'i want to talk to your manager',
+    user: 'Shady Man',
   },
   {
-    id: "srtsrts315135",
+    id: 'srtsrts315135',
     timestamp: 1678891485842,
-    content: "hello i am the manager",
-    user: "GovStack Person",
+    content: 'hello i am the manager',
+    user: 'GovStack Person',
   },
   {
-    id: "13gg131e13e",
+    id: '13gg131e13e',
     timestamp: 1678891585842,
-    content: "i want money",
-    user: "Shady Man",
+    content: 'i want money',
+    user: 'Shady Man',
   },
   {
-    id: "1351035askpdk",
+    id: '1351035askpdk',
     timestamp: 1678891685842,
-    content: "no",
-    user: "GovStack Person",
+    content: 'no',
+    user: 'GovStack Person',
   },
 ];
 
 const caseHistoryEvents = [
   {
-    name: "Case opened",
-    date: "23.04.2017",
-    info: "#97654321",
+    name: 'Case opened',
+    date: '23.04.2017',
+    info: '#97654321',
     completed: true,
   },
   {
-    name: "Informing the Beneficary",
-    date: "23.04.2017",
-    info: "#97654321",
+    name: 'Informing the Beneficary',
+    date: '23.04.2017',
+    info: '#97654321',
     completed: true,
   },
 ];
@@ -137,15 +138,15 @@ export default function ReviewCase() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: "PHASE 3 - PAYMENT",
-        subtitle: "CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION",
+        title: 'PHASE 3 - PAYMENT',
+        subtitle: 'CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION',
       },
-      nextStep: "../active-program?state=done",
-      previousStep: "../case-list",
+      nextStep: '../active-program?state=done',
+      previousStep: '../case-list',
       userAuthorized: true,
     });
   }, []);
@@ -169,41 +170,36 @@ export default function ReviewCase() {
 
   return (
     <Flex direction="column">
-      <Flex
-        justifyContent="space-between"
-        alignItems="center"
-        gap="20px"
-        mb="20px"
-      >
-        <Heading fontSize="24px">Case #3779394</Heading>
-        <ButtonGroup variant="ghost" colorScheme="black">
-          <Button>Screen</Button>
-          <Button>Contact</Button>
-          <Button>Flag</Button>
-          <Button>Request</Button>
-        </ButtonGroup>
-      </Flex>
-      <SimpleGrid columns={2} spacing="20px" marginBottom="60px">
-        <Flex direction="column">
-          <Heading fontSize="16px">Status</Heading>
-          <Text>Action Required</Text>
-        </Flex>
-        <Flex direction="column">
-          <Heading fontSize="16px">Reason</Heading>
-          <Text>Payment Not Received</Text>
-        </Flex>
-        <Flex direction="column">
-          <Heading fontSize="16px">Social ID Code</Heading>
-          <Text>123456789</Text>
-        </Flex>
-        <Flex direction="column">
-          <Heading fontSize="16px">Date Issued</Heading>
-          <Text>12.12.2022</Text>
-        </Flex>
-      </SimpleGrid>
-      <Flex direction="column" gap="20px" mb="20px">
-        <Heading fontSize="18px">Quick Actions</Heading>
-        <Text>
+      <Heading fontSize="24px" mb="20px">
+        Case #3779394
+      </Heading>
+
+      <Tooltip letter="A" marginBottom="60px">
+        <SimpleGrid columns={2} spacing="20px">
+          <Flex direction="column">
+            <Heading fontSize="16px">Status</Heading>
+            <Text>Action Required</Text>
+          </Flex>
+          <Flex direction="column">
+            <Heading fontSize="16px">Reason</Heading>
+            <Text>Payment Not Received</Text>
+          </Flex>
+          <Flex direction="column">
+            <Heading fontSize="16px">Social ID Code</Heading>
+            <Text>123456789</Text>
+          </Flex>
+          <Flex direction="column">
+            <Heading fontSize="16px">Date Issued</Heading>
+            <Text>12.12.2022</Text>
+          </Flex>
+        </SimpleGrid>
+      </Tooltip>
+
+      <Heading fontSize="18px" mb="20px">
+        Quick Actions
+      </Heading>
+      <Tooltip letter="B">
+        <Text mb="20px">
           Quick actions steps are automatically created based on the "reason"
           the beneficiary selected. Please control beneficiaries message before
           using these actions.
@@ -228,7 +224,8 @@ export default function ReviewCase() {
             </Flex>
           }
         ></Alert>
-      </Flex>
+      </Tooltip>
+
       <Flex
         backgroundColor="#fafafa"
         ml="-60px"
@@ -243,117 +240,127 @@ export default function ReviewCase() {
           <TabList>
             <Tab>Conversation</Tab>
             <Tab>Beneficiary Info</Tab>
-            {/* <Tab>Direct the Case</Tab> */}
           </TabList>
           <TabPanels>
             <TabPanel pl="0" pr="0" pt="20px">
-              <Flex direction="column" gap="20px" mb="20px">
-                {conversation.map((message) => (
-                  <ChatMessage key={message.id} message={message} />
-                ))}
-              </Flex>
-              <TextEditor />
+              <Tooltip letter="B">
+                <Flex direction="column" gap="20px" mb="20px">
+                  {conversation.map((message) => (
+                    <ChatMessage key={message.id} message={message} />
+                  ))}
+                </Flex>
+                <TextEditor />
+              </Tooltip>
             </TabPanel>
             <TabPanel padding="0" pt="20px">
               <Flex direction="column" gap="20px">
-                <Grid
-                  w="100%"
-                  gridTemplateRows="repeat(4, min-content)"
-                  gridTemplateColumns="repeat(2, 1fr)"
-                  gap="20px"
-                >
-                  <Box>
-                    <Text fontWeight="600">Name</Text>
-                    <Text>{citizen?.fullName}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">Occupation</Text>
-                    <Text>{citizen?.occupation}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">Personal ID Code</Text>
-                    <Text>{citizen?.idCode}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">Home Address</Text>
-                    <Text>{citizen?.fullAddress}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">Phone Number</Text>
-                    <Text>{citizen?.phoneNumber}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">E-mail</Text>
-                    <Text>{citizen?.email}</Text>
-                  </Box>
-                  <Box>
-                    <Text fontWeight="600">Date of Birth</Text>
-                    <Text>
-                      {citizen?.dateOfBirth
-                        ? new Date(citizen?.dateOfBirth).toLocaleDateString(
-                            "et",
-                            {
-                              day: "2-digit",
-                              year: "numeric",
-                              month: "2-digit",
-                            }
-                          )
-                        : ""}
-                    </Text>
-                  </Box>
-                </Grid>
-                <Flex gap="20px">
-                  <Flex w="100%" direction="column" gap="12px">
-                    <Heading variant="h3" fontSize="18px">
-                      Household needs
-                    </Heading>
-                    <Flex flexWrap="wrap" gap="4px">
-                      {householdData
-                        .flatMap((person) => person.needs)
-                        .map((need) => {
-                          return (
-                            <Tag
-                              key={need}
-                              p="6px 12px"
-                              mb="12px"
-                              variant="outline"
-                            >
-                              <TagLabel color="secondary.1000">{need}</TagLabel>
-                            </Tag>
-                          );
-                        })}
-                    </Flex>
-                  </Flex>
-                  <Flex w="100%" direction="column" gap="12px">
-                    <Heading variant="h3" fontSize="18px">
-                      Assigned Benefit Package
-                    </Heading>
-                    <Flex gap="20px">
-                      <Flex
-                        h="56px"
-                        w="56px"
-                        alignItems="center"
-                        justifyContent="center"
-                        borderRadius="8px"
-                        border="2px solid var(--chakra-colors-secondary-1000)"
-                      >
-                        <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
-                      </Flex>
+                <Tooltip letter="C">
+                  <Grid
+                    w="100%"
+                    gridTemplateRows="repeat(4, min-content)"
+                    gridTemplateColumns="repeat(2, 1fr)"
+                    gap="20px"
+                  >
+                    <Box>
+                      <Text fontWeight="600">Name</Text>
+                      <Text>{citizen?.fullName}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">Occupation</Text>
+                      <Text>{citizen?.occupation}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">Personal ID Code</Text>
+                      <Text>{citizen?.idCode}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">Home Address</Text>
+                      <Text>{citizen?.fullAddress}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">Phone Number</Text>
+                      <Text>{citizen?.phoneNumber}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">E-mail</Text>
+                      <Text>{citizen?.email}</Text>
+                    </Box>
+                    <Box>
+                      <Text fontWeight="600">Date of Birth</Text>
                       <Text>
-                        Monthly Package <br /> Monthly Cash help for families in
-                        need.
+                        {citizen?.dateOfBirth
+                          ? new Date(citizen?.dateOfBirth).toLocaleDateString(
+                              'et',
+                              {
+                                day: '2-digit',
+                                year: 'numeric',
+                                month: '2-digit',
+                              }
+                            )
+                          : ''}
                       </Text>
+                    </Box>
+                  </Grid>
+                </Tooltip>
+
+                <Tooltip letter="D">
+                  <Flex gap="20px">
+                    <Flex w="100%" direction="column" gap="12px">
+                      <Heading variant="h3" fontSize="18px">
+                        Household needs
+                      </Heading>
+                      <Flex flexWrap="wrap" gap="4px">
+                        {householdData
+                          .flatMap((person) => person.needs)
+                          .map((need) => {
+                            return (
+                              <Tag
+                                key={need}
+                                p="6px 12px"
+                                mb="12px"
+                                variant="outline"
+                              >
+                                <TagLabel color="secondary.1000">
+                                  {need}
+                                </TagLabel>
+                              </Tag>
+                            );
+                          })}
+                      </Flex>
+                    </Flex>
+                    <Flex w="100%" direction="column" gap="12px">
+                      <Heading variant="h3" fontSize="18px">
+                        Assigned Benefit Package
+                      </Heading>
+                      <Flex gap="20px">
+                        <Flex
+                          h="56px"
+                          w="56px"
+                          alignItems="center"
+                          justifyContent="center"
+                          borderRadius="8px"
+                          border="2px solid var(--chakra-colors-secondary-1000)"
+                        >
+                          <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
+                        </Flex>
+                        <Text>
+                          Monthly Package <br /> Monthly Cash help for families
+                          in need.
+                        </Text>
+                      </Flex>
                     </Flex>
                   </Flex>
-                </Flex>
+                </Tooltip>
               </Flex>
             </TabPanel>
           </TabPanels>
         </Tabs>
       </Flex>
-      <Flex direction="column" gap="8px">
-        <Heading fontSize="16px">Case Attachments</Heading>
-        <TableContainer mb="20px">
+      <Tooltip letter="D" mb="20px">
+        <Heading fontSize="16px" mb="12px">
+          Case Attachments
+        </Heading>
+        <TableContainer>
           <Table>
             <Thead>
               <Tr>
@@ -377,10 +384,10 @@ export default function ReviewCase() {
             </Tbody>
           </Table>
         </TableContainer>
-      </Flex>
-      <Box mb="60px">
+      </Tooltip>
+      <Tooltip letter="E" mb="60px">
         <BankInformation />
-      </Box>
+      </Tooltip>
       <Heading size="sm" mb="20px">
         Case History
       </Heading>
