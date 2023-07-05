@@ -18,6 +18,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
 import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
 import Tooltip from '../../../ui/Tooltip/Tooltip';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -60,7 +62,8 @@ const getConfig = (state: string | null) => {
 export default function CaseManagement() {
   const { state, dispatch } = useContext(SimulationContext);
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
 
   useEffect(() => {
     dispatch({
@@ -83,6 +86,10 @@ export default function CaseManagement() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
+    });
+
+    setLetterContextualTitleMap({
+      A: ContextualTitle.REQUESTING_INFO,
     });
   }, []);
 

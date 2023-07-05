@@ -3,7 +3,7 @@ import {
   ArrowForwardIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from "@chakra-ui/icons";
+} from '@chakra-ui/icons';
 import {
   Box,
   Divider,
@@ -13,68 +13,69 @@ import {
   SimpleGrid,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as ConsentIcon } from "../../assets/icons/consent.svg";
-import { ReactComponent as DigitalRegistriesIcon } from "../../assets/icons/digital-registries.svg";
-import { ReactComponent as InformationMediatorIcon } from "../../assets/icons/information-mediator.svg";
-import { ReactComponent as MessagingIcon } from "../../assets/icons/messaging.svg";
-import { ReactComponent as MinusIcon } from "../../assets/icons/minus.svg";
-import { ReactComponent as PassportIcon } from "../../assets/icons/passport.svg";
-import { ReactComponent as PaymentIcon } from "../../assets/icons/payments.svg";
-import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
-import { ReactComponent as RegistrationIcon } from "../../assets/icons/registration.svg";
-import { ReactComponent as SchedulingIcon } from "../../assets/icons/scheduling.svg";
-import { ReactComponent as WorkflowIcon } from "../../assets/icons/workflow.svg";
-import { colors } from "../../chakra-overrides/colors";
+} from '@chakra-ui/react';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ReactComponent as ConsentIcon } from '../../assets/icons/consent.svg';
+import { ReactComponent as DigitalRegistriesIcon } from '../../assets/icons/digital-registries.svg';
+import { ReactComponent as InformationMediatorIcon } from '../../assets/icons/information-mediator.svg';
+import { ReactComponent as MessagingIcon } from '../../assets/icons/messaging.svg';
+import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
+import { ReactComponent as PassportIcon } from '../../assets/icons/passport.svg';
+import { ReactComponent as PaymentIcon } from '../../assets/icons/payments.svg';
+import { ReactComponent as RefreshIcon } from '../../assets/icons/refresh.svg';
+import { ReactComponent as RegistrationIcon } from '../../assets/icons/registration.svg';
+import { ReactComponent as SchedulingIcon } from '../../assets/icons/scheduling.svg';
+import { ReactComponent as WorkflowIcon } from '../../assets/icons/workflow.svg';
+import { colors } from '../../chakra-overrides/colors';
 import {
   ActiveBuildingBlockContext,
   SimulationContext,
-} from "../../routes/usct/USCT";
-import { BUILDING_BLOCK } from "../../routes/usct/utils";
-import BuildingBlock from "../Activity/BuildingBlock";
-import DIAL from "../DIAL/DIAL";
-import ScenarioHeader from "./ScenarioHeader";
-import ScenarioView from "./ScenarioView";
+} from '../../routes/usct/USCT';
+import { BUILDING_BLOCK } from '../../routes/usct/utils';
+import BuildingBlock from '../Activity/BuildingBlock';
+import DIAL from '../DIAL/DIAL';
+import ContextualHelp from './ContextualHelp';
+import ScenarioHeader from './ScenarioHeader';
+import ScenarioView from './ScenarioView';
 
 const buildingBlockActivity = [
-  { label: "Consent", icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
+  { label: 'Consent', icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
   {
-    label: "ID & Authentication",
+    label: 'ID & Authentication',
     icon: <PassportIcon />,
     id: BUILDING_BLOCK.AUTHENTICATION,
   },
   {
-    label: "Information Mediator",
+    label: 'Information Mediator',
     icon: <InformationMediatorIcon />,
     id: BUILDING_BLOCK.INFORMATION_MEDIATOR,
   },
   {
-    label: "Digital Registries",
+    label: 'Digital Registries',
     icon: <DigitalRegistriesIcon />,
     id: BUILDING_BLOCK.DIGITAL_REGISTRIES,
   },
-  { label: "Messaging", icon: <MessagingIcon />, id: BUILDING_BLOCK.MESSAGING },
-  { label: "Payment", icon: <PaymentIcon />, id: BUILDING_BLOCK.PAYMENT },
+  { label: 'Messaging', icon: <MessagingIcon />, id: BUILDING_BLOCK.MESSAGING },
+  { label: 'Payment', icon: <PaymentIcon />, id: BUILDING_BLOCK.PAYMENT },
   {
-    label: "Registration",
+    label: 'Registration',
     icon: <RegistrationIcon />,
     id: BUILDING_BLOCK.REGISTRATION,
   },
   {
-    label: "Scheduling",
+    label: 'Scheduling',
     icon: <SchedulingIcon />,
     id: BUILDING_BLOCK.SCHEDULING,
   },
-  { label: "Workflow", icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
+  { label: 'Workflow', icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
 ];
 
 export default function ScenarioLayout({
   view,
   children,
 }: {
-  view: "mobile" | "desktop";
+  view: 'mobile' | 'desktop';
   children: React.ReactElement[] | React.ReactElement;
 }) {
   const { activeBuildingBlocks } = useContext(ActiveBuildingBlockContext);
@@ -85,7 +86,7 @@ export default function ScenarioLayout({
   return (
     <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
       <Flex
-        w={{ base: "100%", lg: "calc(100% - 320px)" }}
+        w={{ base: '100%', lg: 'calc(100% - 320px)' }}
         direction="column"
         position="relative"
       >
@@ -167,8 +168,8 @@ export default function ScenarioLayout({
         color={colors.secondary[0]}
         w="320px"
         backgroundColor="primary.900"
-        position={{ base: "absolute", lg: "relative" }}
-        right={{ base: isExpanded ? "0" : "-320px", lg: "0" }}
+        position={{ base: 'absolute', lg: 'relative' }}
+        right={{ base: isExpanded ? '0' : '-320px', lg: '0' }}
         top={0}
         flexShrink="0"
         transition="width 0.3s ease-in-out"
@@ -176,7 +177,7 @@ export default function ScenarioLayout({
         zIndex={1}
       >
         <IconButton
-          display={{ base: "block", lg: "none" }}
+          display={{ base: 'block', lg: 'none' }}
           position="absolute"
           left="-32px"
           top="0"
@@ -233,11 +234,7 @@ export default function ScenarioLayout({
             </Flex>
           </Flex>
           <Divider color={colors.darkblue[300]} mb="1.5rem" />
-          <Text size="sm">
-            Generic Processes and interactions of Building Blocks. These are
-            generic processes that are used in here can be used on various use
-            cases.
-          </Text>
+          <ContextualHelp />
         </Flex>
       </Flex>
     </Flex>

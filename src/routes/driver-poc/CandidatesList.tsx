@@ -11,18 +11,18 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { useContext } from "react";
-import { useQuery } from "react-query";
-import { useNavigation } from "react-router-dom";
-import { colors } from "../../chakra-overrides/colors";
-import { RPCContext } from "./rpc";
+} from '@chakra-ui/react';
+import { useContext } from 'react';
+import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { colors } from '../../chakra-overrides/colors';
+import { RPCContext } from './rpc';
 
 export default function CandidatesList() {
   const rpc = useContext(RPCContext);
-  const { location } = useNavigation();
+  const navigate = useNavigate();
   const { data: candidates, isLoading } = useQuery(
-    "candidates",
+    'candidates',
     rpc.getCandidateList
   );
   return (
@@ -79,7 +79,7 @@ export default function CandidatesList() {
               key={candidate.id}
               onClick={() => navigate(`/driver-poc/candidate/${candidate.id}`)}
               _hover={{
-                cursor: "pointer",
+                cursor: 'pointer',
                 background: colors.secondary[100],
               }}
             >

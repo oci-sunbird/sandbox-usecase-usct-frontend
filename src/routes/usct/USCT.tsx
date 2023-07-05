@@ -1,9 +1,10 @@
-import { Flex } from "@chakra-ui/react";
-import { createContext, useReducer, useState } from "react";
-import { Outlet } from "react-router-dom";
-import ScenarioLayout from "../../ui/ScenarioLayout/ScenarioLayout";
-import Header from "./Header";
-import { BUILDING_BLOCK } from "./utils";
+import { Flex } from '@chakra-ui/react';
+import { createContext, useReducer, useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
+import { ContextualHelpContextProvider } from './ContextualHelpContext';
+import Header from './Header';
+import { BUILDING_BLOCK } from './utils';
 
 export interface IRouteDescription {
   title: string;
@@ -11,8 +12,8 @@ export interface IRouteDescription {
 }
 
 export enum EUserType {
-  CITIZEN_SERVANT = "CITIZEN_SERVANT",
-  CITIZEN = "CITIZEN",
+  CITIZEN_SERVANT = 'CITIZEN_SERVANT',
+  CITIZEN = 'CITIZEN',
 }
 
 export interface ISimulationState {
@@ -27,24 +28,24 @@ export interface ISimulationState {
 
 export interface ISimulationAction extends ISimulationState {
   type:
-    | "SET_PROGRESS"
-    | "SET_DESCRIPTION"
-    | "SET_OVERLAYS"
-    | "SET_USERTYPE"
-    | "SET_ALL";
+    | 'SET_PROGRESS'
+    | 'SET_DESCRIPTION'
+    | 'SET_OVERLAYS'
+    | 'SET_USERTYPE'
+    | 'SET_ALL';
 }
 
 const initialSimulationState: ISimulationState = {
   progress: 0,
   description: {
-    title: "",
-    subtitle: "",
+    title: '',
+    subtitle: '',
   },
   overlays: true,
   userType: null,
   userAuthorized: false,
-  nextStep: "",
-  previousStep: "",
+  nextStep: '',
+  previousStep: '',
 };
 
 const simulationReducer = (
@@ -52,7 +53,7 @@ const simulationReducer = (
   action: ISimulationAction
 ) => {
   switch (action.type) {
-    case "SET_ALL":
+    case 'SET_ALL':
       return {
         ...state,
         progress: action.progress,
@@ -119,22 +120,24 @@ export default function USCT() {
       value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
     >
       <SimulationContext.Provider value={{ state, dispatch }}>
-        <ScenarioLayout view="mobile">
-          <Flex direction="column" height="100%">
-            <Header
-              userType={state.userType}
-              userAuthorized={state.userAuthorized}
-            />
-            <Flex
-              paddingRight={{ base: "15px", lg: "60px" }}
-              paddingLeft={{ base: "15px", lg: "60px" }}
-              paddingBottom="80px"
-              flexGrow="1"
-            >
-              <Outlet />
+        <ContextualHelpContextProvider>
+          <ScenarioLayout view="mobile">
+            <Flex direction="column" height="100%">
+              <Header
+                userType={state.userType}
+                userAuthorized={state.userAuthorized}
+              />
+              <Flex
+                paddingRight={{ base: '15px', lg: '60px' }}
+                paddingLeft={{ base: '15px', lg: '60px' }}
+                paddingBottom="80px"
+                flexGrow="1"
+              >
+                <Outlet />
+              </Flex>
             </Flex>
-          </Flex>
-        </ScenarioLayout>
+          </ScenarioLayout>
+        </ContextualHelpContextProvider>
       </SimulationContext.Provider>
     </ActiveBuildingBlockContext.Provider>
   );
