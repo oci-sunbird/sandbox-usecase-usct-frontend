@@ -1,3 +1,5 @@
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as MaybeCircleIcon } from "@assets/icons/maybe-circle.svg";
 import {
   Box,
   Button,
@@ -11,38 +13,58 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
-  Tag,
   Tbody,
   Td,
   Text,
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
+} from "@chakra-ui/react";
+import { useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as MaybeCircleIcon } from '@assets/icons/maybe-circle.svg';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+
+const getConfig = (state: string | null) => {
+  switch (state) {
+    case "done":
+      return {
+        description: {
+          title: "PHASE 3 - PAYMENT",
+          subtitle:
+            "CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION",
+        },
+        nextStep: "../conversation/300",
+        previousStep: "../review-case/2895379235",
+      };
+    default:
+      return {
+        description: {
+          title: "PHASE 3 - PAYMENT",
+          subtitle:
+            "CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION",
+        },
+        nextStep: "../new-conversation",
+        previousStep: "../review-candidate/2895379235?state=scheduling",
+      };
+  }
+};
 
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
-      description: {
-        title: 'PHASE 3 - PAYMENT',
-        subtitle: 'CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION',
-      },
-      progress: 65,
       userAuthorized: true,
+      ...getConfig(searchParams.get("state")),
     });
   }, []);
 
@@ -52,14 +74,13 @@ export default function ActiveProgram() {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
-      [BUILDING_BLOCK.MESSAGING]: false,
-      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: true,
       [BUILDING_BLOCK.REGISTRATION]: false,
-      [BUILDING_BLOCK.SCHEDULING]: true,
+      [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
 
@@ -93,7 +114,12 @@ export default function ActiveProgram() {
             <Tab>Closed Conversations (0)</Tab>
           </TabList>
           <TabPanels>
-            <TabPanel gap="20px" display="flex" flexDirection="column" padding={0}>
+            <TabPanel
+              gap="20px"
+              display="flex"
+              flexDirection="column"
+              padding={0}
+            >
               <TableContainer>
                 <Table background="white">
                   <Thead>
@@ -119,8 +145,7 @@ export default function ActiveProgram() {
                 </Table>
               </TableContainer>
             </TabPanel>
-            <TabPanel>
-            </TabPanel>
+            <TabPanel></TabPanel>
           </TabPanels>
         </Tabs>
 

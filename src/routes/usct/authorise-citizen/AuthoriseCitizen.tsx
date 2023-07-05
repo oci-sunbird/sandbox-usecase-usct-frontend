@@ -40,8 +40,8 @@ export default function AuthoriseCitizen() {
       [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
-      [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
+      [BUILDING_BLOCK.WORKFLOW]: false,
+      [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
 

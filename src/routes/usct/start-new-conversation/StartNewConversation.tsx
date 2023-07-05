@@ -1,27 +1,47 @@
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import TextEditor from '../../../ui/TextEditor/TextEditor';
-import { EUserType, SimulationContext } from '../USCT';
-import ConversationTopic from './ConversationTopic';
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import TextEditor from "../../../ui/TextEditor/TextEditor";
+import {
+  ActiveBuildingBlockContext,
+  EUserType,
+  SimulationContext,
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+import ConversationTopic from "./ConversationTopic";
 
 export default function StartNewConversation() {
   const { state, dispatch } = useContext(SimulationContext);
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
   const [topicSelected, setTopicSelected] = useState(false);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 3 - PAYMENT',
+        title: "PHASE 3 - PAYMENT",
         subtitle:
-          'CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM',
+          "CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM",
       },
-      progress: 70,
+      nextStep: "../case-management?state=done",
+      previousStep: "../active-program",
       userAuthorized: true,
+    });
+  }, []);
+  useEffect(() => {
+    setActiveBuildingBlocks({
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+      [BUILDING_BLOCK.MESSAGING]: true,
+      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
     });
   }, []);
   return (
@@ -46,11 +66,11 @@ export default function StartNewConversation() {
       <Text>
         <strong>Message</strong>
       </Text>
-      <Text>Please explain the lorem ipsum</Text>
+      <Text>Please type additional message if it is needed.</Text>
       <TextEditor
         value={
           topicSelected
-            ? '(Autofilled) Would you please provide me more detail about my package information?'
+            ? "(Autofilled) Would you please provide me more detail about my package information?"
             : undefined
         }
       />
@@ -60,7 +80,7 @@ export default function StartNewConversation() {
           as={Link}
           to="../case-management?done=true"
           isDisabled={!topicSelected}
-          _disabled={{ bg: 'secondary.400' }}
+          _disabled={{ bg: "secondary.400" }}
         >
           Submit
         </Button>

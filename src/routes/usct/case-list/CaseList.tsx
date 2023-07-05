@@ -1,3 +1,4 @@
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
 import {
   Button,
   Flex,
@@ -11,33 +12,33 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
+} from "@chakra-ui/react";
+import Pagination from "@ui/Pagination/Pagination";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import Pagination from '@ui/Pagination/Pagination';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'PHASE 3 - PAYMENT',
-        subtitle: 'CIVIL SERVANT REVIEWS THE ACTIVE CASE',
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CIVIL SERVANT REVIEWS THE ACTIVE CASE",
       },
-      progress: 80,
       userAuthorized: true,
+      previousStep: "../case-management?state=done",
+      nextStep: "../review-case/2895379235",
     });
   }, []);
 

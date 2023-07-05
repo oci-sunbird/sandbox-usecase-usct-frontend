@@ -30,7 +30,8 @@ export default function Conversation() {
         title: "PHASE 3 - PAYMENT",
         subtitle: "CITIZEN RESOLVED THE CASE",
       },
-      progress: 95,
+      nextStep: "../feedback",
+      previousStep: "../active-program?state=done",
       userAuthorized: true,
     });
   }, []);
@@ -41,14 +42,13 @@ export default function Conversation() {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: true,
-      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
-      [BUILDING_BLOCK.SCHEDULING]: true,
-      [BUILDING_BLOCK.WORKFLOW]: false,
-      [BUILDING_BLOCK.SECURITY]: false,
+      [BUILDING_BLOCK.SCHEDULING]: false,
+      [BUILDING_BLOCK.WORKFLOW]: true,
     });
   }, []);
 

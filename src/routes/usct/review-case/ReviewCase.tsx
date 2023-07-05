@@ -1,3 +1,6 @@
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as ChatIcon } from "@assets/icons/chat.svg";
+import { ReactComponent as ArrowIcon } from "@assets/icons/chevron-right.svg";
 import {
   Box,
   Button,
@@ -8,7 +11,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
   SimpleGrid,
   Tab,
   Table,
@@ -25,109 +27,105 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import ChatMessage from '../../../ui/ChatMessage/ChatMessage';
-import TextEditor from '../../../ui/TextEditor/TextEditor';
-import BankInformation from '../personal/BankInformation';
+} from "@chakra-ui/react";
+import Alert from "@ui/Alert/Alert";
+import Timeline from "@ui/Timeline/Timeline";
+import { useContext, useEffect, useState } from "react";
+import ChatMessage from "../../../ui/ChatMessage/ChatMessage";
+import TextEditor from "../../../ui/TextEditor/TextEditor";
+import BankInformation from "../personal/BankInformation";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import Timeline from '@ui/Timeline/Timeline';
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as ChatIcon } from '@assets/icons/chat.svg';
-import { ReactComponent as ArrowIcon } from '@assets/icons/chevron-right.svg';
-import Alert from '@ui/Alert/Alert';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const householdData = [
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
-    reason: 'Data',
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
     needs: [],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
-    reason: 'Data',
-    needs: ['Hearing Support', 'Special Support'],
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+    needs: ["Hearing Support", "Special Support"],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
-    reason: 'Data',
-    needs: ['Child Care', 'Financial Security'],
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+    needs: ["Child Care", "Financial Security"],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
-    reason: 'Data',
-    needs: ['Food', 'Health Care', 'Education'],
+    name: "Ms Lorem Ipsum",
+    personalCode: "12345678910",
+    relation: "Wife",
+    dateOfBirth: "12.12.1975",
+    reason: "Data",
+    needs: ["Food", "Health Care", "Education"],
   },
 ];
 
 const conversation = [
   {
-    id: 'hdfhdrf5',
+    id: "hdfhdrf5",
     timestamp: 1678891185842,
-    content: 'hello i need cash quick',
-    user: 'Shady Man',
+    content: "hello i need cash quick",
+    user: "Shady Man",
   },
   {
-    id: 'sy43y3s45s35',
+    id: "sy43y3s45s35",
     timestamp: 1678891285842,
-    content: 'im sorry, get a better job?',
-    user: 'GovStack Person',
+    content: "im sorry, get a better job?",
+    user: "GovStack Person",
   },
   {
-    id: '1h3g13f13f',
+    id: "1h3g13f13f",
     timestamp: 1678891385842,
-    content: 'i want to talk to your manager',
-    user: 'Shady Man',
+    content: "i want to talk to your manager",
+    user: "Shady Man",
   },
   {
-    id: 'srtsrts315135',
+    id: "srtsrts315135",
     timestamp: 1678891485842,
-    content: 'hello i am the manager',
-    user: 'GovStack Person',
+    content: "hello i am the manager",
+    user: "GovStack Person",
   },
   {
-    id: '13gg131e13e',
+    id: "13gg131e13e",
     timestamp: 1678891585842,
-    content: 'i want money',
-    user: 'Shady Man',
+    content: "i want money",
+    user: "Shady Man",
   },
   {
-    id: '1351035askpdk',
+    id: "1351035askpdk",
     timestamp: 1678891685842,
-    content: 'no',
-    user: 'GovStack Person',
+    content: "no",
+    user: "GovStack Person",
   },
 ];
 
 const caseHistoryEvents = [
   {
-    name: 'Case opened',
-    date: '23.04.2017',
-    info: '#97654321',
+    name: "Case opened",
+    date: "23.04.2017",
+    info: "#97654321",
     completed: true,
   },
   {
-    name: 'Informing the Beneficary',
-    date: '23.04.2017',
-    info: '#97654321',
+    name: "Informing the Beneficary",
+    date: "23.04.2017",
+    info: "#97654321",
     completed: true,
   },
 ];
@@ -139,14 +137,15 @@ export default function ReviewCase() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'PHASE 3 - PAYMENT',
-        subtitle: 'CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION',
+        title: "PHASE 3 - PAYMENT",
+        subtitle: "CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION",
       },
-      progress: 85,
+      nextStep: "../active-program?state=done",
+      previousStep: "../case-list",
       userAuthorized: true,
     });
   }, []);
@@ -155,10 +154,10 @@ export default function ReviewCase() {
 
   useEffect(() => {
     setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: true,
-      [BUILDING_BLOCK.AUTHENTICATION]: true,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
-      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
+      [BUILDING_BLOCK.CONSENT]: false,
+      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: true,
       [BUILDING_BLOCK.PAYMENT]: true,
       [BUILDING_BLOCK.REGISTRATION]: false,
@@ -292,14 +291,14 @@ export default function ReviewCase() {
                     <Text>
                       {citizen?.dateOfBirth
                         ? new Date(citizen?.dateOfBirth).toLocaleDateString(
-                            'et',
+                            "et",
                             {
-                              day: '2-digit',
-                              year: 'numeric',
-                              month: '2-digit',
+                              day: "2-digit",
+                              year: "numeric",
+                              month: "2-digit",
                             }
                           )
-                        : ''}
+                        : ""}
                     </Text>
                   </Box>
                 </Grid>

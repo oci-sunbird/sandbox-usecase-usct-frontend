@@ -1,12 +1,6 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Heading,
-  Tag,
-  Text,
-} from "@chakra-ui/react";
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
+import { ReactComponent as YisIcon } from "@assets/icons/yis-circle.svg";
+import { Button, ButtonGroup, Flex, Heading, Tag } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
@@ -18,8 +12,6 @@ import { BUILDING_BLOCK } from "../utils";
 import BankInformation from "./BankInformation";
 import PersonalInformation from "./PersonalInformation";
 import PersonalInformationTable from "./PersonalInformationTable";
-import { ReactComponent as YisIcon } from "@assets/icons/yis-circle.svg"
-import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg"
 
 const householdData = [
   {
@@ -52,7 +44,12 @@ const householdData = [
   },
 ];
 
-const DocumentStatus = <Flex alignItems="center" gap="10px"><YisIcon />Approved</Flex>
+const DocumentStatus = (
+  <Flex alignItems="center" gap="10px">
+    <YisIcon />
+    Approved
+  </Flex>
+);
 
 const documentsData = [
   {
@@ -104,7 +101,10 @@ export default function Personal() {
           ? "CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW"
           : "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      progress: searchParams.get("done") ? 35 : 30,
+      nextStep: searchParams.get("done")
+        ? "../case-management?state=submitted"
+        : "../review",
+      previousStep: searchParams.get("done") ? "../review" : "../info",
       userAuthorized: true,
     });
   }, []);
@@ -113,7 +113,7 @@ export default function Personal() {
 
   useEffect(() => {
     setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
@@ -122,7 +122,6 @@ export default function Personal() {
       [BUILDING_BLOCK.REGISTRATION]: true,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
   return (
@@ -144,13 +143,21 @@ export default function Personal() {
               </Button>
             </>
           ) : (
-            <Button as={Link} to="../review" leftIcon={<FileWarningIcon height="20" width="20"/>}>
+            <Button
+              as={Link}
+              to="../review"
+              leftIcon={<FileWarningIcon height="20" width="20" />}
+            >
               Validate the information
             </Button>
           )}
         </ButtonGroup>
       </Flex>
-      <PersonalInformation person={citizen} simulation reviewed={!!searchParams.get("done")} />
+      <PersonalInformation
+        person={citizen}
+        simulation
+        reviewed={!!searchParams.get("done")}
+      />
       <PersonalInformationTable
         title="Household Information"
         columns={["Name", "National ID", "Relation", "Date of Birth", "Needs"]}
@@ -180,7 +187,11 @@ export default function Personal() {
               </Button>
             </>
           ) : (
-            <Button as={Link} to="../review" leftIcon={<FileWarningIcon height="20" width="20"/>}>
+            <Button
+              as={Link}
+              to="../review"
+              leftIcon={<FileWarningIcon height="20" width="20" />}
+            >
               Validate the information
             </Button>
           )}

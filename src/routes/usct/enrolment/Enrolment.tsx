@@ -1,3 +1,9 @@
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as CreditCardIcon } from "@assets/icons/credit-card.svg";
+import { ReactComponent as HashIcon } from "@assets/icons/hash.svg";
+import { ReactComponent as MobilePaymentIcon } from "@assets/icons/mobile-payment.svg";
+import radioCheck from "@assets/icons/radio-check.svg";
+import { ReactComponent as WalletIcon } from "@assets/icons/wallet.svg";
 import {
   Box,
   Button,
@@ -7,7 +13,6 @@ import {
   Grid,
   GridItem,
   Heading,
-  Icon,
   Radio,
   SimpleGrid,
   Table,
@@ -18,21 +23,15 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as CreditCardIcon } from '@assets/icons/credit-card.svg';
-import { ReactComponent as MobilePaymentIcon } from '@assets/icons/mobile-payment.svg';
-import { ReactComponent as HashIcon } from '@assets/icons/hash.svg';
-import { ReactComponent as WalletIcon } from '@assets/icons/wallet.svg';
-import radioCheck from '@assets/icons/radio-check.svg';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function Enrolment() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -42,16 +41,17 @@ export default function Enrolment() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 2 - ENROLMENT',
+        title: "PHASE 2 - ENROLMENT",
         subtitle:
-          'CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT',
+          "CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT",
       },
-      progress: 50,
       userAuthorized: true,
+      nextStep: "../candidate-list?state=scheduling",
+      previousStep: "../info?done=true",
     });
   }, []);
 
@@ -166,8 +166,8 @@ export default function Enrolment() {
             borderRadius="8px"
             border={`2px solid ${
               paymentMethodSelected
-                ? 'var(--chakra-colors-secondary-1000)'
-                : 'lightgray'
+                ? "var(--chakra-colors-secondary-1000)"
+                : "lightgray"
             }`}
           >
             <Flex p="32px 24px" gap="20px" alignItems="center">
@@ -181,7 +181,7 @@ export default function Enrolment() {
                 ml="auto"
                 borderColor="secondary.1000"
                 _checked={{
-                  background: 'black',
+                  background: "black",
                   content: `url(${radioCheck})`,
                 }}
                 onChange={() => setPaymentMethodSelected(true)}
@@ -200,7 +200,7 @@ export default function Enrolment() {
                 <Grid
                   marginBottom="24px"
                   gap="12px"
-                  templateColumns={{ sm: '1fr', xl: '1fr 1fr' }}
+                  templateColumns={{ sm: "1fr", xl: "1fr 1fr" }}
                 >
                   <GridItem>
                     <Text size="sm" fontWeight="bold">
@@ -296,7 +296,7 @@ export default function Enrolment() {
           as={Link}
           to="../candidate-list?state=enrolled"
           isDisabled={!paymentMethodSelected || !acceptedTerms}
-          _disabled={{ bg: 'secondary.400' }}
+          _disabled={{ bg: "secondary.400" }}
         >
           Enroll
         </Button>

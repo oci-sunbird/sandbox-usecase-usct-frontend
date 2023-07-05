@@ -33,7 +33,8 @@ export default function Review() {
         title: "PHASE 1 - ELIGIBILITY",
         subtitle: "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      progress: 35,
+      nextStep: "../personal?done=true",
+      previousStep: "../personal",
       userAuthorized: true,
     });
   }, []);
@@ -47,11 +48,10 @@ export default function Review() {
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,
-      [BUILDING_BLOCK.PAYMENT]: false,
+      [BUILDING_BLOCK.PAYMENT]: true,
       [BUILDING_BLOCK.REGISTRATION]: true,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
 

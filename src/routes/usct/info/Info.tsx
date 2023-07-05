@@ -19,6 +19,28 @@ import {
 } from "../USCT";
 import { BUILDING_BLOCK } from "../utils";
 
+const getConfig = (done: boolean) => {
+  if (done) {
+    return {
+      description: {
+        title: "PHASE 2 - ENROLMENT",
+        subtitle: "CITIZEN REVIEWS ELIGIBILITY STATUS",
+      },
+      previousStep: "../review-candidate/2895379235?state=done",
+      nextStep: "../enrolment",
+    };
+  } else {
+    return {
+      description: {
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CITIZEN CHECKS THE BENEFICIARY PROGRAM",
+      },
+      previousStep: "../authorise-citizen",
+      nextStep: "../personal",
+    };
+  }
+};
+
 export default function Info() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
@@ -28,15 +50,7 @@ export default function Info() {
       type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
-      description: {
-        title: searchParams.get("done")
-          ? "PHASE 2 - ENROLMENT"
-          : "PHASE 1 - ELIGIBILITY",
-        subtitle: searchParams.get("done")
-          ? "CITIZEN REVIEWS ELIGIBILITY STATUS"
-          : "CITIZEN CHECKS THE BENEFICIARY PROGRAM",
-      },
-      progress: searchParams.get("done") ? 45 : 25,
+      ...getConfig(!!searchParams.get("done")),
       userAuthorized: true,
     });
   }, []);
@@ -47,14 +61,13 @@ export default function Info() {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,
       [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
 
@@ -77,7 +90,7 @@ export default function Info() {
         <Accordion>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   How does it work?
                 </Box>
@@ -93,7 +106,7 @@ export default function Info() {
           </AccordionItem>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Eligibility and Requirements
                 </Box>
@@ -109,7 +122,7 @@ export default function Info() {
           </AccordionItem>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Similar Programs
                 </Box>

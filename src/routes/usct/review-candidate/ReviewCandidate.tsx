@@ -1,7 +1,9 @@
-import { AddIcon } from '@chakra-ui/icons';
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as CardIcon } from "@assets/icons/credit-card-simple.svg";
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Flex,
   Grid,
   Heading,
@@ -16,51 +18,49 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
+} from "@chakra-ui/react";
+import Timeline from "@ui/Timeline/Timeline";
+import { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import { ActionAlert } from './ActionAlert';
-import { householdData, historyData } from './data';
-import Timeline from '@ui/Timeline/Timeline';
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as CardIcon } from '@assets/icons/credit-card-simple.svg';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+import { ActionAlert } from "./ActionAlert";
+import { historyData, householdData } from "./data";
 
-const getSubtitle = (state: string | null) => {
-  if (state === 'done') {
+const getConfig = (state: string | null) => {
+  if (state === "done") {
     return {
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE",
       },
-      progress: 40,
+      nextStep: "../info?done=true",
+      previousStep: "../candidate-list?state=submitted",
     };
   }
-  if (state === 'scheduling') {
+  if (state === "scheduling") {
     return {
       description: {
-        title: 'PHASE 2 - ENROLMENT',
-        subtitle: 'CIVIL SERVANT SCHEDULES THE PAYMENTS',
+        title: "PHASE 2 - ENROLMENT",
+        subtitle: "CIVIL SERVANT SCHEDULES THE PAYMENTS",
       },
-      progress: 60,
+      nextStep: "../active-program",
+      previousStep: "../candidate-list?state=scheduling",
     };
   }
   return {
     description: {
-      title: 'PHASE 1 - ELIGIBILITY',
-      subtitle: 'CIVIL SERVANT REVIEWS THE CANDIDATE',
+      title: "PHASE 1 - ELIGIBILITY",
+      subtitle: "CIVIL SERVANT REVIEWS THE CANDIDATE",
     },
-    progress: 15,
-    nextStep: '../authorise-citizen',
-    previousStep: '../candidate-list',
+    nextStep: "../authorise-citizen",
+    previousStep: "../candidate-list",
   };
 };
 
@@ -70,34 +70,47 @@ export default function ReviewCandidate() {
   const [citizen] = useState<any>();
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getSubtitle(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
     });
   }, []);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   useEffect(() => {
-    setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: false,
-      [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
-      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
-      [BUILDING_BLOCK.MESSAGING]: false,
-      [BUILDING_BLOCK.PAYMENT]: false,
-      [BUILDING_BLOCK.REGISTRATION]: false,
-      [BUILDING_BLOCK.SCHEDULING]: false,
-      [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: false,
-    });
+    if (searchParams.get("state") === "scheduling") {
+      setActiveBuildingBlocks({
+        [BUILDING_BLOCK.CONSENT]: false,
+        [BUILDING_BLOCK.AUTHENTICATION]: false,
+        [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+        [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+        [BUILDING_BLOCK.MESSAGING]: false,
+        [BUILDING_BLOCK.PAYMENT]: true,
+        [BUILDING_BLOCK.REGISTRATION]: true,
+        [BUILDING_BLOCK.SCHEDULING]: true,
+        [BUILDING_BLOCK.WORKFLOW]: true,
+      });
+    } else {
+      setActiveBuildingBlocks({
+        [BUILDING_BLOCK.CONSENT]: false,
+        [BUILDING_BLOCK.AUTHENTICATION]: false,
+        [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+        [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
+        [BUILDING_BLOCK.MESSAGING]: false,
+        [BUILDING_BLOCK.PAYMENT]: true,
+        [BUILDING_BLOCK.REGISTRATION]: false,
+        [BUILDING_BLOCK.SCHEDULING]: false,
+        [BUILDING_BLOCK.WORKFLOW]: true,
+      });
+    }
   }, []);
 
   return (
     <FakeLoader
       label="Changing perspective to civil servant"
-      override={!!searchParams.get('state')}
+      override={searchParams.get("state") === "scheduling"}
     >
       <Flex w="100%" direction="column" gap="60px">
         <Flex direction="column" gap="20px">
@@ -109,7 +122,7 @@ export default function ReviewCandidate() {
               <Tag colorScheme="info">Action Required</Tag>
             </Flex>
           </Flex>
-          <ActionAlert state={searchParams.get('state')} />
+          <ActionAlert state={searchParams.get("state")} />
           <Box>
             <Heading variant="h3" fontSize="18px">
               Personal Information
@@ -152,12 +165,12 @@ export default function ReviewCandidate() {
               <Text fontWeight="600">Date of Birth</Text>
               <Text>
                 {citizen?.dateOfBirth
-                  ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
-                      day: '2-digit',
-                      year: 'numeric',
-                      month: '2-digit',
+                  ? new Date(citizen?.dateOfBirth).toLocaleString("et", {
+                      day: "2-digit",
+                      year: "numeric",
+                      month: "2-digit",
                     })
-                  : ''}
+                  : ""}
               </Text>
             </Box>
           </Grid>
@@ -189,7 +202,7 @@ export default function ReviewCandidate() {
                 <Heading variant="h3" fontSize="18px">
                   Recommended Benefit Package
                 </Heading>
-                {!searchParams.get('state') ? (
+                {!searchParams.get("state") ? (
                   <Text>
                     Additional information required to decide eligibility and
                     recommend benefit packages
@@ -214,7 +227,7 @@ export default function ReviewCandidate() {
                 )}
               </Flex>
             </Flex>
-            {searchParams.get('state') === 'scheduling' && (
+            {searchParams.get("state") === "scheduling" && (
               <Box>
                 <Heading variant="h3" fontSize="18px" mb="12px">
                   Selected Payment Method

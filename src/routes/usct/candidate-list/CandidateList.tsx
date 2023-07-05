@@ -1,8 +1,8 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { ReactComponent as HighPriorityIcon } from "@assets/icons/high-priority.svg";
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
   Heading,
   Tab,
@@ -19,20 +19,51 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { useContext, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import Tooltip from '../../../ui/Tooltip/Tooltip';
+} from "@chakra-ui/react";
+import { faker } from "@faker-js/faker";
+import Pagination from "@ui/Pagination/Pagination";
+import { useContext, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
-import { ReactComponent as HighPriorityIcon } from '@assets/icons/high-priority.svg';
-import Pagination from '@ui/Pagination/Pagination';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+
+const getConfig = (state: string | null) => {
+  switch (state) {
+    case "scheduling":
+      return {
+        description: {
+          title: "PHASE 2 - ENROLMENT",
+          subtitle: "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES",
+        },
+        previousStep: "../enrolment",
+        nextStep: "../review-candidate/2895379235?state=scheduling",
+      };
+    case "submitted":
+      return {
+        description: {
+          title: "PHASE 2 - ENROLMENT",
+          subtitle: "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES",
+        },
+        previousStep: "../case-management?state=submitted",
+        nextStep: "../review-candidate/2895379235?state=done",
+      };
+    default:
+      return {
+        description: {
+          title: "PHASE 1 - ELIGIBILITY",
+          subtitle: "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
+        },
+        nextStep: "../review-candidate/2895379235",
+        previousStep: "../case-management",
+      };
+  }
+};
 
 export default function CandidateList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -41,22 +72,10 @@ export default function CandidateList() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
-      description: {
-        title:
-          searchParams.get('state') === 'enrolled'
-            ? 'PHASE 2 - ENROLMENT'
-            : 'PHASE 1 - ELIGIBILITY',
-        subtitle:
-          searchParams.get('state') === 'enrolled'
-            ? 'CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES'
-            : 'CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES',
-      },
-      progress: searchParams.get('state') === 'enrolled' ? 55 : 10,
-      nextStep: '../review-candidate/2895379235',
-      previousStep: '../case-management',
+      ...getConfig(searchParams.get("state")),
     });
   }, []);
 
@@ -73,14 +92,13 @@ export default function CandidateList() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: false,
-      [BUILDING_BLOCK.SECURITY]: true,
     });
   }, []);
 
   return (
     <Flex w="100%" direction="column" gap="60px">
       <Flex gap="20px" direction="column">
-        <Heading>Assigned Candidate</Heading>
+        <Heading>Review Candidate</Heading>
         <Flex justifyContent="space-between">
           <Flex gap="10px" flexShrink="0" alignItems="center">
             <Flex
@@ -103,7 +121,7 @@ export default function CandidateList() {
         </Flex>
         <Box position="relative">
           <Tooltip letter="A">
-            <Tabs isFitted>
+            <Tabs isFitted defaultIndex={!!searchParams.get("state") ? 1 : 0}>
               <TabList>
                 <Tab>Eligibility (1)</Tab>
                 <Tab>Enrollment (1)</Tab>
@@ -212,9 +230,7 @@ export default function CandidateList() {
                     </Flex>
                   </Flex>
                 </TabPanel>
-                <TabPanel padding="0">
-                  <p>active beneficiaries tab</p>
-                </TabPanel>
+                <TabPanel padding="0"></TabPanel>
               </TabPanels>
             </Tabs>
           </Tooltip>
@@ -238,10 +254,10 @@ export default function CandidateList() {
                   color={colors.secondary[0]}
                 >
                   <Tr>
-                    <Th color={colors.secondary[0]}>Social ID</Th>
-                    <Th color={colors.secondary[0]}>Reviewer</Th>
+                    <Th color={colors.secondary[0]}>Candidate No</Th>
                     <Th color={colors.secondary[0]}>Household Size</Th>
                     <Th color={colors.secondary[0]}>Latest Update</Th>
+                    <Th color={colors.secondary[0]}>Reviewer</Th>
                     <Th color={colors.secondary[0]}>Status</Th>
                     <Th></Th>
                   </Tr>
@@ -249,13 +265,9 @@ export default function CandidateList() {
                 <Tbody>
                   <Tr>
                     <Td>37793946215</Td>
-                    <Td>(unassigned)</Td>
-                    <Td>
-                      <Flex gap="10px" alignItems="center">
-                        <HighPriorityIcon /> High Priority
-                      </Flex>
-                    </Td>
+                    <Td>{faker.number.int({ min: 1, max: 7 })}</Td>
                     <Td>Yesterday</Td>
+                    <Td>{faker.person.fullName()}</Td>
                     <Td>
                       <Tag justifyContent="center" w="140px">
                         Pending
@@ -272,7 +284,7 @@ export default function CandidateList() {
             <Flex
               justifyContent="space-between"
               gap="20px"
-              flexDirection={{ sm: 'column', xl: 'row' }}
+              flexDirection={{ sm: "column", xl: "row" }}
             >
               <Pagination />
               <Button disabled>Request to Assign New Candidate</Button>
