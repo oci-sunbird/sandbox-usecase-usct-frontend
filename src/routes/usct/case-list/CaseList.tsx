@@ -136,7 +136,7 @@ export default function CaseList() {
               211
             </Text>
             <Text color="secondary.700" fontSize="12">
-              Active Candidates
+              ACTIVE CANDIDATES 
             </Text>
           </Flex>
         </Flex>
