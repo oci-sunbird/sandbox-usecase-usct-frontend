@@ -6,7 +6,6 @@ jobs:
   deploy-frontend:
     docker:
       - image: cimg/aws:2022.06
-  steps:
     steps:
       - checkout
       - setup_remote_docker:
