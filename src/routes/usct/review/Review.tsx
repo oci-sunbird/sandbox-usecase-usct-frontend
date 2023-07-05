@@ -10,8 +10,8 @@ import {
   Input,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigation } from "react-router-dom";
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -20,8 +20,7 @@ import {
 import { BUILDING_BLOCK } from "../utils";
 
 export default function Review() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function Review() {
       previousStep: "../personal",
       userAuthorized: true,
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 

@@ -1,7 +1,9 @@
 import { Center, Fade } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
-import ChallengeForm, { CHALLENGE_FLOW } from "../../ui/ChallengeForm/ChallengeForm";
+import { Navigate, useLoaderData, useNavigation } from "react-router-dom";
+import ChallengeForm, {
+  CHALLENGE_FLOW,
+} from "../../ui/ChallengeForm/ChallengeForm";
 import { useAuthentication } from "../../utils/useAuthentication";
 import EmailForm from "./EmailForm";
 
@@ -11,7 +13,7 @@ enum STATES {
 }
 
 export default function SignIn() {
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   useAuthentication();
   const [step, setStep] = useState(STATES.USERNAME);
   const [email, setEmail] = useState<string>("");

@@ -35,7 +35,7 @@ export default function Header(props: HeaderProps) {
             h="38px"
           />
         </Flex>
-        <Box display={{ base: "none", lg: "block" }}>
+        <Box display={{ base: "none", sm: "block" }}>
           <Heading fontSize="12px" fontWeight="900" lineHeight="15px">
             Open Island
           </Heading>

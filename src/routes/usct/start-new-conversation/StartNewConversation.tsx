@@ -1,6 +1,6 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import TextEditor from "../../../ui/TextEditor/TextEditor";
 import {
   ActiveBuildingBlockContext,
@@ -13,6 +13,7 @@ import ConversationTopic from "./ConversationTopic";
 export default function StartNewConversation() {
   const { state, dispatch } = useContext(SimulationContext);
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const navigation = useNavigation();
 
   const [topicSelected, setTopicSelected] = useState(false);
 

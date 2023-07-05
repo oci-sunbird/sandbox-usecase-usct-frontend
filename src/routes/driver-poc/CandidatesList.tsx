@@ -14,13 +14,13 @@ import {
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
 
 export default function CandidatesList() {
   const rpc = useContext(RPCContext);
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   const { data: candidates, isLoading } = useQuery(
     "candidates",
     rpc.getCandidateList

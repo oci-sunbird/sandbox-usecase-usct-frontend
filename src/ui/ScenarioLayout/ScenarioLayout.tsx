@@ -83,7 +83,7 @@ export default function ScenarioLayout({
   const { state, dispatch } = useContext(SimulationContext);
 
   return (
-    <Flex h="100vh" position="relative">
+    <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
       <Flex
         w={{ base: "100%", lg: "calc(100% - 320px)" }}
         direction="column"

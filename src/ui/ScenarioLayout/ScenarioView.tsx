@@ -60,7 +60,7 @@ export default function ScenarioView({
             justifyContent="center"
           >
             <Text fontSize="12px" color="#9B9B9B;">
-              openisland-ministry.govstack
+              openisland-self-service-welfare.govstack
             </Text>
           </Flex>
         </Flex>

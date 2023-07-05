@@ -1,6 +1,6 @@
 import { Button, Center, Heading, Text, VStack } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
 import {
   ActiveBuildingBlockContext,
@@ -11,6 +11,7 @@ import { BUILDING_BLOCK } from "../utils";
 
 export default function AuthoriseCitizen() {
   const { state, dispatch } = useContext(SimulationContext);
+  const navigation = useNavigation();
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     dispatch({
@@ -26,7 +27,7 @@ export default function AuthoriseCitizen() {
       previousStep: "../review-candidate/2895379235",
       nextStep: "../info",
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
