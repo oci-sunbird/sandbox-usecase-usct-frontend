@@ -1,28 +1,46 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { colors } from "../../chakra-overrides/colors";
+import { Box, Flex, Text, BoxProps } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { colors } from '../../chakra-overrides/colors';
 
 function Tooltip({
   children,
   letter,
-  inset,
+  letterPosition = 'right-corner',
+  ...boxProps
 }: {
-  children: React.ReactElement[] | React.ReactElement;
   letter: string;
-  inset?: string;
-}) {
+  letterPosition?: 'top' | 'right-corner' | 'right-center';
+} & BoxProps) {
   const [visible, setVisible] = useState(false);
+
+  const letterPositionProps = {
+    top: {
+      top: "-45px",
+      right: "-8px",  
+    },
+    'right-corner': {
+      top: "-8px",
+      right: "-45px", 
+    },
+    'right-center': {
+      right: "-45px",
+      top: "50%",
+      translateY: "-50%"
+    }
+  }
+
   return (
     <Box
-      display="contents"
+      position="relative"
       _after={{
         content: `""`,
         border: `5px dashed ${colors.green[400]}`,
-        position: "absolute",
-        inset: "-8px",
-        borderRadius: "8px",
-        pointerEvents: "none",
+        position: 'absolute',
+        inset: '-8px',
+        borderRadius: '8px',
+        pointerEvents: 'none',
       }}
+      {...boxProps}
     >
       {children}
       <Flex
@@ -31,7 +49,6 @@ function Tooltip({
         height="34px"
         borderRadius="100%"
         backgroundColor={colors.green[400]}
-        inset="-45px -8px auto auto"
         color={colors.secondary[1000]}
         alignItems="center"
         justifyContent="center"
@@ -39,20 +56,9 @@ function Tooltip({
         onMouseLeave={() => setVisible(false)}
         cursor="pointer"
         zIndex="1"
+        {...letterPositionProps[letterPosition]}
       >
         <Text>{letter}</Text>
-        {/* {visible && (
-          <Box
-            backgroundColor={colors.green[400]}
-            w="250px"
-            position="absolute"
-            left="calc(100% + 16px)"
-            padding="16px"
-            borderRadius="8px"
-          >
-            {content}
-          </Box>
-        )} */}
       </Flex>
     </Box>
   );
