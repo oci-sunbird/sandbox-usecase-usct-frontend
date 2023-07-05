@@ -1,14 +1,15 @@
-import { Button, Flex, Heading, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import TextEditor from "../../../ui/TextEditor/TextEditor";
+import { Button, Flex, Heading, Text } from '@chakra-ui/react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import TextEditor from '../../../ui/TextEditor/TextEditor';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
-import ConversationTopic from "./ConversationTopic";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
+import ConversationTopic from './ConversationTopic';
+import Tooltip from '@ui/Tooltip/Tooltip';
 
 export default function StartNewConversation() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -18,16 +19,16 @@ export default function StartNewConversation() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 3 - PAYMENT",
+        title: 'PHASE 3 - PAYMENT',
         subtitle:
-          "CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM",
+          'CITIZEN CHOOSES A TOPIC AND CHATS ABOUT THE BENEFITS OF THE PROGRAM',
       },
-      nextStep: "../case-management?state=done",
-      previousStep: "../active-program",
+      nextStep: '../case-management?state=done',
+      previousStep: '../active-program',
       userAuthorized: true,
     });
   }, []);
@@ -47,44 +48,46 @@ export default function StartNewConversation() {
   return (
     <Flex direction="column" w="100%" gap="20px">
       <Heading>Start New Conversation</Heading>
-      <Text>
-        <strong>Topic</strong>
-      </Text>
-      <Text>
-        Please select the topic you would like to discuss. Lorem ipsum.
-      </Text>
-      <Flex gap="20px">
-        <ConversationTopic
-          topic="Package Information"
-          available
-          onSelect={() => setTopicSelected(true)}
+      <Tooltip letter="A" display="flex" flexDirection="column" gap="20px">
+        <Text>
+          <strong>Topic</strong>
+        </Text>
+        <Text>
+          Please select the topic you would like to discuss. Lorem ipsum.
+        </Text>
+        <Flex gap="20px">
+          <ConversationTopic
+            topic="Package Information"
+            available
+            onSelect={() => setTopicSelected(true)}
+          />
+          <ConversationTopic topic="Change Payment Method" />
+          <ConversationTopic topic="Payment Not Received" />
+          <ConversationTopic topic="Other" />
+        </Flex>
+        <Text>
+          <strong>Message</strong>
+        </Text>
+        <Text>Please type additional message if it is needed.</Text>
+        <TextEditor
+          value={
+            topicSelected
+              ? '(Autofilled) Would you please provide me more detail about my package information?'
+              : undefined
+          }
         />
-        <ConversationTopic topic="Change Payment Method" />
-        <ConversationTopic topic="Payment Not Received" />
-        <ConversationTopic topic="Other" />
-      </Flex>
-      <Text>
-        <strong>Message</strong>
-      </Text>
-      <Text>Please type additional message if it is needed.</Text>
-      <TextEditor
-        value={
-          topicSelected
-            ? "(Autofilled) Would you please provide me more detail about my package information?"
-            : undefined
-        }
-      />
-      <Flex justifyContent="flex-end">
-        <Button
-          colorScheme="citizen"
-          as={Link}
-          to="../case-management?done=true"
-          isDisabled={!topicSelected}
-          _disabled={{ bg: "secondary.400" }}
-        >
-          Submit
-        </Button>
-      </Flex>
+        <Flex justifyContent="flex-end">
+          <Button
+            colorScheme="citizen"
+            as={Link}
+            to="../case-management?done=true"
+            isDisabled={!topicSelected}
+            _disabled={{ bg: 'secondary.400' }}
+          >
+            Submit
+          </Button>
+        </Flex>
+      </Tooltip>
     </Flex>
   );
 }
