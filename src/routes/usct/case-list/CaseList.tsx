@@ -14,6 +14,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import Pagination from '@ui/Pagination/Pagination';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
@@ -23,7 +24,6 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -34,8 +34,8 @@ export default function CaseList() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'PHASE 3 - PAYMENT',
-        subtitle: 'CIVIL SERVANT REVIEWS THE ACTIVE CASE',
+        title: 'CIVIL SERVANT REVIEWS BENEFICIARY CASE',
+        subtitle: 'PRIMARY TASK',
       },
       userAuthorized: true,
       previousStep: '../case-management?state=done',
@@ -136,7 +136,7 @@ export default function CaseList() {
               211
             </Text>
             <Text color="secondary.700" fontSize="12">
-              ACTIVE CANDIDATES 
+              ACTIVE CANDIDATES
             </Text>
           </Flex>
         </Flex>

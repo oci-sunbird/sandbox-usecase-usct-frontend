@@ -1,5 +1,5 @@
-import { ReactComponent as HighPriorityIcon } from "@assets/icons/high-priority.svg";
-import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
+import { ReactComponent as HighPriorityIcon } from '@assets/icons/high-priority.svg';
+import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
 import {
   Button,
   Flex,
@@ -18,49 +18,49 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { faker } from "@faker-js/faker";
-import FakeLoader from "@ui/FakeLoader/FakeLoader";
-import Pagination from "@ui/Pagination/Pagination";
-import { useContext, useEffect } from "react";
-import { Link, useNavigation, useSearchParams } from "react-router-dom";
-import { colors } from "../../../chakra-overrides/colors";
-import Tooltip from "../../../ui/Tooltip/Tooltip";
+} from '@chakra-ui/react';
+import { faker } from '@faker-js/faker';
+import FakeLoader from '@ui/FakeLoader/FakeLoader';
+import Pagination from '@ui/Pagination/Pagination';
+import { useContext, useEffect } from 'react';
+import { Link, useNavigation, useSearchParams } from 'react-router-dom';
+import { colors } from '../../../chakra-overrides/colors';
+import Tooltip from '../../../ui/Tooltip/Tooltip';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case "scheduling":
+    case 'scheduling':
       return {
         description: {
-          title: "PHASE 2 - ENROLMENT",
-          subtitle: "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES",
+          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
+          subtitle: 'PRIMARY TASK',
         },
-        previousStep: "../enrolment",
-        nextStep: "../review-candidate/2895379235?state=scheduling",
+        previousStep: '../enrolment',
+        nextStep: '../review-candidate/2895379235?state=scheduling',
       };
-    case "submitted":
+    case 'submitted':
       return {
         description: {
-          title: "PHASE 2 - ENROLMENT",
-          subtitle: "CIVIL SERVANT VIEWS THE ASSIGNED ENROLMENT CANDIDATES",
+          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
+          subtitle: 'PRIMARY TASK',
         },
-        previousStep: "../case-management?state=submitted",
-        nextStep: "../review-candidate/2895379235?state=done",
+        previousStep: '../case-management?state=submitted',
+        nextStep: '../review-candidate/2895379235?state=done',
       };
     default:
       return {
         description: {
-          title: "PHASE 1 - ELIGIBILITY",
-          subtitle: "CIVIL SERVANT REVIEWS THE ASSIGNED CANDIDATES",
+          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
+          subtitle: 'PRIMARY TASK',
         },
-        nextStep: "../review-candidate/2895379235",
-        previousStep: "../case-management",
+        nextStep: '../review-candidate/2895379235',
+        previousStep: '../case-management',
       };
   }
 };
@@ -72,10 +72,10 @@ export default function CandidateList() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
-      ...getConfig(searchParams.get("state")),
+      ...getConfig(searchParams.get('state')),
     });
   }, [location]);
 
@@ -98,7 +98,7 @@ export default function CandidateList() {
   return (
     <FakeLoader
       label="CHANGING PERSPECTIVE TO CIVIL SERVANT"
-      override={searchParams.get("state") === "scheduling"}
+      override={searchParams.get('state') === 'scheduling'}
     >
       <Flex w="100%" direction="column" gap="60px">
         <Flex gap="20px" direction="column">
@@ -124,7 +124,7 @@ export default function CandidateList() {
             </Flex>
           </Flex>
           <Tooltip letter="A" letterPosition="top">
-            <Tabs isFitted defaultIndex={!!searchParams.get("state") ? 1 : 0}>
+            <Tabs isFitted defaultIndex={!!searchParams.get('state') ? 1 : 0}>
               <TabList>
                 <Tab>Eligibility (1)</Tab>
                 <Tab>Enrollment (1)</Tab>
@@ -285,7 +285,7 @@ export default function CandidateList() {
             <Flex
               justifyContent="space-between"
               gap="20px"
-              flexDirection={{ sm: "column", xl: "row" }}
+              flexDirection={{ sm: 'column', xl: 'row' }}
             >
               <Pagination />
               <Button disabled>Request to Assign New Candidate</Button>
