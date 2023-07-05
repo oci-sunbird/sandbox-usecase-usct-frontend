@@ -127,7 +127,7 @@ export default function ReviewCandidate() {
             <ActionAlert state={searchParams.get('state')} />
           </Tooltip>
 
-          <Tooltip letter="B">
+          <Tooltip letter="B" mb="10px">
             <Box>
               <Heading variant="h3" fontSize="18px">
                 Personal Information
@@ -179,7 +179,9 @@ export default function ReviewCandidate() {
                 </Text>
               </Box>
             </Grid>
-            </Tooltip>
+          </Tooltip>
+
+          <Tooltip letter="C">
             <Flex direction="column" gap="30px">
               <Flex direction={{ sm: 'column', lg: 'row' }}>
                 <Flex w="100%" direction="column" gap="12px">
@@ -259,89 +261,94 @@ export default function ReviewCandidate() {
                 </Box>
               )}
             </Flex>
-        </Flex>
-        <Flex direction="column" gap="20px">
-          <Heading variant="h3" fontSize="18px">
-            Household information
-          </Heading>
-          <TableContainer>
-            <Table variant="simple" size="sm">
-              <Thead
-                backgroundColor={colors.secondary[800]}
-                color={colors.secondary[0]}
-              >
-                <Tr>
-                  <Th color={colors.secondary[0]}>National ID</Th>
-                  <Th color={colors.secondary[0]}>Name</Th>
-                  <Th color={colors.secondary[0]}>Relation</Th>
-                  <Th color={colors.secondary[0]}>Date of Birth</Th>
-                  <Th color={colors.secondary[0]}>Individual Needs</Th>
-                  <Th>
-                    <IconButton
-                      borderRadius="100%"
-                      icon={<AddIcon />}
-                      aria-label="asd"
-                      size="xs"
-                    />
-                  </Th>
-                </Tr>
-              </Thead>
-              <Tbody>
-                {householdData.map((person) => {
-                  return (
-                    <Tr key={person.personalCode}>
-                      <Td>{person.personalCode}</Td>
-                      <Td>{person.name}</Td>
-                      <Td>{person.relation}</Td>
-                      <Td>{person.dateOfBirth}</Td>
-                      <Td>
-                        <Flex wrap="wrap" gap="4px">
-                          {person.needs.map((need) => (
-                            <Tag
-                              p="6px 12px"
-                              variant="outline"
-                              colorScheme="gray"
-                              key={need}
-                            >
-                              <TagLabel>{need}</TagLabel>
-                            </Tag>
-                          ))}
-                        </Flex>
-                      </Td>
-                      <Td>
-                        <MoreIcon />
-                      </Td>
+            <Flex direction="column" gap="20px">
+              <Heading variant="h3" fontSize="18px">
+                Household information
+              </Heading>
+              <TableContainer>
+                <Table variant="simple" size="sm">
+                  <Thead
+                    backgroundColor={colors.secondary[800]}
+                    color={colors.secondary[0]}
+                  >
+                    <Tr>
+                      <Th color={colors.secondary[0]}>National ID</Th>
+                      <Th color={colors.secondary[0]}>Name</Th>
+                      <Th color={colors.secondary[0]}>Relation</Th>
+                      <Th color={colors.secondary[0]}>Date of Birth</Th>
+                      <Th color={colors.secondary[0]}>Individual Needs</Th>
+                      <Th>
+                        <IconButton
+                          borderRadius="100%"
+                          icon={<AddIcon />}
+                          aria-label="asd"
+                          size="xs"
+                        />
+                      </Th>
                     </Tr>
-                  );
-                })}
-              </Tbody>
-            </Table>
-          </TableContainer>
+                  </Thead>
+                  <Tbody>
+                    {householdData.map((person) => {
+                      return (
+                        <Tr key={person.personalCode}>
+                          <Td>{person.personalCode}</Td>
+                          <Td>{person.name}</Td>
+                          <Td>{person.relation}</Td>
+                          <Td>{person.dateOfBirth}</Td>
+                          <Td>
+                            <Flex wrap="wrap" gap="4px">
+                              {person.needs.map((need) => (
+                                <Tag
+                                  p="6px 12px"
+                                  variant="outline"
+                                  colorScheme="gray"
+                                  key={need}
+                                >
+                                  <TagLabel>{need}</TagLabel>
+                                </Tag>
+                              ))}
+                            </Flex>
+                          </Td>
+                          <Td>
+                            <MoreIcon />
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Flex>
+          </Tooltip>
         </Flex>
-        <Box>
-          <Heading variant="h3" fontSize="18px" mb="20px">
-            Bank Account Information
-          </Heading>
-          <Flex justifyContent="space-between">
-            <Box>
-              <Text fontWeight="600">Bank Account Owner Name</Text>
-              <Text>Thomas Anderson</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Bank Name</Text>
-              <Text>Sunshine Bank</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">
-                International Bank Account Number (IBAN)
-              </Text>
-              <Text>AA02300209000106531065</Text>
-            </Box>
-          </Flex>
-        </Box>
+
+        <Tooltip letter="D">
+          <Box>
+            <Heading variant="h3" fontSize="18px" mb="20px">
+              Bank Account Information
+            </Heading>
+            <Flex justifyContent="space-between">
+              <Box>
+                <Text fontWeight="600">Bank Account Owner Name</Text>
+                <Text>Thomas Anderson</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">Bank Name</Text>
+                <Text>Sunshine Bank</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">
+                  International Bank Account Number (IBAN)
+                </Text>
+                <Text>AA02300209000106531065</Text>
+              </Box>
+            </Flex>
+          </Box>
+        </Tooltip>
+
         <Box>
           <Heading variant="h3" size="sm" mb="20px">
-            Bank Account Information
+            Candidate's Program History
           </Heading>
           <Flex flexDirection="column" gap="20px">
             {historyData.map((historyItem) => (
