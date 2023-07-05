@@ -29,7 +29,11 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
   }
   if (userType === EUserType.CITIZEN_SERVANT) {
     return (
-      <Flex paddingRight="61px" alignItems="center" gap="24px">
+      <Flex
+        paddingRight={{ sm: "8px", lg: "64px" }}
+        alignItems="center"
+        gap="24px"
+      >
         <IconButton
           aria-label="notifications"
           backgroundColor="transparent"
@@ -75,7 +79,7 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         />
         <Flex gap="8px" alignItems="center" height="100%">
           <Avatar h="32px" w="32px" />
-          <Box display={{ sm: "none", lg: "block" }}>
+          <Box>
             <Text fontSize="14px" fontWeight="600" lineHeight="20px">
               Lorem Ipsum
             </Text>

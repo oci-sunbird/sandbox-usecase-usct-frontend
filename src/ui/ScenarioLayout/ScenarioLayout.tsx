@@ -1,4 +1,9 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@chakra-ui/icons";
 import {
   Box,
   Divider,
@@ -80,7 +85,7 @@ export default function ScenarioLayout({
   return (
     <Flex h="100vh" position="relative">
       <Flex
-        w={{ base: "100%", md: "calc(100% - 320px)" }}
+        w={{ base: "100%", lg: "calc(100% - 320px)" }}
         direction="column"
         position="relative"
       >
@@ -162,8 +167,8 @@ export default function ScenarioLayout({
         color={colors.secondary[0]}
         w="320px"
         backgroundColor="primary.900"
-        position="absolute"
-        right={0}
+        position={{ base: "absolute", lg: "relative" }}
+        right={{ base: isExpanded ? "0" : "-320px", lg: "0" }}
         top={0}
         flexShrink="0"
         transition="width 0.3s ease-in-out"
@@ -171,12 +176,19 @@ export default function ScenarioLayout({
         zIndex={1}
       >
         <IconButton
+          display={{ base: "block", lg: "none" }}
           position="absolute"
           left="-32px"
           top="0"
           w="32px"
-          icon={<ConsentIcon />}
+          icon={isExpanded ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          borderRadius="0"
+          colorScheme="admin"
           aria-label="Expand sidepanel"
+          onClick={() => {
+            setIsExpanded(!isExpanded);
+          }}
+          transition="right 0.3s ease-in-out"
         ></IconButton>
         <Flex
           boxSizing="border-box"

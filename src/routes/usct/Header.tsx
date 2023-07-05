@@ -19,9 +19,7 @@ export default function Header(props: HeaderProps) {
           ? "1px solid secondary.1000"
           : ""
       }
-      paddingLeft={
-        props.userType === EUserType.CITIZEN_SERVANT ? "80px" : "61px"
-      }
+      paddingLeft={{ base: "8px", lg: "64px" }}
       marginBottom="20px"
     >
       <Flex alignItems="center" gap="12px">
