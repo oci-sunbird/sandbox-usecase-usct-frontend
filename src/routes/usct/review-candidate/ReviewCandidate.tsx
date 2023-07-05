@@ -25,6 +25,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
 import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -38,8 +40,8 @@ const getConfig = (state: string | null) => {
   if (state === 'done') {
     return {
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
+        title: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
+        subtitle: 'PRIMARY TASK',
       },
       nextStep: '../info?done=true',
       previousStep: '../candidate-list?state=submitted',
@@ -48,8 +50,8 @@ const getConfig = (state: string | null) => {
   if (state === 'scheduling') {
     return {
       description: {
-        title: 'PHASE 2 - ENROLMENT',
-        subtitle: 'CIVIL SERVANT SCHEDULES THE PAYMENTS',
+        title: 'CIVIL SERVANT ENROLLS THE CANDIDATE',
+        subtitle: 'PRIMARY TASK',
       },
       nextStep: '../active-program',
       previousStep: '../candidate-list?state=scheduling',
@@ -57,7 +59,7 @@ const getConfig = (state: string | null) => {
   }
   return {
     description: {
-      title: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
+      title: 'CIVIL SERVANT ASKS FOR VALIDATION',
       subtitle: 'PRIMARY TASK',
     },
     nextStep: '../authorise-citizen',
@@ -69,6 +71,9 @@ export default function ReviewCandidate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
   const [citizen] = useState<any>();
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+
   useEffect(() => {
     dispatch({
       type: 'SET_ALL',
@@ -79,7 +84,6 @@ export default function ReviewCandidate() {
     });
   }, []);
 
-  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   useEffect(() => {
     if (searchParams.get('state') === 'scheduling') {
       setActiveBuildingBlocks({
@@ -108,10 +112,19 @@ export default function ReviewCandidate() {
     }
   }, []);
 
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.REQUESTING_INFO,
+      B: ContextualTitle.PERSONAL_INFO,
+      C: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+      D: ContextualTitle.BANK_INFO,
+    });
+  }, []);
+
   return (
     <FakeLoader
       label="Changing perspective to civil servant"
-      override={searchParams.get('state') === 'scheduling'}
+      override={searchParams.get('state') === 'dog'}
     >
       <Flex w="100%" direction="column" gap="60px">
         <Flex direction="column" gap="20px">

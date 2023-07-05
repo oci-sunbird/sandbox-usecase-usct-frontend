@@ -1,13 +1,13 @@
-import { Flex, Image, SimpleGrid } from "@chakra-ui/react";
-import { ReactElement } from "react";
-import { useNavigation } from "react-router-dom";
+import { Flex, Image, SimpleGrid } from '@chakra-ui/react';
+import { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function ScenarioHeader({
   children,
 }: {
   children: ReactElement[] | ReactElement;
 }) {
-  const { location } = useNavigation();
+  const location = useLocation();
   return (
     <SimpleGrid templateColumns="1fr" alignItems="center" padding="24px 12px">
       {/* <Button

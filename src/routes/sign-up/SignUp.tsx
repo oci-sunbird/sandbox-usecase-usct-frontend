@@ -10,24 +10,24 @@ import {
   Image,
   Progress,
   Text,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Navigate, useLoaderData, useNavigation } from "react-router-dom";
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Navigate, useLoaderData, useLocation } from 'react-router-dom';
 import ChallengeForm, {
   CHALLENGE_FLOW,
-} from "../../ui/ChallengeForm/ChallengeForm";
-import UserForm from "./UserForm";
+} from '../../ui/ChallengeForm/ChallengeForm';
+import UserForm from './UserForm';
 
 enum STATES {
-  IN_PROGRESS = "IN_PROGRESS",
-  CREATE_ACCOUNT = "CREATE_ACCOUNT",
-  VALIDATE = "VALIDATE",
+  IN_PROGRESS = 'IN_PROGRESS',
+  CREATE_ACCOUNT = 'CREATE_ACCOUNT',
+  VALIDATE = 'VALIDATE',
 }
 
 export default function SignUp() {
-  const { location } = useNavigation();
+  const location = useLocation();
   const [step, setStep] = useState(STATES.CREATE_ACCOUNT);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const loaderData = useLoaderData() as {
     user?: null | boolean;
     error?: null | string;

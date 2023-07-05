@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -9,32 +9,34 @@ import {
   Heading,
   Input,
   Text,
-} from "@chakra-ui/react";
-import Tooltip from "@ui/Tooltip/Tooltip";
-import { useContext, useEffect } from "react";
-import { Link, useNavigation } from "react-router-dom";
+} from '@chakra-ui/react';
+import Tooltip from '@ui/Tooltip/Tooltip';
+import { useContext, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 export default function Review() {
-  const { location } = useNavigation();
+  const location = useLocation();
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 1 - ELIGIBILITY",
-        subtitle: "CITIZEN VALIDATES THEIR INFORMATION",
+        title: 'CITIZEN VALIDATES THEIR INFORMATION',
+        subtitle: 'PRIMARY TASK',
       },
-      nextStep: "../personal?done=true",
-      previousStep: "../personal",
+      nextStep: '../personal?done=true',
+      previousStep: '../personal',
       userAuthorized: true,
     });
   }, [location]);
@@ -55,6 +57,13 @@ export default function Review() {
     });
   }, []);
 
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.VALIDATING_INFO,
+    });
+  }, []);
   return (
     <Box w="100%">
       <Button
@@ -73,36 +82,42 @@ export default function Review() {
             <Text mb="16px">
               Please confirm that the information shown below is correct
             </Text>
-            <Flex direction="column" gap="16px" w={{ sm: "100%", xl: "50%" }}>
+            <Flex direction="column" gap="16px" w={{ sm: '100%', xl: '50%' }}>
               <FormControl
-                flexDirection={{ sm: "column", lg: "row" }}
-                alignItems={{ sm: "flex-start", lg: "center" }}
+                flexDirection={{ sm: 'column', lg: 'row' }}
+                alignItems={{ sm: 'flex-start', lg: 'center' }}
                 display="flex"
                 gap="16px"
               >
                 <FormLabel
                   fontWeight="600"
-                  width={{ sm: "100%", lg: "30%" }}
+                  width={{ sm: '100%', lg: '30%' }}
                   m="0"
                 >
                   Email Address
                 </FormLabel>
-                <Input w={{ sm: "100%", lg: "70%" }} value="tom@myspace.com" />
+                <Input
+                  w={{ sm: '100%', lg: '70%' }}
+                  defaultValue="tom@myspace.com"
+                />
               </FormControl>
               <FormControl
-                flexDirection={{ sm: "column", lg: "row" }}
-                alignItems={{ sm: "flex-start", lg: "center" }}
+                flexDirection={{ sm: 'column', lg: 'row' }}
+                alignItems={{ sm: 'flex-start', lg: 'center' }}
                 display="flex"
                 gap="16px"
               >
                 <FormLabel
                   fontWeight="600"
-                  width={{ sm: "100%", lg: "30%" }}
+                  width={{ sm: '100%', lg: '30%' }}
                   m="0"
                 >
                   Phone Number
                 </FormLabel>
-                <Input value="(+00) 94 843 432" w={{ sm: "100%", lg: "70%" }} />
+                <Input
+                  defaultValue="(+00) 94 843 432"
+                  w={{ sm: '100%', lg: '70%' }}
+                />
               </FormControl>
             </Flex>
           </Box>

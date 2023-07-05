@@ -4,7 +4,6 @@ import { ReactComponent as ArrowIcon } from '@assets/icons/chevron-right.svg';
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
   Grid,
   Heading,
@@ -30,9 +29,12 @@ import {
 } from '@chakra-ui/react';
 import Alert from '@ui/Alert/Alert';
 import Timeline from '@ui/Timeline/Timeline';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect, useState } from 'react';
 import ChatMessage from '../../../ui/ChatMessage/ChatMessage';
 import TextEditor from '../../../ui/TextEditor/TextEditor';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import BankInformation from '../personal/BankInformation';
 import {
   ActiveBuildingBlockContext,
@@ -40,7 +42,6 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 const householdData = [
   {
@@ -81,38 +82,9 @@ const conversation = [
   {
     id: 'hdfhdrf5',
     timestamp: 1678891185842,
-    content: 'hello i need cash quick',
-    user: 'Shady Man',
-  },
-  {
-    id: 'sy43y3s45s35',
-    timestamp: 1678891285842,
-    content: 'im sorry, get a better job?',
-    user: 'GovStack Person',
-  },
-  {
-    id: '1h3g13f13f',
-    timestamp: 1678891385842,
-    content: 'i want to talk to your manager',
-    user: 'Shady Man',
-  },
-  {
-    id: 'srtsrts315135',
-    timestamp: 1678891485842,
-    content: 'hello i am the manager',
-    user: 'GovStack Person',
-  },
-  {
-    id: '13gg131e13e',
-    timestamp: 1678891585842,
-    content: 'i want money',
-    user: 'Shady Man',
-  },
-  {
-    id: '1351035askpdk',
-    timestamp: 1678891685842,
-    content: 'no',
-    user: 'GovStack Person',
+    content:
+      'Would you please provide me more detail about my package information?',
+    user: 'Applicant',
   },
 ];
 
@@ -142,8 +114,8 @@ export default function ReviewCase() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'PHASE 3 - PAYMENT',
-        subtitle: 'CIVIL SERVANT INFORMS THE BENEFICIARY ABOUT THEIR QUESTION',
+        title: 'CIVIL SERVANT SENDS MESSAGE TO THE BENEFICIARY',
+        subtitle: 'PRIMARY TASK',
       },
       nextStep: '../active-program?state=done',
       previousStep: '../case-list',
@@ -152,6 +124,7 @@ export default function ReviewCase() {
   }, []);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
 
   useEffect(() => {
     setActiveBuildingBlocks({
@@ -165,6 +138,16 @@ export default function ReviewCase() {
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
       [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.CASE_INFORMATION,
+      B: ContextualTitle.MESSAGING,
+      C: ContextualTitle.PERSONAL_INFO,
+      D: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+      E: ContextualTitle.BANK_INFO,
     });
   }, []);
 

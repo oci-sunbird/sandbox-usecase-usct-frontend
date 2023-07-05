@@ -1,9 +1,11 @@
 import { ReactComponent as StarIcon } from '@assets/icons/star.svg';
 import { Box, Button, Flex, Heading, Text, Textarea } from '@chakra-ui/react';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect } from 'react';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import { ActiveBuildingBlockContext } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 export default function Feedback() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
@@ -21,6 +23,15 @@ export default function Feedback() {
       [BUILDING_BLOCK.WORKFLOW]: true,
     });
   }, []);
+
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.FEEDBACK,
+    });
+  }, []);
+
   return (
     <Box w="100%" pt="80px">
       <Tooltip letter="A">

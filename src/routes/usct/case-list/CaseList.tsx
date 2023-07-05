@@ -18,6 +18,8 @@ import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -27,6 +29,8 @@ import { BUILDING_BLOCK } from '../utils';
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
   useEffect(() => {
     dispatch({
@@ -34,7 +38,7 @@ export default function CaseList() {
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'CIVIL SERVANT REVIEWS BENEFICIARY CASE',
+        title: 'CIVIL SERVANT REVIEWS THE BENEFICIARY CASE',
         subtitle: 'PRIMARY TASK',
       },
       userAuthorized: true,
@@ -43,7 +47,6 @@ export default function CaseList() {
     });
   }, []);
 
-  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   useEffect(() => {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: true,
@@ -56,6 +59,13 @@ export default function CaseList() {
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
       [BUILDING_BLOCK.SECURITY]: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.ASSIGNED_CASES,
+      B: ContextualTitle.CASE_LIST,
     });
   }, []);
 

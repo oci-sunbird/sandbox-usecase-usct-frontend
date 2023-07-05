@@ -1,4 +1,5 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from '@chakra-ui/react';
+import { colors } from '../../chakra-overrides/colors';
 
 interface IChatMessageProps {
   user: string;
@@ -14,7 +15,7 @@ export default function ChatMessage({
   return (
     <Flex
       gap="16px"
-      flexDirection={message.user === "GovStack Person" ? "row-reverse" : "row"}
+      flexDirection={message.user === 'Applicant' ? 'row-reverse' : 'row'}
     >
       <Avatar h="48px" w="48px" />
       <Flex
@@ -23,6 +24,11 @@ export default function ChatMessage({
         minH="112px"
         w="40%"
         direction="column"
+        backgroundColor={
+          message.user === 'Civil Servant'
+            ? colors.secondary[100]
+            : colors.secondary[0]
+        }
       >
         <Flex p="24px" h="100%">
           {message.content}
@@ -32,11 +38,13 @@ export default function ChatMessage({
         </Flex>
       </Flex>
       <Flex alignSelf="center" direction="column">
-        <Text>{Intl.DateTimeFormat("default").format(message.timestamp)}</Text>
-        <Text textAlign="center">
-          {Intl.DateTimeFormat("default", {
-            hour: "numeric",
-            minute: "numeric",
+        <Text size="sm" variant="caps">
+          {Intl.DateTimeFormat('default').format(message.timestamp)}
+        </Text>
+        <Text size="sm" variant="caps" textAlign="center">
+          {Intl.DateTimeFormat('default', {
+            hour: 'numeric',
+            minute: 'numeric',
             hour12: true,
           }).format(message.timestamp)}
         </Text>

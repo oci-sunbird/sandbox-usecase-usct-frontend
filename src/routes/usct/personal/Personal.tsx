@@ -1,8 +1,11 @@
 import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
 import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
 import { Button, ButtonGroup, Flex, Heading, Tag } from '@chakra-ui/react';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -12,35 +15,34 @@ import { BUILDING_BLOCK } from '../utils';
 import BankInformation from './BankInformation';
 import PersonalInformation from './PersonalInformation';
 import PersonalInformationTable from './PersonalInformationTable';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 const householdData = [
   {
-    name: 'Ms Lorem Ipsum',
+    name: 'Priscilla Anderson',
     personalCode: '12345678910',
     relation: 'Wife',
     dateOfBirth: '12.12.1975',
     reason: null,
   },
   {
-    name: 'Ms Lorem Ipsum',
+    name: 'Jason Anderson',
     personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    relation: 'Father',
+    dateOfBirth: '12.12.1955',
     reason: <Tag variant="outline">Hearing support</Tag>,
   },
   {
-    name: 'Ms Lorem Ipsum',
+    name: 'Angelina Anderson',
     personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    relation: 'Child',
+    dateOfBirth: '08.10.2008',
     reason: <Tag variant="outline">Special care</Tag>,
   },
   {
-    name: 'Ms Lorem Ipsum',
+    name: 'Amelia Anderson',
     personalCode: '12345678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    relation: 'Child',
+    dateOfBirth: '12.05.2014',
     reason: null,
   },
 ];
@@ -54,14 +56,14 @@ const DocumentStatus = (
 
 const documentsData = [
   {
-    name: 'Medical Certificate',
+    name: 'Priscilla Anderson',
     organization: '12345678910',
     issuedOn: 'Wife',
     validUntil: '12.12.1975',
     status: DocumentStatus,
   },
   {
-    name: 'Medical Certificate',
+    name: 'Jason Anderson',
 
     organization: '12345678910',
     issuedOn: 'Wife',
@@ -69,15 +71,7 @@ const documentsData = [
     status: DocumentStatus,
   },
   {
-    name: 'Medical Certificate',
-
-    organization: '12345678910',
-    issuedOn: 'Wife',
-    validUntil: '12.12.1975',
-    status: DocumentStatus,
-  },
-  {
-    name: 'Medical Certificate',
+    name: 'Angelina Anderson',
 
     organization: '12345678910',
     issuedOn: 'Wife',
@@ -90,7 +84,7 @@ export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
   const [citizen, setCitizen] = useState<any | null>(null);
-  const navigation = useNavigation();
+  const navigation = useLocation();
 
   useEffect(() => {
     dispatch({
@@ -98,9 +92,9 @@ export default function Personal() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: !!searchParams.get('done')
-          ? 'CITIZEN SUBMITS THEIR CASE FOR ELIGIBILITY REVIEW'
+        subtitle: 'PRIMARY TASK',
+        title: !!searchParams.get('done')
+          ? 'CITIZEN SUBMITS INFORMATION FOR THE REVIEW'
           : 'CITIZEN VALIDATES THEIR INFORMATION',
       },
       nextStep: !!searchParams.get('done')
@@ -126,18 +120,29 @@ export default function Personal() {
       [BUILDING_BLOCK.WORKFLOW]: true,
     });
   }, []);
+
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.VALIDATING_INFO,
+      B: ContextualTitle.PERSONAL_INFO,
+      C: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+      D: ContextualTitle.BANK_INFO,
+    });
+  }, []);
+
   return (
-    <Flex w="100%" gap={{ base: '24px', xl: '48px' }} direction="column">
+    <Flex w="100%" gap={{ base: '24px', md: '48px' }} direction="column">
       <Flex
-        alignItems={{ base: 'flex-start', xl: 'center' }}
+        alignItems={{ base: 'flex-start', md: 'center' }}
         gap="20px"
-        justifyContent={{ base: 'flex-start', xl: 'space-between' }}
-        marginBottom={{ base: '12px', xl: '48px' }}
-        direction={{ base: 'column', xl: 'row' }}
+        justifyContent={{ base: 'flex-start', md: 'space-between' }}
+        marginBottom={{ base: '12px', md: '48px' }}
+        direction={{ base: 'column', md: 'row' }}
         w="100%"
       >
         <Heading fontSize="36px">My Information</Heading>
-        <ButtonGroup colorScheme="citizen" alignSelf={{ sm: 'flex-end' }}>
+        <ButtonGroup colorScheme="citizen" alignSelf={{ base: 'flex-end' }}>
           {searchParams.get('done') ? (
             <>
               <Button as={Link} to="../personal" variant="outline">

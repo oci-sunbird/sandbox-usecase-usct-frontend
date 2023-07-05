@@ -11,8 +11,9 @@ export enum EUserType {
 export enum ContextualTitle {
   REQUESTING_INFO = 'Requesting Info',
   PERSONAL_INFO = 'Personal Info',
-  PROGRAM_RELATED_INFORMATION = 'Program Related Information',
+  PROGRAM_RELATED_INFORMATION = 'Program Related Info',
   ASSIGNED_CANDIDATES = 'Assigned Candidates',
+  CANDIDATE_LIST = 'Candidate List',
   ASSIGNED_CASES = 'Assigned Cases',
   CASE_INFORMATION = 'Case Information',
   PROGRAM_INFORMATION = 'Program Information',
@@ -27,22 +28,25 @@ export enum ContextualTitle {
   VALIDATING_INFO = 'Validating Info',
   CHOOSING_PAYMENT_METHOD = 'Choosing Payment Method',
   PAYMENT_HISTORY = 'Payment History',
+  CASE_LIST = 'Case List',
 }
 
 type ContextualContentValue<T> =
   | T
   | { [EUserType.CITIZEN]: T; [EUserType.CITIZEN_SERVANT]: T };
 
+type TDiagramSvg = React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+
 interface IContextualContent {
   title: string;
-  diagram: ContextualContentValue<React.ReactNode>;
+  diagram: ContextualContentValue<TDiagramSvg>;
   activeBuildingBlocks: ContextualContentValue<BUILDING_BLOCK[]>;
   bulletpoints: ContextualContentValue<string[]>;
 }
 
-interface INormalizedContextualContent {
+export interface INormalizedContextualContent {
   title: string;
-  diagram: React.ReactNode;
+  diagram: TDiagramSvg;
   activeBuildingBlocks: BUILDING_BLOCK[];
   bulletpoints: string[];
 }
@@ -53,7 +57,7 @@ export const ContextualHelpContent: Record<
 > = {
   [ContextualTitle.REQUESTING_INFO]: {
     title: 'Requesting Info',
-    diagram: <RequestingInfoDiagram />,
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -67,8 +71,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.PERSONAL_INFO]: {
     title: 'Personal Info',
     diagram: {
-      CITIZEN: <RequestingInfoDiagram />,
-      CITIZEN_SERVANT: <RequestingInfoDiagram />,
+      [EUserType.CITIZEN]: RequestingInfoDiagram,
+      [EUserType.CITIZEN_SERVANT]: RequestingInfoDiagram,
     },
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
@@ -80,10 +84,10 @@ export const ContextualHelpContent: Record<
     ],
   },
   [ContextualTitle.PROGRAM_RELATED_INFORMATION]: {
-    title: 'Program Related Information',
+    title: 'Program Related Info',
     diagram: {
-      [EUserType.CITIZEN]: <PersonalInfoServantDiagram />,
-      [EUserType.CITIZEN_SERVANT]: <PersonalInfoServantDiagram />,
+      [EUserType.CITIZEN]: PersonalInfoServantDiagram,
+      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
     },
     activeBuildingBlocks: {
       [EUserType.CITIZEN]: [
@@ -105,7 +109,23 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ASSIGNED_CANDIDATES]: {
     title: 'Assigned Candidates',
-    diagram: <RequestingInfoDiagram />,
+    diagram: RequestingInfoDiagram,
+    activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
+    bulletpoints: [
+      'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
+    ],
+  },
+  [ContextualTitle.CANDIDATE_LIST]: {
+    title: 'Candidate List',
+    diagram: RequestingInfoDiagram,
+    activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
+    bulletpoints: [
+      'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
+    ],
+  },
+  [ContextualTitle.CASE_LIST]: {
+    title: 'Case List',
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -113,7 +133,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ASSIGNED_CASES]: {
     title: 'Assigned Cases',
-    diagram: <RequestingInfoDiagram />,
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -121,7 +141,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CASE_INFORMATION]: {
     title: 'Case Information',
-    diagram: <RequestingInfoDiagram />,
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -129,7 +149,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.PROGRAM_INFORMATION]: {
     title: 'Program Information',
-    diagram: <RequestingInfoDiagram />,
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -143,8 +163,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.BANK_INFO]: {
     title: 'Bank Info',
     diagram: {
-      [EUserType.CITIZEN]: <PersonalInfoServantDiagram />,
-      [EUserType.CITIZEN_SERVANT]: <PersonalInfoServantDiagram />,
+      [EUserType.CITIZEN]: PersonalInfoServantDiagram,
+      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
     },
     activeBuildingBlocks: [
       BUILDING_BLOCK.PAYMENT,
@@ -158,8 +178,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.REQUEST_ASSIGN_CANDIDATES]: {
     title: 'Request Assign Candidates',
     diagram: {
-      [EUserType.CITIZEN]: <PersonalInfoServantDiagram />,
-      [EUserType.CITIZEN_SERVANT]: <PersonalInfoServantDiagram />,
+      [EUserType.CITIZEN]: PersonalInfoServantDiagram,
+      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
     },
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
@@ -173,7 +193,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.SCHEDULING_AND_REGISTRATION]: {
     title: 'Scheduling and Registration',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.PAYMENT,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -187,7 +207,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.MESSAGING]: {
     title: 'Messaging',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -203,7 +223,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CONVERSATIONS]: {
     title: 'Conversations',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -219,7 +239,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.FEEDBACK]: {
     title: 'Conversations',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -235,7 +255,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.LOG_IN]: {
     title: 'Log In',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.AUTHENTICATION,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -247,7 +267,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ELIGIBILITY_STATUS]: {
     title: 'Eligibility Status',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -259,7 +279,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.VALIDATING_INFO]: {
     title: 'Validating Info',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -272,7 +292,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CHOOSING_PAYMENT_METHOD]: {
     title: 'Choosing Payment Method',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -288,7 +308,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.PAYMENT_HISTORY]: {
     title: 'Payment History',
-    diagram: <PersonalInfoServantDiagram />,
+    diagram: PersonalInfoServantDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -306,7 +326,6 @@ export const getContextContent = (
   userType?: EUserType | null
 ): INormalizedContextualContent => {
   const content = ContextualHelpContent[key];
-  console.log(content);
   return Object.entries(content).reduce((acc, [key, value]) => {
     if (value[EUserType.CITIZEN] && !userType) {
       throw new Error(

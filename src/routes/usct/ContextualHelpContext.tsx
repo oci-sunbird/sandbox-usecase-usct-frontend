@@ -1,5 +1,8 @@
 import React, { createContext, useState } from 'react';
-import { ContextualTitle } from './ContextualHelpUtils';
+import {
+  ContextualTitle,
+  INormalizedContextualContent,
+} from './ContextualHelpUtils';
 
 interface IContextualHelpContext {
   activeLetter: string | null;
@@ -8,6 +11,8 @@ interface IContextualHelpContext {
   setLetterContextualTitleMap: (
     map: { [letter: string]: ContextualTitle } | null
   ) => void;
+  activeContent: INormalizedContextualContent | null;
+  setActiveContent: (content: INormalizedContextualContent | null) => void;
 }
 
 export const ContextualHelpContext = createContext<IContextualHelpContext>({
@@ -15,6 +20,8 @@ export const ContextualHelpContext = createContext<IContextualHelpContext>({
   setActiveLetter: () => {},
   letterContextualTitleMap: null,
   setLetterContextualTitleMap: () => {},
+  activeContent: null,
+  setActiveContent: () => {},
 });
 
 export const ContextualHelpContextProvider = ({
@@ -26,6 +33,8 @@ export const ContextualHelpContextProvider = ({
   const [letterContextualTitleMap, setLetterContextualTitleMap] = useState<{
     [letter: string]: ContextualTitle;
   } | null>(null);
+  const [activeContent, setActiveContent] =
+    useState<INormalizedContextualContent | null>(null);
   return (
     <ContextualHelpContext.Provider
       value={{
@@ -33,6 +42,8 @@ export const ContextualHelpContextProvider = ({
         setActiveLetter,
         letterContextualTitleMap,
         setLetterContextualTitleMap,
+        activeContent,
+        setActiveContent,
       }}
     >
       {children}

@@ -21,24 +21,25 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import FakeLoader from '@ui/FakeLoader/FakeLoader';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect } from 'react';
-import { Link, useNavigation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 const getConfig = (state: string | null) => {
   switch (state) {
     case 'done':
       return {
         description: {
-          title: 'PHASE 3 - PAYMENT',
-          subtitle:
-            'CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION',
+          title: 'CITIZEN REVIEWS CONVERSATION WITH CIVIL SERVANT',
+          subtitle: 'PRIMARY TASK',
         },
         nextStep: '../conversation/300',
         previousStep: '../review-case/2895379235',
@@ -46,9 +47,8 @@ const getConfig = (state: string | null) => {
     default:
       return {
         description: {
-          title: 'PHASE 3 - PAYMENT',
-          subtitle:
-            'CITIZEN REVIEWS THEIR PROGRAM AND STARTS A NEW CONVERSATION',
+          title: 'CITIZEN STARTS A NEW CONVERSATION',
+          subtitle: 'PRIMARY TASK',
         },
         nextStep: '../new-conversation',
         previousStep: '../review-candidate/2895379235?state=scheduling',
@@ -59,7 +59,7 @@ const getConfig = (state: string | null) => {
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
   const [searchParams] = useSearchParams();
-  const navigation = useNavigation();
+  const navigation = useLocation();
   useEffect(() => {
     dispatch({
       type: 'SET_ALL',
@@ -83,6 +83,15 @@ export default function ActiveProgram() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
+    });
+  }, []);
+
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.CONVERSATIONS,
+      B: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+      C: ContextualTitle.PAYMENT_HISTORY,
     });
   }, []);
 
@@ -124,28 +133,54 @@ export default function ActiveProgram() {
                   flexDirection="column"
                   padding={0}
                 >
-                  <TableContainer>
-                    <Table background="white">
+                  <TableContainer
+                    backgroundColor={
+                      searchParams.get('state') === 'done'
+                        ? 'white'
+                        : 'transparent'
+                    }
+                  >
+                    <Table>
                       <Thead>
                         <Tr>
                           <Th>Date</Th>
                           <Th>Topic</Th>
-                          <Th>Attachment</Th>
+                          <Th>Program</Th>
                           <Th>Status</Th>
                           <Th>#</Th>
                         </Tr>
                       </Thead>
                       <Tbody>
                         <Tr>
-                          <Td>01.01.2023</Td>
-                          <Td>Package Information</Td>
-                          <Td>USCT - Monthly Benefit Package</Td>
-                          <Td>
-                            <Flex gap="10px" alignItems="center">
-                              <MaybeCircleIcon /> In Progress
-                            </Flex>
-                          </Td>
-                          <Td>3779394</Td>
+                          {searchParams.get('state') === 'done' ? (
+                            <>
+                              <Td>01.01.2023</Td>
+                              <Td>Package Information</Td>
+                              <Td>USCT - Monthly Benefit Package</Td>
+                              <Td>
+                                <Flex gap="10px" alignItems="center">
+                                  <MaybeCircleIcon /> In Progress
+                                </Flex>
+                              </Td>
+                              <Td>3779394</Td>
+                            </>
+                          ) : (
+                            <Td colSpan={5}>
+                              <Flex
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                              >
+                                <Heading size="sm">
+                                  There are no active conversations.
+                                </Heading>
+                                <Text>
+                                  Please start a conversation if you need any
+                                  help or questions.
+                                </Text>
+                              </Flex>
+                            </Td>
+                          )}
                         </Tr>
                       </Tbody>
                     </Table>
@@ -161,7 +196,9 @@ export default function ActiveProgram() {
               colorScheme="citizen"
               ml="auto"
             >
-              Review Conversation
+              {searchParams.get('state') === 'done'
+                ? 'Review Conversation'
+                : 'Start New Conversation'}
             </Button>
           </Tooltip>
         </Box>

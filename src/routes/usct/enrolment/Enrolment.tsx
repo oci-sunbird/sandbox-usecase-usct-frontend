@@ -23,15 +23,17 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 export default function Enrolment() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -45,9 +47,8 @@ export default function Enrolment() {
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 2 - ENROLMENT',
-        subtitle:
-          'CITIZEN CHOOSES AVAILABLE PAYMENT METHOD AND ACCEPTS ENROLMENT',
+        title: 'CITIZEN SELECTS THE PAYMENT METHOD AND ENROLLS',
+        subtitle: 'PRIMARY TASK',
       },
       userAuthorized: true,
       nextStep: '../candidate-list?state=scheduling',
@@ -71,6 +72,23 @@ export default function Enrolment() {
       [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
+
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+
+  useEffect(() => {
+    if (paymentMethodSelected) {
+      setLetterContextualTitleMap({
+        A: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+        B: ContextualTitle.CHOOSING_PAYMENT_METHOD,
+        C: ContextualTitle.BANK_INFO,
+      });
+    } else {
+      setLetterContextualTitleMap({
+        A: ContextualTitle.PROGRAM_RELATED_INFORMATION,
+        B: ContextualTitle.CHOOSING_PAYMENT_METHOD,
+      });
+    }
+  }, [paymentMethodSelected]);
 
   return (
     <Flex direction="column" gap="40px" w="100%">
@@ -201,7 +219,7 @@ export default function Enrolment() {
                   <Text mb="24px">
                     Please review your bank account information:
                   </Text>
-                  <Tooltip letter="C" letterPosition='top'>
+                  <Tooltip letter="C" letterPosition="top">
                     <Grid
                       marginBottom="24px"
                       gap="12px"

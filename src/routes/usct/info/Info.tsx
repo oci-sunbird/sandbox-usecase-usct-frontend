@@ -1,3 +1,4 @@
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
 import {
   Accordion,
   AccordionButton,
@@ -11,23 +12,24 @@ import {
   Text,
 } from '@chakra-ui/react';
 import FakeLoader from '@ui/FakeLoader/FakeLoader';
+import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect } from 'react';
-import { Link, useNavigation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
-import Tooltip from '@ui/Tooltip/Tooltip';
 
 const getConfig = (done: boolean) => {
   if (done) {
     return {
       description: {
-        title: 'PHASE 2 - ENROLMENT',
-        subtitle: 'CITIZEN REVIEWS ELIGIBILITY STATUS',
+        title: 'CITIZEN CHECKS ENROLMENT',
+        subtitle: 'PRIMARY TASK',
       },
       previousStep: '../review-candidate/2895379235?state=done',
       nextStep: '../enrolment',
@@ -35,8 +37,8 @@ const getConfig = (done: boolean) => {
   } else {
     return {
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: 'CITIZEN CHECKS THE BENEFICIARY PROGRAM',
+        title: 'CITIZEN REVIEWS ELIGIBILITY',
+        subtitle: 'PRIMARY TASK',
       },
       previousStep: '../authorise-citizen',
       nextStep: '../personal',
@@ -47,7 +49,7 @@ const getConfig = (done: boolean) => {
 export default function Info() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
-  const navigation = useNavigation();
+  const navigation = useLocation();
 
   useEffect(() => {
     dispatch({
@@ -73,6 +75,20 @@ export default function Info() {
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
     });
+  }, []);
+
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  useEffect(() => {
+    if (!!searchParams.get('done')) {
+      setLetterContextualTitleMap({
+        A: ContextualTitle.ELIGIBILITY_STATUS,
+        B: ContextualTitle.PERSONAL_INFO,
+      });
+    } else {
+      setLetterContextualTitleMap({
+        A: ContextualTitle.ELIGIBILITY_STATUS,
+      });
+    }
   }, []);
 
   return (

@@ -23,9 +23,11 @@ import { faker } from '@faker-js/faker';
 import FakeLoader from '@ui/FakeLoader/FakeLoader';
 import Pagination from '@ui/Pagination/Pagination';
 import { useContext, useEffect } from 'react';
-import { Link, useNavigation, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
 import Tooltip from '../../../ui/Tooltip/Tooltip';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -67,7 +69,9 @@ const getConfig = (state: string | null) => {
 
 export default function CandidateList() {
   const { state, dispatch } = useContext(SimulationContext);
-  const { location } = useNavigation();
+  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -78,8 +82,6 @@ export default function CandidateList() {
       ...getConfig(searchParams.get('state')),
     });
   }, [location]);
-
-  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
   useEffect(() => {
     setActiveBuildingBlocks({
@@ -92,6 +94,13 @@ export default function CandidateList() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.ASSIGNED_CANDIDATES,
+      B: ContextualTitle.CANDIDATE_LIST,
     });
   }, []);
 

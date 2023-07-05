@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import IconCard from '@ui/IconCard/IconCard';
 import { useContext, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
 import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
 import Tooltip from '../../../ui/Tooltip/Tooltip';
@@ -41,8 +41,8 @@ const getConfig = (state: string | null) => {
     case 'submitted':
       return {
         description: {
-          title: '',
-          subtitle: '',
+          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES',
+          subtitle: 'PRIMARY TASK',
         },
         previousStep: '../personal?done=true',
         nextStep: '../candidate-list?state=submitted',
@@ -64,6 +64,7 @@ export default function CaseManagement() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const [searchParams] = useSearchParams();
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+  const location = useLocation();
 
   useEffect(() => {
     dispatch({
@@ -73,7 +74,7 @@ export default function CaseManagement() {
       userAuthorized: true,
       ...getConfig(searchParams.get('state')),
     });
-  }, [searchParams]);
+  }, [searchParams, location]);
 
   useEffect(() => {
     setActiveBuildingBlocks({
@@ -90,6 +91,8 @@ export default function CaseManagement() {
 
     setLetterContextualTitleMap({
       A: ContextualTitle.REQUESTING_INFO,
+      B: ContextualTitle.ASSIGNED_CASES,
+      C: ContextualTitle.PROGRAM_INFORMATION,
     });
   }, []);
 

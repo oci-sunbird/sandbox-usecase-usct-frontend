@@ -12,64 +12,18 @@ import {
   IconButton,
   SimpleGrid,
   Text,
-  VStack,
 } from '@chakra-ui/react';
+import BuildingBlockActivity from '@ui/Activity/BuildingBlockActivity';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as ConsentIcon } from '../../assets/icons/consent.svg';
-import { ReactComponent as DigitalRegistriesIcon } from '../../assets/icons/digital-registries.svg';
-import { ReactComponent as InformationMediatorIcon } from '../../assets/icons/information-mediator.svg';
-import { ReactComponent as MessagingIcon } from '../../assets/icons/messaging.svg';
 import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
-import { ReactComponent as PassportIcon } from '../../assets/icons/passport.svg';
-import { ReactComponent as PaymentIcon } from '../../assets/icons/payments.svg';
 import { ReactComponent as RefreshIcon } from '../../assets/icons/refresh.svg';
-import { ReactComponent as RegistrationIcon } from '../../assets/icons/registration.svg';
-import { ReactComponent as SchedulingIcon } from '../../assets/icons/scheduling.svg';
-import { ReactComponent as WorkflowIcon } from '../../assets/icons/workflow.svg';
 import { colors } from '../../chakra-overrides/colors';
-import {
-  ActiveBuildingBlockContext,
-  SimulationContext,
-} from '../../routes/usct/USCT';
-import { BUILDING_BLOCK } from '../../routes/usct/utils';
-import BuildingBlock from '../Activity/BuildingBlock';
-import DIAL from '../DIAL/DIAL';
+import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
+import { SimulationContext } from '../../routes/usct/USCT';
 import ContextualHelp from './ContextualHelp';
 import ScenarioHeader from './ScenarioHeader';
 import ScenarioView from './ScenarioView';
-
-const buildingBlockActivity = [
-  { label: 'Consent', icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
-  {
-    label: 'ID & Authentication',
-    icon: <PassportIcon />,
-    id: BUILDING_BLOCK.AUTHENTICATION,
-  },
-  {
-    label: 'Information Mediator',
-    icon: <InformationMediatorIcon />,
-    id: BUILDING_BLOCK.INFORMATION_MEDIATOR,
-  },
-  {
-    label: 'Digital Registries',
-    icon: <DigitalRegistriesIcon />,
-    id: BUILDING_BLOCK.DIGITAL_REGISTRIES,
-  },
-  { label: 'Messaging', icon: <MessagingIcon />, id: BUILDING_BLOCK.MESSAGING },
-  { label: 'Payment', icon: <PaymentIcon />, id: BUILDING_BLOCK.PAYMENT },
-  {
-    label: 'Registration',
-    icon: <RegistrationIcon />,
-    id: BUILDING_BLOCK.REGISTRATION,
-  },
-  {
-    label: 'Scheduling',
-    icon: <SchedulingIcon />,
-    id: BUILDING_BLOCK.SCHEDULING,
-  },
-  { label: 'Workflow', icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
-];
 
 export default function ScenarioLayout({
   view,
@@ -78,9 +32,8 @@ export default function ScenarioLayout({
   view: 'mobile' | 'desktop';
   children: React.ReactElement[] | React.ReactElement;
 }) {
-  const { activeBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { state, dispatch } = useContext(SimulationContext);
 
   return (
@@ -108,7 +61,7 @@ export default function ScenarioLayout({
           transform="skew(25)"
         />
         <SimpleGrid
-          gridTemplateColumns="150px 1fr 150px"
+          gridTemplateColumns="150px 1fr"
           justifyContent="space-between"
           justifyItems="center"
           alignItems="center"
@@ -161,7 +114,7 @@ export default function ScenarioLayout({
           <Text size="sm">Terms of usage</Text>
           <Text size="sm">Get in touch</Text>
         </Flex>
-        <DIAL />
+        {/* <DIAL /> */}
       </Flex>
       <Flex
         h="100%"
@@ -205,16 +158,10 @@ export default function ScenarioLayout({
             Building Blocks are enterprise-ready, reusable software components
             providing functionalities across sectors and use cases.
           </Text>
-          <VStack mb="1rem">
-            {buildingBlockActivity.map((buildingBlock) => (
-              <BuildingBlock
-                active={activeBuildingBlocks[buildingBlock.id]}
-                label={buildingBlock.label}
-                icon={buildingBlock.icon}
-                key={buildingBlock.id}
-              />
-            ))}
-          </VStack>
+          <BuildingBlockActivity
+            activeContent={activeContent}
+            activeLetter={activeLetter}
+          />
           <Flex justifyContent="space-around" mb="1rem">
             <Flex alignItems="center">
               <Box
@@ -233,7 +180,13 @@ export default function ScenarioLayout({
               <Text size="sm">Inactive</Text>
             </Flex>
           </Flex>
-          <Divider color={colors.darkblue[300]} mb="1.5rem" />
+          <Divider
+            borderColor={colors.darkblue[300]}
+            mr="-24px"
+            ml="-24px"
+            w="calc(100% + 48px)"
+            mb="1rem"
+          />
           <ContextualHelp />
         </Flex>
       </Flex>
