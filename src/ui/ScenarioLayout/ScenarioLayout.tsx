@@ -176,7 +176,7 @@ export default function ScenarioLayout({
           top="0"
           w="32px"
           icon={<ConsentIcon />}
-          aria-label={"expand"}
+          aria-label="Expand sidepanel"
         ></IconButton>
         <Flex
           boxSizing="border-box"
