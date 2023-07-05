@@ -25,7 +25,7 @@ function Tooltip({
     'right-center': {
       right: "-45px",
       top: "50%",
-      translateY: "-50%"
+      transform: "translateY(-50%)"
     }
   }
 
