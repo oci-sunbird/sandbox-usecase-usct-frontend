@@ -15,13 +15,13 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
 
 export default function BeneficiaryList() {
   const rpc = useContext(RPCContext);
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   const [isValidating, setIsValidating] = useState(false);
   const [checkedBeneficiaries, setCheckedBeneficiaries] = useState<number[]>(
     []

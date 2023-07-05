@@ -126,8 +126,8 @@ export default function USCT() {
               userAuthorized={state.userAuthorized}
             />
             <Flex
-              paddingRight={{ sm: "15px", lg: "60px" }}
-              paddingLeft={{ sm: "15px", lg: "60px" }}
+              paddingRight={{ base: "15px", lg: "60px" }}
+              paddingLeft={{ base: "15px", lg: "60px" }}
               paddingBottom="80px"
               flexGrow="1"
             >

@@ -1,33 +1,34 @@
-import { Button, Center, Heading, Text, VStack } from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
+import { Button, Center, Heading, Text, VStack } from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigation } from "react-router-dom";
+import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function AuthoriseCitizen() {
   const { state, dispatch } = useContext(SimulationContext);
+  const navigation = useNavigation();
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: 'CITIZEN LOGS IN',
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CITIZEN LOGS IN",
       },
       progress: 20,
       userAuthorized: false,
-      previousStep: '../review-candidate/2895379235',
-      nextStep: '../info',
+      previousStep: "../review-candidate/2895379235",
+      nextStep: "../info",
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 

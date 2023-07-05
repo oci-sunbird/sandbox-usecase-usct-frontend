@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -9,36 +9,35 @@ import {
   Heading,
   Input,
   Text,
-} from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+} from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link, useNavigation } from "react-router-dom";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import Tooltip from '@ui/Tooltip/Tooltip';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function Review() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'PHASE 1 - ELIGIBILITY',
-        subtitle: 'CITIZEN VALIDATES THEIR INFORMATION',
+        title: "PHASE 1 - ELIGIBILITY",
+        subtitle: "CITIZEN VALIDATES THEIR INFORMATION",
       },
-      nextStep: '../personal?done=true',
-      previousStep: '../personal',
+      nextStep: "../personal?done=true",
+      previousStep: "../personal",
       userAuthorized: true,
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
@@ -74,36 +73,36 @@ export default function Review() {
             <Text mb="16px">
               Please confirm that the information shown below is correct
             </Text>
-            <Flex direction="column" gap="16px" w={{ sm: '100%', xl: '50%' }}>
+            <Flex direction="column" gap="16px" w={{ sm: "100%", xl: "50%" }}>
               <FormControl
-                flexDirection={{ sm: 'column', lg: 'row' }}
-                alignItems={{ sm: 'flex-start', lg: 'center' }}
+                flexDirection={{ sm: "column", lg: "row" }}
+                alignItems={{ sm: "flex-start", lg: "center" }}
                 display="flex"
                 gap="16px"
               >
                 <FormLabel
                   fontWeight="600"
-                  width={{ sm: '100%', lg: '30%' }}
+                  width={{ sm: "100%", lg: "30%" }}
                   m="0"
                 >
                   Email Address
                 </FormLabel>
-                <Input w={{ sm: '100%', lg: '70%' }} value="tom@myspace.com" />
+                <Input w={{ sm: "100%", lg: "70%" }} value="tom@myspace.com" />
               </FormControl>
               <FormControl
-                flexDirection={{ sm: 'column', lg: 'row' }}
-                alignItems={{ sm: 'flex-start', lg: 'center' }}
+                flexDirection={{ sm: "column", lg: "row" }}
+                alignItems={{ sm: "flex-start", lg: "center" }}
                 display="flex"
                 gap="16px"
               >
                 <FormLabel
                   fontWeight="600"
-                  width={{ sm: '100%', lg: '30%' }}
+                  width={{ sm: "100%", lg: "30%" }}
                   m="0"
                 >
                   Phone Number
                 </FormLabel>
-                <Input value="(+00) 94 843 432" w={{ sm: '100%', lg: '70%' }} />
+                <Input value="(+00) 94 843 432" w={{ sm: "100%", lg: "70%" }} />
               </FormControl>
             </Flex>
           </Box>

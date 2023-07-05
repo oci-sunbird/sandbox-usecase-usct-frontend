@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import { authentication } from "./authentication";
 
 export const useAuthentication = () => {
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   async function callback() {
     try {
       await authentication.isLoggedIn();

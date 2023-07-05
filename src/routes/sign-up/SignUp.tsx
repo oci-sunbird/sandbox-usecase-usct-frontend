@@ -9,11 +9,13 @@ import {
   Heading,
   Image,
   Progress,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
-import ChallengeForm, { CHALLENGE_FLOW } from "../../ui/ChallengeForm/ChallengeForm";
+import { Navigate, useLoaderData, useNavigation } from "react-router-dom";
+import ChallengeForm, {
+  CHALLENGE_FLOW,
+} from "../../ui/ChallengeForm/ChallengeForm";
 import UserForm from "./UserForm";
 
 enum STATES {
@@ -23,7 +25,7 @@ enum STATES {
 }
 
 export default function SignUp() {
-  const navigate = useNavigate();
+  const { location } = useNavigation();
   const [step, setStep] = useState(STATES.CREATE_ACCOUNT);
   const [email, setEmail] = useState("");
   const loaderData = useLoaderData() as {
@@ -78,8 +80,10 @@ export default function SignUp() {
             <Center marginTop="96px">
               <Flex direction="column" gap="16px" alignItems="center">
                 <Image src="/Confetti.png" width="200px" height="auto" />
-                <Progress colorScheme="green" value={100} w="50%"/>
-                <Heading size="md" color="green">Success!</Heading>
+                <Progress colorScheme="green" value={100} w="50%" />
+                <Heading size="md" color="green">
+                  Success!
+                </Heading>
                 <ChallengeForm email={email} flow={CHALLENGE_FLOW.SIGN_UP} />
               </Flex>
             </Center>

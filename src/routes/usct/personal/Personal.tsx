@@ -2,7 +2,7 @@ import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.sv
 import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
 import { Button, ButtonGroup, Flex, Heading, Tag } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigation, useSearchParams } from 'react-router-dom';
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -90,6 +90,7 @@ export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
   const [citizen, setCitizen] = useState<any | null>(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     dispatch({
@@ -108,7 +109,7 @@ export default function Personal() {
       previousStep: searchParams.get('done') ? '../review' : '../info',
       userAuthorized: true,
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
