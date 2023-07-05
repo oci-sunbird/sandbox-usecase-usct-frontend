@@ -14,7 +14,6 @@ import {
   GridItem,
   Heading,
   Radio,
-  SimpleGrid,
   Table,
   TableContainer,
   Tbody,
@@ -73,7 +72,7 @@ export default function Enrolment() {
   }, []);
 
   return (
-    <Flex direction="column" gap="20px">
+    <Flex direction="column" gap="20px" w="100%">
       <Flex direction="column">
         <Heading fontSize="36px">Enrolling to the Program</Heading>
         <Heading fontSize="24px">Unconditional Social Cash Transfer</Heading>
@@ -87,7 +86,7 @@ export default function Enrolment() {
           With this benefit package, you and your family will receive:
         </Text>
       </Flex>
-      <SimpleGrid columns={2} spacing="20px">
+      <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap="20px">
         <Flex alignItems="center" gap="20px">
           <Flex
             borderRadius="8px"
@@ -132,7 +131,7 @@ export default function Enrolment() {
             <Text>Online monthly consultation and job referrals</Text>
           </Flex>
         </Flex>
-      </SimpleGrid>
+      </Grid>
       <Flex direction="column" gap="20px">
         <Heading fontSize="18px">Package payment</Heading>
         <TableContainer>

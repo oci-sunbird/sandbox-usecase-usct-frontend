@@ -21,7 +21,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   ActiveBuildingBlockContext,
   EUserType,
@@ -149,7 +149,7 @@ export default function ActiveProgram() {
           </TabPanels>
         </Tabs>
 
-        <Button colorScheme="citizen" ml="auto">
+        <Button as={Link} to={state.nextStep} colorScheme="citizen" ml="auto">
           Review Conversation
         </Button>
       </Flex>
