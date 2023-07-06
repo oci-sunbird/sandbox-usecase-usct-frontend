@@ -9,7 +9,7 @@ export default function ScenarioView({
   children: ReactElement | ReactElement[];
 }) {
   const location = useLocation();
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (ref.current) {
       ref.current.scrollTop = 0;
