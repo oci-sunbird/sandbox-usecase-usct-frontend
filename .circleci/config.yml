@@ -25,8 +25,9 @@ jobs:
       - run:
           name: Create and push frontend container
           command: |
-              docker build -t app/usct/dev-ui:latest .
+              docker build -t app/usct/plg-ui:latest .
               aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin 161826879607.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+              docker tag app/usct/plg-ui:latest 161826879607.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/app/usct/plg-ui:latest
               docker push 161826879607.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/app/usct/plg-ui:latest
 
 parameters:
