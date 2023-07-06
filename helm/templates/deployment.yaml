@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ .Values.playground_frontend.name }}
   labels:
@@ -22,14 +22,6 @@ spec:
           ports:
           - containerPort: 8080
             name: server
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: server
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: server
           resources:
             limits:
               cpu: "500m"
@@ -46,22 +38,6 @@ metadata:
     {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
 spec:
   type: {{ .Values.playground_frontend.service.type }}
-  ports:
-    - port: {{ .Values.playground_frontend.service.port }}
-      targetPort: {{ .Values.playground_frontend.service.targetPort }}
-      protocol: TCP
-      name: http
-  selector:
-    {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ .Values.playground_frontend.service.name }}-headless
-  labels:
-    {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
-spec:
-  clusterIP: None
   ports:
     - port: {{ .Values.playground_frontend.service.port }}
       targetPort: {{ .Values.playground_frontend.service.targetPort }}
