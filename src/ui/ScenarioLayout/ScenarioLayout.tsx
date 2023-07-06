@@ -44,7 +44,7 @@ export default function ScenarioLayout({
         position="relative"
       >
         <ScenarioHeader>
-          <Text>
+          <Text size={{ base: 'sm', md: 'md' }}>
             <strong>Use Case Simulation</strong> Unconditional Social Cash
             Transfer
           </Text>
@@ -57,19 +57,19 @@ export default function ScenarioLayout({
           bottom="0"
           zIndex="-1"
           backgroundColor={colors.primary[900]}
-          clipPath="polygon(0 34%, 100% 0, 100% 100%, 0% 100%)"
-          transform="skew(25)"
+          clipPath={{ md: 'polygon(0 34%, 100% 0, 100% 100%, 0% 100%)' }}
+          transform={{ md: 'skew(25)' }}
         />
         <SimpleGrid
           gridTemplateColumns="150px 1fr"
           justifyContent="space-between"
           justifyItems="center"
           alignItems="center"
-          gap="64px"
+          gap={{ base: '8px', md: '64px' }}
           maxW="1024px"
           w="100%"
           margin="0 auto"
-          padding="0 64px"
+          padding={{ base: '0 8px', md: '0 64px' }}
         >
           <Flex w="100%" gap="0.5rem">
             <IconButton
@@ -103,6 +103,7 @@ export default function ScenarioLayout({
         <Flex
           mt="22px"
           justifyContent="center"
+          display={{ base: 'none', md: 'flex' }}
           gap="16px"
           p="8px"
           color={colors.secondary[500]}

@@ -5,8 +5,8 @@ import {
   Fade,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 export default function FakeLoader({
   children,
@@ -23,7 +23,7 @@ export default function FakeLoader({
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 3000);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
   return (
@@ -40,7 +40,7 @@ export default function FakeLoader({
           <Center h="100%">
             <VStack>
               <CircularProgress isIndeterminate size={50} />
-              <Text variant="caps" size="lg">
+              <Text variant="caps" size="lg" textAlign="center">
                 {label}
               </Text>
             </VStack>

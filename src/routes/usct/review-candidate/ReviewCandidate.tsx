@@ -32,6 +32,7 @@ import {
   EUserType,
   SimulationContext,
 } from '../USCT';
+import BankInformation from '../personal/BankInformation';
 import { BUILDING_BLOCK } from '../utils';
 import { ActionAlert } from './ActionAlert';
 import { historyData, householdData } from './data';
@@ -152,7 +153,7 @@ export default function ReviewCandidate() {
             <Grid
               w="100%"
               gridTemplateRows="repeat(4, min-content)"
-              gridTemplateColumns={{ sm: '1fr', lg: 'repeat(2, 1fr)' }}
+              gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
               gap="23px"
             >
               <Box>
@@ -196,7 +197,7 @@ export default function ReviewCandidate() {
 
           <Tooltip letter="C">
             <Flex direction="column" gap="30px">
-              <Flex direction={{ sm: 'column', lg: 'row' }}>
+              <Flex direction={{ base: 'column', lg: 'row' }}>
                 <Flex w="100%" direction="column" gap="12px">
                   <Heading variant="h3" fontSize="18px">
                     Household needs
@@ -337,25 +338,7 @@ export default function ReviewCandidate() {
 
         <Tooltip letter="D">
           <Box>
-            <Heading variant="h3" fontSize="18px" mb="20px">
-              Bank Account Information
-            </Heading>
-            <Flex justifyContent="space-between">
-              <Box>
-                <Text fontWeight="600">Bank Account Owner Name</Text>
-                <Text>Thomas Anderson</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Bank Name</Text>
-                <Text>Sunshine Bank</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">
-                  International Bank Account Number (IBAN)
-                </Text>
-                <Text>AA02300209000106531065</Text>
-              </Box>
-            </Flex>
+            <BankInformation />
           </Box>
         </Tooltip>
 

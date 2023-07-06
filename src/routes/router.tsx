@@ -1,121 +1,197 @@
-import { Amplify } from "aws-amplify";
-import { createBrowserRouter } from "react-router-dom";
-import BeneficiaryList from "./driver-poc/BeneficiaryList";
-import CandidateDetail from "./driver-poc/CandidateDetail";
-import CandidatesList from "./driver-poc/CandidatesList";
-import DriverPoc from "./driver-poc/DriverPoc";
-import USCT from "./usct/USCT";
-import ActiveProgram from "./usct/active-program/ActiveProgram";
-import AuthoriseCitizen from "./usct/authorise-citizen/AuthoriseCitizen";
-import CandidateList from "./usct/candidate-list/CandidateList";
-import CaseList from "./usct/case-list/CaseList";
-import CaseManagement from "./usct/case-management/CaseManagement";
-import Conversation from "./usct/conversation/Conversation";
-import Enrolment from "./usct/enrolment/Enrolment";
-import Info from "./usct/info/Info";
-import Personal from "./usct/personal/Personal";
-import ReviewCandidate from "./usct/review-candidate/ReviewCandidate";
-import ReviewCase from "./usct/review-case/ReviewCase";
-import Review from "./usct/review/Review";
-import StartNewConversation from "./usct/start-new-conversation/StartNewConversation";
-import Feedback from "./usct/feedback/Feedback";
+import { Amplify } from 'aws-amplify';
+import React, { lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
+const BeneficiaryList = lazy(() => import('./driver-poc/BeneficiaryList'));
+const CandidateDetail = lazy(() => import('./driver-poc/CandidateDetail'));
+const CandidatesList = lazy(() => import('./driver-poc/CandidatesList'));
+const DriverPoc = lazy(() => import('./driver-poc/DriverPoc'));
+const USCT = lazy(() => import('./usct/USCT'));
+const ActiveProgram = lazy(() => import('./usct/active-program/ActiveProgram'));
+const AuthoriseCitizen = lazy(
+  () => import('./usct/authorise-citizen/AuthoriseCitizen')
+);
+const CandidateList = lazy(() => import('./usct/candidate-list/CandidateList'));
+const CaseList = lazy(() => import('./usct/case-list/CaseList'));
+const CaseManagement = lazy(
+  () => import('./usct/case-management/CaseManagement')
+);
+const Conversation = lazy(() => import('./usct/conversation/Conversation'));
+const Enrolment = lazy(() => import('./usct/enrolment/Enrolment'));
+const Info = lazy(() => import('./usct/info/Info'));
+const Personal = lazy(() => import('./usct/personal/Personal'));
+const ReviewCandidate = lazy(
+  () => import('./usct/review-candidate/ReviewCandidate')
+);
+const ReviewCase = lazy(() => import('./usct/review-case/ReviewCase'));
+const Review = lazy(() => import('./usct/review/Review'));
+const StartNewConversation = lazy(
+  () => import('./usct/start-new-conversation/StartNewConversation')
+);
+const Feedback = lazy(() => import('./usct/feedback/Feedback'));
 
 Amplify.configure({
   Auth: {
-    region: "eu-central-1",
-    userPoolId: "eu-central-1_r6tpMB1Kk",
-    userPoolWebClientId: "64qi51ecoi6invhnp745v5qqjj",
+    region: 'eu-central-1',
+    userPoolId: 'eu-central-1_r6tpMB1Kk',
+    userPoolWebClientId: '64qi51ecoi6invhnp745v5qqjj',
   },
 });
 
 export const router = createBrowserRouter([
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "driver-poc",
-        element: <DriverPoc />,
+        path: 'driver-poc',
+        element: (
+          <React.Suspense>
+            <DriverPoc />
+          </React.Suspense>
+        ),
         children: [
           {
             index: true,
             element: <CandidatesList />,
           },
           {
-            path: "candidate/:id",
+            path: 'candidate/:id',
             children: [
               {
                 index: true,
                 element: <CandidateDetail />,
               },
               {
-                path: "enroll",
+                path: 'enroll',
                 // element: <CandidateEnroll />,
               },
             ],
           },
           {
-            path: "beneficiary-list",
+            path: 'beneficiary-list',
             element: <BeneficiaryList />,
           },
         ],
       },
       {
-        element: <USCT />,
+        element: (
+          <React.Suspense>
+            <USCT />
+          </React.Suspense>
+        ),
         children: [
           {
-            element: <CaseManagement />,
-            path: "case-management",
+            element: (
+              <React.Suspense>
+                <CaseManagement />
+              </React.Suspense>
+            ),
+            path: 'case-management',
             index: true,
           },
           {
-            element: <CandidateList />,
-            path: "candidate-list",
+            element: (
+              <React.Suspense>
+                <CandidateList />
+              </React.Suspense>
+            ),
+            path: 'candidate-list',
           },
           {
-            element: <CaseList />,
-            path: "case-list",
+            element: (
+              <React.Suspense>
+                <CaseList />
+              </React.Suspense>
+            ),
+            path: 'case-list',
           },
           {
-            element: <ReviewCandidate />,
-            path: "review-candidate/:id",
+            element: (
+              <React.Suspense>
+                <ReviewCandidate />
+              </React.Suspense>
+            ),
+            path: 'review-candidate/:id',
           },
           {
-            element: <Enrolment />,
-            path: "enrolment",
+            element: (
+              <React.Suspense>
+                <Enrolment />
+              </React.Suspense>
+            ),
+            path: 'enrolment',
           },
           {
-            element: <ActiveProgram />,
-            path: "active-program",
+            element: (
+              <React.Suspense>
+                <ActiveProgram />
+              </React.Suspense>
+            ),
+            path: 'active-program',
           },
           {
-            element: <ReviewCase />,
-            path: "review-case/:id",
+            element: (
+              <React.Suspense>
+                <ReviewCase />
+              </React.Suspense>
+            ),
+            path: 'review-case/:id',
           },
           {
-            element: <Conversation />,
-            path: "conversation/:id",
-          },
-          { element: <StartNewConversation />, path: "new-conversation" },
-          {
-            element: <AuthoriseCitizen />,
-            path: "authorise-citizen",
-          },
-          {
-            element: <Info />,
-            path: "info",
+            element: (
+              <React.Suspense>
+                <Conversation />
+              </React.Suspense>
+            ),
+            path: 'conversation/:id',
           },
           {
-            element: <Personal />,
-            path: "personal",
+            element: (
+              <React.Suspense>
+                <StartNewConversation />
+              </React.Suspense>
+            ),
+            path: 'new-conversation',
           },
           {
-            element: <Review />,
-            path: "review",
+            element: (
+              <React.Suspense>
+                <AuthoriseCitizen />
+              </React.Suspense>
+            ),
+            path: 'authorise-citizen',
           },
           {
-            element: <Feedback />,
-            path: "feedback",
-          }
+            element: (
+              <React.Suspense>
+                <Info />
+              </React.Suspense>
+            ),
+            path: 'info',
+          },
+          {
+            element: (
+              <React.Suspense>
+                <Personal />
+              </React.Suspense>
+            ),
+            path: 'personal',
+          },
+          {
+            element: (
+              <React.Suspense>
+                <Review />
+              </React.Suspense>
+            ),
+            path: 'review',
+          },
+          {
+            element: (
+              <React.Suspense>
+                <Feedback />
+              </React.Suspense>
+            ),
+            path: 'feedback',
+          },
         ],
       },
     ],

@@ -62,8 +62,9 @@ function Tooltip({
         color={colors.secondary[1000]}
         alignItems="center"
         justifyContent="center"
-        cursor={
-          !!activeLetter && activeLetter !== letter ? 'pointer' : 'cursor'
+        cursor="pointer"
+        pointerEvents={
+          !!activeLetter && activeLetter !== letter ? 'none' : 'auto'
         }
         zIndex="1"
         transition="opacity 0.3s ease-in-out, background-color 0.3s ease-in-out"

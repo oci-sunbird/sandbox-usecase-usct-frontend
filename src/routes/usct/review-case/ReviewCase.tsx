@@ -196,7 +196,7 @@ export default function ReviewCase() {
             </Text>
           }
           actions={
-            <Flex direction="column" gap="12px">
+            <Flex direction="column" gap="12px" alignSelf="flex-end">
               <InputGroup color="secondary.600">
                 <InputLeftElement>
                   <ArrowIcon />
@@ -209,16 +209,7 @@ export default function ReviewCase() {
         ></Alert>
       </Tooltip>
 
-      <Flex
-        backgroundColor="#fafafa"
-        ml="-60px"
-        mr="-60px"
-        pl="60px"
-        pr="60px"
-        pt="30px"
-        pb="30px"
-        mb="30px"
-      >
+      <Flex backgroundColor="#fafafa" p="30px 60px" m="30px -60px">
         <Tabs w="100%" isFitted variant="enclosed">
           <TabList>
             <Tab>Conversation</Tab>

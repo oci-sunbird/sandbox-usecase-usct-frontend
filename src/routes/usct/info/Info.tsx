@@ -97,9 +97,9 @@ export default function Info() {
       override={!!searchParams.get('done')}
     >
       <Flex
-        mt="128px"
-        gap={{ sm: '20px', lg: '125px' }}
-        direction={{ sm: 'column', lg: 'row' }}
+        mt={{ base: '8px', md: '128px' }}
+        gap={{ base: '20px', lg: '125px' }}
+        direction={{ base: 'column', lg: 'row' }}
       >
         <Box>
           <Box marginBottom="40px">

@@ -185,7 +185,11 @@ export default function CaseList() {
             </Table>
           </TableContainer>
 
-          <Flex justifyContent="space-between">
+          <Flex
+            direction={{ base: 'column', md: 'row' }}
+            gap="20px"
+            justifyContent="space-between"
+          >
             <Pagination />
             <Button isDisabled>Request to Assign New Candidate</Button>
           </Flex>

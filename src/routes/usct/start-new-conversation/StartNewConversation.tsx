@@ -65,7 +65,7 @@ export default function StartNewConversation() {
         <Text>
           Please select the topic you would like to discuss. Lorem ipsum.
         </Text>
-        <Flex gap="20px">
+        <Flex gap="20px" flexWrap="wrap">
           <ConversationTopic
             topic="Package Information"
             available

@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex } from '@chakra-ui/react';
 
 interface IAlertProps {
   icon: JSX.Element;
@@ -14,13 +14,14 @@ export default function Alert({ icon, content, actions }: IAlertProps) {
       borderRadius="8px"
       padding="18px 36px"
       gap="14px"
-      direction={{ sm: "column", xl: "row" }}
+      direction={{ base: 'column', xl: 'row' }}
+      justifyContent={{ base: 'space-between' }}
     >
       <Flex
-        gap={{ sm: "22px", lg: "44px" }}
+        gap={{ base: '22px', lg: '44px' }}
         alignItems="center"
-        w={{ sm: "100%", xl: "auto" }}
-        justifyContent={{ sm: "space-between", xl: "flex-start" }}
+        w={{ base: '100%', xl: 'auto' }}
+        justifyContent={{ base: 'space-between', xl: 'flex-start' }}
       >
         <Flex
           flexShrink="0"

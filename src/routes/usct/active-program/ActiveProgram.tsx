@@ -209,7 +209,7 @@ export default function ActiveProgram() {
               <Heading fontSize="18px">Assigned Benefit Package:</Heading>
               <Text>Monthly Benefit Package</Text>
             </Flex>
-            <SimpleGrid columns={2} spacing="20px">
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing="20px">
               <Flex alignItems="center" gap="20px">
                 <Flex
                   borderRadius="8px"
@@ -256,7 +256,7 @@ export default function ActiveProgram() {
                 </Flex>
               </Flex>
             </SimpleGrid>
-            <SimpleGrid columns={2} spacing="20px">
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing="20px">
               <Box>
                 <Text fontWeight="600">Payment Amount</Text>
                 <Text>1 234.00 at the beginning of each month</Text>

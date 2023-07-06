@@ -17,12 +17,15 @@ export default function ChatMessage({
       gap="16px"
       flexDirection={message.user === 'Applicant' ? 'row-reverse' : 'row'}
     >
-      <Avatar h="48px" w="48px" />
+      <Avatar
+        h={{ base: '24px', md: '48px' }}
+        w={{ base: '24px', md: '48px' }}
+      />
       <Flex
         border="2px solid black"
         borderRadius="8px"
         minH="112px"
-        w="40%"
+        w={{ base: '75%', md: '40%' }}
         direction="column"
         backgroundColor={
           message.user === 'Civil Servant'

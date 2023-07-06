@@ -1,6 +1,6 @@
-import { Avatar, Box, Flex, IconButton, Text } from "@chakra-ui/react";
-import { colors } from "../../chakra-overrides/colors";
-import { EUserType } from "../../routes/usct/USCT";
+import { Avatar, Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { colors } from '../../chakra-overrides/colors';
+import { EUserType } from '../../routes/usct/USCT';
 
 export function USCTUser({ userType }: { userType: EUserType | null }) {
   if (userType === EUserType.CITIZEN) {
@@ -10,12 +10,12 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         borderRadius="36px"
         justifyContent="center"
         alignItems="center"
-        padding={{ sm: "12px", lg: "11px 48px" }}
+        padding={{ base: '12px', lg: '11px 48px' }}
         marginRight="36px"
       >
         <Flex gap="8px" alignItems="center">
           <Avatar h="32px" w="32px" />
-          <Box display={{ sm: "none", lg: "block" }}>
+          <Box display={{ base: 'none', lg: 'block' }}>
             <Text size="sm" color={colors.secondary[0]}>
               Applicant
             </Text>
@@ -30,7 +30,7 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
   if (userType === EUserType.CITIZEN_SERVANT) {
     return (
       <Flex
-        paddingRight={{ sm: "8px", lg: "64px" }}
+        paddingRight={{ base: '8px', lg: '64px' }}
         alignItems="center"
         gap="24px"
       >

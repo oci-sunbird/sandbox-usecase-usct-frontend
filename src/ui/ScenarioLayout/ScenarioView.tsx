@@ -1,18 +1,26 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { ReactElement } from "react";
-import { colors } from "../../chakra-overrides/colors";
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { ReactElement, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
+import { colors } from '../../chakra-overrides/colors';
 
 export default function ScenarioView({
   children,
 }: {
   children: ReactElement | ReactElement[];
 }) {
+  const location = useLocation();
+  const ref = useRef(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scrollTop = 0;
+    }
+  }, [location]);
   return (
     <Flex
       w="100%"
       height="100%"
       direction="column"
-      p={{ sm: "4px 16px 8px 16px", lg: "16px 64px 32px 64px" }}
+      p={{ base: '4px 16px 8px 16px', lg: '16px 64px 32px 64px' }}
       flexGrow="1"
       alignItems="center"
       overflow="auto"
@@ -71,6 +79,7 @@ export default function ScenarioView({
           overflow="auto"
           backgroundColor="#fff"
           position="relative"
+          ref={ref}
         >
           {children}
         </Box>

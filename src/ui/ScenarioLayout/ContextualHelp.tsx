@@ -110,7 +110,8 @@ export default function ContextualHelp() {
       )}
       <Box
         position="absolute"
-        top={activeContent ? '-64px' : '110%'}
+        top={activeContent ? '-64px' : '90%'}
+        visibility={activeContent ? 'visible' : 'hidden'}
         transition="top 0.3s ease-in-out"
         bottom="0"
         right="-24px"

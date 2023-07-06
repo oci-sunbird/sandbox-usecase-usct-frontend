@@ -113,7 +113,7 @@ export default function CaseManagement() {
         <Flex direction="column" gap="20px">
           <Heading>Hello, Lorem Ipsum!</Heading>
           <Text>You have 1 candidates, 0 cases up for review today!</Text>
-          <Flex gap="20px" direction={{ sm: 'column', xl: 'row' }}>
+          <Flex gap="20px" direction={{ base: 'column', xl: 'row' }}>
             <Tooltip
               display="flex"
               letter="A"
@@ -207,7 +207,7 @@ export default function CaseManagement() {
           </Flex>
         </Flex>
         <Tooltip letter="C" letterPosition="top">
-          <Flex direction={{ sm: 'column', xl: 'row' }} marginBottom="60px">
+          <Flex direction={{ base: 'column', xl: 'row' }} marginBottom="60px">
             <Box w="100%" marginBottom={{ sm: '60px', xl: 0 }}>
               <Heading mb="20px">Program Description</Heading>
               <Text>
@@ -220,13 +220,13 @@ export default function CaseManagement() {
             </Box>
             <Flex
               w="100%"
-              textAlign={{ sm: 'left', xl: 'right' }}
+              textAlign={{ base: 'left', xl: 'right' }}
               direction="column"
-              alignItems={{ sm: 'flex-start', xl: 'flex-end' }}
+              alignItems={{ base: 'flex-start', xl: 'flex-end' }}
               gap="20px"
             >
               <Heading>Benefit Packages</Heading>
-              <Flex gap="20px" direction={{ sm: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Monthly Package
@@ -244,7 +244,7 @@ export default function CaseManagement() {
                   <CalendarIcon stroke="black" />
                 </Flex>
               </Flex>
-              <Flex gap="20px" direction={{ sm: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Short-Term Package
@@ -262,7 +262,7 @@ export default function CaseManagement() {
                   <PigIcon stroke="black" />
                 </Flex>
               </Flex>
-              <Flex gap="20px" direction={{ sm: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Special Package
@@ -282,7 +282,7 @@ export default function CaseManagement() {
               </Flex>
             </Flex>
           </Flex>
-          <Flex gap="60px" direction={{ sm: 'column', xl: 'row' }}>
+          <Flex gap="60px" direction={{ base: 'column', xl: 'row' }}>
             <Box w="100%">
               <Heading mb="20px">Eligibility Conditions</Heading>
               <Text>
@@ -307,8 +307,8 @@ export default function CaseManagement() {
                 Program Overview
               </Heading>
               <Flex
-                gap={{ sm: '2px', lg: '24px' }}
-                flexDirection={{ sm: 'column', lg: 'row' }}
+                gap={{ base: '12px', md: '24px' }}
+                flexDirection={{ base: 'column', md: 'row' }}
               >
                 <IconCard
                   icon={<UsersIcon stroke="black" />}

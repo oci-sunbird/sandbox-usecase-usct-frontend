@@ -294,7 +294,7 @@ export default function CandidateList() {
             <Flex
               justifyContent="space-between"
               gap="20px"
-              flexDirection={{ sm: 'column', xl: 'row' }}
+              flexDirection={{ base: 'column', xl: 'row' }}
             >
               <Pagination />
               <Button disabled>Request to Assign New Candidate</Button>
