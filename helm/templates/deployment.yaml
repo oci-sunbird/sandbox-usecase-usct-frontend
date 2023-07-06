@@ -5,7 +5,6 @@ metadata:
   labels:
     {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
 spec:
-  serviceName: {{ .Values.playground_frontend.service.name }}
   replicas: {{ .Values.playground_frontend.replicaCount }}
   selector:
     matchLabels:
