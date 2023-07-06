@@ -39,8 +39,8 @@ jobs:
       - run:
           name: Validate deployments
           command: |
-            echo "Validate statefulsets"
-            kubectl rollout status --watch --timeout=60s statefulset/frontend -n ${NAMESPACE} 
+            echo "Validate deployment"
+            kubectl rollout status --watch --timeout=60s deployment/frontend -n ${NAMESPACE} 
 
 parameters:
   deploy_allowed:
