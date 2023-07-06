@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-cli: circleci/aws-cli@3.1
+  aws-cli: circleci/aws-cli@3.1.4
   aws-ecr: circleci/aws-ecr@8.2.1
   aws-eks: circleci/aws-eks@2.2.0
   helm: circleci/helm@1.0
@@ -8,26 +8,26 @@ orbs:
 jobs:
   deploy-frontend:
     docker:
-      - image: cimg/aws:2022.06
+      - image: cimg/aws:2023.03
     steps:
       - checkout
       - setup_remote_docker:
           version: 20.10.14
       - aws-cli/setup:
-          role-arn: 'arn:aws:iam::${AWS_ACCOUNT}:role/${AWS_ROLE}'
+          role-arn: 'arn:aws:iam::161826879607:role/CICDPipeline_sandbox-playground_Role_plg'
           aws-region: AWS_DEFAULT_REGION
-          profile-name: ${AWS_ROLE}
+          profile-name: CICDPipeline_sandbox-playground_Role_plg
           role-session-name: CircleSession
           session-duration: '1800'
       - aws-eks/update-kubeconfig-with-authenticator:
           cluster-name: "${AWS_CLUSTER_NAME}"
-          cluster-authentication-role-arn: arn:aws:iam::${AWS_ACCOUNT}:role/${AWS_ROLE}
+          cluster-authentication-role-arn: arn:aws:iam::161826879607:role/CICDPipeline_sandbox-playground_Role_plg
       - run:
           name: Create and push frontend container
           command: |
               docker build -t app/usct/dev-ui:latest .
-              aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin 463471358064.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
-              docker push ${AWS_ACCOUNT}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/app/usct/dev-ui:latest
+              aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin 161826879607.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+              docker push 161826879607.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/app/usct/plg-ui:latest
 
 parameters:
   deploy_allowed:
