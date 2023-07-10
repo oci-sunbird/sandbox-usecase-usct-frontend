@@ -5,7 +5,7 @@ import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
 import { ContextualHelpContextProvider } from './ContextualHelpContext';
 import Header from './Header';
 import { BUILDING_BLOCK } from './utils';
-import { ShepherdOptionsWithType, ShepherdTour, Tour } from 'react-shepherd';
+import { HelpOverlay } from '@ui/HelpOverlay/HelpOverlayContext';
 
 export interface IRouteDescription {
   title: string;
@@ -116,52 +116,8 @@ export default function USCT() {
     activeBuildingBlockState
   );
 
-  const tourOptions: Tour.TourOptions = {
-    useModalOverlay: true,
-  }
-
-  const steps: ShepherdOptionsWithType[] = [
-    {
-      id: 'intro',
-      attachTo: { element: '.first-element', on: 'bottom' },
-      buttons: [
-        {
-          classes: 'shepherd-button-secondary',
-          text: 'Exit',
-          type: 'cancel'
-        },
-        {
-          classes: 'shepherd-button-primary',
-          text: 'Back',
-          type: 'back'
-        },
-        {
-          classes: 'shepherd-button-primary',
-          text: 'Next',
-          type: 'next'
-        }
-      ],
-      classes: 'custom-class-name-1 custom-class-name-2',
-      highlightClass: 'highlight',
-      scrollTo: false,
-      cancelIcon: {
-        enabled: true,
-      },
-      title: 'Welcome to React-Shepherd!',
-      text: ['React-Shepherd is a JavaScript library for guiding users through your React app.'],
-      when: {
-        show: () => {
-          console.log('show step');
-        },
-        hide: () => {
-          console.log('hide step');
-        }
-      }
-    },
-  ]
-
   return (
-    <ShepherdTour tourOptions={tourOptions} steps={steps}>
+    <HelpOverlay>
       <ActiveBuildingBlockContext.Provider
         value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
       >
@@ -186,6 +142,6 @@ export default function USCT() {
           </ContextualHelpContextProvider>
         </SimulationContext.Provider>
       </ActiveBuildingBlockContext.Provider>
-    </ShepherdTour>
+    </HelpOverlay>
   );
 }

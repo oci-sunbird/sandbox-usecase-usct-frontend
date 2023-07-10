@@ -22,7 +22,6 @@
     "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.3",
-    "react-shepherd": "^4.2.0",
     "vite-plugin-svgr": "^2.4.0",
     "yup": "^0.32.11"
   },

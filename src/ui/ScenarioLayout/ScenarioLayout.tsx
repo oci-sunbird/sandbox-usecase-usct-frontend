@@ -9,6 +9,8 @@ import {
   Button,
   Divider,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   IconButton,
   SimpleGrid,
@@ -26,8 +28,9 @@ import ContextualHelp from './ContextualHelp';
 import ScenarioHeader from './ScenarioHeader';
 import ScenarioView from './ScenarioView';
 import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
-import { ReactComponent as LightbulbIcon } from '@assets/icons/lightbulb.svg';
-import { ShepherdTourContext } from 'react-shepherd'
+import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
+import HelpButton from '@ui/HelpOverlay/HelpButton';
+import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
 
 export default function ScenarioLayout({
   view,
@@ -39,7 +42,6 @@ export default function ScenarioLayout({
   const [isExpanded, setIsExpanded] = useState(false);
   const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { state, dispatch } = useContext(SimulationContext);
-  const tour = useContext(ShepherdTourContext);
 
   return (
     <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
@@ -76,26 +78,37 @@ export default function ScenarioLayout({
           margin="0 auto"
           padding={{ base: '0 8px', md: '0 64px' }}
         >
-          <Flex w="100%" gap="0.5rem">
-            <IconButton
-              as={Link}
-              to={state.previousStep}
-              aria-label="Previous step"
-              icon={<ArrowBackIcon />}
-            />
-            <IconButton
-              as={Link}
-              to="./case-management"
-              aria-label="Start over"
-              icon={<RefreshIcon />}
-            />
-            <IconButton
-              as={Link}
-              to={state.nextStep}
-              aria-label="Next step"
-              icon={<ArrowForwardIcon />}
-            />
-          </Flex>
+          <HelpHighlightWrapper
+            info={
+              <Box w="420px">
+                The <b>navigation</b> allows you to move back and forth through
+                the pages of the simulation
+              </Box>
+            }
+            infoPosition="top"
+          >
+            <Flex w="100%" gap="0.5rem">
+              <IconButton
+                as={Link}
+                to={state.previousStep}
+                aria-label="Previous step"
+                icon={<ArrowBackIcon />}
+              />
+              <IconButton
+                as={Link}
+                to="./case-management"
+                aria-label="Start over"
+                icon={<RefreshIcon />}
+              />
+              <IconButton
+                as={Link}
+                to={state.nextStep}
+                aria-label="Next step"
+                icon={<ArrowForwardIcon />}
+              />
+            </Flex>
+          </HelpHighlightWrapper>
+
           <Box w="100%">
             <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
               {state.description.title}
@@ -156,18 +169,29 @@ export default function ScenarioLayout({
           h="100%"
           direction="column"
           overflowY="scroll"
-        > 
-          <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
-            BUILDING BLOCK ACTIVITY
-          </Heading>
-          <Text size="sm" mb="1rem">
-            Building Blocks are enterprise-ready, reusable software components
-            providing functionalities across sectors and use cases.
-          </Text>
-          <BuildingBlockActivity
-            activeContent={activeContent}
-            activeLetter={activeLetter}
-          />
+        >
+          <HelpHighlightWrapper
+            info={
+              <>
+                Overview of the <b>software component activity</b> (building
+                blocks) and their status on the page
+              </>
+            }
+            infoPosition="inside"
+          >
+            <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
+              BUILDING BLOCK ACTIVITY
+            </Heading>
+            <Text size="sm" mb="1rem">
+              Building Blocks are enterprise-ready, reusable software components
+              providing functionalities across sectors and use cases.
+            </Text>
+            <BuildingBlockActivity
+              activeContent={activeContent}
+              activeLetter={activeLetter}
+            />
+          </HelpHighlightWrapper>
+
           <Flex justifyContent="space-around" mb="1rem">
             <Flex alignItems="center">
               <Box
@@ -193,18 +217,56 @@ export default function ScenarioLayout({
             w="calc(100% + 48px)"
             mb="1rem"
           />
-          <ContextualHelp />
+          <HelpHighlightWrapper
+            info={
+              <>
+                <b>
+                  <i>Learn more</i>
+                </b>{' '}
+                about interactions of the Building Blocks
+                <Grid
+                  position="absolute"
+                  bottom="calc(100% + 64px)"
+                  right="calc(100% + 24px)"
+                >
+                  <GridItem>
+                    <Flex
+                      borderRadius="50%"
+                      border="2px solid white"
+                      height="64px"
+                      w="64px"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      A
+                    </Flex>
+                  </GridItem>
+                  <GridItem colStart={2} rowStart={2}>
+                    <ArrowIcon />
+                  </GridItem>
+                </Grid>
+                <Text position="absolute" left="0" top="-48px">
+                  A
+                </Text>
+              </>
+            }
+            infoPosition="inside"
+          >
+            <ContextualHelp />
+          </HelpHighlightWrapper>
+
           <Divider
             borderColor={colors.darkblue[300]}
             mt="auto"
             mr="-24px"
             ml="-24px"
             w="calc(100% + 48px)"
-            mb="24px"
           />
-          <Flex px="8px" justifyContent="space-between">
-            <Button leftIcon={<UploadIcon />} variant="ghost" color="white">SHARE</Button>
-            <Button leftIcon={<LightbulbIcon />} variant="ghost" color="white" onClick={tour?.start}>HELP</Button>
+          <Flex px="8px" pt="24px" justifyContent="space-between">
+            <Button leftIcon={<UploadIcon />} colorScheme="admin">
+              SHARE
+            </Button>
+            <HelpButton />
           </Flex>
         </Flex>
       </Flex>
