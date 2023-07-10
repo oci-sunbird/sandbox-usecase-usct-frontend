@@ -1,21 +1,16 @@
-import { ChevronLeftIcon } from "@chakra-ui/icons";
-import { Button, Flex, Image, SimpleGrid } from "@chakra-ui/react";
-import { ReactElement } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Flex, Image, SimpleGrid } from '@chakra-ui/react';
+import { ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export default function ScenarioHeader({
   children,
 }: {
   children: ReactElement[] | ReactElement;
 }) {
-  const navigate = useNavigate();
+  const location = useLocation();
   return (
-    <SimpleGrid
-      templateColumns="1fr 3fr 1fr"
-      alignItems="center"
-      padding="24px 12px"
-    >
-      <Button
+    <SimpleGrid templateColumns="1fr" alignItems="center" padding="24px 12px">
+      {/* <Button
         justifySelf="flex-start"
         display="flex"
         leftIcon={<ChevronLeftIcon />}
@@ -25,7 +20,7 @@ export default function ScenarioHeader({
         variant="outline"
       >
         Exit
-      </Button>
+      </Button> */}
       <Flex gap="16px" justifySelf="center" alignItems="center">
         <Image
           height="40px"

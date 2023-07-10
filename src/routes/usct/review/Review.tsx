@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -9,34 +9,37 @@ import {
   Heading,
   Input,
   Text,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+} from '@chakra-ui/react';
+import Tooltip from '@ui/Tooltip/Tooltip';
+import { useContext, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 export default function Review() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const navigate = useNavigate();
+  const location = useLocation();
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: "PHASE 1 - ELIGIBILITY",
-        subtitle: "CITIZEN VALIDATES THEIR INFORMATION",
+        title: 'CITIZEN VALIDATES THEIR INFORMATION',
+        subtitle: 'PRIMARY TASK',
       },
-      progress: 35,
+      nextStep: '../personal?done=true',
+      previousStep: '../personal',
       userAuthorized: true,
     });
-  }, []);
+  }, [location]);
 
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
 
@@ -44,17 +47,23 @@ export default function Review() {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: true,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
-      [BUILDING_BLOCK.MESSAGING]: true,
-      [BUILDING_BLOCK.PAYMENT]: false,
-      [BUILDING_BLOCK.REGISTRATION]: false,
+      [BUILDING_BLOCK.MESSAGING]: false,
+      [BUILDING_BLOCK.PAYMENT]: true,
+      [BUILDING_BLOCK.REGISTRATION]: true,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
 
+  const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
+
+  useEffect(() => {
+    setLetterContextualTitleMap({
+      A: ContextualTitle.VALIDATING_INFO,
+    });
+  }, []);
   return (
     <Box w="100%">
       <Button
@@ -66,52 +75,68 @@ export default function Review() {
       >
         Back
       </Button>
-      <Flex direction="column" w="100%" mb="76px">
-        <Heading mb="24px">Validate the Information</Heading>
-        <Box>
-          <Text mb="16px">
-            Please confirm that the information shown below is correct
-          </Text>
-          <Flex direction="column" gap="16px" w="50%">
-            <FormControl
-              flexDirection="row"
-              alignItems="center"
-              display="flex"
-              gap="16px"
+      <Tooltip letter="A" letterPosition="right-center">
+        <Flex direction="column" w="100%" mb="76px">
+          <Heading mb="24px">Validate the Information</Heading>
+          <Box>
+            <Text mb="16px">
+              Please confirm that the information shown below is correct
+            </Text>
+            <Flex direction="column" gap="16px" w={{ sm: '100%', xl: '50%' }}>
+              <FormControl
+                flexDirection={{ sm: 'column', lg: 'row' }}
+                alignItems={{ sm: 'flex-start', lg: 'center' }}
+                display="flex"
+                gap="16px"
+              >
+                <FormLabel
+                  fontWeight="600"
+                  width={{ sm: '100%', lg: '30%' }}
+                  m="0"
+                >
+                  Email Address
+                </FormLabel>
+                <Input
+                  w={{ sm: '100%', lg: '70%' }}
+                  defaultValue="tom@myspace.com"
+                />
+              </FormControl>
+              <FormControl
+                flexDirection={{ sm: 'column', lg: 'row' }}
+                alignItems={{ sm: 'flex-start', lg: 'center' }}
+                display="flex"
+                gap="16px"
+              >
+                <FormLabel
+                  fontWeight="600"
+                  width={{ sm: '100%', lg: '30%' }}
+                  m="0"
+                >
+                  Phone Number
+                </FormLabel>
+                <Input
+                  defaultValue="(+00) 94 843 432"
+                  w={{ sm: '100%', lg: '70%' }}
+                />
+              </FormControl>
+            </Flex>
+          </Box>
+        </Flex>
+        <Flex gap="8px" alignItems="center" justifyContent="flex-end">
+          <ButtonGroup colorScheme="citizen">
+            <Button as={Link} to="../personal" variant="outline">
+              Back
+            </Button>
+            <Button
+              rightIcon={<ArrowForwardIcon />}
+              as={Link}
+              to="../personal?done=true"
             >
-              <FormLabel fontWeight="600" width="30%" m="0">
-                Email Address
-              </FormLabel>
-              <Input w="70%" value="tom@myspace.com" />
-            </FormControl>
-            <FormControl
-              flexDirection="row"
-              alignItems="center"
-              display="flex"
-              gap="16px"
-            >
-              <FormLabel fontWeight="600" width="30%" m="0">
-                Phone Number
-              </FormLabel>
-              <Input value="(+00) 94 843 432" w="70%" />
-            </FormControl>
-          </Flex>
-        </Box>
-      </Flex>
-      <Flex gap="8px" alignItems="center" justifyContent="flex-end">
-        <ButtonGroup colorScheme="citizen">
-          <Button as={Link} to="../personal" variant="outline">
-            Back
-          </Button>
-          <Button
-            rightIcon={<ArrowForwardIcon />}
-            as={Link}
-            to="../personal?done=true"
-          >
-            Next
-          </Button>
-        </ButtonGroup>
-      </Flex>
+              Next
+            </Button>
+          </ButtonGroup>
+        </Flex>
+      </Tooltip>
     </Box>
   );
 }

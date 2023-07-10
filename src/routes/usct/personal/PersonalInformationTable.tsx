@@ -6,8 +6,8 @@ import {
   Tbody,
   Td,
   Thead,
-  Tr
-} from "@chakra-ui/react";
+  Tr,
+} from '@chakra-ui/react';
 
 export default function PersonalInformationTable({
   columns,
@@ -28,7 +28,7 @@ export default function PersonalInformationTable({
           <Thead>
             <Tr>
               {columns.map((column) => (
-                <Td>{column}</Td>
+                <Td key={column}>{column}</Td>
               ))}
             </Tr>
           </Thead>
@@ -37,7 +37,7 @@ export default function PersonalInformationTable({
               return (
                 <Tr>
                   {Object.keys(data).map((key) => {
-                    return <Td>{data[key]}</Td>;
+                    return <Td key={key}>{data[key]}</Td>;
                   })}
                 </Tr>
               );

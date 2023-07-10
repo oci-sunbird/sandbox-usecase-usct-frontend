@@ -33,7 +33,7 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
       shadow="xl"
       w="400px"
       p={7}
-      borderColor="black.900"
+      borderColor="secondary.1000"
       borderWidth="2px"
       borderStyle="solid"
       backgroundColor={colors.secondary[0]}
@@ -81,7 +81,7 @@ export default function EmailForm({ setEmail }: { setEmail: Function }) {
                 </Button>
                 <Button
                   type="submit"
-                  backgroundColor="black.900"
+                  backgroundColor="secondary.1000"
                   color={colors.secondary[0]}
                   isLoading={isSubmitting}
                 >

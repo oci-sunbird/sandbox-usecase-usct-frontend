@@ -112,7 +112,7 @@ export default function Navbar() {
           );
         })}
       </Flex>
-      <Button color="black.900" marginTop="auto" onClick={onSignOut}>
+      <Button color="secondary.1000" marginTop="auto" onClick={onSignOut}>
         LOG OUT
       </Button>
     </Nav>

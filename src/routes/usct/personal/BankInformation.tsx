@@ -1,12 +1,17 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 
 export default function BankInformation() {
   return (
     <Box>
-      <Heading variant="h3" fontSize="18px'">
-        Bank Account Information (Optional)
+      <Heading variant="h3" size="sm" mb="24px">
+        Bank Account Information
       </Heading>
-      <Flex justifyContent="space-between">
+      <Flex
+        gap="20px"
+        justifyContent="space-between"
+        flexDirection={{ base: 'column', md: 'row' }}
+        flexWrap="wrap"
+      >
         <Box>
           <Text fontWeight="600">Bank Account Owner Name</Text>
           <Text>Thomas Anderson</Text>

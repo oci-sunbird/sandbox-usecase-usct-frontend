@@ -1,4 +1,9 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from '@chakra-ui/icons';
 import {
   Box,
   Divider,
@@ -7,83 +12,39 @@ import {
   IconButton,
   SimpleGrid,
   Text,
-  VStack,
-} from "@chakra-ui/react";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { ReactComponent as ConsentIcon } from "../../assets/icons/consent.svg";
-import { ReactComponent as DigitalRegistriesIcon } from "../../assets/icons/digital-registries.svg";
-import { ReactComponent as InformationMediatorIcon } from "../../assets/icons/information-mediator.svg";
-import { ReactComponent as MessagingIcon } from "../../assets/icons/messaging.svg";
-import { ReactComponent as MinusIcon } from "../../assets/icons/minus.svg";
-import { ReactComponent as PassportIcon } from "../../assets/icons/passport.svg";
-import { ReactComponent as PaymentIcon } from "../../assets/icons/payments.svg";
-import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
-import { ReactComponent as RegistrationIcon } from "../../assets/icons/registration.svg";
-import { ReactComponent as SchedulingIcon } from "../../assets/icons/scheduling.svg";
-import { ReactComponent as SecurityIcon } from "../../assets/icons/security.svg";
-import { ReactComponent as WorkflowIcon } from "../../assets/icons/workflow.svg";
-import { colors } from "../../chakra-overrides/colors";
-import {
-  ActiveBuildingBlockContext,
-  SimulationContext,
-} from "../../routes/usct/USCT";
-import { BUILDING_BLOCK } from "../../routes/usct/utils";
-import BuildingBlock from "../Activity/BuildingBlock";
-import DIAL from "../DIAL/DIAL";
-import ScenarioHeader from "./ScenarioHeader";
-import ScenarioView from "./ScenarioView";
-
-const buildingBlockActivity = [
-  { label: "Consent", icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
-  {
-    label: "ID & Authentication",
-    icon: <PassportIcon />,
-    id: BUILDING_BLOCK.AUTHENTICATION,
-  },
-  {
-    label: "Information Mediator",
-    icon: <InformationMediatorIcon />,
-    id: BUILDING_BLOCK.INFORMATION_MEDIATOR,
-  },
-  {
-    label: "Digital Registries",
-    icon: <DigitalRegistriesIcon />,
-    id: BUILDING_BLOCK.DIGITAL_REGISTRIES,
-  },
-  { label: "Messaging", icon: <MessagingIcon />, id: BUILDING_BLOCK.MESSAGING },
-  { label: "Payment", icon: <PaymentIcon />, id: BUILDING_BLOCK.PAYMENT },
-  {
-    label: "Registration",
-    icon: <RegistrationIcon />,
-    id: BUILDING_BLOCK.REGISTRATION,
-  },
-  {
-    label: "Scheduling",
-    icon: <SchedulingIcon />,
-    id: BUILDING_BLOCK.SCHEDULING,
-  },
-  { label: "Workflow", icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
-  { label: "Security", icon: <SecurityIcon />, id: BUILDING_BLOCK.SECURITY },
-];
+} from '@chakra-ui/react';
+import BuildingBlockActivity from '@ui/Activity/BuildingBlockActivity';
+import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
+import { ReactComponent as RefreshIcon } from '../../assets/icons/refresh.svg';
+import { colors } from '../../chakra-overrides/colors';
+import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
+import { SimulationContext } from '../../routes/usct/USCT';
+import ContextualHelp from './ContextualHelp';
+import ScenarioHeader from './ScenarioHeader';
+import ScenarioView from './ScenarioView';
 
 export default function ScenarioLayout({
   view,
   children,
 }: {
-  view: "mobile" | "desktop";
+  view: 'mobile' | 'desktop';
   children: React.ReactElement[] | React.ReactElement;
 }) {
-  const { activeBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { state, dispatch } = useContext(SimulationContext);
 
   return (
-    <Flex h="100vh" position="relative">
-      <Flex w="calc(100% - 320px)" direction="column" position="relative">
+    <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
+      <Flex
+        w={{ base: '100%', lg: 'calc(100% - 320px)' }}
+        direction="column"
+        position="relative"
+      >
         <ScenarioHeader>
-          <Text>
+          <Text size={{ base: 'sm', md: 'md' }}>
             <strong>Use Case Simulation</strong> Unconditional Social Cash
             Transfer
           </Text>
@@ -96,19 +57,19 @@ export default function ScenarioLayout({
           bottom="0"
           zIndex="-1"
           backgroundColor={colors.primary[900]}
-          clipPath="polygon(0 34%, 100% 0, 100% 100%, 0% 100%)"
-          transform="skew(25)"
+          clipPath={{ md: 'polygon(0 34%, 100% 0, 100% 100%, 0% 100%)' }}
+          transform={{ md: 'skew(25)' }}
         />
         <SimpleGrid
-          gridTemplateColumns="150px 1fr 150px"
+          gridTemplateColumns="150px 1fr"
           justifyContent="space-between"
           justifyItems="center"
           alignItems="center"
-          gap="64px"
+          gap={{ base: '8px', md: '64px' }}
           maxW="1024px"
           w="100%"
           margin="0 auto"
-          padding="0 64px"
+          padding={{ base: '0 8px', md: '0 64px' }}
         >
           <Flex w="100%" gap="0.5rem">
             <IconButton
@@ -142,6 +103,7 @@ export default function ScenarioLayout({
         <Flex
           mt="22px"
           justifyContent="center"
+          display={{ base: 'none', md: 'flex' }}
           gap="16px"
           p="8px"
           color={colors.secondary[500]}
@@ -153,21 +115,36 @@ export default function ScenarioLayout({
           <Text size="sm">Terms of usage</Text>
           <Text size="sm">Get in touch</Text>
         </Flex>
-        <DIAL />
+        {/* <DIAL /> */}
       </Flex>
       <Flex
         h="100%"
         color={colors.secondary[0]}
         w="320px"
         backgroundColor="primary.900"
-        position="absolute"
-        right={0}
+        position={{ base: 'absolute', lg: 'relative' }}
+        right={{ base: isExpanded ? '0' : '-320px', lg: '0' }}
         top={0}
         flexShrink="0"
         transition="width 0.3s ease-in-out"
         direction="column"
         zIndex={1}
       >
+        <IconButton
+          display={{ base: 'block', lg: 'none' }}
+          position="absolute"
+          left="-32px"
+          top="0"
+          w="32px"
+          icon={isExpanded ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          borderRadius="0"
+          colorScheme="admin"
+          aria-label="Expand sidepanel"
+          onClick={() => {
+            setIsExpanded(!isExpanded);
+          }}
+          transition="right 0.3s ease-in-out"
+        ></IconButton>
         <Flex
           boxSizing="border-box"
           p="24px"
@@ -182,16 +159,10 @@ export default function ScenarioLayout({
             Building Blocks are enterprise-ready, reusable software components
             providing functionalities across sectors and use cases.
           </Text>
-          <VStack mb="1rem">
-            {buildingBlockActivity.map((buildingBlock) => (
-              <BuildingBlock
-                active={activeBuildingBlocks[buildingBlock.id]}
-                label={buildingBlock.label}
-                icon={buildingBlock.icon}
-                key={buildingBlock.id}
-              />
-            ))}
-          </VStack>
+          <BuildingBlockActivity
+            activeContent={activeContent}
+            activeLetter={activeLetter}
+          />
           <Flex justifyContent="space-around" mb="1rem">
             <Flex alignItems="center">
               <Box
@@ -210,12 +181,14 @@ export default function ScenarioLayout({
               <Text size="sm">Inactive</Text>
             </Flex>
           </Flex>
-          <Divider color={colors.darkblue[300]} mb="1.5rem" />
-          <Text size="sm">
-            Generic Processes and interactions of Building Blocks. These are
-            generic processes that are used in here can be used on various use
-            cases.
-          </Text>
+          <Divider
+            borderColor={colors.darkblue[300]}
+            mr="-24px"
+            ml="-24px"
+            w="calc(100% + 48px)"
+            mb="1rem"
+          />
+          <ContextualHelp />
         </Flex>
       </Flex>
     </Flex>
