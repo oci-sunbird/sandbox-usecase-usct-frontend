@@ -19,7 +19,7 @@ spec:
           image: "{{ .Values.playground_frontend.container.image }}:{{ .Values.playground_frontend.container.imageTag }}"
           imagePullPolicy: {{ .Values.playground_frontend.container.imagePullPolicy }}
           ports:
-          - containerPort: 8080
+          - containerPort: 80
             name: server
           resources:
             limits:
