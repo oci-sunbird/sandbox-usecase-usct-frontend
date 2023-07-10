@@ -8,7 +8,7 @@ playground_frontend:
       app: "frontend"
   container:
     name: frontend
-    image: 161826879607.dkr.ecr.eu-central-1.amazonaws.com/app/usct/plg-ui
+    image: 463471358064.dkr.ecr.eu-central-1.amazonaws.com/app/usct/dev-ui
     imageTag: latest
     imagePullPolicy: "Always"
   profiles: "container"
