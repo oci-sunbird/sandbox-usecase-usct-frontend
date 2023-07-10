@@ -5,6 +5,7 @@ import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
 import { ContextualHelpContextProvider } from './ContextualHelpContext';
 import Header from './Header';
 import { BUILDING_BLOCK } from './utils';
+import { ShepherdOptionsWithType, ShepherdTour, Tour } from 'react-shepherd';
 
 export interface IRouteDescription {
   title: string;
@@ -115,30 +116,76 @@ export default function USCT() {
     activeBuildingBlockState
   );
 
+  const tourOptions: Tour.TourOptions = {
+    useModalOverlay: true,
+  }
+
+  const steps: ShepherdOptionsWithType[] = [
+    {
+      id: 'intro',
+      attachTo: { element: '.first-element', on: 'bottom' },
+      buttons: [
+        {
+          classes: 'shepherd-button-secondary',
+          text: 'Exit',
+          type: 'cancel'
+        },
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Back',
+          type: 'back'
+        },
+        {
+          classes: 'shepherd-button-primary',
+          text: 'Next',
+          type: 'next'
+        }
+      ],
+      classes: 'custom-class-name-1 custom-class-name-2',
+      highlightClass: 'highlight',
+      scrollTo: false,
+      cancelIcon: {
+        enabled: true,
+      },
+      title: 'Welcome to React-Shepherd!',
+      text: ['React-Shepherd is a JavaScript library for guiding users through your React app.'],
+      when: {
+        show: () => {
+          console.log('show step');
+        },
+        hide: () => {
+          console.log('hide step');
+        }
+      }
+    },
+  ]
+
   return (
-    <ActiveBuildingBlockContext.Provider
-      value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
-    >
-      <SimulationContext.Provider value={{ state, dispatch }}>
-        <ContextualHelpContextProvider>
-          <ScenarioLayout view="mobile">
-            <Flex direction="column" height="100%">
-              <Header
-                userType={state.userType}
-                userAuthorized={state.userAuthorized}
-              />
-              <Flex
-                paddingRight={{ base: '15px', lg: '60px' }}
-                paddingLeft={{ base: '15px', lg: '60px' }}
-                paddingBottom="80px"
-                flexGrow="1"
-              >
-                <Outlet />
+    <ShepherdTour tourOptions={tourOptions} steps={steps}>
+      <ActiveBuildingBlockContext.Provider
+        value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
+      >
+        <SimulationContext.Provider value={{ state, dispatch }}>
+          <ContextualHelpContextProvider>
+            <ScenarioLayout view="mobile">
+              <Flex direction="column" height="100%">
+                <Header
+                  userType={state.userType}
+                  userAuthorized={state.userAuthorized}
+                />
+                <Flex
+                  paddingRight={{ base: '15px', lg: '60px' }}
+                  paddingLeft={{ base: '15px', lg: '60px' }}
+                  paddingBottom="80px"
+                  flexGrow="1"
+                >
+                  <Outlet />
+                </Flex>
               </Flex>
-            </Flex>
-          </ScenarioLayout>
-        </ContextualHelpContextProvider>
-      </SimulationContext.Provider>
-    </ActiveBuildingBlockContext.Provider>
+            </ScenarioLayout>
+          </ContextualHelpContextProvider>
+        </SimulationContext.Provider>
+      </ActiveBuildingBlockContext.Provider>
+    </ShepherdTour>
   );
 }

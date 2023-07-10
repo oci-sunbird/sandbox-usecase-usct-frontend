@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/icons';
 import {
   Box,
+  Button,
   Divider,
   Flex,
   Heading,
@@ -24,6 +25,9 @@ import { SimulationContext } from '../../routes/usct/USCT';
 import ContextualHelp from './ContextualHelp';
 import ScenarioHeader from './ScenarioHeader';
 import ScenarioView from './ScenarioView';
+import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
+import { ReactComponent as LightbulbIcon } from '@assets/icons/lightbulb.svg';
+import { ShepherdTourContext } from 'react-shepherd'
 
 export default function ScenarioLayout({
   view,
@@ -35,6 +39,7 @@ export default function ScenarioLayout({
   const [isExpanded, setIsExpanded] = useState(false);
   const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { state, dispatch } = useContext(SimulationContext);
+  const tour = useContext(ShepherdTourContext);
 
   return (
     <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
@@ -151,7 +156,7 @@ export default function ScenarioLayout({
           h="100%"
           direction="column"
           overflowY="scroll"
-        >
+        > 
           <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
             BUILDING BLOCK ACTIVITY
           </Heading>
@@ -189,6 +194,18 @@ export default function ScenarioLayout({
             mb="1rem"
           />
           <ContextualHelp />
+          <Divider
+            borderColor={colors.darkblue[300]}
+            mt="auto"
+            mr="-24px"
+            ml="-24px"
+            w="calc(100% + 48px)"
+            mb="24px"
+          />
+          <Flex px="8px" justifyContent="space-between">
+            <Button leftIcon={<UploadIcon />} variant="ghost" color="white">SHARE</Button>
+            <Button leftIcon={<LightbulbIcon />} variant="ghost" color="white" onClick={tour?.start}>HELP</Button>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
