@@ -31,7 +31,7 @@ export default function BankInformation({
           <Text>{bankName}</Text>
         </Box>
         <Box>
-          <Text fontWeight="600">Inetrnational Bank Account Number (IBAN)</Text>
+          <Text fontWeight="600">International Bank Account Number (IBAN)</Text>
           <Text>{iban}</Text>
         </Box>
       </Flex>
