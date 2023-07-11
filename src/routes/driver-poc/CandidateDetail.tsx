@@ -10,17 +10,16 @@ import {
   Spinner,
   Text,
   VStack,
-} from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
-import { colors } from "../../chakra-overrides/colors";
-import { ActiveBuildingBlockContext } from "../usct/USCT";
-import BankInformation from "../usct/personal/BankInformation";
-import PersonalInformation from "../usct/personal/PersonalInformation";
-import { BUILDING_BLOCK } from "../usct/utils";
-import { RPCContext } from "./rpc";
-import { DriverPOC } from "./types";
+} from '@chakra-ui/react';
+import { useContext, useState } from 'react';
+import { useQuery } from 'react-query';
+import { Link, useParams } from 'react-router-dom';
+import { colors } from '../../chakra-overrides/colors';
+import { ActiveBuildingBlockContext } from '../usct/USCT';
+import BankInformation from '../usct/personal/BankInformation';
+import PersonalInformation from '../usct/personal/PersonalInformation';
+import { RPCContext } from './rpc';
+import { DriverPOC } from './types';
 
 export default function CandidateDetail() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
@@ -30,7 +29,7 @@ export default function CandidateDetail() {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const rpc = useContext(RPCContext);
 
-  const { data: packages } = useQuery("packages", rpc.getPackages);
+  const { data: packages } = useQuery('packages', rpc.getPackages);
 
   const { data: candidate, isFetching } = useQuery(
     `candidate-${id}`,
@@ -40,21 +39,6 @@ export default function CandidateDetail() {
       }
     }
   );
-
-  useEffect(() => {
-    setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: false,
-      [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
-      [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
-      [BUILDING_BLOCK.MESSAGING]: false,
-      [BUILDING_BLOCK.PAYMENT]: true,
-      [BUILDING_BLOCK.REGISTRATION]: false,
-      [BUILDING_BLOCK.SCHEDULING]: false,
-      [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: true,
-    });
-  }, []);
 
   const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
     if (candidate && selectedPackage) {
@@ -139,7 +123,11 @@ export default function CandidateDetail() {
             ]}
             data={candidate.household}
           /> */}
-          <BankInformation />
+          <BankInformation
+            ownerName={candidate.person.bankAccountOwnerName}
+            bankName={candidate.person.bankName}
+            iban={candidate.person.iban}
+          />
           <Flex direction="column" gap="20px">
             <Heading size="md">Select a Benefit Package</Heading>
             <SimpleGrid columns={4} gap="40px">
@@ -147,13 +135,13 @@ export default function CandidateDetail() {
                 return (
                   <button
                     style={{
-                      position: "relative",
-                      display: "flex",
-                      alignItems: "flex-start",
-                      borderRadius: "8px",
-                      flexDirection: "column",
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      borderRadius: '8px',
+                      flexDirection: 'column',
                       border: `1px solid ${colors.secondary[1000]}`,
-                      padding: "20px",
+                      padding: '20px',
                       color: candidate.packages.some(
                         (candidatePackage) => candidatePackage.id === p.id
                       )

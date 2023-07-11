@@ -9,8 +9,8 @@ export default class RPCProviderConfig {
   };
   map: Record<string, BaseProvider> = {
     getCandidateList: this.providers.API,
-    getPackages: this.providers.MOCK,
-    getCandidateInfo: this.providers.MOCK,
+    getPackages: this.providers.API,
+    getCandidateInfo: this.providers.API,
     enrollCandidate: this.providers.MOCK,
     getBeneficiariesList: this.providers.MOCK,
     validateBeneficiaries: this.providers.MOCK,

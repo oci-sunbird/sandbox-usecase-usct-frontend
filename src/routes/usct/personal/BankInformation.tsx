@@ -1,6 +1,16 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 
-export default function BankInformation() {
+interface BankInformationProps {
+  ownerName: string;
+  bankName: string;
+  iban: string;
+}
+
+export default function BankInformation({
+  ownerName,
+  bankName,
+  iban,
+}: BankInformationProps) {
   return (
     <Box>
       <Heading variant="h3" size="sm" mb="24px">
@@ -14,15 +24,15 @@ export default function BankInformation() {
       >
         <Box>
           <Text fontWeight="600">Bank Account Owner Name</Text>
-          <Text>Thomas Anderson</Text>
+          <Text>{ownerName}</Text>
         </Box>
         <Box>
           <Text fontWeight="600">Bank Name</Text>
-          <Text>Sunshine Bank</Text>
+          <Text>{bankName}</Text>
         </Box>
         <Box>
           <Text fontWeight="600">Inetrnational Bank Account Number (IBAN)</Text>
-          <Text>AA02300209000106531065</Text>
+          <Text>{iban}</Text>
         </Box>
       </Flex>
     </Box>

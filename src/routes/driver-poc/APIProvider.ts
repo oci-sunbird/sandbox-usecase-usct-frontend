@@ -13,12 +13,14 @@ export default class APIProvider extends BaseProvider {
     }
   }
   async getPackages() {
-    const req = await fetch(`${process.env.VITE_API_ENDPOINT}/api/v1/packages`);
+    const req = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/packages`
+    );
     return req.json() as Promise<DriverPOC.Package[]>;
   }
   async getCandidateInfo(id: number) {
     const req = await fetch(
-      `${process.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`
     );
     return req.json() as Promise<DriverPOC.Candidate>;
   }
@@ -27,7 +29,7 @@ export default class APIProvider extends BaseProvider {
     enrolledPackage: DriverPOC.Package
   ) {
     const req = await fetch(
-      `${process.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -40,13 +42,13 @@ export default class APIProvider extends BaseProvider {
   }
   async getBeneficiariesList() {
     const req = await fetch(
-      `${process.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`
     );
     return req.json() as Promise<DriverPOC.Beneficiary[]>;
   }
   async validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
     const req = await fetch(
-      `${process.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
       {
         method: 'POST',
         body: JSON.stringify({
