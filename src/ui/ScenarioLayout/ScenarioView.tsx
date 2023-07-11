@@ -23,7 +23,7 @@ export default function ScenarioView({
       p={{ base: '4px 16px 0 16px', lg: '16px 64px 0 64px' }}
       flexGrow="1"
       alignItems="center"
-      overflow="auto"
+      minHeight="0"
     >
       <Flex w="100%" h="100%" direction="column" maxW="1024px">
         <Flex

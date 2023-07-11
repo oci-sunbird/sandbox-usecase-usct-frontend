@@ -71,14 +71,15 @@ export default function ScenarioLayout({
         />
         <Grid
           templateColumns={{ md: 'auto auto' }}
-          justifyContent={{ base: 'center', md: 'space-between' }}
+          justifyContent={{ base: 'stretch', md: 'space-between' }}
           alignItems="center"
           gap="16px"
           maxW="1024px"
           w="100%"
           margin="0 auto"
-          padding={{ base: '0 16px', md: '0 64px' }}
-          paddingRight={{ sm: '32px', md: '80px' }}
+          padding={{ base: '0 32px', md: '0 64px' }}
+          paddingRight={{ md: '80px' }}
+          paddingBottom={{ base: '16px', md: 0 }}
         >
           <GridItem>
             <Flex alignItems="center" gap="16px">
