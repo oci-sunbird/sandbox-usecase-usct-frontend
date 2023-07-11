@@ -5,6 +5,7 @@ import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
 import { ContextualHelpContextProvider } from './ContextualHelpContext';
 import Header from './Header';
 import { BUILDING_BLOCK } from './utils';
+import { HelpOverlay } from '@ui/HelpOverlay/HelpOverlayContext';
 
 export interface IRouteDescription {
   title: string;
@@ -116,29 +117,31 @@ export default function USCT() {
   );
 
   return (
-    <ActiveBuildingBlockContext.Provider
-      value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
-    >
-      <SimulationContext.Provider value={{ state, dispatch }}>
-        <ContextualHelpContextProvider>
-          <ScenarioLayout view="mobile">
-            <Flex direction="column" height="100%">
-              <Header
-                userType={state.userType}
-                userAuthorized={state.userAuthorized}
-              />
-              <Flex
-                paddingRight={{ base: '15px', lg: '60px' }}
-                paddingLeft={{ base: '15px', lg: '60px' }}
-                paddingBottom="80px"
-                flexGrow="1"
-              >
-                <Outlet />
+    <HelpOverlay>
+      <ActiveBuildingBlockContext.Provider
+        value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
+      >
+        <SimulationContext.Provider value={{ state, dispatch }}>
+          <ContextualHelpContextProvider>
+            <ScenarioLayout view="mobile">
+              <Flex direction="column" height="100%">
+                <Header
+                  userType={state.userType}
+                  userAuthorized={state.userAuthorized}
+                />
+                <Flex
+                  paddingRight={{ base: '15px', lg: '60px' }}
+                  paddingLeft={{ base: '15px', lg: '60px' }}
+                  paddingBottom="80px"
+                  flexGrow="1"
+                >
+                  <Outlet />
+                </Flex>
               </Flex>
-            </Flex>
-          </ScenarioLayout>
-        </ContextualHelpContextProvider>
-      </SimulationContext.Provider>
-    </ActiveBuildingBlockContext.Provider>
+            </ScenarioLayout>
+          </ContextualHelpContextProvider>
+        </SimulationContext.Provider>
+      </ActiveBuildingBlockContext.Provider>
+    </HelpOverlay>
   );
 }
