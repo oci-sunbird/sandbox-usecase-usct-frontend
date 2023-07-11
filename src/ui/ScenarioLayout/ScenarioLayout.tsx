@@ -31,6 +31,7 @@ import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
 import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
 import HelpButton from '@ui/HelpOverlay/HelpButton';
 import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
+import ViewInfo from './ViewInfo';
 
 export default function ScenarioLayout({
   view,
@@ -49,6 +50,7 @@ export default function ScenarioLayout({
         w={{ base: '100%', lg: 'calc(100% - 320px)' }}
         direction="column"
         position="relative"
+        alignItems="center"
       >
         <ScenarioHeader>
           <Text size={{ base: 'sm', md: 'md' }}>
@@ -67,57 +69,73 @@ export default function ScenarioLayout({
           clipPath={{ md: 'polygon(0 34%, 100% 0, 100% 100%, 0% 100%)' }}
           transform={{ md: 'skew(25)' }}
         />
-        <SimpleGrid
-          gridTemplateColumns="150px 1fr"
-          justifyContent="space-between"
-          justifyItems="center"
+        <Grid
+          templateColumns={{ md: 'auto auto' }}
+          justifyContent={{ base: 'center', md: 'space-between' }}
           alignItems="center"
-          gap={{ base: '8px', md: '64px' }}
+          gap="16px"
           maxW="1024px"
           w="100%"
           margin="0 auto"
-          padding={{ base: '0 8px', md: '0 64px' }}
+          padding={{ base: '0 16px', md: '0 64px' }}
+          paddingRight={{ sm: '32px', md: '80px' }}
         >
-          <HelpHighlightWrapper
-            info={
-              <Box w="420px">
-                The <b>navigation</b> allows you to move back and forth through
-                the pages of the simulation
+          <GridItem>
+            <Flex alignItems="center" gap="16px">
+              <HelpHighlightWrapper
+                info={
+                  <Box w="420px">
+                    The <b>navigation</b> allows you to move back and forth
+                    through the pages of the simulation
+                  </Box>
+                }
+                infoPosition="top"
+              >
+                <Flex gap="0.5rem">
+                  <IconButton
+                    as={Link}
+                    to={state.previousStep}
+                    aria-label="Previous step"
+                    icon={<ArrowBackIcon />}
+                  />
+                  <IconButton
+                    as={Link}
+                    to="./case-management"
+                    aria-label="Start over"
+                    icon={<RefreshIcon />}
+                  />
+                  <IconButton
+                    as={Link}
+                    to={state.nextStep}
+                    aria-label="Next step"
+                    icon={<ArrowForwardIcon />}
+                  />
+                </Flex>
+              </HelpHighlightWrapper>
+              <Box>
+                <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
+                  {state.description.title}
+                </Text>
+                <Text color={colors.theme.light} fontSize={12}>
+                  {state.description.subtitle}
+                </Text>
               </Box>
-            }
-            infoPosition="top"
-          >
-            <Flex w="100%" gap="0.5rem">
-              <IconButton
-                as={Link}
-                to={state.previousStep}
-                aria-label="Previous step"
-                icon={<ArrowBackIcon />}
-              />
-              <IconButton
-                as={Link}
-                to="./case-management"
-                aria-label="Start over"
-                icon={<RefreshIcon />}
-              />
-              <IconButton
-                as={Link}
-                to={state.nextStep}
-                aria-label="Next step"
-                icon={<ArrowForwardIcon />}
-              />
             </Flex>
-          </HelpHighlightWrapper>
-
-          <Box w="100%">
-            <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
-              {state.description.title}
-            </Text>
-            <Text color={colors.theme.light} fontSize={12}>
-              {state.description.subtitle}
-            </Text>
-          </Box>
-        </SimpleGrid>
+          </GridItem>
+          <GridItem rowStart={{ base: 1, md: 'auto' }}>
+            <HelpHighlightWrapper
+              info={
+                <Box w="340px">
+                  This shows your current <b>perspective</b> on the use case:
+                  Civil servant or applicant
+                </Box>
+              }
+              infoPosition="top"
+            >
+              <ViewInfo />
+            </HelpHighlightWrapper>
+          </GridItem>
+        </Grid>
         <Flex
           mt="22px"
           justifyContent="center"
@@ -226,7 +244,7 @@ export default function ScenarioLayout({
                 about interactions of the Building Blocks
                 <Grid
                   position="absolute"
-                  bottom="calc(100% + 64px)"
+                  bottom="calc(100% + 40px)"
                   right="calc(100% + 24px)"
                 >
                   <GridItem>
@@ -245,7 +263,7 @@ export default function ScenarioLayout({
                     <ArrowIcon />
                   </GridItem>
                 </Grid>
-                <Text position="absolute" left="0" top="-48px">
+                <Text position="absolute" left="0" top="-24px">
                   A
                 </Text>
               </>
