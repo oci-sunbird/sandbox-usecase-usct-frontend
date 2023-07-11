@@ -1,12 +1,14 @@
-import BaseProvider from "./BaseProvider";
-import MockProvider from "./MockProvider";
+import APIProvider from './APIProvider';
+import BaseProvider from './BaseProvider';
+import MockProvider from './MockProvider';
 
 export default class RPCProviderConfig {
   providers = {
     MOCK: new MockProvider(),
+    API: new APIProvider(),
   };
   map: Record<string, BaseProvider> = {
-    getCandidateList: this.providers.MOCK,
+    getCandidateList: this.providers.API,
     getPackages: this.providers.MOCK,
     getCandidateInfo: this.providers.MOCK,
     enrollCandidate: this.providers.MOCK,
