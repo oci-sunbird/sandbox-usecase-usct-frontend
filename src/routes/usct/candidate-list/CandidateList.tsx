@@ -19,7 +19,6 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { faker } from '@faker-js/faker';
 import FakeLoader from '@ui/FakeLoader/FakeLoader';
 import Pagination from '@ui/Pagination/Pagination';
 import { useContext, useEffect } from 'react';
@@ -275,9 +274,9 @@ export default function CandidateList() {
                 <Tbody>
                   <Tr>
                     <Td>37793946215</Td>
-                    <Td>{faker.number.int({ min: 1, max: 7 })}</Td>
+                    <Td>6</Td>
                     <Td>Yesterday</Td>
-                    <Td>{faker.person.fullName()}</Td>
+                    <Td>Allison Beal</Td>
                     <Td>
                       <Tag justifyContent="center" w="140px">
                         Pending

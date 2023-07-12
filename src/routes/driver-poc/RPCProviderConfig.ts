@@ -1,10 +1,9 @@
 import APIProvider from './APIProvider';
 import BaseProvider from './BaseProvider';
-import MockProvider from './MockProvider';
 
 export default class RPCProviderConfig {
   providers = {
-    MOCK: new MockProvider(),
+    // MOCK: new MockProvider(),
     API: new APIProvider(),
   };
   map: Record<string, BaseProvider> = {
@@ -13,7 +12,7 @@ export default class RPCProviderConfig {
     getCandidateInfo: this.providers.API,
     enrollCandidate: this.providers.API,
     getBeneficiariesList: this.providers.API,
-    validateBeneficiaries: this.providers.MOCK,
+    validateBeneficiaries: this.providers.API,
     executePayments: this.providers.API,
   };
   addProvider = (key: string, provider: BaseProvider) => {

@@ -2,8 +2,9 @@ import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.sv
 import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
 import { Button, ButtonGroup, Flex, Heading, Tag } from '@chakra-ui/react';
 import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { DriverPOC } from '../../driver-poc/types';
 import { ContextualHelpContext } from '../ContextualHelpContext';
 import { ContextualTitle } from '../ContextualHelpUtils';
 import {
@@ -11,11 +12,11 @@ import {
   EUserType,
   SimulationContext,
 } from '../USCT';
+import { bankData } from '../review-candidate/data';
 import { BUILDING_BLOCK } from '../utils';
 import BankInformation from './BankInformation';
 import PersonalInformation from './PersonalInformation';
 import PersonalInformationTable from './PersonalInformationTable';
-import { bankData } from '../review-candidate/data';
 
 const householdData = [
   {
@@ -65,7 +66,6 @@ const documentsData = [
   },
   {
     name: 'Jason Anderson',
-
     organization: '12345678910',
     issuedOn: 'Wife',
     validUntil: '12.12.1975',
@@ -73,7 +73,6 @@ const documentsData = [
   },
   {
     name: 'Angelina Anderson',
-
     organization: '12345678910',
     issuedOn: 'Wife',
     validUntil: '12.12.1975',
@@ -81,11 +80,23 @@ const documentsData = [
   },
 ];
 
+const person: DriverPOC.Person = {
+  id: 125125,
+  firstName: 'Tom',
+  lastName: 'Anderson',
+  foundationalId: '124-235-613-4242',
+  email: 'tom.holland@gmail.com',
+  dateOfBirth: '03-10-1994',
+  bankAccountOwnerName: 'Tom Anderson',
+  financialAddress: 'Iceland Square 14',
+  iban: 'EE 2151 5325 6393 5334',
+  bankName: 'Deutsche Bank',
+  financialModality: 'Bank Account',
+};
+
 export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
-  const [citizen, setCitizen] = useState<any | null>(null);
-  const navigation = useLocation();
 
   useEffect(() => {
     dispatch({
@@ -170,7 +181,7 @@ export default function Personal() {
       </Flex>
       <Tooltip letter="B" letterPosition="right-center">
         <PersonalInformation
-          person={citizen}
+          person={person}
           simulation
           reviewed={!!searchParams.get('done')}
         />

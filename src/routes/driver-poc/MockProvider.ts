@@ -8,24 +8,32 @@ const mockPackages: DriverPOC.Package[] = [
     name: 'Universal Basic Income (UBI)',
     description:
       'Providing a fixed cash transfer to all eligible individuals, regardless of income, for a minimum standard of living.',
+    amount: 1234.5,
+    currency: 'EURO',
   },
   {
     id: 2,
     name: 'Targeted Poverty Alleviation (TPA)',
     description:
       'Offering additional financial assistance to those living below the poverty line to alleviate poverty effectively',
+    amount: 1234.5,
+    currency: 'EURO',
   },
   {
     id: 3,
     name: 'Social Pension',
     description:
       'Ensuring economic security during retirement by providing regular cash transfers to elderly citizens.',
+    amount: 1234.5,
+    currency: 'EURO',
   },
   {
     id: 4,
     name: 'Child and Family Support (CFS)',
     description:
       'Providing financial assistance to families with children to improve child well-being and reduce child poverty.',
+    amount: 1234.5,
+    currency: 'EURO',
   },
 ];
 
@@ -300,8 +308,8 @@ export default class MockProvider extends BaseProvider {
     });
   }
   executePayments() {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => resolve(), 1000);
+    return new Promise<string>((resolve) => {
+      setTimeout(() => resolve('String'), 1000);
     });
   }
 }

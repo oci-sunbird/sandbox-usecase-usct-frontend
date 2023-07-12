@@ -33,9 +33,9 @@ export default function PersonalInformationTable({
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((data) => {
+            {data.map((data, index) => {
               return (
-                <Tr>
+                <Tr key={index}>
                   {Object.keys(data).map((key) => {
                     return <Td key={key}>{data[key]}</Td>;
                   })}
