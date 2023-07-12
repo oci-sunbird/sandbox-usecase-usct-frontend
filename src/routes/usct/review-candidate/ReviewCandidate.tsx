@@ -35,7 +35,7 @@ import {
 import BankInformation from '../personal/BankInformation';
 import { BUILDING_BLOCK } from '../utils';
 import { ActionAlert } from './ActionAlert';
-import { historyData, householdData } from './data';
+import { bankData, historyData, householdData, personData } from './data';
 
 const getConfig = (state: string | null) => {
   if (state === 'done') {
@@ -71,7 +71,7 @@ const getConfig = (state: string | null) => {
 export default function ReviewCandidate() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
-  const [citizen] = useState<any>();
+  const citizen = personData;
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
 
@@ -142,11 +142,11 @@ export default function ReviewCandidate() {
           </Tooltip>
 
           <Tooltip letter="B" mb="10px">
-            <Box>
+            <Box mb="20px">
               <Heading variant="h3" fontSize="18px">
                 Personal Information
               </Heading>
-              <Heading variant="h3" fontSize="18px" color="black.500">
+              <Heading variant="h3" fontSize="18px" color="secondary.800">
                 Social ID: {citizen?.socialCode}
               </Heading>
             </Box>
@@ -338,7 +338,7 @@ export default function ReviewCandidate() {
 
         <Tooltip letter="D">
           <Box>
-            <BankInformation />
+            <BankInformation {...bankData} />
           </Box>
         </Tooltip>
 

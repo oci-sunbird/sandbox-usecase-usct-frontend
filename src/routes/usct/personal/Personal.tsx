@@ -15,6 +15,7 @@ import { BUILDING_BLOCK } from '../utils';
 import BankInformation from './BankInformation';
 import PersonalInformation from './PersonalInformation';
 import PersonalInformationTable from './PersonalInformationTable';
+import { bankData } from '../review-candidate/data';
 
 const householdData = [
   {
@@ -207,7 +208,7 @@ export default function Personal() {
       </Tooltip>
 
       <Tooltip letter="D" letterPosition="right-center">
-        <BankInformation />
+        <BankInformation {...bankData} />
       </Tooltip>
 
       <Flex justifyContent="flex-end">

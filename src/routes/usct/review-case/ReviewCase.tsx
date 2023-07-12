@@ -42,6 +42,7 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
+import { bankData } from '../review-candidate/data';
 
 const householdData = [
   {
@@ -360,7 +361,7 @@ export default function ReviewCase() {
         </TableContainer>
       </Tooltip>
       <Tooltip letter="E" mb="60px">
-        <BankInformation />
+        <BankInformation {...bankData}/>
       </Tooltip>
       <Heading size="sm" mb="20px">
         Case History

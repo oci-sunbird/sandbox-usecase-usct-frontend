@@ -15,6 +15,12 @@ export const personData = {
     'Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe',
 };
 
+export const bankData = {
+  ownerName: 'Thomas Anderson',
+  bankName: 'Sunshine Bank',
+  iban: 'AA02300209000106531065',
+}
+
 export const householdNeeds = [
   'Housing',
   'Food',
