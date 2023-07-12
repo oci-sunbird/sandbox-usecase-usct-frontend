@@ -9,15 +9,10 @@ import { ReactComponent as PaymentIcon } from '../../assets/icons/payments.svg';
 import { ReactComponent as RegistrationIcon } from '../../assets/icons/registration.svg';
 import { ReactComponent as SchedulingIcon } from '../../assets/icons/scheduling.svg';
 import { ReactComponent as WorkflowIcon } from '../../assets/icons/workflow.svg';
-import { INormalizedContextualContent } from '../../routes/usct/ContextualHelpUtils';
+import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
 import { ActiveBuildingBlockContext } from '../../routes/usct/USCT';
 import { BUILDING_BLOCK } from '../../routes/usct/utils';
 import BuildingBlock from './BuildingBlock';
-
-interface Props {
-  activeContent: INormalizedContextualContent | null;
-  activeLetter: string | null;
-}
 
 const buildingBlocksList = [
   { label: 'Consent', icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
@@ -51,10 +46,8 @@ const buildingBlocksList = [
   { label: 'Workflow', icon: <WorkflowIcon />, id: BUILDING_BLOCK.WORKFLOW },
 ];
 
-export default function BuildingBlockActivity({
-  activeContent,
-  activeLetter,
-}: Props) {
+export default function BuildingBlockActivity() {
+  const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { activeBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const firstActiveIndex = buildingBlocksList.findIndex((bb) =>
     activeContent?.activeBuildingBlocks.find(

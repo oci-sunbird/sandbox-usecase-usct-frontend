@@ -6,32 +6,23 @@ import {
 } from '@chakra-ui/icons';
 import {
   Box,
-  Button,
-  Divider,
   Flex,
   Grid,
   GridItem,
-  Heading,
   IconButton,
-  SimpleGrid,
-  Text,
+  Text
 } from '@chakra-ui/react';
-import BuildingBlockActivity from '@ui/Activity/BuildingBlockActivity';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
+
+import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
 import { ReactComponent as RefreshIcon } from '../../assets/icons/refresh.svg';
 import { colors } from '../../chakra-overrides/colors';
-import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
 import { SimulationContext } from '../../routes/usct/USCT';
-import ContextualHelp from './ContextualHelp';
 import ScenarioHeader from './ScenarioHeader';
 import ScenarioView from './ScenarioView';
-import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
-import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
-import HelpButton from '@ui/HelpOverlay/HelpButton';
-import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
 import ViewInfo from './ViewInfo';
+import Sidebar from './Sidebar';
 
 export default function ScenarioLayout({
   view,
@@ -41,7 +32,6 @@ export default function ScenarioLayout({
   children: React.ReactElement[] | React.ReactElement;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { activeLetter, activeContent } = useContext(ContextualHelpContext);
   const { state, dispatch } = useContext(SimulationContext);
 
   return (
@@ -182,112 +172,7 @@ export default function ScenarioLayout({
           }}
           transition="right 0.3s ease-in-out"
         ></IconButton>
-        <Flex
-          boxSizing="border-box"
-          p="24px"
-          h="100%"
-          direction="column"
-          overflowY="scroll"
-        >
-          <HelpHighlightWrapper
-            info={
-              <>
-                Overview of the <b>software component activity</b> (building
-                blocks) and their status on the page
-              </>
-            }
-            infoPosition="inside"
-          >
-            <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
-              BUILDING BLOCK ACTIVITY
-            </Heading>
-            <Text size="sm" mb="1rem">
-              Building Blocks are enterprise-ready, reusable software components
-              providing functionalities across sectors and use cases.
-            </Text>
-            <BuildingBlockActivity
-              activeContent={activeContent}
-              activeLetter={activeLetter}
-            />
-          </HelpHighlightWrapper>
-
-          <Flex justifyContent="space-around" mb="1rem">
-            <Flex alignItems="center">
-              <Box
-                h="8px"
-                w="8px"
-                mr="0.75rem"
-                borderRadius="100%"
-                backgroundColor={colors.secondary[0]}
-              />
-              <Text size="sm">Active</Text>
-            </Flex>
-            <Flex alignItems="center">
-              <Box mr="0.75rem">
-                <MinusIcon />
-              </Box>
-              <Text size="sm">Inactive</Text>
-            </Flex>
-          </Flex>
-          <Divider
-            borderColor={colors.darkblue[300]}
-            mr="-24px"
-            ml="-24px"
-            w="calc(100% + 48px)"
-            mb="1rem"
-          />
-          <HelpHighlightWrapper
-            info={
-              <>
-                <b>
-                  <i>Learn more</i>
-                </b>{' '}
-                about interactions of the Building Blocks
-                <Grid
-                  position="absolute"
-                  bottom="calc(100% + 40px)"
-                  right="calc(100% + 24px)"
-                >
-                  <GridItem>
-                    <Flex
-                      borderRadius="50%"
-                      border="2px solid white"
-                      height="64px"
-                      w="64px"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      A
-                    </Flex>
-                  </GridItem>
-                  <GridItem colStart={2} rowStart={2}>
-                    <ArrowIcon />
-                  </GridItem>
-                </Grid>
-                <Text position="absolute" left="0" top="-24px">
-                  A
-                </Text>
-              </>
-            }
-            infoPosition="inside"
-          >
-            <ContextualHelp />
-          </HelpHighlightWrapper>
-
-          <Divider
-            borderColor={colors.darkblue[300]}
-            mt="auto"
-            mr="-24px"
-            ml="-24px"
-            w="calc(100% + 48px)"
-          />
-          <Flex px="8px" pt="24px" justifyContent="space-between">
-            <Button leftIcon={<UploadIcon />} colorScheme="admin">
-              SHARE
-            </Button>
-            <HelpButton />
-          </Flex>
-        </Flex>
+        <Sidebar />
       </Flex>
     </Flex>
   );
