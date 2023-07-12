@@ -6,11 +6,12 @@ import {
   Grid,
   GridItem,
   Heading,
+  Slide,
   Text,
 } from '@chakra-ui/react';
 import BuildingBlockActivity from '@ui/Activity/BuildingBlockActivity';
 import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
-import React from 'react';
+import React, { useState } from 'react';
 import ContextualHelp from './ContextualHelp';
 import HelpButton from '@ui/HelpOverlay/HelpButton';
 import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
@@ -18,6 +19,16 @@ import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
 import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
 
 export default function Sidebar() {
+  const [showCopy, setShowCopy] = useState(false);
+
+  const copy = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShowCopy(true);
+    setTimeout(() => {
+      setShowCopy(false);
+    }, 2000);
+  };
+
   return (
     <Flex
       boxSizing="border-box"
@@ -34,7 +45,7 @@ export default function Sidebar() {
           </>
         }
         infoPosition="inside"
-        px="24px"
+        mx="24px"
       >
         <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
           BUILDING BLOCK ACTIVITY
@@ -46,11 +57,7 @@ export default function Sidebar() {
         <BuildingBlockActivity />
       </HelpHighlightWrapper>
 
-      <Flex
-        direction="column"
-        position="relative"
-        height="100%"
-      >
+      <Flex direction="column" position="relative" height="100%">
         <Flex justifyContent="space-around" mb="1rem" px="24px">
           <Flex alignItems="center">
             <Box
@@ -69,10 +76,7 @@ export default function Sidebar() {
             <Text size="sm">Inactive</Text>
           </Flex>
         </Flex>
-        <Divider
-          borderColor="darkblue.300"
-          mb="1rem"
-        />
+        <Divider borderColor="darkblue.300" mb="1rem" />
         <HelpHighlightWrapper
           info={
             <>
@@ -107,17 +111,28 @@ export default function Sidebar() {
             </>
           }
           infoPosition="inside"
-          px="24px"
+          mx="24px"
         >
           <ContextualHelp />
         </HelpHighlightWrapper>
 
-        <Divider
-          borderColor="darkblue.300"
-          mt="auto"
-        />
-        <Flex px="8px" py="24px" justifyContent="space-between">
-          <Button leftIcon={<UploadIcon />} colorScheme="admin">
+        <Divider borderColor="darkblue.300" mt="auto" />
+        <Flex px="16px" py="24px" justifyContent="space-between">
+          {showCopy && <Slide direction="bottom" in={true}>
+            <Flex justifyContent="center">
+              <Box
+                margin="0 auto"
+                color="white"
+                borderRadius="8px"
+                p="24px"
+                bg="primary.500"
+                fontWeight="700"
+              >
+                Link copied to clipboard
+              </Box>
+            </Flex>
+          </Slide>}
+          <Button leftIcon={<UploadIcon />} colorScheme="admin" onClick={copy}>
             SHARE
           </Button>
           <HelpButton />
