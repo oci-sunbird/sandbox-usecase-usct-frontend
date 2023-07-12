@@ -1,62 +1,62 @@
-import { faker } from "@faker-js/faker";
-import BaseProvider from "./BaseProvider";
-import { DriverPOC } from "./types";
+import { faker } from '@faker-js/faker';
+import BaseProvider from './BaseProvider';
+import { DriverPOC } from './types';
 
 const mockPackages: DriverPOC.Package[] = [
   {
     id: 1,
-    name: "Universal Basic Income (UBI)",
+    name: 'Universal Basic Income (UBI)',
     description:
-      "Providing a fixed cash transfer to all eligible individuals, regardless of income, for a minimum standard of living.",
+      'Providing a fixed cash transfer to all eligible individuals, regardless of income, for a minimum standard of living.',
   },
   {
     id: 2,
-    name: "Targeted Poverty Alleviation (TPA)",
+    name: 'Targeted Poverty Alleviation (TPA)',
     description:
-      "Offering additional financial assistance to those living below the poverty line to alleviate poverty effectively",
+      'Offering additional financial assistance to those living below the poverty line to alleviate poverty effectively',
   },
   {
     id: 3,
-    name: "Social Pension",
+    name: 'Social Pension',
     description:
-      "Ensuring economic security during retirement by providing regular cash transfers to elderly citizens.",
+      'Ensuring economic security during retirement by providing regular cash transfers to elderly citizens.',
   },
   {
     id: 4,
-    name: "Child and Family Support (CFS)",
+    name: 'Child and Family Support (CFS)',
     description:
-      "Providing financial assistance to families with children to improve child well-being and reduce child poverty.",
+      'Providing financial assistance to families with children to improve child well-being and reduce child poverty.',
   },
 ];
 
 const mockHouseholdDate = [
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
   },
   {
-    name: "Ms Lorem Ipsum",
-    personalCode: "12345678910",
-    relation: "Wife",
-    dateOfBirth: "12.12.1975",
-    reason: "Data",
+    name: 'Ms Lorem Ipsum',
+    personalCode: '12345678910',
+    relation: 'Wife',
+    dateOfBirth: '12.12.1975',
+    reason: 'Data',
   },
 ];
 
@@ -74,7 +74,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     packages: [mockPackages[0], mockPackages[1], mockPackages[3]],
   },
@@ -91,7 +91,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     packages: [mockPackages[1]],
   },
@@ -108,7 +108,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     packages: [mockPackages[1], mockPackages[3]],
   },
@@ -125,7 +125,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     packages: [mockPackages[0], mockPackages[2]],
   },
@@ -142,7 +142,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     packages: [],
   },
@@ -162,10 +162,10 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     enrolledPackage: mockPackages[2],
-    paymentStatus: "INITIATE",
+    paymentStatus: 'INITIATE',
   },
   {
     id: 2,
@@ -180,10 +180,10 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     enrolledPackage: mockPackages[1],
-    paymentStatus: "INITIATE",
+    paymentStatus: 'INITIATE',
   },
   {
     id: 3,
@@ -198,10 +198,10 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     enrolledPackage: mockPackages[0],
-    paymentStatus: "INITIATE",
+    paymentStatus: 'INITIATE',
   },
   {
     id: 4,
@@ -216,10 +216,10 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     enrolledPackage: mockPackages[2],
-    paymentStatus: "INITIATE",
+    paymentStatus: 'INITIATE',
   },
   {
     id: 5,
@@ -234,10 +234,10 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
       bankName: faker.company.name(),
-      financialModality: "Bank Account",
+      financialModality: 'Bank Account',
     },
     enrolledPackage: mockPackages[3],
-    paymentStatus: "INITIATE",
+    paymentStatus: 'INITIATE',
   },
 ];
 
@@ -266,7 +266,7 @@ export default class MockProvider extends BaseProvider {
         if (candidate) {
           resolve(candidate);
         } else {
-          reject("No Candidate with ID");
+          reject('No Candidate with ID');
         }
       }, 1000);
     });
@@ -277,7 +277,7 @@ export default class MockProvider extends BaseProvider {
   ) {
     const enrolledCandidate: DriverPOC.Beneficiary = {
       id: faker.number.int(),
-      paymentStatus: "INITIATE",
+      paymentStatus: 'INITIATE',
       person,
       enrolledPackage,
     };
@@ -296,16 +296,12 @@ export default class MockProvider extends BaseProvider {
   }
   validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
     return new Promise<DriverPOC.Beneficiary[]>((resolve) => {
-      setTimeout(
-        () =>
-          resolve(
-            beneficiaries.map((beneficiary) => {
-              return { ...beneficiary, paymentStatus: "IN_PROGRESS" };
-            }) as DriverPOC.Beneficiary[]
-          ),
-        1000
-      );
+      setTimeout(() => resolve(beneficiaries), 1000);
     });
   }
-  executePayments() {}
+  executePayments() {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => resolve(), 1000);
+    });
+  }
 }

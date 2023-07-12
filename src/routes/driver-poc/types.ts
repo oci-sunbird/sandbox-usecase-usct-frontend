@@ -38,13 +38,15 @@ export namespace DriverPOC {
     id: number;
     name: string;
     description: string;
+    amount: number;
+    currency: string;
   }
   export interface PaymentInformation {
     paymentStatus:
-      | "ACCEPTED"
-      | "INITIATE"
-      | "IN_PROGRESS"
-      | "REJECTED"
-      | "CLOSED";
+      | 'ACCEPTED'
+      | 'INITIATE'
+      | 'IN_PROGRESS'
+      | 'REJECTED'
+      | 'CLOSED';
   }
 }

@@ -1,20 +1,20 @@
-import { createContext } from "react";
-import RPCProviderFactory from "./RPCProviderFactory";
-import { DriverPOC } from "./types";
+import { createContext } from 'react';
+import RPCProviderFactory from './RPCProviderFactory';
+import { DriverPOC } from './types';
 
 export default class RPC {
   RPCProviderFactory: RPCProviderFactory = new RPCProviderFactory();
   getCandidateList = () => {
     return this.RPCProviderFactory.getProvider(
-      "getCandidateList"
+      'getCandidateList'
     ).getCandidateList();
   };
   getPackages = () => {
-    return this.RPCProviderFactory.getProvider("getPackages").getPackages();
+    return this.RPCProviderFactory.getProvider('getPackages').getPackages();
   };
   getCandidateInfo = (id: number) => {
     return this.RPCProviderFactory.getProvider(
-      "getCandidateInfo"
+      'getCandidateInfo'
     ).getCandidateInfo(id);
   };
   enrollCandidate = (
@@ -22,16 +22,24 @@ export default class RPC {
     selectedPackage: DriverPOC.Package
   ) => {
     return this.RPCProviderFactory.getProvider(
-      "enrollCandidate"
+      'enrollCandidate'
     ).enrollCandidate(person, selectedPackage);
   };
   getBeneficiariesList = () => {
     return this.RPCProviderFactory.getProvider(
-      "getBeneficiariesList"
+      'getBeneficiariesList'
     ).getBeneficiariesList();
   };
-  validateBeneficiaries = () => {};
-  executePayments = () => {};
+  validateBeneficiaries = (beneficiaries: DriverPOC.Beneficiary[]) => {
+    return this.RPCProviderFactory.getProvider(
+      'validateBeneficiaries'
+    ).validateBeneficiaries(beneficiaries);
+  };
+  executePayments = (beneficiaries: DriverPOC.Beneficiary[]) => {
+    return this.RPCProviderFactory.getProvider(
+      'executePayments'
+    ).executePayments(beneficiaries);
+  };
 }
 
 export const RPCContext = createContext(new RPC());

@@ -1,6 +1,10 @@
 import {
+  Box,
   Button,
+  ButtonGroup,
+  Center,
   Checkbox,
+  CircularProgress,
   Flex,
   Heading,
   Spinner,
@@ -12,139 +16,154 @@ import {
   Th,
   Thead,
   Tr,
+  VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { colors } from '../../chakra-overrides/colors';
 import { RPCContext } from './rpc';
+import { DriverPOC } from './types';
 
 export default function BeneficiaryList() {
   const rpc = useContext(RPCContext);
-  const location = useLocation();
-  const [isValidating, setIsValidating] = useState(false);
-  const [checkedBeneficiaries, setCheckedBeneficiaries] = useState<number[]>(
-    []
-  );
+  const [isOrderingPayment, setIsOrderingPayment] = useState(false);
+  const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
+  const [isPaymentProcessed, setisPaymentProcessed] = useState(false);
+  const [checkedBeneficiaries, setCheckedBeneficiaries] = useState<
+    DriverPOC.Beneficiary[]
+  >([]);
 
   const { data: beneficiaries } = useQuery(
     `beneficiaries`,
     rpc.getBeneficiariesList
   );
 
-  const handleCheck = (id: number) => {
-    if (checkedBeneficiaries.includes(id)) {
+  const handleCheck = (beneficiary: DriverPOC.Beneficiary) => {
+    if (checkedBeneficiaries.find((b) => b.id === beneficiary.id)) {
       setCheckedBeneficiaries(
-        [...checkedBeneficiaries].filter((b) => b !== id)
+        [...checkedBeneficiaries].filter((b) => b.id !== beneficiary.id)
       );
     } else {
-      setCheckedBeneficiaries([...checkedBeneficiaries, id]);
+      setCheckedBeneficiaries([...checkedBeneficiaries, beneficiary]);
     }
   };
 
-  const handleOrderPayment = () => {};
+  const handleConfirmPayment = async () => {
+    setIsPaymentProcessing(true);
+    const payment = await rpc.executePayments(checkedBeneficiaries);
+    if (payment) {
+      setisPaymentProcessed(true);
+      setIsPaymentProcessing(false);
+    } else {
+      setIsPaymentProcessing(false);
+    }
+  };
 
-  // if (isPaymentProcessed) {
-  //   return (
-  //     <Center display="flex" margin="auto">
-  //       <VStack maxW="640px" gap="40px">
-  //         <Heading size="md" mb="20px">
-  //           Thank you! Payment Order received.
-  //         </Heading>
-  //         <Box>
-  //           <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
-  //             Home
-  //           </Button>
-  //           <ButtonGroup
-  //             maxW="380px"
-  //             w="100%"
-  //             colorScheme="admin"
-  //             variant="outline"
-  //             gap="20px"
-  //           >
-  //             <Button as={Link} to="/driver-poc" w="100%">
-  //               Candidate List
-  //             </Button>
-  //             {/* <Button onClick={() => handleReset()} w="100%">
-  //               Beneficiary List
-  //             </Button> */}
-  //           </ButtonGroup>
-  //         </Box>
-  //       </VStack>
-  //     </Center>
-  //   );
-  // }
+  if (isPaymentProcessed) {
+    return (
+      <Center display="flex" margin="auto">
+        <VStack maxW="640px" gap="40px">
+          <Heading size="md" mb="20px">
+            Thank you! Payment Order received.
+          </Heading>
+          <Box>
+            <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
+              Home
+            </Button>
+            <ButtonGroup
+              maxW="380px"
+              w="100%"
+              colorScheme="admin"
+              variant="outline"
+              gap="20px"
+            >
+              <Button as={Link} to="/driver-poc" w="100%">
+                Candidate List
+              </Button>
+              {/* <Button onClick={() => handleReset()} w="100%">
+                Beneficiary List
+              </Button> */}
+            </ButtonGroup>
+          </Box>
+        </VStack>
+      </Center>
+    );
+  }
 
-  // if (isPaymentProcessing) {
-  //   return (
-  //     <Center display="flex" margin="auto">
-  //       <VStack gap="40px">
-  //         <CircularProgress isIndeterminate size={100} mb="40px" />
-  //         <Heading mb="20px">Receiving Payment Order!</Heading>
-  //         <Text>Please wait! This process might take some time.</Text>
-  //       </VStack>
-  //     </Center>
-  //   );
-  // }
+  if (isPaymentProcessing) {
+    return (
+      <Center display="flex" margin="auto">
+        <VStack gap="40px">
+          <CircularProgress isIndeterminate size={100} mb="40px" />
+          <Heading mb="20px">Receiving Payment Order!</Heading>
+          <Text>Please wait! This process might take some time.</Text>
+        </VStack>
+      </Center>
+    );
+  }
 
-  // if (validatedBeneficiaries.length) {
-  //   return (
-  //     <Flex direction="column" gap="60px">
-  //       <Heading>Confirmation</Heading>
-  //       <Text>
-  //         Please confirm that the payment order will be sent for the candidates
-  //         listed below.
-  //       </Text>
-  //       {/* <Table>
-  //         <Thead>
-  //           <Tr>
-  //             <Th>Name</Th>
-  //             <Th>National ID</Th>
-  //             <Th>Benefit Package</Th>
-  //             <Th>Payment Due Date Approximation</Th>
-  //           </Tr>
-  //         </Thead>
-  //         <Tbody>
-  //           {validatedBeneficiaries.map((vb) => {
-  //             return (
-  //               <Tr key={vb.id}>
-  //                 <Td>
-  //                   <Text>{`${vb.firstName} ${vb.lastName}`}</Text>
-  //                 </Td>
-  //                 <Td>
-  //                   <Text>{vb.idCode}</Text>
-  //                 </Td>
-  //                 <Td>
-  //                   <Text>{vb.benefitPackage.id}</Text>
-  //                 </Td>
-  //                 <Td>
-  //                   <Text>{vb.dateOfPayment}</Text>
-  //                 </Td>
-  //               </Tr>
-  //             );
-  //           })}
-  //         </Tbody>
-  //       </Table> */}
-  //       <Flex justifyContent="flex-end">
-  //         <ButtonGroup colorScheme="admin" gap="20px">
-  //           <Button
-  //             onClick={() => {
-  //               setIsValidating(false);
-  //               setValidatedBeneficiaries([]);
-  //             }}
-  //             w="180px"
-  //             variant="outline"
-  //           >
-  //             Cancel
-  //           </Button>
-  //           {/* <Button onClick={() => handleConfirmPayment()} w="180px">
-  //             Confirm
-  //           </Button> */}
-  //         </ButtonGroup>
-  //       </Flex>
-  //     </Flex>
-  //   );
-  // }
+  if (isOrderingPayment) {
+    return (
+      <Flex direction="column" gap="60px">
+        <Heading>Confirmation</Heading>
+        <Text>
+          Please confirm that the payment order will be sent for the candidates
+          listed below.
+        </Text>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>Name</Th>
+              <Th>ID Number</Th>
+              <Th>Payment Amount</Th>
+              <Th>Benefit Package</Th>
+              <Th>Payment Status</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {checkedBeneficiaries.map((vb) => {
+              return (
+                <Tr key={vb.id}>
+                  <Td>
+                    <Text>{`${vb.person.firstName} ${vb.person.lastName}`}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{vb.person.id}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{vb.enrolledPackage.amount}€</Text>
+                  </Td>
+                  <Td>
+                    <Text>{vb.enrolledPackage.name}</Text>
+                  </Td>
+                  <Td>
+                    <Text>{vb.paymentStatus}</Text>
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+        <Flex justifyContent="flex-end">
+          <ButtonGroup colorScheme="admin" gap="20px">
+            <Button
+              onClick={() => {
+                setIsOrderingPayment(false);
+              }}
+              w="180px"
+              variant="outline"
+            >
+              Cancel
+            </Button>
+            <Button onClick={() => handleConfirmPayment()} w="180px">
+              Confirm
+            </Button>
+          </ButtonGroup>
+        </Flex>
+      </Flex>
+    );
+  }
 
   return (
     <>
@@ -177,9 +196,10 @@ export default function BeneficiaryList() {
           <Tr>
             <Th></Th>
             <Th color={colors.secondary[0]}>Name</Th>
+            <Th color={colors.secondary[0]}>ID Number</Th>
+            <Th color={colors.secondary[0]}>Payment Amount</Th>
             <Th color={colors.secondary[0]}>Benefit Package</Th>
             <Th color={colors.secondary[0]}>Payment Status</Th>
-            <Th></Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -203,14 +223,16 @@ export default function BeneficiaryList() {
                 <Checkbox
                   size="lg"
                   isChecked={checkedBeneficiaries.some(
-                    (b) => beneficiary.id === b
+                    (b) => beneficiary.id === b.id
                   )}
-                  onChange={() => handleCheck(beneficiary.id)}
+                  onChange={() => handleCheck(beneficiary)}
                 />
               </Td>
               <Td>
                 <Text>{`${beneficiary.person.firstName} ${beneficiary.person.lastName}`}</Text>
               </Td>
+              <Td>{beneficiary.person.id}</Td>
+              <Td>{beneficiary.enrolledPackage.amount} €</Td>
               <Td>
                 <Tag
                   justifyContent="center"
@@ -232,17 +254,12 @@ export default function BeneficiaryList() {
                   {beneficiary.paymentStatus}
                 </Tag>
               </Td>
-              <Td></Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
       <Flex justifyContent="flex-end">
-        <Button
-          isLoading={isValidating}
-          colorScheme="admin"
-          onClick={() => handleOrderPayment()}
-        >
+        <Button colorScheme="admin" onClick={() => setIsOrderingPayment(true)}>
           Order payment
         </Button>
       </Flex>

@@ -11,10 +11,10 @@ export default class RPCProviderConfig {
     getCandidateList: this.providers.API,
     getPackages: this.providers.API,
     getCandidateInfo: this.providers.API,
-    enrollCandidate: this.providers.MOCK,
-    getBeneficiariesList: this.providers.MOCK,
+    enrollCandidate: this.providers.API,
+    getBeneficiariesList: this.providers.API,
     validateBeneficiaries: this.providers.MOCK,
-    executePayments: this.providers.MOCK,
+    executePayments: this.providers.API,
   };
   addProvider = (key: string, provider: BaseProvider) => {
     this.providers = { ...this.providers, [key]: provider };

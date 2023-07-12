@@ -1,4 +1,4 @@
-import { DriverPOC } from "./types";
+import { DriverPOC } from './types';
 
 export default abstract class BaseProvider {
   abstract getCandidateList(): Promise<DriverPOC.Candidate[]>;
@@ -12,5 +12,7 @@ export default abstract class BaseProvider {
   abstract validateBeneficiaries(
     beneficiares: DriverPOC.Beneficiary[]
   ): Promise<DriverPOC.Beneficiary[]>;
-  abstract executePayments(): any;
+  abstract executePayments(
+    beneficiaries: DriverPOC.Beneficiary[]
+  ): Promise<string>;
 }

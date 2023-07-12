@@ -29,13 +29,16 @@ export default class APIProvider extends BaseProvider {
     enrolledPackage: DriverPOC.Package
   ) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`,
       {
         method: 'POST',
         body: JSON.stringify({
           person,
           enrolledPackage,
         }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
     );
     return req.json() as Promise<DriverPOC.Beneficiary>;
@@ -48,7 +51,9 @@ export default class APIProvider extends BaseProvider {
   }
   async validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      `${
+        import.meta.env.VITE_API_ENDPOINT
+      }/api/v1/payment/prepayment-validation`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -58,5 +63,18 @@ export default class APIProvider extends BaseProvider {
     );
     return req.json() as Promise<DriverPOC.Beneficiary[]>;
   }
-  executePayments() {}
+  async executePayments(beneficiaries: DriverPOC.Beneficiary[]) {
+    const req = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/payment/order-payment`,
+      {
+        method: 'POST',
+        body: JSON.stringify(beneficiaries),
+        headers: {
+          'Content-Type': 'application/json',
+          'Response-Type': 'text/plain',
+        },
+      }
+    );
+    return req.text() as Promise<string>;
+  }
 }
