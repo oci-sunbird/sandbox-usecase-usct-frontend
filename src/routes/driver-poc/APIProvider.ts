@@ -71,7 +71,6 @@ export default class APIProvider extends BaseProvider {
         body: JSON.stringify(beneficiaries),
         headers: {
           'Content-Type': 'application/json',
-          'Response-Type': 'text/plain',
         },
       }
     );

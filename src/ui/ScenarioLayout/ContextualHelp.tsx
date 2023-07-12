@@ -109,12 +109,13 @@ export default function ContextualHelp() {
         </>
       )}
       <Box
+        overflow="hidden"
         position="absolute"
         top={activeContent ? '0' : '90%'}
         visibility={activeContent ? 'visible' : 'hidden'}
         zIndex={5}
         transition="top 0.3s ease-in-out"
-        bottom="0"
+        bottom={activeContent ? '0' : 'auto'}
         right="0"
         left="0"
         backgroundColor={colors.primary[900]}
