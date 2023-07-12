@@ -166,7 +166,7 @@ export default function ContextualHelp() {
             <Box py="12px">
               <activeContent.diagram height="auto" width="100%" />
             </Box>
-            <UnorderedList py="12px">
+            <UnorderedList pt="12px" pb="24px">
               {activeContent.bulletpoints.map((bulletpoint, index) => {
                 return (
                   <ListItem key={index}>
