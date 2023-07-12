@@ -1,7 +1,23 @@
-import { Box, BoxProps, Flex, Text } from '@chakra-ui/react';
+import { Box, BoxProps, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { colors } from '../../chakra-overrides/colors';
 import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
+
+const letterPositionProps = {
+  top: {
+    top: '-45px',
+    right: '-8px',
+  },
+  'right-corner': {
+    top: '-8px',
+    right: '-45px',
+  },
+  'right-center': {
+    right: '-45px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+  },
+};
 
 function Tooltip({
   children,
@@ -13,23 +29,13 @@ function Tooltip({
   letterPosition?: 'top' | 'right-corner' | 'right-center';
 } & BoxProps) {
   const { activeLetter, setActiveLetter } = useContext(ContextualHelpContext);
-  const [visible, setVisible] = useState(false);
 
-  const letterPositionProps = {
-    top: {
-      top: '-45px',
-      right: '-8px',
-    },
-    'right-corner': {
-      top: '-8px',
-      right: '-45px',
-    },
-    'right-center': {
-      right: '-45px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-    },
-  };
+  const positionProps = useBreakpointValue({
+    base: letterPositionProps.top,
+    md: letterPositionProps[letterPosition],
+  })
+
+  
 
   return (
     <Box
@@ -79,7 +85,7 @@ function Tooltip({
         _hover={{
           backgroundColor: colors.green[400],
         }}
-        {...letterPositionProps[letterPosition]}
+        {...positionProps}
       >
         <Text>{letter}</Text>
       </Flex>
