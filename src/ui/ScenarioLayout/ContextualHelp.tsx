@@ -44,7 +44,7 @@ export default function ContextualHelp() {
     setActiveContent(activeContent);
   }, [activeContent]);
   return (
-    <Box position="relative" h="100%">
+    <Box h="100%">
       <Text size="sm" mb="12px">
         Generic Processes and interactions of Building Blocks. These are generic
         processes that are used in here can be used on various use cases.
@@ -110,12 +110,13 @@ export default function ContextualHelp() {
       )}
       <Box
         position="absolute"
-        top={activeContent ? '-64px' : '90%'}
+        top={activeContent ? '0' : '90%'}
         visibility={activeContent ? 'visible' : 'hidden'}
+        zIndex={5}
         transition="top 0.3s ease-in-out"
         bottom="0"
-        right="-24px"
-        left="-24px"
+        right="0"
+        left="0"
         backgroundColor={colors.primary[900]}
         padding="24px"
         borderColor={colors.green[500]}
