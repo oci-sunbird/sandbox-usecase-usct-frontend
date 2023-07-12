@@ -1,5 +1,11 @@
-import { Box, BoxProps, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import {
+  Box,
+  BoxProps,
+  Flex,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react';
+import { useContext } from 'react';
 import { colors } from '../../chakra-overrides/colors';
 import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
 
@@ -33,9 +39,7 @@ function Tooltip({
   const positionProps = useBreakpointValue({
     base: letterPositionProps.top,
     md: letterPositionProps[letterPosition],
-  })
-
-  
+  });
 
   return (
     <Box
