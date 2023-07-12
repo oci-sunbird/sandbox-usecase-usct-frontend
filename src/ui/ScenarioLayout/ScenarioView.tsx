@@ -20,10 +20,10 @@ export default function ScenarioView({
       w="100%"
       height="100%"
       direction="column"
-      p={{ base: '4px 16px 8px 16px', lg: '16px 64px 32px 64px' }}
+      p={{ base: '4px 16px 0 16px', lg: '16px 64px 0 64px' }}
       flexGrow="1"
       alignItems="center"
-      overflow="auto"
+      minHeight="0"
     >
       <Flex w="100%" h="100%" direction="column" maxW="1024px">
         <Flex

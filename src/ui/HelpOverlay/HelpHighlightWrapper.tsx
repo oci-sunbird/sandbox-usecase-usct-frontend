@@ -15,7 +15,7 @@ const infoStyles = {
     transform: 'translate(20px, -50%)',
   },
   inside: {
-    top: '64px',
+    top: '40px',
     left: '20px',
     right: '20px',
   },
