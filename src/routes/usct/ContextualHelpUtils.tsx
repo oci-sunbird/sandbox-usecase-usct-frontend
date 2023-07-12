@@ -1,5 +1,8 @@
 import { ReactComponent as PersonalInfoServantDiagram } from '@assets/diagrams/PERSONAL_INFO_SERVANT.svg';
 import { ReactComponent as RequestingInfoDiagram } from '@assets/diagrams/REQUESTING_INFO.svg';
+import { ReactComponent as AC_AC_CIDiagram } from '@assets/diagrams/AC_AC_CI.svg';
+import { ReactComponent as ProgramRelatedInfoApplicantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_APPLICANT.svg';
+import { ReactComponent as ProgramRelatedInfoServantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_SERVANT.svg';
 
 import { BUILDING_BLOCK } from './utils';
 
@@ -86,8 +89,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.PROGRAM_RELATED_INFORMATION]: {
     title: 'Program Related Info',
     diagram: {
-      [EUserType.CITIZEN]: PersonalInfoServantDiagram,
-      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
+      [EUserType.CITIZEN]: ProgramRelatedInfoApplicantDiagram,
+      [EUserType.CITIZEN_SERVANT]: ProgramRelatedInfoServantDiagram,
     },
     activeBuildingBlocks: {
       [EUserType.CITIZEN]: [
@@ -109,7 +112,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ASSIGNED_CANDIDATES]: {
     title: 'Assigned Candidates',
-    diagram: RequestingInfoDiagram,
+    diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -133,7 +136,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ASSIGNED_CASES]: {
     title: 'Assigned Cases',
-    diagram: RequestingInfoDiagram,
+    diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -141,7 +144,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CASE_INFORMATION]: {
     title: 'Case Information',
-    diagram: RequestingInfoDiagram,
+    diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',

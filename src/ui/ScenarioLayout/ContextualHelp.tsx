@@ -163,7 +163,7 @@ export default function ContextualHelp() {
                 }}
               />
             </Flex>
-            <Box py="12px">
+            <Box mx="-24px">
               <activeContent.diagram height="auto" width="100%" />
             </Box>
             <UnorderedList pt="12px" pb="24px">
