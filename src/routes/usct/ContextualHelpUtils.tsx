@@ -1,8 +1,10 @@
 import { ReactComponent as PersonalInfoServantDiagram } from '@assets/diagrams/PERSONAL_INFO_SERVANT.svg';
+import { ReactComponent as PersonalInfoApplicantDiagram } from '@assets/diagrams/PERSONAL_INFO_APPLICANT.svg';
 import { ReactComponent as RequestingInfoDiagram } from '@assets/diagrams/REQUESTING_INFO.svg';
 import { ReactComponent as AC_AC_CIDiagram } from '@assets/diagrams/AC_AC_CI.svg';
 import { ReactComponent as ProgramRelatedInfoApplicantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_APPLICANT.svg';
 import { ReactComponent as ProgramRelatedInfoServantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_SERVANT.svg';
+import { ReactComponent as ProgramInfoDiagram } from '@assets/diagrams/PROGRAM_INFORMATION.svg';
 
 import { BUILDING_BLOCK } from './utils';
 
@@ -74,8 +76,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.PERSONAL_INFO]: {
     title: 'Personal Info',
     diagram: {
-      [EUserType.CITIZEN]: RequestingInfoDiagram,
-      [EUserType.CITIZEN_SERVANT]: RequestingInfoDiagram,
+      [EUserType.CITIZEN]: PersonalInfoApplicantDiagram,
+      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
     },
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
@@ -152,7 +154,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.PROGRAM_INFORMATION]: {
     title: 'Program Information',
-    diagram: RequestingInfoDiagram,
+    diagram: ProgramInfoDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
