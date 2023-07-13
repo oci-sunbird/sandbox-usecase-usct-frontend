@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -7,18 +7,17 @@ import {
   IconButton,
   Image,
   Text,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { colors } from "../../chakra-overrides/colors";
-import { authentication } from "../../utils/authentication";
-import { Nav, NavigationLink } from "./Navbar.styles";
-import { LINKS } from "./routes";
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { colors } from '../../chakra-overrides/colors';
+import { Nav, NavigationLink } from './Navbar.styles';
+import { LINKS } from './routes';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(true);
   const onSignOut = async () => {
-    await authentication.signOut();
+    // await authentication.signOut();
   };
   return (
     <Nav isOpen={isOpen}>
@@ -33,22 +32,22 @@ export default function Navbar() {
         </Fade>
         <IconButton
           position="absolute"
-          right={isOpen ? "24px" : "0"}
+          right={isOpen ? '24px' : '0'}
           top="50%"
           transform={`translateY(-50%) ${
-            isOpen ? "rotateY(0)" : "rotateY(180deg)"
+            isOpen ? 'rotateY(0)' : 'rotateY(180deg)'
           }`}
           aria-label="Toggle Menu"
           icon={<ArrowLeftIcon />}
           background="transparent"
           color={colors.secondary[0]}
-          w={isOpen ? "40px" : "100%"}
+          w={isOpen ? '40px' : '100%'}
           h="40px"
           transitionProperty="width, border-radius, transform, right"
           transitionDuration="0.3s"
           transitionTimingFunction="ease-in-out"
           onClick={() => setIsOpen(!isOpen)}
-          borderRadius={isOpen ? "0.375rem" : "0"}
+          borderRadius={isOpen ? '0.375rem' : '0'}
         ></IconButton>
       </Flex>
       <Flex
@@ -96,7 +95,7 @@ export default function Navbar() {
                           {child.icon}
                         </Box>
                         <Text
-                          w={isOpen ? "100%" : "0"}
+                          w={isOpen ? '100%' : '0'}
                           transition="width 0.3s ease-in-out"
                           overflow="hidden"
                           color="blacks.0"
