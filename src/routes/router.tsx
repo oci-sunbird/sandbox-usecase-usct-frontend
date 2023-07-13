@@ -1,4 +1,3 @@
-import { Amplify } from 'aws-amplify';
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 const BeneficiaryList = lazy(() => import('./driver-poc/BeneficiaryList'));
@@ -28,14 +27,6 @@ const StartNewConversation = lazy(
   () => import('./usct/start-new-conversation/StartNewConversation')
 );
 const Feedback = lazy(() => import('./usct/feedback/Feedback'));
-
-Amplify.configure({
-  Auth: {
-    region: 'eu-central-1',
-    userPoolId: 'eu-central-1_r6tpMB1Kk',
-    userPoolWebClientId: '64qi51ecoi6invhnp745v5qqjj',
-  },
-});
 
 export const router = createBrowserRouter([
   {
