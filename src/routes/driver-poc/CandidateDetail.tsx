@@ -43,7 +43,7 @@ export default function CandidateDetail() {
   const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
     if (candidate && selectedPackage) {
       setIsEnrolling(true);
-      const res = await rpc.enrollCandidate(candidate.person, selectedPackage);
+      const res = await rpc.enrollCandidate(candidate, selectedPackage);
       if (res) {
         setIsEnrolled(true);
       }

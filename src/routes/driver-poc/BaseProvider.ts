@@ -5,7 +5,7 @@ export default abstract class BaseProvider {
   abstract getPackages(): Promise<DriverPOC.Package[]>;
   abstract getCandidateInfo(id: number): Promise<DriverPOC.Candidate>;
   abstract enrollCandidate(
-    person: DriverPOC.Person,
+    candidate: DriverPOC.Candidate,
     enrolledPackage: DriverPOC.Package
   ): Promise<DriverPOC.Beneficiary>;
   abstract getBeneficiariesList(): Promise<DriverPOC.Beneficiary[]>;

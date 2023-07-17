@@ -18,12 +18,12 @@ export default class RPC {
     ).getCandidateInfo(id);
   };
   enrollCandidate = (
-    person: DriverPOC.Person,
+    candidate: DriverPOC.Candidate,
     selectedPackage: DriverPOC.Package
   ) => {
     return this.RPCProviderFactory.getProvider(
       'enrollCandidate'
-    ).enrollCandidate(person, selectedPackage);
+    ).enrollCandidate(candidate, selectedPackage);
   };
   getBeneficiariesList = () => {
     return this.RPCProviderFactory.getProvider(

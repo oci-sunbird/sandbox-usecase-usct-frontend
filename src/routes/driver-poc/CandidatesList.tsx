@@ -93,19 +93,21 @@ export default function CandidatesList() {
               <Td>
                 {candidate.packages?.length > 0 ? (
                   <HStack gap="10px">
-                    {candidate?.packages.map((p) => {
-                      return (
-                        <Tag
-                          justifyContent="center"
-                          color={colors.secondary[0]}
-                          backgroundColor={colors.secondary[800]}
-                          w="140px"
-                          key={p.id}
-                        >
-                          {p.name}
-                        </Tag>
-                      );
-                    })}
+                    {candidate?.packages
+                      .sort((a, b) => b.name.localeCompare(a.name))
+                      .map((p) => {
+                        return (
+                          <Tag
+                            justifyContent="center"
+                            color={colors.secondary[0]}
+                            backgroundColor={colors.secondary[800]}
+                            w="140px"
+                            key={p.id}
+                          >
+                            {p.name}
+                          </Tag>
+                        );
+                      })}
                   </HStack>
                 ) : (
                   <Tag

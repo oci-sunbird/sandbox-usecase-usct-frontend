@@ -25,7 +25,7 @@ export default class APIProvider extends BaseProvider {
     return req.json() as Promise<DriverPOC.Candidate>;
   }
   async enrollCandidate(
-    person: DriverPOC.Person,
+    candidate: DriverPOC.Candidate,
     enrolledPackage: DriverPOC.Package
   ) {
     const req = await fetch(
@@ -33,7 +33,7 @@ export default class APIProvider extends BaseProvider {
       {
         method: 'POST',
         body: JSON.stringify({
-          person,
+          candidateDto: candidate,
           enrolledPackage,
         }),
         headers: {

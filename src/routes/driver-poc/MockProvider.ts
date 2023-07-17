@@ -280,17 +280,17 @@ export default class MockProvider extends BaseProvider {
     });
   }
   enrollCandidate(
-    person: DriverPOC.Person,
+    candidate: DriverPOC.Candidate,
     enrolledPackage: DriverPOC.Package
   ) {
     const enrolledCandidate: DriverPOC.Beneficiary = {
       id: faker.number.int(),
       paymentStatus: 'INITIATE',
-      person,
+      person: candidate.person,
       enrolledPackage,
     };
     this.candidateList = [...this.candidateList].filter(
-      (candidate) => candidate.person.id !== person.id
+      (c) => c.person.id !== candidate.id
     );
     this.beneficiaryList = [...this.beneficiaryList, enrolledCandidate];
     return new Promise<DriverPOC.Beneficiary>((resolve) =>
