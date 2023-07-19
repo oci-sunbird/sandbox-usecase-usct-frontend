@@ -14,6 +14,7 @@ export default class RPCProviderConfig {
     getBeneficiariesList: this.providers.API,
     validateBeneficiaries: this.providers.API,
     executePayments: this.providers.API,
+    login: this.providers.API,
   };
   addProvider = (key: string, provider: BaseProvider) => {
     this.providers = { ...this.providers, [key]: provider };

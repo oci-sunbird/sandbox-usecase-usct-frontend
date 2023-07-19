@@ -1,5 +1,7 @@
 import React, { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import Login from './driver-poc/Login';
+import { Dashboard } from './driver-poc/dashboard/Dashboard';
 const BeneficiaryList = lazy(() => import('./driver-poc/BeneficiaryList'));
 const CandidateDetail = lazy(() => import('./driver-poc/CandidateDetail'));
 const CandidatesList = lazy(() => import('./driver-poc/CandidatesList'));
@@ -42,6 +44,14 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <Login />,
+          },
+          {
+            path: 'dashboard',
+            element: <Dashboard />,
+          },
+          {
+            path: 'candidates',
             element: <CandidatesList />,
           },
           {
@@ -51,14 +61,10 @@ export const router = createBrowserRouter([
                 index: true,
                 element: <CandidateDetail />,
               },
-              {
-                path: 'enroll',
-                // element: <CandidateEnroll />,
-              },
             ],
           },
           {
-            path: 'beneficiary-list',
+            path: 'beneficiaries',
             element: <BeneficiaryList />,
           },
         ],

@@ -40,6 +40,8 @@ export default class RPC {
       'executePayments'
     ).executePayments(beneficiaries);
   };
+  login = (email: string, password: string) =>
+    this.RPCProviderFactory.getProvider('login').login(email, password);
 }
 
 export const RPCContext = createContext(new RPC());

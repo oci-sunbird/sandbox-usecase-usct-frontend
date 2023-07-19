@@ -312,4 +312,9 @@ export default class MockProvider extends BaseProvider {
       setTimeout(() => resolve('String'), 1000);
     });
   }
+  login() {
+    return new Promise<string>((resolve) => {
+      setTimeout(() => resolve('String'), 1000);
+    });
+  }
 }

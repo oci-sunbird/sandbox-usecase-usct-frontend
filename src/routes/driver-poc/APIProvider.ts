@@ -76,4 +76,17 @@ export default class APIProvider extends BaseProvider {
     );
     return req.text() as Promise<string>;
   }
+  async login(email: string, password: string) {
+    const req = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/token`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: new Headers({
+          Authorization: `Basic ${btoa(`${email}:${password}`)}`,
+        }),
+      }
+    );
+    return req.json() as Promise<string>;
+  }
 }
