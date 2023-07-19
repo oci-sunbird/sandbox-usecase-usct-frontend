@@ -21,10 +21,11 @@ export const useAuthentication = () => {
       throw error;
     }
   };
-  const isLoggedIn = async () => {
+  const isAuthenticated = () => {
     try {
       //   return session;
       // return true;
+      return false;
     } catch (error) {
       throw error;
     }
@@ -43,5 +44,5 @@ export const useAuthentication = () => {
       window.removeEventListener('authenticationEvent', callback);
     };
   }, []);
-  return { login } as const;
+  return { login, isAuthenticated } as const;
 };
