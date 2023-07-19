@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { colors } from '../../../chakra-overrides/colors';
+import { Authentication, getRole } from '../utils/token';
 
 interface IActionProps {
   disabled?: boolean;
@@ -9,10 +10,12 @@ interface IActionProps {
   title: string;
   description: string;
   buttonText: string;
+  allowedRoles?: Authentication.Scope[];
 }
 
 export function Action(props: IActionProps) {
-  const { disabled, to, icon, title, description, buttonText } = props;
+  const { to, icon, title, description, buttonText, allowedRoles = [] } = props;
+  const disabled = !allowedRoles.some((role) => role === getRole());
   return (
     <Flex
       direction="column"

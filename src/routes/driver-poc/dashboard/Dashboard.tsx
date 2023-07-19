@@ -5,6 +5,7 @@ import { ReactComponent as PieChartIcon } from '@assets/icons/pie-chart.svg';
 import { ReactComponent as UserPlusIcon } from '@assets/icons/user-plus.svg';
 
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Authentication } from '../utils/token';
 import { Action } from './Action';
 export function Dashboard() {
   return (
@@ -19,12 +20,12 @@ export function Dashboard() {
           buttonText="Candidate Database"
           description="Access the candidate list for enrollment into the program."
           icon={<HeartShakeIcon />}
-          to="../candidates"
+          to="./candidates"
+          allowedRoles={[Authentication.Scope.ROLE_ENROLLMENT_OFFICER]}
         />
         <Action
           title="Register"
           buttonText="Lorem ipsum"
-          disabled
           icon={<UserPlusIcon />}
           description="Access the registration process for new possible beneficiaries into the program."
         />
@@ -33,19 +34,18 @@ export function Dashboard() {
           icon={<BankNoteIcon />}
           buttonText="Beneficiary Database"
           description="Access the active beneficiary list of the program for payment"
-          to="../beneficiaries"
+          to="./beneficiaries"
+          allowedRoles={[Authentication.Scope.ROLE_PAYMENT_OFFICER]}
         />
         <Action
           title="Respons to queries"
           buttonText="Lorem ipsum"
           description="Respond to beneficiary or stakeholder queries related to the program"
-          disabled
           icon={<MailOpenIcon />}
         />
         <Action
           title="Monitor Program Performance"
           buttonText="Lorem ipsum"
-          disabled
           description="Track and report program performance metrics. Identify trends or issues."
           icon={<PieChartIcon />}
         />

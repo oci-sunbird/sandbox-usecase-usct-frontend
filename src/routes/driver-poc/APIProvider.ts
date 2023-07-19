@@ -1,10 +1,22 @@
 import BaseProvider from './BaseProvider';
 import { DriverPOC } from './types';
+import { getToken } from './utils/token';
+
+const fetchWithToken = (uri: string, request?: RequestInit) => {
+  const interceptedRequest = {
+    ...request,
+    headers: {
+      ...request?.headers,
+      Authorization: `Bearer ${getToken()}`,
+    },
+  };
+  return fetch(uri, interceptedRequest);
+};
 
 export default class APIProvider extends BaseProvider {
   async getCandidateList() {
     try {
-      const req = await fetch(
+      const req = await fetchWithToken(
         `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`
       );
       return req.json() as Promise<DriverPOC.Candidate[]>;
@@ -13,13 +25,13 @@ export default class APIProvider extends BaseProvider {
     }
   }
   async getPackages() {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/packages`
     );
     return req.json() as Promise<DriverPOC.Package[]>;
   }
   async getCandidateInfo(id: number) {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`
     );
     return req.json() as Promise<DriverPOC.Candidate>;
@@ -28,7 +40,7 @@ export default class APIProvider extends BaseProvider {
     candidate: DriverPOC.Candidate,
     enrolledPackage: DriverPOC.Package
   ) {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`,
       {
         method: 'POST',
@@ -44,7 +56,7 @@ export default class APIProvider extends BaseProvider {
     return req.json() as Promise<DriverPOC.Beneficiary>;
   }
   async getBeneficiariesList() {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`
     );
     return req.json() as Promise<DriverPOC.Beneficiary[]>;
@@ -64,7 +76,7 @@ export default class APIProvider extends BaseProvider {
     return req.json() as Promise<DriverPOC.Beneficiary[]>;
   }
   async executePayments(beneficiaries: DriverPOC.Beneficiary[]) {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/payment/order-payment`,
       {
         method: 'POST',
@@ -91,7 +103,7 @@ export default class APIProvider extends BaseProvider {
     return req.json() as Promise<string>;
   }
   async getRoles() {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/roles`
     );
     return req.json() as Promise<string>;

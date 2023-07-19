@@ -14,10 +14,9 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { colors } from '../../chakra-overrides/colors';
-import { RPCContext } from './rpc';
-import { useAuthentication } from './useAuthentication';
+import { useAuthentication } from './utils/useAuthentication';
 
 interface IUser {
   username: string;
@@ -39,7 +38,6 @@ const users = [
 ];
 
 export default function Login() {
-  const rpc = useContext(RPCContext);
   const { login } = useAuthentication();
   const [user, setUser] = useState<IUser>();
   const handleLogin = () => {
@@ -68,7 +66,7 @@ export default function Login() {
             <MenuList>
               {users.map((user) => {
                 return (
-                  <MenuItem onClick={() => setUser(user)}>
+                  <MenuItem key={user.value} onClick={() => setUser(user)}>
                     <Flex
                       w="100%"
                       alignItems="center"

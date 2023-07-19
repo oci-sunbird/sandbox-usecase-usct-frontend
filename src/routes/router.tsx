@@ -1,7 +1,13 @@
 import React, { lazy } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Login from './driver-poc/Login';
+import {
+  ProtectedRoute,
+  isAllowedRoleGuard,
+  isAuthenticatedGuard,
+} from './driver-poc/ProtectedRoute';
 import { Dashboard } from './driver-poc/dashboard/Dashboard';
+import { Authentication } from './driver-poc/utils/token';
 const BeneficiaryList = lazy(() => import('./driver-poc/BeneficiaryList'));
 const CandidateDetail = lazy(() => import('./driver-poc/CandidateDetail'));
 const CandidatesList = lazy(() => import('./driver-poc/CandidatesList'));
@@ -36,14 +42,26 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'driver-poc/login',
-        element: <Login />,
+        element: (
+          <ProtectedRoute
+            guard={() => !isAuthenticatedGuard()}
+            redirect="/driver-poc"
+          >
+            <Login />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'driver-poc',
         element: (
-          <React.Suspense>
-            <DriverPoc />
-          </React.Suspense>
+          <ProtectedRoute
+            guard={() => isAuthenticatedGuard()}
+            redirect="/driver-poc/login"
+          >
+            <React.Suspense>
+              <DriverPoc />
+            </React.Suspense>
+          </ProtectedRoute>
         ),
         children: [
           {
@@ -52,20 +70,50 @@ export const router = createBrowserRouter([
           },
           {
             path: 'candidates',
-            element: <CandidatesList />,
+            element: (
+              <ProtectedRoute
+                guard={() =>
+                  isAllowedRoleGuard([
+                    Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
+                  ])
+                }
+              >
+                <CandidatesList />
+              </ProtectedRoute>
+            ),
           },
           {
             path: 'candidate/:id',
             children: [
               {
                 index: true,
-                element: <CandidateDetail />,
+                element: (
+                  <ProtectedRoute
+                    guard={() =>
+                      isAllowedRoleGuard([
+                        Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
+                      ])
+                    }
+                  >
+                    <CandidateDetail />
+                  </ProtectedRoute>
+                ),
               },
             ],
           },
           {
             path: 'beneficiaries',
-            element: <BeneficiaryList />,
+            element: (
+              <ProtectedRoute
+                guard={() =>
+                  isAllowedRoleGuard([
+                    Authentication.Scope.ROLE_PAYMENT_OFFICER,
+                  ])
+                }
+              >
+                <BeneficiaryList />
+              </ProtectedRoute>
+            ),
           },
         ],
       },
