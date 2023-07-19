@@ -43,6 +43,7 @@ export default function Feedback() {
         subtitle: "PRIMARY TASK",
       },
       userAuthorized: true,
+      previousStep: '../conversation/300'
     });
   }, []);
 

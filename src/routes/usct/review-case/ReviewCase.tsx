@@ -119,7 +119,7 @@ export default function ReviewCase() {
         subtitle: 'PRIMARY TASK',
       },
       nextStep: '../active-program?state=done',
-      previousStep: '../case-list',
+      previousStep: '../case-list?state=scheduling',
       userAuthorized: true,
     });
   }, []);
