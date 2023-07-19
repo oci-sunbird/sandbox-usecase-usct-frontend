@@ -5,14 +5,22 @@ import { ReactComponent as FileXIcon } from '@assets/icons/file-x.svg';
 
 export const personData = {
   fullName: 'Thomas Anderson',
-  dateOfBirth: '03.10.1994',
-  phoneNumber: '(+372) 53937064',
-  occupation: 'Very Cool Guy',
-  idCode: '39410036813',
-  email: 'veryCoolGuy@gmail.com',
-  socialCode: '0235920935kdtt',
-  fullAddress:
-    'Very long name place, Saskatchewan, Alaskan Minnesota, Finnish Sauna 14, Earth, Milky Way, Known Universe',
+  dateOfBirth: '12/12/1975',
+  phoneNumber: '(+00) 94 843 432',
+  occupation: 'Unemployed',
+  idCode: '12345678910',
+  email: 'tom@myspace.com',
+  socialCode: '9525206274',
+  fullAddress: 'Parkway 320 C',
+  householdNeeds: [
+    'Housing',
+    'Food',
+    'Health Care',
+    'Education',
+    'Child Care',
+    'Financial Security',
+    'Special Support',
+  ],
 };
 
 export const bankData = {
@@ -21,48 +29,38 @@ export const bankData = {
   iban: 'AA02300209000106531065',
 }
 
-export const householdNeeds = [
-  'Housing',
-  'Food',
-  'Health Care',
-  'Education',
-  'Child Care',
-  'Financial Security',
-  'Special Support',
-];
-
 export const householdData = [
   {
-    name: 'Ms Lorem Ipsum',
+    name: 'Priscilla Anderson',
     personalCode: '123456728910',
     relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    dateOfBirth: '12/12/1975',
     reason: 'Data',
     needs: [],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12312245678910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    name: 'Jason Anderson',
+    personalCode: '123456728910',
+    relation: 'Father',
+    dateOfBirth: '12/12/1955',
     reason: 'Data',
-    needs: ['Hearing Support', 'Special Support'],
+    needs: ['Hearing Support'],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345226789310',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    name: 'Angelina Anderson',
+    personalCode: '123456728910',
+    relation: 'Child',
+    dateOfBirth: '08/10/2008',
     reason: 'Data',
-    needs: ['Child Care', 'Financial Security'],
+    needs: ['Special Care'],
   },
   {
-    name: 'Ms Lorem Ipsum',
-    personalCode: '12345633785910',
-    relation: 'Wife',
-    dateOfBirth: '12.12.1975',
+    name: 'Amelia Anderson',
+    personalCode: '123456728910',
+    relation: 'Child',
+    dateOfBirth: '12/05/2014',
     reason: 'Data',
-    needs: ['Food', 'Health Care', 'Education'],
+    needs: [],
   },
 ];
 

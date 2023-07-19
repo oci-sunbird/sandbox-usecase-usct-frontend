@@ -90,7 +90,7 @@ export default function StartNewConversation() {
           <Button
             colorScheme="citizen"
             as={Link}
-            to="../case-management?done=true"
+            to="../case-management?state=done"
             isDisabled={!topicSelected}
             _disabled={{ bg: 'secondary.400' }}
           >

@@ -1,8 +1,8 @@
-import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
-import { ReactComponent as GitCompareIcon } from '@assets/icons/git-compare.svg';
-import { ReactComponent as HeartShakeIcon } from '@assets/icons/heartshake.svg';
-import { ReactComponent as PigIcon } from '@assets/icons/pig.svg';
-import { ReactComponent as UsersIcon } from '@assets/icons/users.svg';
+import { ReactComponent as CalendarIcon } from "@assets/icons/calendar.svg";
+import { ReactComponent as GitCompareIcon } from "@assets/icons/git-compare.svg";
+import { ReactComponent as HeartShakeIcon } from "@assets/icons/heartshake.svg";
+import { ReactComponent as PigIcon } from "@assets/icons/pig.svg";
+import { ReactComponent as UsersIcon } from "@assets/icons/users.svg";
 import {
   Box,
   Button,
@@ -11,50 +11,50 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from '@chakra-ui/react';
-import IconCard from '@ui/IconCard/IconCard';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
-import Tooltip from '../../../ui/Tooltip/Tooltip';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import IconCard from "@ui/IconCard/IconCard";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import FakeLoader from "../../../ui/FakeLoader/FakeLoader";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case 'done':
+    case "done":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS BENEFICIARY CASES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS BENEFICIARY CASES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../new-conversation',
-        nextStep: '../case-list',
+        previousStep: "../new-conversation",
+        nextStep: "../case-list?state=scheduling",
       };
-    case 'submitted':
+    case "submitted":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../personal?done=true',
-        nextStep: '../candidate-list?state=submitted',
+        previousStep: "../personal?done=true",
+        nextStep: "../candidate-list?state=submitted",
       };
     default:
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../case-management',
-        nextStep: '../candidate-list',
+        previousStep: "../case-management",
+        nextStep: "../candidate-list",
       };
   }
 };
@@ -66,13 +66,18 @@ export default function CaseManagement() {
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   const location = useLocation();
 
+  const isDone = searchParams.get("state") === "done";
+  const isSubmitted = searchParams.get("state") === "submitted";
+  const isDisabled = !location.search || isSubmitted;
+
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getConfig(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
+      previousStep: "../info",
     });
   }, [searchParams, location]);
 
@@ -100,8 +105,8 @@ export default function CaseManagement() {
     <FakeLoader
       label="CHANGING PERSPECTIVE TO CIVIL SERVANT"
       override={
-        searchParams.get('state') === 'submitted' ||
-        searchParams.get('state') === 'done'
+        searchParams.get("state") === "submitted" ||
+        searchParams.get("state") === "done"
       }
     >
       <Flex gap="60px" mt="60px" direction="column">
@@ -113,7 +118,7 @@ export default function CaseManagement() {
         <Flex direction="column" gap="20px">
           <Heading>Hello, Lorem Ipsum!</Heading>
           <Text>You have 1 candidates, 0 cases up for review today!</Text>
-          <Flex gap="20px" direction={{ base: 'column', xl: 'row' }}>
+          <Flex gap="20px" direction={{ base: "column", xl: "row" }}>
             <Tooltip
               display="flex"
               letter="A"
@@ -139,7 +144,7 @@ export default function CaseManagement() {
                   flexShrink="0"
                 >
                   <Heading color={colors.secondary[0]}>
-                    {searchParams.get('state') === 'done' ? 0 : 1}
+                    {searchParams.get("state") === "done" ? 0 : 1}
                   </Heading>
                 </Flex>
                 <Flex gap="14px" direction="column">
@@ -148,14 +153,30 @@ export default function CaseManagement() {
                 </Flex>
               </Flex>
               <Flex justifyContent="flex-end">
-                <Button
-                  colorScheme="admin"
-                  as={Link}
-                  to="../candidate-list"
-                  variant="solid"
-                >
-                  Review Candidates
-                </Button>
+                {isDone ? (
+                  <Button
+                    as={Button}
+                    variant="solid"
+                    isDisabled
+                    colorScheme="secondary"
+                    backgroundColor={colors.secondary[400]}
+                  >
+                    Review Candidates
+                  </Button>
+                ) : (
+                  <Button
+                    as={Link}
+                    to={
+                      isSubmitted
+                        ? "../candidate-list?state=submitted"
+                        : "../candidate-list"
+                    }
+                    variant="solid"
+                    colorScheme="admin"
+                  >
+                    Review Candidates
+                  </Button>
+                )}
               </Flex>
             </Tooltip>
             <Tooltip
@@ -183,9 +204,7 @@ export default function CaseManagement() {
                   justifyContent="center"
                   flexShrink="0"
                 >
-                  <Heading>
-                    {searchParams.get('state') === 'done' ? 1 : 0}
-                  </Heading>
+                  <Heading>{isDone ? 1 : 0}</Heading>
                 </Flex>
                 <Flex gap="14px" direction="column">
                   <Text>Beneficiary Cases</Text>
@@ -193,22 +212,37 @@ export default function CaseManagement() {
                 </Flex>
               </Flex>
               <Flex justifyContent="flex-end">
-                <Button
-                  colorScheme="admin"
-                  as={Link}
-                  to="../case-list"
-                  variant="outline"
-                  borderWidth="2px"
-                >
-                  Review Cases
-                </Button>
+                {isDisabled ? (
+                  <Button
+                    colorScheme="secondary"
+                    backgroundColor={colors.secondary[400]}
+                    as={Button}
+                    variant={"solid"}
+                    isDisabled
+                  >
+                    Review Cases
+                  </Button>
+                ) : (
+                  <Button
+                    colorScheme={isDone ? "admin" : "secondary"}
+                    backgroundColor={isDone ? undefined : colors.secondary[400]}
+                    as={Link}
+                    to={
+                      isDone ? "../case-list?state=scheduling" : "../case-list"
+                    }
+                    variant={"solid"}
+                    isDisabled={!isDone}
+                  >
+                    Review Cases
+                  </Button>
+                )}
               </Flex>
             </Tooltip>
           </Flex>
         </Flex>
         <Tooltip letter="C" letterPosition="top">
-          <Flex direction={{ base: 'column', xl: 'row' }} marginBottom="60px">
-            <Box w="100%" marginBottom={{ sm: '60px', xl: 0 }}>
+          <Flex direction={{ base: "column", xl: "row" }} marginBottom="60px">
+            <Box w="100%" marginBottom={{ sm: "60px", xl: 0 }}>
               <Heading mb="20px">Program Description</Heading>
               <Text>
                 Unconditional Social Cash Transfer helps families meet their
@@ -220,13 +254,13 @@ export default function CaseManagement() {
             </Box>
             <Flex
               w="100%"
-              textAlign={{ base: 'left', xl: 'right' }}
+              textAlign={{ base: "left", xl: "right" }}
               direction="column"
-              alignItems={{ base: 'flex-start', xl: 'flex-end' }}
+              alignItems={{ base: "flex-start", xl: "flex-end" }}
               gap="20px"
             >
               <Heading>Benefit Packages</Heading>
-              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: "row-reverse", xl: "row" }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Monthly Package
@@ -244,7 +278,7 @@ export default function CaseManagement() {
                   <CalendarIcon stroke="black" />
                 </Flex>
               </Flex>
-              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: "row-reverse", xl: "row" }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Short-Term Package
@@ -262,7 +296,7 @@ export default function CaseManagement() {
                   <PigIcon stroke="black" />
                 </Flex>
               </Flex>
-              <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+              <Flex gap="20px" direction={{ base: "row-reverse", xl: "row" }}>
                 <Box>
                   <Text fontWeight="600" fontSize="16px">
                     Special Package
@@ -282,7 +316,7 @@ export default function CaseManagement() {
               </Flex>
             </Flex>
           </Flex>
-          <Flex gap="60px" direction={{ base: 'column', xl: 'row' }}>
+          <Flex gap="60px" direction={{ base: "column", xl: "row" }}>
             <Box w="100%">
               <Heading mb="20px">Eligibility Conditions</Heading>
               <Text>
@@ -303,12 +337,12 @@ export default function CaseManagement() {
               </UnorderedList>
             </Box>
             <Box w="100%">
-              <Heading mb="20px" textAlign={{ sm: 'left', xl: 'right' }}>
+              <Heading mb="20px" textAlign={{ sm: "left", xl: "right" }}>
                 Program Overview
               </Heading>
               <Flex
-                gap={{ base: '12px', md: '24px' }}
-                flexDirection={{ base: 'column', md: 'row' }}
+                gap={{ base: "12px", md: "24px" }}
+                flexDirection={{ base: "column", md: "row" }}
               >
                 <IconCard
                   icon={<UsersIcon stroke="black" />}

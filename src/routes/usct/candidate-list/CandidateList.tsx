@@ -1,5 +1,5 @@
-import { ReactComponent as HighPriorityIcon } from '@assets/icons/high-priority.svg';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as HighPriorityIcon } from "@assets/icons/high-priority.svg";
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
 import {
   Button,
   Flex,
@@ -18,50 +18,51 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import FakeLoader from '@ui/FakeLoader/FakeLoader';
-import Pagination from '@ui/Pagination/Pagination';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import Tooltip from '../../../ui/Tooltip/Tooltip';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import FakeLoader from "@ui/FakeLoader/FakeLoader";
+import Pagination from "@ui/Pagination/Pagination";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case 'scheduling':
+    case "scheduling":
+    case "enrolled":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../enrolment',
-        nextStep: '../review-candidate/2895379235?state=scheduling',
+        previousStep: "../enrolment",
+        nextStep: "../review-candidate/2895379235?state=scheduling",
       };
-    case 'submitted':
+    case "submitted":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../case-management?state=submitted',
-        nextStep: '../review-candidate/2895379235?state=done',
+        previousStep: "../case-management?state=submitted",
+        nextStep: "../review-candidate/2895379235?state=done",
       };
     default:
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        nextStep: '../review-candidate/2895379235',
-        previousStep: '../case-management',
+        nextStep: "../review-candidate/2895379235",
+        previousStep: "../case-management",
       };
   }
 };
@@ -73,18 +74,22 @@ export default function CandidateList() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const isCandidateEnrolled = searchParams.get("state") === "enrolled";
+  const isScheduling = searchParams.get("state") === "scheduling";
+  const isSubmitted = searchParams.get("state") === "submitted";
+
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
-      ...getConfig(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
     });
   }, [location]);
 
   useEffect(() => {
     setActiveBuildingBlocks({
-      [BUILDING_BLOCK.CONSENT]: true,
+      [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
@@ -106,7 +111,7 @@ export default function CandidateList() {
   return (
     <FakeLoader
       label="CHANGING PERSPECTIVE TO CIVIL SERVANT"
-      override={searchParams.get('state') === 'scheduling'}
+      override={searchParams.get("state") === "scheduling"}
     >
       <Flex w="100%" direction="column" gap="60px">
         <Flex gap="20px" direction="column">
@@ -132,10 +137,10 @@ export default function CandidateList() {
             </Flex>
           </Flex>
           <Tooltip letter="A" letterPosition="top">
-            <Tabs isFitted defaultIndex={!!searchParams.get('state') ? 1 : 0}>
+            <Tabs isFitted defaultIndex={isScheduling ? 1 : 0}>
               <TabList>
-                <Tab>Eligibility (1)</Tab>
-                <Tab>Enrollment (1)</Tab>
+                <Tab>Eligibility ({isScheduling ? 0 : 1})</Tab>
+                <Tab>Enrollment ({isScheduling ? 1 : 0})</Tab>
                 <Tab>Active Beneficiaries (21)</Tab>
               </TabList>
               <TabPanels>
@@ -157,24 +162,26 @@ export default function CandidateList() {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          <Tr>
-                            <Td>37793946215</Td>
-                            <Td>5</Td>
-                            <Td>
-                              <Flex gap="10px" alignItems="center">
-                                <HighPriorityIcon /> High Priority
-                              </Flex>
-                            </Td>
-                            <Td>Yesterday</Td>
-                            <Td>
-                              <Tag justifyContent="center" w="140px">
-                                Action Required
-                              </Tag>
-                            </Td>
-                            <Td>
-                              <MoreIcon />
-                            </Td>
-                          </Tr>
+                          {!isScheduling && (
+                            <Tr>
+                              <Td>37793946215</Td>
+                              <Td>5</Td>
+                              <Td>
+                                <Flex gap="10px" alignItems="center">
+                                  <HighPriorityIcon /> High Priority
+                                </Flex>
+                              </Td>
+                              <Td>Yesterday</Td>
+                              <Td>
+                                <Tag justifyContent="center" w="140px">
+                                  Action Required
+                                </Tag>
+                              </Td>
+                              <Td>
+                                <MoreIcon />
+                              </Td>
+                            </Tr>
+                          )}
                         </Tbody>
                       </Table>
                     </TableContainer>
@@ -182,7 +189,11 @@ export default function CandidateList() {
                     <Flex justifyContent="flex-end">
                       <Button
                         as={Link}
-                        to="../review-candidate/2895379235"
+                        to={
+                          isSubmitted
+                            ? "../review-candidate/2895379235?state=done"
+                            : "../review-candidate/2895379235"
+                        }
                         colorScheme="admin"
                       >
                         Review Next Candidate
@@ -208,36 +219,51 @@ export default function CandidateList() {
                           </Tr>
                         </Thead>
                         <Tbody>
-                          <Tr>
-                            <Td>37793946215</Td>
-                            <Td>5</Td>
-                            <Td>
-                              <Flex gap="10px" alignItems="center">
-                                <HighPriorityIcon /> High Priority
-                              </Flex>
-                            </Td>
-                            <Td>Today</Td>
-                            <Td>
-                              <Tag justifyContent="center" w="140px">
-                                Action Required
-                              </Tag>
-                            </Td>
-                            <Td>
-                              <MoreIcon />
-                            </Td>
-                          </Tr>
+                          {isScheduling && (
+                            <Tr>
+                              <Td>37793946215</Td>
+                              <Td>5</Td>
+                              <Td>
+                                <Flex gap="10px" alignItems="center">
+                                  <HighPriorityIcon /> High Priority
+                                </Flex>
+                              </Td>
+                              <Td>Today</Td>
+                              <Td>
+                                <Tag justifyContent="center" w="140px">
+                                  Action Required
+                                </Tag>
+                              </Td>
+                              <Td>
+                                <MoreIcon />
+                              </Td>
+                            </Tr>
+                          )}
                         </Tbody>
                       </Table>
                     </TableContainer>
 
                     <Flex justifyContent="flex-end">
-                      <Button
-                        as={Link}
-                        to="../review-candidate/2895379235?state=scheduling"
-                        colorScheme="admin"
-                      >
-                        Review the Candidate
-                      </Button>
+                      {isScheduling ? (
+                        <Button
+                          as={Link}
+                          to="../review-candidate/2895379235?state=scheduling"
+                          colorScheme="admin"
+                        >
+                          Review the Candidate
+                        </Button>
+                      ) : (
+                        <Button
+                          as={Link}
+                          to="../review-candidate/2895379235?state=scheduling"
+                          isDisabled
+                          colorScheme="secondary"
+                          variant="solid"
+                          backgroundColor={colors.secondary[400]}
+                        >
+                          Review the Candidate
+                        </Button>
+                      )}
                     </Flex>
                   </Flex>
                 </TabPanel>
@@ -293,10 +319,17 @@ export default function CandidateList() {
             <Flex
               justifyContent="space-between"
               gap="20px"
-              flexDirection={{ base: 'column', xl: 'row' }}
+              flexDirection={{ base: "column", xl: "row" }}
             >
               <Pagination />
-              <Button disabled>Request to Assign New Candidate</Button>
+              <Button
+                isDisabled
+                colorScheme="secondary"
+                backgroundColor={colors.secondary[400]}
+                variant="solid"
+              >
+                Request to Assign New Candidate
+              </Button>
             </Flex>
           </Tooltip>
         </Flex>
