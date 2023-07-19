@@ -16,4 +16,5 @@ export default abstract class BaseProvider {
     beneficiaries: DriverPOC.Beneficiary[]
   ): Promise<string>;
   abstract login(email: string, password: string): Promise<string>;
+  abstract getRoles(): Promise<string>;
 }

@@ -20,26 +20,46 @@ export function Action(props: IActionProps) {
       border={`2px solid ${colors.secondary[1000]}`}
       padding="24px"
       borderRadius="8px"
+      paddingBottom={disabled ? '4px' : 'auto'}
     >
-      <Flex alignItems="center">
-        <Box
+      <Flex>
+        <Flex
           w="68px"
           h="68px"
+          mt="8px"
           borderRadius="8px"
-          backgroundColor={colors.primary[900]}
+          backgroundColor={
+            disabled ? colors.secondary[400] : colors.primary[900]
+          }
           mr="34px"
           flexShrink="0"
+          color="white"
+          alignItems="center"
+          justifyContent="center"
         >
           {icon}
-        </Box>
+        </Flex>
         <Box>
           <Text mb="12px">{title}</Text>
           <Text>{description}</Text>
         </Box>
       </Flex>
-      <Button as={Link} to={to} colorScheme="admin">
-        {buttonText}
-      </Button>
+      <Box mt="auto" w="100%">
+        <Button
+          w="100%"
+          as={Link}
+          to={to}
+          disabled={disabled}
+          colorScheme={disabled ? 'disabled' : 'admin'}
+        >
+          {disabled ? 'Disabled' : buttonText}
+        </Button>
+        {disabled && (
+          <Text size="sm" textAlign="center" color={colors.secondary[900]}>
+            You do not have access
+          </Text>
+        )}
+      </Box>
     </Flex>
   );
 }

@@ -81,11 +81,18 @@ export default class APIProvider extends BaseProvider {
       `${import.meta.env.VITE_API_ENDPOINT}/api/v1/token`,
       {
         method: 'POST',
-        credentials: 'include',
+        mode: 'cors',
         headers: new Headers({
+          'Content-Type': 'application/json',
           Authorization: `Basic ${btoa(`${email}:${password}`)}`,
         }),
       }
+    );
+    return req.json() as Promise<string>;
+  }
+  async getRoles() {
+    const req = await fetch(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/roles`
     );
     return req.json() as Promise<string>;
   }
