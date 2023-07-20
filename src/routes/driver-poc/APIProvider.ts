@@ -62,7 +62,7 @@ export default class APIProvider extends BaseProvider {
     return req.json() as Promise<DriverPOC.Beneficiary[]>;
   }
   async validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
-    const req = await fetch(
+    const req = await fetchWithToken(
       `${
         import.meta.env.VITE_API_ENDPOINT
       }/api/v1/payment/prepayment-validation`,
