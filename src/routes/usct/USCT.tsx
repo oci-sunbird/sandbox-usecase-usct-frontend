@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { createContext, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
 import { ContextualHelpContextProvider } from './ContextualHelpContext';
@@ -116,6 +116,16 @@ export default function USCT() {
     activeBuildingBlockState
   );
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [width]);
+
   return (
     <HelpOverlay>
       <ActiveBuildingBlockContext.Provider
@@ -123,7 +133,7 @@ export default function USCT() {
       >
         <SimulationContext.Provider value={{ state, dispatch }}>
           <ContextualHelpContextProvider>
-            <ScenarioLayout view="mobile">
+            <ScenarioLayout view={width < 800 ? 'mobile' : 'desktop'}>
               <Flex direction="column" height="100%">
                 <Header
                   userType={state.userType}

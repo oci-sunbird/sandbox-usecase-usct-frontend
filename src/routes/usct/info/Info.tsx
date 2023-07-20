@@ -1,4 +1,5 @@
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
+import { ReactComponent as CheckIcon } from "@assets/icons/check-circle.svg";
 import {
   Accordion,
   AccordionButton,
@@ -10,38 +11,38 @@ import {
   Flex,
   Heading,
   Text,
-} from '@chakra-ui/react';
-import FakeLoader from '@ui/FakeLoader/FakeLoader';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import FakeLoader from "@ui/FakeLoader/FakeLoader";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
-const getConfig = (done: boolean) => {
+const getConfig = (done: string | null) => {
   if (done) {
     return {
       description: {
-        title: 'CITIZEN CHECKS ENROLMENT',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN CHECKS ENROLMENT",
+        subtitle: "PRIMARY TASK",
       },
-      previousStep: '../review-candidate/2895379235?state=done',
-      nextStep: '../enrolment',
+      previousStep: "../review-candidate/2895379235?state=done",
+      nextStep: "../enrolment",
     };
   } else {
     return {
       description: {
-        title: 'CITIZEN REVIEWS ELIGIBILITY',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN REVIEWS ELIGIBILITY",
+        subtitle: "PRIMARY TASK",
       },
-      previousStep: '../authorise-citizen',
-      nextStep: '../personal',
+      previousStep: "../authorise-citizen",
+      nextStep: "../personal",
     };
   }
 };
@@ -49,14 +50,13 @@ const getConfig = (done: boolean) => {
 export default function Info() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
-  const navigation = useLocation();
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
-      ...getConfig(!!searchParams.get('done')),
+      ...getConfig(searchParams.get("done")),
       userAuthorized: true,
     });
   }, [location]);
@@ -79,7 +79,7 @@ export default function Info() {
 
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   useEffect(() => {
-    if (!!searchParams.get('done')) {
+    if (!!searchParams.get("done")) {
       setLetterContextualTitleMap({
         A: ContextualTitle.ELIGIBILITY_STATUS,
         B: ContextualTitle.PERSONAL_INFO,
@@ -94,12 +94,12 @@ export default function Info() {
   return (
     <FakeLoader
       label="CHANGING PERSPECTIVE TO APPLICANT"
-      override={!!searchParams.get('done')}
+      override={!!searchParams.get("done")}
     >
       <Flex
-        mt={{ base: '8px', md: '128px' }}
-        gap={{ base: '20px', lg: '125px' }}
-        direction={{ base: 'column', lg: 'row' }}
+        mt={{ base: "8px", md: "128px" }}
+        gap={{ base: "20px", lg: "125px" }}
+        direction={{ base: "column", lg: "row" }}
       >
         <Box>
           <Box marginBottom="40px">
@@ -118,7 +118,7 @@ export default function Info() {
           <Accordion>
             <AccordionItem>
               <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: 'inherit' }} px="0">
+                <AccordionButton style={{ font: "inherit" }} px="0">
                   <Box as="span" flex="1" textAlign="left">
                     How does it work?
                   </Box>
@@ -134,7 +134,7 @@ export default function Info() {
             </AccordionItem>
             <AccordionItem>
               <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: 'inherit' }} px="0">
+                <AccordionButton style={{ font: "inherit" }} px="0">
                   <Box as="span" flex="1" textAlign="left">
                     Eligibility and Requirements
                   </Box>
@@ -150,7 +150,7 @@ export default function Info() {
             </AccordionItem>
             <AccordionItem>
               <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: 'inherit' }} px="0">
+                <AccordionButton style={{ font: "inherit" }} px="0">
                   <Box as="span" flex="1" textAlign="left">
                     Similar Programs
                   </Box>
@@ -169,7 +169,7 @@ export default function Info() {
         <Flex
           direction="column"
           gap="20px"
-          width={{ lg: '25%' }}
+          width={{ lg: "25%" }}
           flexShrink="0"
         >
           <Tooltip
@@ -179,12 +179,12 @@ export default function Info() {
             flexDirection="column"
             gap="16px"
           >
-            <Flex gap="8px">
-              <FileWarningIcon />
-              Your Eligibility
-            </Flex>
-            {searchParams.get('done') ? (
+            {searchParams.get("done") ? (
               <>
+                <Flex gap="8px">
+                  <CheckIcon />
+                  Your Eligibility
+                </Flex>
                 <Text>
                   <strong>You are eligible</strong> for Unconditional Social
                   Cash Transfer Program!
@@ -198,6 +198,10 @@ export default function Info() {
               </>
             ) : (
               <>
+                <Flex gap="8px">
+                  <FileWarningIcon />
+                  Your Eligibility
+                </Flex>
                 <Text>
                   There is <strong>not enough information</strong> to decide
                   your eligibility for this program
@@ -212,7 +216,7 @@ export default function Info() {
               </>
             )}
           </Tooltip>
-          {!!searchParams.get('done') && (
+          {!!searchParams.get("done") && (
             <Tooltip letter="B">
               <Button
                 w="100%"

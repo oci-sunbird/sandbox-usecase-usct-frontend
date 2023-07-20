@@ -196,40 +196,64 @@ export default function ReviewCandidate() {
           </Tooltip>
 
           <Tooltip letter="C">
-            <Flex direction="column" gap="30px">
-              <Flex direction={{ base: 'column', lg: 'row' }}>
-                <Flex w="100%" direction="column" gap="12px">
-                  <Heading variant="h3" fontSize="18px">
-                    Household needs
-                  </Heading>
-                  <Flex flexWrap="wrap" gap="4px">
-                    {householdData
-                      .flatMap((person) => person.needs)
-                      .map((need) => {
-                        return (
-                          <Tag
-                            p="6px 12px"
-                            mb="12px"
-                            colorScheme="gray"
-                            variant="outline"
-                            key={need}
-                          >
-                            <TagLabel>{need}</TagLabel>
-                          </Tag>
-                        );
-                      })}
+            <Flex direction="column" gap="60px">
+              <Flex direction="column" gap="30px">
+                <Flex direction={{ base: 'column', lg: 'row' }}>
+                  <Flex w="100%" direction="column" gap="12px">
+                    <Heading variant="h3" fontSize="18px">
+                      Household needs
+                    </Heading>
+                    <Flex flexWrap="wrap" gap="4px">
+                      {citizen.householdNeeds
+                        .map((need) => {
+                          return (
+                            <Tag
+                              p="6px 12px"
+                              mb="12px"
+                              colorScheme="gray"
+                              variant="outline"
+                              key={need}
+                            >
+                              <TagLabel>{need}</TagLabel>
+                            </Tag>
+                          );
+                        })}
+                    </Flex>
+                  </Flex>
+                  <Flex w="100%" direction="column" gap="12px">
+                    <Heading variant="h3" fontSize="18px">
+                      Recommended Benefit Package
+                    </Heading>
+                    {!searchParams.get('state') ? (
+                      <Text>
+                        Additional information required to decide eligibility and
+                        recommend benefit packages
+                      </Text>
+                    ) : (
+                      <Flex gap="20px">
+                        <Flex
+                          h="56px"
+                          w="56px"
+                          alignItems="center"
+                          justifyContent="center"
+                          borderRadius="8px"
+                          border="2px solid var(--chakra-colors-secondary-1000)"
+                        >
+                          <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
+                        </Flex>
+                        <Text>
+                          Monthly Package <br /> Monthly Cash help for families in
+                          need.
+                        </Text>
+                      </Flex>
+                    )}
                   </Flex>
                 </Flex>
-                <Flex w="100%" direction="column" gap="12px">
-                  <Heading variant="h3" fontSize="18px">
-                    Recommended Benefit Package
-                  </Heading>
-                  {!searchParams.get('state') ? (
-                    <Text>
-                      Additional information required to decide eligibility and
-                      recommend benefit packages
-                    </Text>
-                  ) : (
+                {searchParams.get('state') === 'scheduling' && (
+                  <Box>
+                    <Heading variant="h3" fontSize="18px" mb="12px">
+                      Selected Payment Method
+                    </Heading>
                     <Flex gap="20px">
                       <Flex
                         h="56px"
@@ -239,99 +263,76 @@ export default function ReviewCandidate() {
                         borderRadius="8px"
                         border="2px solid var(--chakra-colors-secondary-1000)"
                       >
-                        <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
+                        <CardIcon color="var(--chakra-colors-secondary-1000)" />
                       </Flex>
-                      <Text>
-                        Monthly Package <br /> Monthly Cash help for families in
-                        need.
-                      </Text>
+                      <Box>
+                        <Text>Bank Payment</Text>
+                        <Text size="sm" fontWeight="500">
+                          Direct cash transfer to beneficaries bank account.
+                        </Text>
+                      </Box>
                     </Flex>
-                  )}
-                </Flex>
+                  </Box>
+                )}
               </Flex>
-              {searchParams.get('state') === 'scheduling' && (
-                <Box>
-                  <Heading variant="h3" fontSize="18px" mb="12px">
-                    Selected Payment Method
-                  </Heading>
-                  <Flex gap="20px">
-                    <Flex
-                      h="56px"
-                      w="56px"
-                      alignItems="center"
-                      justifyContent="center"
-                      borderRadius="8px"
-                      border="2px solid var(--chakra-colors-secondary-1000)"
+              <Flex direction="column" gap="20px">
+                <Heading variant="h3" fontSize="18px">
+                  Household information
+                </Heading>
+                <TableContainer>
+                  <Table variant="simple" size="sm">
+                    <Thead
+                      backgroundColor={colors.secondary[800]}
+                      color={colors.secondary[0]}
                     >
-                      <CardIcon color="var(--chakra-colors-secondary-1000)" />
-                    </Flex>
-                    <Box>
-                      <Text>Bank Payment</Text>
-                      <Text size="sm" fontWeight="500">
-                        Direct cash transfer to beneficaries bank account.
-                      </Text>
-                    </Box>
-                  </Flex>
-                </Box>
-              )}
-            </Flex>
-            <Flex direction="column" gap="20px">
-              <Heading variant="h3" fontSize="18px">
-                Household information
-              </Heading>
-              <TableContainer>
-                <Table variant="simple" size="sm">
-                  <Thead
-                    backgroundColor={colors.secondary[800]}
-                    color={colors.secondary[0]}
-                  >
-                    <Tr>
-                      <Th color={colors.secondary[0]}>National ID</Th>
-                      <Th color={colors.secondary[0]}>Name</Th>
-                      <Th color={colors.secondary[0]}>Relation</Th>
-                      <Th color={colors.secondary[0]}>Date of Birth</Th>
-                      <Th color={colors.secondary[0]}>Individual Needs</Th>
-                      <Th>
-                        <IconButton
-                          borderRadius="100%"
-                          icon={<AddIcon />}
-                          aria-label="asd"
-                          size="xs"
-                        />
-                      </Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {householdData.map((person) => {
-                      return (
-                        <Tr key={person.personalCode}>
-                          <Td>{person.personalCode}</Td>
-                          <Td>{person.name}</Td>
-                          <Td>{person.relation}</Td>
-                          <Td>{person.dateOfBirth}</Td>
-                          <Td>
-                            <Flex wrap="wrap" gap="4px">
-                              {person.needs.map((need) => (
-                                <Tag
-                                  p="6px 12px"
-                                  variant="outline"
-                                  colorScheme="gray"
-                                  key={need}
-                                >
-                                  <TagLabel>{need}</TagLabel>
-                                </Tag>
-                              ))}
-                            </Flex>
-                          </Td>
-                          <Td>
-                            <MoreIcon />
-                          </Td>
-                        </Tr>
-                      );
-                    })}
-                  </Tbody>
-                </Table>
-              </TableContainer>
+                      <Tr>
+                        <Th color={colors.secondary[0]}>National ID</Th>
+                        <Th color={colors.secondary[0]}>Name</Th>
+                        <Th color={colors.secondary[0]}>Relation</Th>
+                        <Th color={colors.secondary[0]}>Date of Birth</Th>
+                        <Th color={colors.secondary[0]}>Individual Needs</Th>
+                        <Th>
+                          <IconButton
+                            borderRadius="100%"
+                            icon={<AddIcon />}
+                            aria-label="asd"
+                            size="xs"
+                          />
+                        </Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {householdData.map((person) => {
+                        return (
+                          <Tr key={person.personalCode}>
+                            <Td>{person.personalCode}</Td>
+                            <Td>{person.name}</Td>
+                            <Td>{person.relation}</Td>
+                            <Td>{person.dateOfBirth}</Td>
+                            <Td>
+                              <Flex wrap="wrap" gap="4px">
+                                {person.needs.map((need) => (
+                                  <Tag
+                                    p="6px 12px"
+                                    variant="outline"
+                                    colorScheme="gray"
+                                    key={need}
+                                  >
+                                    <TagLabel>{need}</TagLabel>
+                                  </Tag>
+                                ))}
+                              </Flex>
+                            </Td>
+                            <Td>
+                              <MoreIcon />
+                            </Td>
+                          </Tr>
+                        );
+                      })}
+                    </Tbody>
+                  </Table>
+                </TableContainer>
+              </Flex>
             </Flex>
           </Tooltip>
         </Flex>

@@ -1,26 +1,46 @@
-import { Flex, Image, SimpleGrid } from '@chakra-ui/react';
+import { ArrowBackIcon } from '@chakra-ui/icons';
+import { Button, ChakraProvider, Flex, Image, SimpleGrid } from '@chakra-ui/react';
 import { ReactElement } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { extendTheme } from '@chakra-ui/react'
+
+const breakpoints = {
+  xs: '200px',
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+}
+
+const theme = extendTheme({ breakpoints })
 
 export default function ScenarioHeader({
   children,
 }: {
   children: ReactElement[] | ReactElement;
 }) {
-  const location = useLocation();
+
   return (
-    <SimpleGrid templateColumns="1fr" alignItems="center" padding="24px 12px">
-      {/* <Button
+    <ChakraProvider theme={theme}>
+    <SimpleGrid
+      templateColumns={{xs: "87px 1fr", md: "87px 1fr 87px"}}
+      padding={{ xs: "24px 12px", lg: "24px 64px" }}
+      alignItems="center" 
+      width="100%"
+      spacing={{ xs: '2'}} 
+    >
+      <Button
         justifySelf="flex-start"
         display="flex"
-        leftIcon={<ChevronLeftIcon />}
+        leftIcon={<ArrowBackIcon />}
         as={Link}
         colorScheme="light"
-        to="/dashboard"
+        to="https://www.govstack.global/"
         variant="outline"
       >
         Exit
-      </Button> */}
+      </Button>
       <Flex gap="16px" justifySelf="center" alignItems="center">
         <Image
           height="40px"
@@ -31,5 +51,6 @@ export default function ScenarioHeader({
         {children}
       </Flex>
     </SimpleGrid>
+    </ChakraProvider>
   );
 }

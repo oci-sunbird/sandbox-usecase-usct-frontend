@@ -35,7 +35,7 @@ export default function Review() {
         title: 'CITIZEN VALIDATES THEIR INFORMATION',
         subtitle: 'PRIMARY TASK',
       },
-      nextStep: '../personal?done=true',
+      nextStep: '../personal?validation=true',
       previousStep: '../personal',
       userAuthorized: true,
     });
@@ -130,7 +130,7 @@ export default function Review() {
             <Button
               rightIcon={<ArrowForwardIcon />}
               as={Link}
-              to="../personal?done=true"
+              to="../personal?validation=true"
             >
               Next
             </Button>

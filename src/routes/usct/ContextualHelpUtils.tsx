@@ -1,6 +1,7 @@
 import { ReactComponent as PersonalInfoServantDiagram } from '@assets/diagrams/PERSONAL_INFO_SERVANT.svg';
 import { ReactComponent as PersonalInfoApplicantDiagram } from '@assets/diagrams/PERSONAL_INFO_APPLICANT.svg';
 import { ReactComponent as RequestingInfoDiagram } from '@assets/diagrams/REQUESTING_INFO.svg';
+import { ReactComponent as RequestingPersonalInfoDiagram } from '@assets/diagrams/REQUESTING_PERSONAL_INFO.svg';
 import { ReactComponent as AC_AC_CIDiagram } from '@assets/diagrams/AC_AC_CI.svg';
 import { ReactComponent as ProgramRelatedInfoApplicantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_APPLICANT.svg';
 import { ReactComponent as ProgramRelatedInfoServantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_SERVANT.svg';
@@ -122,7 +123,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CANDIDATE_LIST]: {
     title: 'Candidate List',
-    diagram: RequestingInfoDiagram,
+    diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',

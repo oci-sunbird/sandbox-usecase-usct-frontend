@@ -1,8 +1,9 @@
 import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
 import { Button, ButtonGroup, Flex, Heading, Tag } from '@chakra-ui/react';
 import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { DriverPOC } from '../../driver-poc/types';
 import { ContextualHelpContext } from '../ContextualHelpContext';
@@ -98,6 +99,9 @@ export default function Personal() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
 
+  const isPersonalDone = !!searchParams.get('done');
+  const isPersonalValidated = !!searchParams.get('validation');
+
   useEffect(() => {
     dispatch({
       type: 'SET_ALL',
@@ -105,14 +109,14 @@ export default function Personal() {
       userType: EUserType.CITIZEN,
       description: {
         subtitle: 'PRIMARY TASK',
-        title: !!searchParams.get('done')
+        title: isPersonalValidated
           ? 'CITIZEN SUBMITS INFORMATION FOR THE REVIEW'
           : 'CITIZEN VALIDATES THEIR INFORMATION',
       },
-      nextStep: !!searchParams.get('done')
+      nextStep: isPersonalValidated
         ? '../case-management?state=submitted'
         : '../review',
-      previousStep: searchParams.get('done') ? '../review' : '../info',
+      previousStep: isPersonalDone ? '../info?done=true' : '../info',
       userAuthorized: true,
     });
   }, [location]);
@@ -145,6 +149,21 @@ export default function Personal() {
 
   return (
     <Flex w="100%" gap={{ base: '24px', md: '48px' }} direction="column">
+      {isPersonalDone && (
+        <Button 
+          as={Link}
+          to="../info?done=true"
+          variant="link"
+          leftIcon={<ArrowBackIcon/>}
+          style={{
+            textDecoration: 'none',
+            alignSelf: 'baseline',
+            color: 'inherit'
+          }}
+        >
+          Back
+        </Button>
+      )}
       <Flex
         alignItems={{ base: 'flex-start', md: 'center' }}
         gap="20px"
@@ -154,30 +173,32 @@ export default function Personal() {
         w="100%"
       >
         <Heading fontSize="36px">My Information</Heading>
-        <ButtonGroup colorScheme="citizen" alignSelf={{ base: 'flex-end' }}>
-          {searchParams.get('done') ? (
-            <>
-              <Button as={Link} to="../personal" variant="outline">
-                Cancel
-              </Button>
+        {!isPersonalDone && (
+          <ButtonGroup colorScheme="citizen" alignSelf={{ base: 'flex-end' }}>
+            {searchParams.get('validation') ? (
+              <>
+                <Button as={Link} to="../personal" variant="outline">
+                  Cancel
+                </Button>
+                <Tooltip letter="A" letterPosition="right-center">
+                  <Button as={Link} to="../case-management?state=submitted">
+                    Submit for eligibility review
+                  </Button>
+                </Tooltip>
+              </>
+            ) : (
               <Tooltip letter="A" letterPosition="right-center">
-                <Button as={Link} to="../case-management?done=true">
-                  Submit for eligibility review
+                <Button
+                  as={Link}
+                  to="../review"
+                  leftIcon={<FileWarningIcon height="20" width="20" />}
+                >
+                  Validate the information
                 </Button>
               </Tooltip>
-            </>
-          ) : (
-            <Tooltip letter="A" letterPosition="right-center">
-              <Button
-                as={Link}
-                to="../review"
-                leftIcon={<FileWarningIcon height="20" width="20" />}
-              >
-                Validate the information
-              </Button>
-            </Tooltip>
-          )}
-        </ButtonGroup>
+            )}
+          </ButtonGroup>
+        )}
       </Flex>
       <Tooltip letter="B" letterPosition="right-center">
         <PersonalInformation
@@ -222,32 +243,34 @@ export default function Personal() {
         <BankInformation {...bankData} />
       </Tooltip>
 
-      <Flex justifyContent="flex-end">
-        <ButtonGroup colorScheme="citizen">
-          {searchParams.get('done') ? (
-            <>
-              <Button as={Link} to="../personal" variant="outline">
-                Cancel
-              </Button>
+     {!isPersonalDone && (
+        <Flex justifyContent="flex-end">
+          <ButtonGroup colorScheme="citizen">
+            {searchParams.get('validation') ? (
+              <>
+                <Button as={Link} to="../personal" variant="outline">
+                  Cancel
+                </Button>
+                <Tooltip letter="A" letterPosition="right-center">
+                  <Button as={Link} to="../case-management?state=submitted">
+                    Submit for eligibility review
+                  </Button>
+                </Tooltip>
+              </>
+            ) : (
               <Tooltip letter="A" letterPosition="right-center">
-                <Button as={Link} to="../case-management?done=true">
-                  Submit for eligibility review
+                <Button
+                  as={Link}
+                  to="../review"
+                  leftIcon={<FileWarningIcon height="20" width="20" />}
+                >
+                  Validate the information
                 </Button>
               </Tooltip>
-            </>
-          ) : (
-            <Tooltip letter="A" letterPosition="right-center">
-              <Button
-                as={Link}
-                to="../review"
-                leftIcon={<FileWarningIcon height="20" width="20" />}
-              >
-                Validate the information
-              </Button>
-            </Tooltip>
-          )}
-        </ButtonGroup>
-      </Flex>
+            )}
+          </ButtonGroup>
+        </Flex>
+      )}
     </Flex>
   );
 }

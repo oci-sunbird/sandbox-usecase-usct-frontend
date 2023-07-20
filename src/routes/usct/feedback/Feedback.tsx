@@ -1,14 +1,18 @@
-import { ReactComponent as StarIcon } from '@assets/icons/star.svg';
-import { Box, Button, Flex, Heading, Text, Textarea } from '@chakra-ui/react';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
-import { ActiveBuildingBlockContext } from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+import { ReactComponent as StarIcon } from "@assets/icons/star.svg";
+import { Box, Button, Flex, Heading, Text, Textarea } from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect, useState } from "react";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle, EUserType } from "../ContextualHelpUtils";
+import { ActiveBuildingBlockContext, SimulationContext } from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+import OffboardingModal from "./OffboardingModal";
 
 export default function Feedback() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const { state, dispatch } = useContext(SimulationContext);
+
+  const [offboardingModalOpened, setOffboardingModalOpened] = useState(false);
 
   useEffect(() => {
     setActiveBuildingBlocks({
@@ -29,6 +33,17 @@ export default function Feedback() {
   useEffect(() => {
     setLetterContextualTitleMap({
       A: ContextualTitle.FEEDBACK,
+    });
+    dispatch({
+      type: "SET_ALL",
+      ...state,
+      userType: EUserType.CITIZEN,
+      description: {
+        title: "CITIZEN GIVES FEEDBACK",
+        subtitle: "PRIMARY TASK",
+      },
+      userAuthorized: true,
+      previousStep: '../conversation/300'
     });
   }, []);
 
@@ -66,9 +81,18 @@ export default function Feedback() {
           <Button colorScheme="citizen" variant="outline">
             Skip
           </Button>
-          <Button colorScheme="citizen">Submit Feedback</Button>
+          <Button
+            colorScheme="citizen"
+            onClick={() => setOffboardingModalOpened(true)}
+          >
+            Submit Feedback
+          </Button>
         </Flex>
       </Tooltip>
+      <OffboardingModal
+        opened={offboardingModalOpened}
+        onClose={() => setOffboardingModalOpened(false)}
+      />
     </Box>
   );
 }
