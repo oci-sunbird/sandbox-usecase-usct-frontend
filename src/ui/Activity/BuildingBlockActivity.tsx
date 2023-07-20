@@ -14,7 +14,7 @@ import { ActiveBuildingBlockContext } from '../../routes/usct/USCT';
 import { BUILDING_BLOCK } from '../../routes/usct/utils';
 import BuildingBlock from './BuildingBlock';
 
-const buildingBlocksList = [
+export const buildingBlocksList = [
   { label: 'Consent', icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
   {
     label: 'ID & Authentication',
@@ -68,6 +68,7 @@ export default function BuildingBlockActivity() {
           label={buildingBlock.label}
           icon={buildingBlock.icon}
           key={buildingBlock.id}
+          id={buildingBlock.id}
         />
       ))}
     </VStack>

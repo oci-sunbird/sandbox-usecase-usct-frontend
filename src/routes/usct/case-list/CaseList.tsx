@@ -58,7 +58,6 @@ export default function CaseList() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: true,
-      [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
 

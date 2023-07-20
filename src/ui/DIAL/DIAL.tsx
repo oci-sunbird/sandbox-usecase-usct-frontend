@@ -16,10 +16,12 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { colors } from '../../chakra-overrides/colors';
 import AccordionElement from './AccordionElement';
+import { DIALBuildingBlockContext } from './BuildingBlocks/DIALBuildingBlockContext';
+import BuildingBlockView from './BuildingBlocks/BuildingBlockView';
 
 export default function DIAL() {
   const { data: buildingBlocks } = useQuery(
@@ -68,12 +70,23 @@ export default function DIAL() {
     { refetchOnWindowFocus: false }
   );
 
-  const { isOpen, onToggle } = useDisclosure();
+  const { openedBuildingBlock, setOpenedBuildingBlock } = useContext(
+    DIALBuildingBlockContext
+  );
+
+  useEffect(() => {
+    if (openedBuildingBlock) {
+      onOpen();
+      setActive({ type: 'BUILDING_BLOCKS' });
+    }
+  }, [openedBuildingBlock]);
+
+  const { isOpen, onToggle, onOpen } = useDisclosure();
   const [active, setActive] = useState<null | any>();
   return (
     <Box position="absolute" bottom="1rem" left="1rem">
       <Button
-        onClick={onToggle}
+        onClick={() => { onToggle(); setOpenedBuildingBlock(null) }}
         h="72px"
         w="72px"
         backgroundColor="secondary.1000"
@@ -179,7 +192,12 @@ export default function DIAL() {
                             sectors.
                           </Text>
                           <Text size="sm">
-                            <Button variant="unstyled">
+                            <Button
+                              variant="unstyled"
+                              onClick={() =>
+                                setActive({ type: 'BUILDING_BLOCKS' })
+                              }
+                            >
                               List of Building Blocks <ArrowForwardIcon />
                             </Button>
                           </Text>
@@ -224,35 +242,43 @@ export default function DIAL() {
                     <Button
                       variant="link"
                       colorScheme="light"
-                      onClick={() => setActive(null)}
+                      onClick={() => {
+                        setActive(null);
+                        setOpenedBuildingBlock(null);
+                      }}
                       leftIcon={<ChevronLeftIcon />}
                     >
                       Back to overview
                     </Button>
-                    <Flex direction="column" gap="1rem" mt="1rem">
-                      <Heading size="sm">{active?.name}</Heading>
-                      {active?.long_title && <Text>{active?.long_title}</Text>}
-                      {active?.sdg_targets?.map((target: any) => (
-                        <Text size="sm">{target.name}</Text>
-                      ))}
-                      {active?.use_case_descriptions?.map((el: any) => (
-                        <Text
-                          key={el.description}
-                          dangerouslySetInnerHTML={{ __html: el.description }}
-                        />
-                      ))}
-                      {active?.description &&
-                        JSON.parse(active.description).ops.map(
-                          (op: any, index: number) => (
-                            <Text
-                              key={index}
-                              variant={op?.attributes?.bold && 'bold'}
-                            >
-                              {op.insert}
-                            </Text>
-                          )
+                    {active?.type === 'BUILDING_BLOCKS' && <BuildingBlockView />}
+                    {active?.type !== 'BUILDING_BLOCKS' && (
+                      <Flex direction="column" gap="1rem" mt="1rem">
+                        <Heading size="sm">{active?.name}</Heading>
+                        {active?.long_title && (
+                          <Text>{active?.long_title}</Text>
                         )}
-                    </Flex>
+                        {active?.sdg_targets?.map((target: any) => (
+                          <Text size="sm">{target.name}</Text>
+                        ))}
+                        {active?.use_case_descriptions?.map((el: any) => (
+                          <Text
+                            key={el.description}
+                            dangerouslySetInnerHTML={{ __html: el.description }}
+                          />
+                        ))}
+                        {active?.description &&
+                          JSON.parse(active.description).ops.map(
+                            (op: any, index: number) => (
+                              <Text
+                                key={index}
+                                variant={op?.attributes?.bold && 'bold'}
+                              >
+                                {op.insert}
+                              </Text>
+                            )
+                          )}
+                      </Flex>
+                    )}
                   </Box>
                 </Slide>
               </Box>
