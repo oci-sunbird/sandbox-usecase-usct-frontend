@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, ChevronLeftIcon, CloseIcon } from '@chakra-ui/icons';
 import {
   Accordion,
   AccordionButton,
@@ -14,19 +14,19 @@ import {
   Slide,
   SlideFade,
   Text,
-  useDisclosure
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { useQuery } from "react-query";
-import { colors } from "../../chakra-overrides/colors";
-import AccordionElement from "./AccordionElement";
+  useDisclosure,
+} from '@chakra-ui/react';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import { colors } from '../../chakra-overrides/colors';
+import AccordionElement from './AccordionElement';
 
 export default function DIAL() {
   const { data: buildingBlocks } = useQuery(
-    "building-blocks",
+    'building-blocks',
     async () => {
       const req = await fetch(
-        "https://exchange.dial.global/api/v1/building_blocks"
+        'https://exchange.dial.global/api/v1/building_blocks'
       );
       const res = await req.json();
       return res;
@@ -34,38 +34,34 @@ export default function DIAL() {
     { refetchOnWindowFocus: false }
   );
   const { data: sdgs } = useQuery(
-    "sdgs",
+    'sdgs',
     async () => {
-      const req = await fetch("https://exchange.dial.global/api/v1/sdgs");
+      const req = await fetch('https://exchange.dial.global/api/v1/sdgs');
       const res = await req.json();
       return res;
     },
     { refetchOnWindowFocus: false }
   );
   const { data: useCases } = useQuery(
-    "use-cases",
+    'use-cases',
     async () => {
-      const req = await fetch("https://exchange.dial.global/api/v1/use_cases");
+      const req = await fetch('https://exchange.dial.global/api/v1/use_cases');
       const res = await req.json();
-      return res;
-    },
-    { refetchOnWindowFocus: false }
-  );
-
-  const { data: products } = useQuery(
-    "products",
-    async () => {
-      const req = await fetch("https://exchange.dial.global/api/v1/products");
-      const res = await req.json();
-      return res;
+      const filteredRes = {
+        ...res,
+        results: res.results.filter(
+          (result: any) => result.maturity === 'PUBLISHED'
+        ),
+      };
+      return filteredRes;
     },
     { refetchOnWindowFocus: false }
   );
 
   const { data: workflows } = useQuery(
-    "workflows",
+    'workflows',
     async () => {
-      const req = await fetch("https://exchange.dial.global/api/v1/workflows");
+      const req = await fetch('https://exchange.dial.global/api/v1/workflows');
       const res = await req.json();
       return res;
     },
@@ -91,11 +87,11 @@ export default function DIAL() {
         alignItems="center"
         justifyContent="center"
       >
-        <CloseIcon color="#FFC107" display={!isOpen ? "none" : undefined} />
+        <CloseIcon color="#FFC107" display={!isOpen ? 'none' : undefined} />
         <Image
           src="/images/digital-impact-alliance-logo.png"
           alt="Digital Impact Alliance Logo"
-          display={isOpen ? "none" : undefined}
+          display={isOpen ? 'none' : undefined}
         />
       </Button>
       <Box
@@ -119,10 +115,12 @@ export default function DIAL() {
               position="relative"
             >
               <Flex justifyContent="space-between" padding="16px" pb="0">
-                <Text color="theme.light" variant="caps">
+                <Text maxW="60%" color="theme.light" variant="caps">
                   Catalog of digital solutions
                 </Text>
                 <Image
+                  w="84px"
+                  h="24px"
                   src="/images/digital-impact-alliance-logo.png"
                   alt="Digital Impact Alliance Logo"
                 />
@@ -130,12 +128,12 @@ export default function DIAL() {
               <Box position="relative">
                 <Slide
                   direction="left"
-                  style={{ position: "absolute" }}
+                  style={{ position: 'absolute' }}
                   in={!active}
                   unmountOnExit
                 >
                   <Box padding="1rem" pt="0">
-                    <Text mb="1rem">
+                    <Text mb="1rem" size="sm" color={colors.secondary[500]}>
                       The DIAL Exchange promotes a Whole-of-Government approach
                       to investing in digital technologies to achieve the
                       sustainable development goals.
@@ -146,16 +144,47 @@ export default function DIAL() {
                         title="SUSTAINABLE DEVELOPMENT GOALS"
                         data={sdgs}
                       />
-                      <AccordionElement
-                        setActive={setActive}
-                        title="USE CASES"
-                        data={useCases}
-                      />
-                      <AccordionElement
-                        setActive={setActive}
-                        title="BUILDING BLOCKS"
-                        data={buildingBlocks}
-                      />
+                      <AccordionItem>
+                        <AccordionButton justifyContent="space-between">
+                          <Text size="sm">USE CASES</Text>
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel>
+                          <Text size="sm" mb="1rem">
+                            A Use Case defines the steps that an individual or
+                            system will undertake in order to achieve a business
+                            objective.
+                          </Text>
+                          <Text size="sm">
+                            For more information please check{' '}
+                            <Link
+                              isExternal
+                              href="https://exchange-dev.dial.global/use_cases"
+                            >
+                              DIAL Catalogue
+                            </Link>
+                          </Text>
+                        </AccordionPanel>
+                      </AccordionItem>
+                      <AccordionItem>
+                        <AccordionButton justifyContent="space-between">
+                          <Text size="sm">BUILDING BLOCKS</Text>
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel>
+                          <Text size="sm" mb="1rem">
+                            Building blocks are enterprise-ready, reusable
+                            software components providing key functionality
+                            facilitating generic WorkFlows across multiple
+                            sectors.
+                          </Text>
+                          <Text size="sm">
+                            <Button variant="unstyled">
+                              List of Building Blocks <ArrowForwardIcon />
+                            </Button>
+                          </Text>
+                        </AccordionPanel>
+                      </AccordionItem>
                       <AccordionElement
                         setActive={setActive}
                         title="WORKFLOWS"
@@ -172,7 +201,7 @@ export default function DIAL() {
                             designed to implement one or more Building Blocks
                           </Text>
                           <Text size="sm">
-                            For more information please check{" "}
+                            For more information please check{' '}
                             <Link
                               isExternal
                               href="https://exchange-dev.dial.global/products"
@@ -187,7 +216,7 @@ export default function DIAL() {
                 </Slide>
                 <Slide
                   direction="right"
-                  style={{ position: "absolute" }}
+                  style={{ position: 'absolute' }}
                   in={active}
                   unmountOnExit
                 >
@@ -206,18 +235,23 @@ export default function DIAL() {
                       {active?.sdg_targets?.map((target: any) => (
                         <Text size="sm">{target.name}</Text>
                       ))}
-                      {active?.building_block_descriptions?.map((el: any) => (
-                        <Text
-                          key={el.description}
-                          dangerouslySetInnerHTML={{ __html: el.description }}
-                        />
-                      ))}
                       {active?.use_case_descriptions?.map((el: any) => (
                         <Text
                           key={el.description}
                           dangerouslySetInnerHTML={{ __html: el.description }}
                         />
                       ))}
+                      {active?.description &&
+                        JSON.parse(active.description).ops.map(
+                          (op: any, index: number) => (
+                            <Text
+                              key={index}
+                              variant={op?.attributes?.bold && 'bold'}
+                            >
+                              {op.insert}
+                            </Text>
+                          )
+                        )}
                     </Flex>
                   </Box>
                 </Slide>
