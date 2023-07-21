@@ -1,4 +1,4 @@
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
   AccordionButton,
   AccordionIcon,
@@ -9,7 +9,7 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 
 interface IAccordionElementProps {
   data: {
@@ -46,7 +46,7 @@ export default function AccordionElement({
                   cursor="pointer"
                   onClick={() => setActive(result)}
                   _hover={{
-                    textDecoration: "underline",
+                    textDecoration: 'underline',
                   }}
                   key={result.self_url}
                 >

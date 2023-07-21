@@ -104,15 +104,17 @@ export const router = createBrowserRouter([
           {
             path: 'beneficiaries',
             element: (
-              <ProtectedRoute
-                guard={() =>
-                  isAllowedRoleGuard([
-                    Authentication.Scope.ROLE_PAYMENT_OFFICER,
-                  ])
-                }
-              >
-                <BeneficiaryList />
-              </ProtectedRoute>
+              <>
+                <ProtectedRoute
+                  guard={() =>
+                    isAllowedRoleGuard([
+                      Authentication.Scope.ROLE_PAYMENT_OFFICER,
+                    ])
+                  }
+                >
+                  <BeneficiaryList />
+                </ProtectedRoute>
+              </>
             ),
           },
         ],

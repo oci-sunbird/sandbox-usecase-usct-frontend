@@ -1,9 +1,9 @@
+import { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Authentication, getRole, getToken } from './utils/token';
 
-interface RouteProps {
+interface RouteProps extends PropsWithChildren {
   guard: () => boolean;
-  children: React.ReactNode;
   redirect?: string;
 }
 
@@ -17,10 +17,14 @@ export const isAllowedRoleGuard = (allowedRoles: Authentication.Scope[]) => {
 
 export function ProtectedRoute({ guard, children, redirect }: RouteProps) {
   if (guard()) {
-    return children;
+    return <>{children}</>;
   }
   if (redirect) {
-    return <Navigate to={redirect} />;
+    return (
+      <>
+        <Navigate to={redirect} />
+      </>
+    );
   }
   return <>No permissions!</>;
 }

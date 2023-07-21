@@ -69,7 +69,6 @@ export default function Enrolment() {
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
       [BUILDING_BLOCK.WORKFLOW]: false,
-      [BUILDING_BLOCK.SECURITY]: false,
     });
   }, []);
 
