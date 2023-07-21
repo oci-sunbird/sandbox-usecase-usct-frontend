@@ -125,25 +125,25 @@ export const historyData = [
     events: [
       {
         name: 'Interviews, Census Survey and Data Collection',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
       {
         name: 'Registration to the Social Registry Information System',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
       {
         name: 'Cross-referencing the data with other databases',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
       {
         name: 'Verify and Validate the information',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
@@ -155,25 +155,27 @@ export const historyData = [
     events: [
       {
         name: 'Determining Household Needs',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
       {
         name: 'Registration to the Social Registry Information System',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: '#97654321',
         completed: true,
       },
       {
         name: 'Determining Eligibility of the citizen to the program',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: 'MORE INFORMATION REQUIRED',
+        completed: false,
       },
       {
         name: 'Assigning the Benefit Package',
-        date: '23.04.2017',
+        date: '01.01.2023',
         info: 'MORE INFORMATION REQUIRED',
+        completed: false,
       },
     ],
   },
@@ -183,7 +185,7 @@ export const historyData = [
     events: [
       {
         name: 'Program Enrollment Starts',
-        date: '05.07.2023',
+        date: '01.01.2023',
         info: '#97654321',
       },
     ],
@@ -197,3 +199,40 @@ export const historyData = [
     icon: <FileXIcon />,
   },
 ];
+
+export const getHistoryData = (currentState: string | null) => {
+  if (!currentState) {
+    return historyData;
+  }
+  switch (currentState) {
+    case "done":
+      return historyData.map((item) => {
+        return {
+          ...item,
+          events: item.events?.map((event) => {
+            if (Object.hasOwn(event, "completed")) {
+              if (event.name === 'Assigning the Benefit Package') {
+                return { ...event, completed: false };
+              }
+              return { ...event, completed: true, info: '#97654321' };
+            }
+            return event;
+          })
+        }
+      });
+    case "scheduling":
+      return historyData.map((item) => {
+        return {
+          ...item,
+          events: item.events?.map((event) => {
+            if (Object.hasOwn(event, "completed")) {
+              return { ...event, completed: true, info: '#97654321' };
+            }
+            return {...event, completed: true };
+          })
+        }
+      });
+    default:
+      return historyData;
+  }
+}

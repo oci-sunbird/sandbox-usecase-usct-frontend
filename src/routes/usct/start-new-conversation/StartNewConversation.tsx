@@ -87,15 +87,27 @@ export default function StartNewConversation() {
           }
         />
         <Flex justifyContent="flex-end">
-          <Button
-            colorScheme="citizen"
-            as={Link}
-            to="../case-management?state=done"
-            isDisabled={!topicSelected}
-            _disabled={{ bg: 'secondary.400' }}
-          >
-            Submit
-          </Button>
+          {topicSelected
+            ? (
+              <Button
+                colorScheme="citizen"
+                as={Link}
+                to="../case-management?state=done"
+                _disabled={{ bg: 'secondary.400' }}
+              >
+                Submit
+              </Button>
+            ) : (
+              <Button
+                colorScheme="secondary"
+                as={Button}
+                isDisabled
+                _disabled={{ bg: 'secondary.400' }}
+              >
+                Submit
+              </Button>
+            )
+          }
         </Flex>
       </Tooltip>
     </Flex>

@@ -187,17 +187,29 @@ export default function CandidateList() {
                     </TableContainer>
 
                     <Flex justifyContent="flex-end">
-                      <Button
-                        as={Link}
-                        to={
-                          isSubmitted
-                            ? "../review-candidate/2895379235?state=done"
-                            : "../review-candidate/2895379235"
-                        }
-                        colorScheme="admin"
-                      >
-                        Review Next Candidate
-                      </Button>
+                      {isScheduling 
+                        ? (
+                          <Button
+                            as={Button}
+                            colorScheme="secondary"
+                            isDisabled
+                          >
+                            Review Next Candidate
+                          </Button>
+                        ) : (
+                          <Button
+                            as={Link}
+                            to={
+                              isSubmitted
+                                ? "../review-candidate/2895379235?state=done"
+                                : "../review-candidate/2895379235"
+                            }
+                            colorScheme="admin"
+                          >
+                            Review Next Candidate
+                          </Button>
+                        )
+                    }
                     </Flex>
                   </Flex>
                 </TabPanel>
