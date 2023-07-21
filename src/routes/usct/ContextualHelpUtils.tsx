@@ -1,7 +1,8 @@
 import { ReactComponent as PersonalInfoServantDiagram } from '@assets/diagrams/PERSONAL_INFO_SERVANT.svg';
 import { ReactComponent as PersonalInfoApplicantDiagram } from '@assets/diagrams/PERSONAL_INFO_APPLICANT.svg';
 import { ReactComponent as RequestingInfoDiagram } from '@assets/diagrams/REQUESTING_INFO.svg';
-import { ReactComponent as RequestingPersonalInfoDiagram } from '@assets/diagrams/REQUESTING_PERSONAL_INFO.svg';
+import { ReactComponent as PersonalInfoValidationDiagram } from '@assets/diagrams/PERSONAL_INFO_VALIDATION.svg';
+import { ReactComponent as MessagingDiagram } from '@assets/diagrams/MESSAGING.svg';
 import { ReactComponent as AC_AC_CIDiagram } from '@assets/diagrams/AC_AC_CI.svg';
 import { ReactComponent as ProgramRelatedInfoApplicantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_APPLICANT.svg';
 import { ReactComponent as ProgramRelatedInfoServantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_SERVANT.svg';
@@ -213,7 +214,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.MESSAGING]: {
     title: 'Messaging',
-    diagram: PersonalInfoServantDiagram,
+    diagram: MessagingDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -285,7 +286,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.VALIDATING_INFO]: {
     title: 'Validating Info',
-    diagram: PersonalInfoServantDiagram,
+    diagram: PersonalInfoValidationDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,

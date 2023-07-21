@@ -1,6 +1,9 @@
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/react';
 import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
 import { colors } from '../../chakra-overrides/colors';
+import { useContext } from 'react';
+import { DIALBuildingBlockContext } from '@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext';
+import { BUILDING_BLOCK } from '../../routes/usct/utils';
 
 const Icon = ({
   active,
@@ -48,15 +51,27 @@ export default function BuildingBlock({
   active,
   highlighted,
   tail,
+  id,
 }: {
   label: string;
   icon: React.ReactElement;
   active: boolean;
   highlighted: boolean;
   tail: boolean;
+  id: BUILDING_BLOCK;
 }) {
+  const { openedBuildingBlock, setOpenedBuildingBlock } = useContext(
+    DIALBuildingBlockContext
+  );
+
   return (
-    <Flex alignItems="center" w="100%" h="40px" position="relative">
+    <Flex
+      alignItems="center"
+      w="100%"
+      h="40px"
+      position="relative"
+      onClick={() => setOpenedBuildingBlock(id)}
+    >
       <Icon
         active={active}
         highlighted={highlighted}
@@ -105,7 +120,9 @@ export default function BuildingBlock({
         alignItems="center"
         justifyContent="center"
         h="20px"
-        backgroundColor={colors.darkblue[300]}
+        backgroundColor={
+          openedBuildingBlock === id ? 'theme.success' : colors.darkblue[300]
+        }
         borderRadius="100%"
         color={colors.secondary[1000]}
         marginLeft="auto"

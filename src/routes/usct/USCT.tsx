@@ -6,6 +6,7 @@ import { ContextualHelpContextProvider } from './ContextualHelpContext';
 import Header from './Header';
 import { BUILDING_BLOCK } from './utils';
 import { HelpOverlay } from '@ui/HelpOverlay/HelpOverlayContext';
+import { DIALBuildingBlockContextProvider } from '@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext';
 
 export interface IRouteDescription {
   title: string;
@@ -92,7 +93,6 @@ const activeBuildingBlockState = {
   [BUILDING_BLOCK.REGISTRATION]: false,
   [BUILDING_BLOCK.SCHEDULING]: false,
   [BUILDING_BLOCK.WORKFLOW]: false,
-  [BUILDING_BLOCK.SECURITY]: false,
 };
 
 export interface ActiveBuildingBlockContext {
@@ -122,8 +122,8 @@ export default function USCT() {
     function handleResize() {
       setWidth(window.innerWidth);
     }
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [width]);
 
   return (
@@ -132,24 +132,26 @@ export default function USCT() {
         value={{ activeBuildingBlocks, setActiveBuildingBlocks }}
       >
         <SimulationContext.Provider value={{ state, dispatch }}>
-          <ContextualHelpContextProvider>
-            <ScenarioLayout view={width < 800 ? 'mobile' : 'desktop'}>
-              <Flex direction="column" height="100%">
-                <Header
-                  userType={state.userType}
-                  userAuthorized={state.userAuthorized}
-                />
-                <Flex
-                  paddingRight={{ base: '15px', lg: '60px' }}
-                  paddingLeft={{ base: '15px', lg: '60px' }}
-                  paddingBottom="80px"
-                  flexGrow="1"
-                >
-                  <Outlet />
+          <DIALBuildingBlockContextProvider>
+            <ContextualHelpContextProvider>
+              <ScenarioLayout view={width < 992 ? 'mobile' : 'desktop'}>
+                <Flex direction="column" height="100%">
+                  <Header
+                    userType={state.userType}
+                    userAuthorized={state.userAuthorized}
+                  />
+                  <Flex
+                    paddingRight={{ base: '15px', lg: '60px' }}
+                    paddingLeft={{ base: '15px', lg: '60px' }}
+                    paddingBottom="80px"
+                    flexGrow="1"
+                  >
+                    <Outlet />
+                  </Flex>
                 </Flex>
-              </Flex>
-            </ScenarioLayout>
-          </ContextualHelpContextProvider>
+              </ScenarioLayout>
+            </ContextualHelpContextProvider>
+          </DIALBuildingBlockContextProvider>
         </SimulationContext.Provider>
       </ActiveBuildingBlockContext.Provider>
     </HelpOverlay>
