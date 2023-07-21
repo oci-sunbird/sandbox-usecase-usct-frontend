@@ -13,6 +13,7 @@ interface ITimelineProps {
   icon: JSX.Element;
   title: string;
   events?: ITimelineEvent[];
+  isCompleted?: boolean;
 }
 
 const lineStyles = {
@@ -24,9 +25,9 @@ const lineStyles = {
   transform: 'translateX(-50%)',
 };
 
-export default function Timeline({ icon, title, events }: ITimelineProps) {
+export default function Timeline({ icon, title, events, isCompleted }: ITimelineProps) {
   const disabled = !events?.length;
-  const allCompleted = !disabled && events.every((e) => e.completed);
+  const allCompleted = (!disabled && events.every((e) => e.completed)) || isCompleted;
 
   const iconBackGround = () => {
     if (allCompleted) {

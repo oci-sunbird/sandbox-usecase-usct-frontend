@@ -39,8 +39,8 @@ const getActionAlertProps = (state: string | null) => {
         actions: (
           <Flex direction="column" marginLeft="auto" gap="10px">
             <Flex gap="10px">
-              <Input placeholder="00/00/23" />
-              <Button><CalendarIcon /></Button>
+              <Input placeholder="01/01/23" isReadOnly/>
+              <Button isDisabled><CalendarIcon /></Button>
             </Flex>
             <Button colorScheme="admin" as={Link} to="../active-program">
               Enroll Into the Program
