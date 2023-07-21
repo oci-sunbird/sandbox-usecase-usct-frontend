@@ -30,7 +30,7 @@ import {
 import Alert from '@ui/Alert/Alert';
 import Timeline from '@ui/Timeline/Timeline';
 import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import ChatMessage from '../../../ui/ChatMessage/ChatMessage';
 import TextEditor from '../../../ui/TextEditor/TextEditor';
 import { ContextualHelpContext } from '../ContextualHelpContext';
@@ -42,7 +42,8 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
-import { bankData } from '../review-candidate/data';
+import { bankData, personData } from '../review-candidate/data';
+import { Link } from 'react-router-dom';
 
 const householdData = [
   {
@@ -79,7 +80,14 @@ const householdData = [
   },
 ];
 
-const conversation = [
+interface IMessage {
+  id: string;
+  timestamp: number;
+  content: string;
+  user: string;
+}
+
+const conversation: IMessage[] = [
   {
     id: 'hdfhdrf5',
     timestamp: 1678891185842,
@@ -100,14 +108,14 @@ const caseHistoryEvents = [
     name: 'Informing the Beneficary',
     date: '23.04.2017',
     info: '#97654321',
-    completed: true,
+    completed: false,
   },
 ];
 
 export default function ReviewCase() {
   const [isInformed, setIsInformed] = useState(false);
   const { state, dispatch } = useContext(SimulationContext);
-  const [citizen, setCitizen] = useState<any | null>(null);
+  const citizen = personData;
 
   useEffect(() => {
     dispatch({
@@ -201,9 +209,16 @@ export default function ReviewCase() {
                 <InputLeftElement>
                   <ArrowIcon />
                 </InputLeftElement>
-                <Input placeholder="#37 - Package Information" />
+                <Input placeholder="#37 - Package Information" readOnly/>
               </InputGroup>
-              <Button colorScheme="admin">Send Message</Button>
+              <Button
+                as={Link}
+                to="../active-program?state=done"
+                variant="solid"
+                colorScheme="admin"
+              >
+                Send Message
+              </Button>
             </Flex>
           }
         ></Alert>
@@ -223,7 +238,7 @@ export default function ReviewCase() {
                     <ChatMessage key={message.id} message={message} />
                   ))}
                 </Flex>
-                <TextEditor />
+                <TextEditor readOnly/>
               </Tooltip>
             </TabPanel>
             <TabPanel padding="0" pt="20px">
@@ -369,6 +384,7 @@ export default function ReviewCase() {
         icon={<></>}
         title="Case opened"
         events={caseHistoryEvents}
+        isCompleted
       ></Timeline>
     </Flex>
   );

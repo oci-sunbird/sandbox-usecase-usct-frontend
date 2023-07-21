@@ -99,6 +99,7 @@ export default function Review() {
                 <Input
                   w={{ sm: '100%', lg: '70%' }}
                   defaultValue="tom@myspace.com"
+                  isReadOnly
                 />
               </FormControl>
               <FormControl
@@ -117,6 +118,7 @@ export default function Review() {
                 <Input
                   defaultValue="(+00) 94 843 432"
                   w={{ sm: '100%', lg: '70%' }}
+                  isReadOnly
                 />
               </FormControl>
             </Flex>

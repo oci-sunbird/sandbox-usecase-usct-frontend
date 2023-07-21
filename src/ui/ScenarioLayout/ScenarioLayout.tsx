@@ -79,45 +79,47 @@ export default function ScenarioLayout({
         >
           <GridItem>
             <Flex alignItems="center" gap="16px">
-              <HelpHighlightWrapper
-                info={
-                  <Box w="420px">
-                    The <b>navigation</b> allows you to move back and forth
-                    through the pages of the simulation
-                  </Box>
-                }
-                infoPosition="top"
-              >
-                <Flex gap="0.5rem">
-                  <IconButton
-                    as={Link}
-                    to={state.previousStep}
-                    aria-label="Previous step"
-                    icon={<ArrowBackIcon />}
-                  />
-                  <IconButton
-                    as={Link}
-                    to="./case-management"
-                    aria-label="Start over"
-                    icon={<RefreshIcon />}
-                  />
-                  {isPersonalDone || isFeedback ? (
-                    <IconButton
-                      as={Button}
-                      aria-label="Next step"
-                      icon={<ArrowForwardIcon />}
-                      isDisabled
-                    />
-                  ) : (
+              {view === "desktop" && (
+                <HelpHighlightWrapper
+                  info={
+                    <Box w="420px">
+                      The <b>navigation</b> allows you to move back and forth
+                      through the pages of the simulation
+                    </Box>
+                  }
+                  infoPosition="top"
+                >
+                  <Flex gap="0.5rem">
                     <IconButton
                       as={Link}
-                      to={state.nextStep}
-                      aria-label="Next step"
-                      icon={<ArrowForwardIcon />}
+                      to={state.previousStep}
+                      aria-label="Previous step"
+                      icon={<ArrowBackIcon />}
                     />
-                  )}
-                </Flex>
-              </HelpHighlightWrapper>
+                    <IconButton
+                      as={Link}
+                      to="./case-management"
+                      aria-label="Start over"
+                      icon={<RefreshIcon />}
+                    />
+                    {isPersonalDone || isFeedback ? (
+                      <IconButton
+                        as={Button}
+                        aria-label="Next step"
+                        icon={<ArrowForwardIcon />}
+                        isDisabled
+                      />
+                    ) : (
+                      <IconButton
+                        as={Link}
+                        to={state.nextStep}
+                        aria-label="Next step"
+                        icon={<ArrowForwardIcon />}
+                      />
+                    )}
+                  </Flex>
+                </HelpHighlightWrapper>
+              )}
               <Box>
                 <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
                   {state.description.title}
@@ -128,19 +130,21 @@ export default function ScenarioLayout({
               </Box>
             </Flex>
           </GridItem>
-          <GridItem rowStart={{ base: 1, md: 'auto' }}>
-            <HelpHighlightWrapper
-              info={
-                <Box w="340px">
-                  This shows your current <b>perspective</b> on the use case:
-                  Civil servant or applicant
-                </Box>
-              }
-              infoPosition="top"
-            >
-              {view === 'desktop' && <ViewInfo />}
-            </HelpHighlightWrapper>
-          </GridItem>
+          {view === "desktop" && (
+            <GridItem rowStart={{ base: 1, md: "auto" }}>
+              <HelpHighlightWrapper
+                info={
+                  <Box w="340px">
+                    This shows your current <b>perspective</b> on the use case:
+                    Civil servant or applicant
+                  </Box>
+                }
+                infoPosition="top"
+              >
+                {view === "desktop" && <ViewInfo />}
+              </HelpHighlightWrapper>
+            </GridItem>
+          )}
         </Grid>
         <Flex
           mt="22px"
@@ -187,7 +191,7 @@ export default function ScenarioLayout({
           }}
           transition="right 0.3s ease-in-out"
         ></IconButton>
-        <Sidebar />
+        <Sidebar view={view}/>
       </Flex>
     </Flex>
   );

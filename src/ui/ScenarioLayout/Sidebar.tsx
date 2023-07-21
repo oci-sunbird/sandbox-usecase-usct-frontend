@@ -18,7 +18,11 @@ import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
 import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
 import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
 
-export default function Sidebar() {
+export default function Sidebar({
+  view,
+}: {
+  view?: "desktop" | "mobile"
+}) {
   const [showCopy, setShowCopy] = useState(false);
 
   const copy = () => {
@@ -84,27 +88,29 @@ export default function Sidebar() {
                 <i>Learn more</i>
               </b>{' '}
               about interactions of the Building Blocks
-              <Grid
-                position="absolute"
-                bottom="calc(100% + 40px)"
-                right="calc(100% + 24px)"
-              >
-                <GridItem>
-                  <Flex
-                    borderRadius="50%"
-                    border="2px solid white"
-                    height="64px"
-                    w="64px"
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    A
-                  </Flex>
-                </GridItem>
-                <GridItem colStart={2} rowStart={2}>
-                  <ArrowIcon />
-                </GridItem>
-              </Grid>
+              {view === "desktop" && (
+                <Grid
+                  position="absolute"
+                  bottom="calc(100% + 40px)"
+                  right="calc(100% + 24px)"
+                >
+                  <GridItem>
+                    <Flex
+                      borderRadius="50%"
+                      border="2px solid white"
+                      height="64px"
+                      w="64px"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      A
+                    </Flex>
+                  </GridItem>
+                  <GridItem colStart={2} rowStart={2}>
+                    <ArrowIcon />
+                  </GridItem>
+                </Grid>
+              )}
               <Text position="absolute" left="0" top="-24px">
                 A
               </Text>

@@ -35,7 +35,7 @@ import {
 import BankInformation from '../personal/BankInformation';
 import { BUILDING_BLOCK } from '../utils';
 import { ActionAlert } from './ActionAlert';
-import { bankData, historyData, householdData, personData } from './data';
+import { bankData, getHistoryData, historyData, householdData, personData } from './data';
 
 const getConfig = (state: string | null) => {
   if (state === 'done') {
@@ -122,6 +122,8 @@ export default function ReviewCandidate() {
     });
   }, []);
 
+  const currentState = searchParams.get("state");
+  
   return (
     <FakeLoader
       label="Changing perspective to civil servant"
@@ -348,8 +350,8 @@ export default function ReviewCandidate() {
             Candidate's Program History
           </Heading>
           <Flex flexDirection="column" gap="20px">
-            {historyData.map((historyItem) => (
-              <Timeline key={historyItem.title} {...historyItem}></Timeline>
+            {getHistoryData(currentState).map((historyItem: any) => (
+              <Timeline key={historyItem?.title} {...historyItem}></Timeline>
             ))}
           </Flex>
         </Box>
