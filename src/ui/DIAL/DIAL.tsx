@@ -122,12 +122,14 @@ export default function DIAL() {
               w="400px"
               h="528px"
               color={colors.secondary[0]}
-              overflow="auto"
+              overflowY="auto"
               borderRadius="12px"
               gap="16px"
               position="relative"
+              overflowX="hidden"
+              p="32px 24px"
             >
-              <Flex justifyContent="space-between" padding="16px" pb="0">
+              <Flex justifyContent="space-between">
                 <Text maxW="60%" color="theme.light" variant="caps">
                   Catalog of digital solutions
                 </Text>
@@ -145,7 +147,7 @@ export default function DIAL() {
                   in={!active}
                   unmountOnExit
                 >
-                  <Box padding="1rem" pt="0">
+                  <Box>
                     <Text mb="1rem" size="sm" color={colors.secondary[500]}>
                       The DIAL Exchange promotes a Whole-of-Government approach
                       to investing in digital technologies to achieve the
@@ -238,7 +240,7 @@ export default function DIAL() {
                   in={active}
                   unmountOnExit
                 >
-                  <Box p="1rem">
+                  <Box pt="16px">
                     <Button
                       variant="link"
                       colorScheme="light"
