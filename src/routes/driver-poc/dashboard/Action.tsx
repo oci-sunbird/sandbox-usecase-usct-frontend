@@ -51,7 +51,7 @@ export function Action(props: IActionProps) {
         <Button
           w="100%"
           as={Link}
-          to={to}
+          to={disabled ? '' : to}
           disabled={disabled}
           colorScheme={disabled ? 'disabled' : 'admin'}
         >

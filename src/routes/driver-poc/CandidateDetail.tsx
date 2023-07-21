@@ -86,9 +86,6 @@ export default function CandidateDetail() {
               <Button as={Link} to="/driver-poc" w="100%">
                 Candidate List
               </Button>
-              <Button as={Link} to="/driver-poc/beneficiary-list" w="100%">
-                Beneficiary List
-              </Button>
             </ButtonGroup>
           </Box>
         </VStack>
