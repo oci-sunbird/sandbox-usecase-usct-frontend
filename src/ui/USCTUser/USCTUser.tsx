@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Avatar, Box, Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { colors } from '../../chakra-overrides/colors';
 import { EUserType } from '../../routes/usct/USCT';
 
@@ -34,10 +34,12 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         alignItems="center"
         gap="24px"
       >
-        <IconButton
+        <Icon
           aria-label="notifications"
           backgroundColor="transparent"
-          icon={
+          h="24px"
+          w="24px"
+         >
             <svg
               width="24"
               height="24"
@@ -75,13 +77,12 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
               />
               <circle cx="18" cy="5" r="4" fill="#FF0000" />
             </svg>
-          }
-        />
+        </Icon>
         <Flex gap="8px" alignItems="center" height="100%">
           <Avatar h="32px" w="32px" />
           <Box>
             <Text fontSize="14px" fontWeight="600" lineHeight="20px">
-              Lorem Ipsum
+              Civil Servant
             </Text>
             <Text fontSize="10px" fontWeight="400" lineHeight="20px">
               Work ID: 1234567810

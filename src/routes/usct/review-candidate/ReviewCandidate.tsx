@@ -1,6 +1,8 @@
 import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
 import { ReactComponent as CardIcon } from '@assets/icons/credit-card-simple.svg';
 import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+
 import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -171,16 +173,22 @@ export default function ReviewCandidate() {
                 <Text>{citizen?.idCode}</Text>
               </Box>
               <Box>
-                <Text fontWeight="600">Home Address</Text>
+                <Text fontWeight="600">Address</Text>
                 <Text>{citizen?.fullAddress}</Text>
               </Box>
               <Box>
-                <Text fontWeight="600">E-mail</Text>
-                <Text color="gray">{citizen?.email}</Text>
+                <Flex gap="12px">
+                  <Text fontWeight="600">Phone Number</Text>
+                  {currentState !== 'done' && <FileWarningIcon></FileWarningIcon>}
+                </Flex>
+                <Text color="gray">{citizen?.phoneNumber}</Text>
               </Box>
               <Box>
-                <Text fontWeight="600">Phone Number</Text>
-                <Text color="gray">{citizen?.phoneNumber}</Text>
+                <Flex gap="12px">
+                  <Text fontWeight="600">E-mail</Text>
+                  {currentState !== 'done' && <FileWarningIcon></FileWarningIcon>}
+                </Flex>
+                <Text color="gray">{citizen?.email}</Text>
               </Box>
               <Box>
                 <Text fontWeight="600">Date of Birth</Text>

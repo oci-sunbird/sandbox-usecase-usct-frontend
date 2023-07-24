@@ -7,12 +7,15 @@ import { ContextualTitle, EUserType } from "../ContextualHelpUtils";
 import { ActiveBuildingBlockContext, SimulationContext } from "../USCT";
 import { BUILDING_BLOCK } from "../utils";
 import OffboardingModal from "./OffboardingModal";
+import { colors } from "../../../chakra-overrides/colors";
+import { RatingIcon } from "./Feedback.styles";
 
 export default function Feedback() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const { state, dispatch } = useContext(SimulationContext);
 
   const [offboardingModalOpened, setOffboardingModalOpened] = useState(false);
+  const [rating, setRating] = useState<number | null>(null);
 
   useEffect(() => {
     setActiveBuildingBlocks({
@@ -54,16 +57,16 @@ export default function Feedback() {
         <Text>How would you rate your experience with our service?</Text>
         <Flex py="40px" justifyContent="center" gap="10px">
           <Flex direction="column" alignItems="flex-end">
-            <StarIcon />
+            <RatingIcon onClick={() => setRating(1)} $isSelected={rating === 1}/>
             <Text size="sm" color="secondary.900">
               Unsatisfied
             </Text>
           </Flex>
-          <StarIcon />
-          <StarIcon />
-          <StarIcon />
+          <RatingIcon onClick={() => setRating(2)} $isSelected={rating === 2}/>
+          <RatingIcon onClick={() => setRating(3)} $isSelected={rating === 3}/>
+          <RatingIcon onClick={() => setRating(4)} $isSelected={rating === 4}/>
           <Flex direction="column">
-            <StarIcon />
+            <RatingIcon onClick={() => setRating(5)} $isSelected={rating === 5}/>
             <Text size="sm" color="secondary.900">
               Pleased
             </Text>

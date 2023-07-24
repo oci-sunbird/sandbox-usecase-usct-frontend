@@ -22,6 +22,8 @@ import { colors } from '../../chakra-overrides/colors';
 import AccordionElement from './AccordionElement';
 import { DIALBuildingBlockContext } from './BuildingBlocks/DIALBuildingBlockContext';
 import BuildingBlockView from './BuildingBlocks/BuildingBlockView';
+import { SimulationContext } from '../../routes/usct/USCT';
+import { Popup, PopupContainer } from './Dial.styles';
 
 export default function DIAL() {
   const { data: buildingBlocks } = useQuery(
@@ -82,7 +84,9 @@ export default function DIAL() {
   }, [openedBuildingBlock]);
 
   const { isOpen, onToggle, onOpen } = useDisclosure();
+  const { state, dispatch } = useContext(SimulationContext);
   const [active, setActive] = useState<null | any>();
+
   return (
     <Box position="absolute" bottom="1rem" left="1rem">
       <Button
@@ -107,26 +111,10 @@ export default function DIAL() {
           display={isOpen ? 'none' : undefined}
         />
       </Button>
-      <Box
-        position="absolute"
-        left="calc(100% + 1rem)"
-        bottom="72px"
-        zIndex={10}
-      >
+      <PopupContainer>
         <SlideFade in={isOpen} offsetY="20px">
           {isOpen && (
-            <Flex
-              direction="column"
-              backgroundColor={colors.primary[900]}
-              border="2px solid #ffC107"
-              w="400px"
-              h="528px"
-              color={colors.secondary[0]}
-              overflow="auto"
-              borderRadius="12px"
-              gap="16px"
-              position="relative"
-            >
+            <Popup>
               <Flex justifyContent="space-between" padding="16px" pb="0">
                 <Text maxW="60%" color="theme.light" variant="caps">
                   Catalog of digital solutions
@@ -282,10 +270,10 @@ export default function DIAL() {
                   </Box>
                 </Slide>
               </Box>
-            </Flex>
+            </Popup>
           )}
         </SlideFade>
-      </Box>
+      </PopupContainer>
     </Box>
   );
 }

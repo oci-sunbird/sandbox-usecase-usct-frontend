@@ -203,12 +203,10 @@ export default function Info() {
                   Your Eligibility
                 </Flex>
                 <Text>
-                  There is <strong>not enough information</strong> to decide
-                  your eligibility for this program
+                  For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
                 </Text>
                 <Text>
-                  Please review your information and provide missing information
-                  if needed.
+                  Please review your information and provide missing information if needed.
                 </Text>
                 <Button colorScheme="citizen" to="../personal" as={Link}>
                   Review

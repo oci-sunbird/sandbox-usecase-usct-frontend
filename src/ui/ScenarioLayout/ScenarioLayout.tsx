@@ -26,15 +26,17 @@ import Sidebar from './Sidebar';
 import ViewInfo from './ViewInfo';
 
 export default function ScenarioLayout({
-  view,
+  width,
   children,
 }: {
-  view: 'mobile' | 'desktop';
+  width: number;
   children: React.ReactElement[] | React.ReactElement;
 }) {
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(false);
   const { state, dispatch } = useContext(SimulationContext);
+
+  const view = width < 992 ? 'mobile' : 'desktop';
 
   const isPersonalDone =
     location.pathname === '/personal' && location.search === '?done=true';
@@ -161,7 +163,7 @@ export default function ScenarioLayout({
           <Text size="sm">Terms of usage</Text>
           <Text size="sm">Get in touch</Text>
         </Flex>
-        <DIAL />
+        <DIAL/>
       </Flex>
       <Flex
         h="100%"

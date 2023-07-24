@@ -85,19 +85,17 @@ export default function CaseManagement() {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
       [BUILDING_BLOCK.AUTHENTICATION]: false,
-      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
+      [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,
       [BUILDING_BLOCK.PAYMENT]: false,
       [BUILDING_BLOCK.REGISTRATION]: false,
       [BUILDING_BLOCK.SCHEDULING]: false,
-      [BUILDING_BLOCK.WORKFLOW]: true,
+      [BUILDING_BLOCK.WORKFLOW]: false,
     });
 
     setLetterContextualTitleMap({
-      A: ContextualTitle.REQUESTING_INFO,
-      B: ContextualTitle.ASSIGNED_CASES,
-      C: ContextualTitle.PROGRAM_INFORMATION,
+      A: ContextualTitle.ASSIGNED_CANDIDATES,
     });
   }, []);
 
@@ -116,7 +114,7 @@ export default function CaseManagement() {
           </Heading>
         </Box>
         <Flex direction="column" gap="20px">
-          <Heading>Hello, Lorem Ipsum!</Heading>
+          <Heading>Hello, Civil Servant!</Heading>
           <Text>You have 1 candidates, 0 cases up for review today!</Text>
           <Flex gap="20px" direction={{ base: "column", xl: "row" }}>
             <Tooltip
@@ -148,7 +146,7 @@ export default function CaseManagement() {
                   </Heading>
                 </Flex>
                 <Flex gap="14px" direction="column">
-                  <Text>Assigned Candidates</Text>
+                  <Text>Review Candidate</Text>
                   <Text>Candidate assigned to you for your review</Text>
                 </Flex>
               </Flex>

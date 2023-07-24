@@ -23,7 +23,7 @@ export default function FakeLoader({
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 1500);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
   return (

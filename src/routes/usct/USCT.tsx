@@ -134,7 +134,7 @@ export default function USCT() {
         <SimulationContext.Provider value={{ state, dispatch }}>
           <DIALBuildingBlockContextProvider>
             <ContextualHelpContextProvider>
-              <ScenarioLayout view={width < 992 ? 'mobile' : 'desktop'}>
+              <ScenarioLayout width={width}>
                 <Flex direction="column" height="100%">
                   <Header
                     userType={state.userType}

@@ -53,7 +53,7 @@ export default function PersonalInformation({
           </Box>
           <Box>
             <Text fontWeight="600">Occupation</Text>
-            <Text></Text>
+            <Text>Unemployed</Text>
           </Box>
           <Box>
             <Flex alignItems="center" gap="10px">
@@ -61,7 +61,7 @@ export default function PersonalInformation({
               {simulation && <SimulationIcon height="20px" width="20px" />}
             </Flex>
             {simulation ? (
-              <Text color="gray">{reviewed ? 'tom@myspace.com' : '-'}</Text>
+              <Text color="gray">tom@myspace.com</Text>
             ) : (
               <Text color="gray">{person?.email}</Text>
             )}
@@ -71,7 +71,7 @@ export default function PersonalInformation({
               <Text fontWeight="600">Phone Number</Text>
               {simulation && <SimulationIcon height="20px" width="20px" />}
             </Flex>
-            <Text color="gray">{reviewed ? '(+00) 94 843 432' : '-'}</Text>
+            <Text color="gray">(+00) 94 843 432</Text>
           </Box>
         </Grid>
       </Flex>

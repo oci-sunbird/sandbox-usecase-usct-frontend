@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, Tag, TagLabel, Text, Textarea, color } from '@chakra-ui/react';
 import ChatMessage from '@ui/ChatMessage/ChatMessage';
 import { useContext, useEffect } from 'react';
 import { ContextualHelpContext } from '../ContextualHelpContext';
@@ -9,6 +9,9 @@ import {
   SimulationContext,
 } from '../USCT';
 import { BUILDING_BLOCK } from '../utils';
+import { colors } from '../../../chakra-overrides/colors';
+import { ReactComponent as SendMessageIcon } from '@assets/icons/send-message.svg';
+import { Link } from 'react-router-dom';
 
 const conversation = [
   {
@@ -74,28 +77,61 @@ export default function Conversation() {
   return (
     <Flex direction="column" w="100%" gap="20px">
       <Flex justifyContent="space-between">
-        <Heading>Lorem Ipsum #3779394</Heading>
-        <Button colorScheme="citizen">Resolved</Button>
+        <Flex direction="column">
+          <Heading>Conversation</Heading>
+          <Text color={colors.secondary[700]}><strong>#3779394</strong></Text>
+        </Flex>
+        <Button
+          as={Link}
+          to="../feedback"
+          colorScheme="citizen"
+          w="10rem"
+          h="2.5rem"
+          backgroundColor={colors.citizen[600]}
+          color={colors.secondary[0]}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          Resolved
+        </Button>
       </Flex>
-      <Text>
-        <strong>Conversation</strong>
-      </Text>
       <Box>
         <Flex direction="column" gap="20px" mb="20px">
           {conversation.map((message) => {
             return <ChatMessage message={message} key={message.id} />;
           })}
         </Flex>
-        <Box
-          border="2px solid black"
-          borderRadius="8px"
-          w="100%"
-          h="150px"
-          backgroundColor="white"
-        ></Box>
+        <InputGroup >
+          <Textarea
+            border="2px solid black"
+            borderRadius="8px"
+            w="100%"
+            h="7.25rem"
+            backgroundColor="white"
+            isDisabled
+            placeholder='-Disabled-'
+            _placeholder={{ color: colors.secondary[900] }}
+            fontSize="1.125rem"
+          ></Textarea>
+          <InputRightElement
+            w="10rem"
+            top="unset"
+            bottom="16px"
+            right="16px"
+          >
+            <Button
+              color={colors.secondary[0]}
+              backgroundColor={colors.secondary[400]}
+              leftIcon={<SendMessageIcon color={colors.secondary[0]}/>}
+            >
+              Send Message
+            </Button>
+          </InputRightElement>
+        </InputGroup>
       </Box>
       <Flex direction="column" gap="20px">
-        <Heading>Conversation Info</Heading>
+        <Heading as="h3" fontSize="1.125rem">Conversation Info</Heading>
         <Grid
           gridTemplateRows="repeat(4, min-content)"
           gridTemplateColumns="repeat(2, 1fr)"
@@ -106,20 +142,33 @@ export default function Conversation() {
             <Text>#3779394</Text>
           </Box>
           <Box>
-            <Text fontWeight="600">Reason</Text>
-            <Text>Payment Not Received</Text>
+            <Text fontWeight="600">Topic</Text>
+            <Text>Package Information</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Date Issued</Text>
-            <Text>12.12.2022</Text>
+            <Text>01.01.2023</Text>
           </Box>
           <Box>
-            <Text fontWeight="600">Last Update</Text>
-            <Text>12.12.2022</Text>
+            <Text fontWeight="600">Latest Update</Text>
+            <Text>01.01.2023</Text>
           </Box>
         </Grid>
         <Flex justifyContent="flex-end">
-          <Button colorScheme="citizen">Resolved</Button>
+          <Button
+            as={Link}
+            to="../feedback"
+            colorScheme="citizen"
+            w="10rem"
+            h="2.5rem"
+            backgroundColor={colors.citizen[600]}
+            color={colors.secondary[0]}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            Resolved
+          </Button>
         </Flex>
       </Flex>
     </Flex>
