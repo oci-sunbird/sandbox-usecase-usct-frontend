@@ -7,6 +7,11 @@ import { ReactComponent as AC_AC_CIDiagram } from '@assets/diagrams/AC_AC_CI.svg
 import { ReactComponent as ProgramRelatedInfoApplicantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_APPLICANT.svg';
 import { ReactComponent as ProgramRelatedInfoServantDiagram } from '@assets/diagrams/PROGRAM_RELATED_INFO_SERVANT.svg';
 import { ReactComponent as ProgramInfoDiagram } from '@assets/diagrams/PROGRAM_INFORMATION.svg';
+import { ReactComponent as AuthorisationDiagram } from '@assets/diagrams/AUTHORISATION.svg';
+import { ReactComponent as EligibilityDiagram } from '@assets/diagrams/ELIGIBILITY.svg';
+import { ReactComponent as ServiceAuthorisationDiagram } from '@assets/diagrams/SERVICE_AUTHORISATION.svg';
+import { ReactComponent as PaymentMethodDiagram } from '@assets/diagrams/PAYMENT_METHOD.svg';
+import { ReactComponent as PaymentHistoryDiagram } from '@assets/diagrams/PAYMENT_HISTORY.svg';
 
 import { BUILDING_BLOCK } from './utils';
 
@@ -106,7 +111,7 @@ export const ContextualHelpContent: Record<
     bulletpoints: {
       [EUserType.CITIZEN]: [
         'The Digital Registries Building Block retrives information about a candidate that is stored in an internal database.',
-        'Since the information is already available in the internal database, there is no need for the Information Mediator Building Block to facilitate the communication between Building Blocks.',
+        'The Information Mediator Building Block securely facilitates communication between Building Blocks within different databases.',
       ],
       [EUserType.CITIZEN_SERVANT]: [
         'The Digital Registries Building Block retrives information about a program for the applicant that is stored in an internal database.',
@@ -124,7 +129,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CANDIDATE_LIST]: {
     title: 'Candidate List',
-    diagram: AC_AC_CIDiagram,
+    diagram: RequestingInfoDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -132,7 +137,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CASE_LIST]: {
     title: 'Case List',
-    diagram: RequestingInfoDiagram,
+    diagram: ProgramRelatedInfoServantDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -170,8 +175,8 @@ export const ContextualHelpContent: Record<
   [ContextualTitle.BANK_INFO]: {
     title: 'Bank Info',
     diagram: {
-      [EUserType.CITIZEN]: PersonalInfoServantDiagram,
-      [EUserType.CITIZEN_SERVANT]: PersonalInfoServantDiagram,
+      [EUserType.CITIZEN]: ServiceAuthorisationDiagram,
+      [EUserType.CITIZEN_SERVANT]: ServiceAuthorisationDiagram,
     },
     activeBuildingBlocks: [
       BUILDING_BLOCK.PAYMENT,
@@ -230,7 +235,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CONVERSATIONS]: {
     title: 'Conversations',
-    diagram: PersonalInfoServantDiagram,
+    diagram: MessagingDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -245,8 +250,8 @@ export const ContextualHelpContent: Record<
     ],
   },
   [ContextualTitle.FEEDBACK]: {
-    title: 'Conversations',
-    diagram: PersonalInfoServantDiagram,
+    title: 'Feedback',
+    diagram: MessagingDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -254,15 +259,15 @@ export const ContextualHelpContent: Record<
       BUILDING_BLOCK.MESSAGING,
     ],
     bulletpoints: [
+      'The Messaging Building Block facilitates communication between a Civil Servant or Service Employee and Applicant.',
+      'The Workflow Building Block coordinates the Building Blocks based on user actions.',
       'The Digital Registries Building Block stores the messages sent by applicants and civil servants.',
-      'The Messaging Building Block facilitates communication between the users.',
-      'The Workflow Building Block triggers the functionality of the Building Blocks based on user actions.',
-      'The Information Mediator and Security Building Block collaborate to ensure secure communication between Building Blocks.',
+      'The Information Mediator and Security Building Block collaborate to ensure secure communication.',
     ],
   },
   [ContextualTitle.LOG_IN]: {
     title: 'Log In',
-    diagram: PersonalInfoServantDiagram,
+    diagram: AuthorisationDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.AUTHENTICATION,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
@@ -274,7 +279,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.ELIGIBILITY_STATUS]: {
     title: 'Eligibility Status',
-    diagram: PersonalInfoServantDiagram,
+    diagram: EligibilityDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -299,7 +304,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.CHOOSING_PAYMENT_METHOD]: {
     title: 'Choosing Payment Method',
-    diagram: PersonalInfoServantDiagram,
+    diagram: PaymentMethodDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -315,7 +320,7 @@ export const ContextualHelpContent: Record<
   },
   [ContextualTitle.PAYMENT_HISTORY]: {
     title: 'Payment History',
-    diagram: PersonalInfoServantDiagram,
+    diagram: PaymentHistoryDiagram,
     activeBuildingBlocks: [
       BUILDING_BLOCK.DIGITAL_REGISTRIES,
       BUILDING_BLOCK.WORKFLOW,
@@ -323,7 +328,8 @@ export const ContextualHelpContent: Record<
       BUILDING_BLOCK.PAYMENT,
     ],
     bulletpoints: [
-      'The Digital Registries Building Block and Payment Building Block collaborate to provide information about the payment history. The Information Mediator Building Block and Workflow Building Block collaborate to ensure secure communication between Building Block while coordinating various Building Block during the process. The Workflow building block is used to coordinate the flow of information between these Building Blocks. The Information Mediator ensures secure communication between the Building Blocks and services.',
+      'The Digital Registries Building Block and Payment Building Block collaborate to provide information about the payment history.',
+      'The Information Mediator Building Block and Workflow Building Block collaborate to ensure secure communication between Building Block while coordinating various Building Block during the process.',
     ],
   },
 };

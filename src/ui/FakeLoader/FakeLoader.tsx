@@ -23,7 +23,7 @@ export default function FakeLoader({
     if (loading) {
       const timer = setTimeout(() => {
         onLoadEnd();
-      }, 1500);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [loading]);

@@ -1,6 +1,8 @@
 import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
 import { ReactComponent as CardIcon } from '@assets/icons/credit-card-simple.svg';
 import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+
 import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
@@ -154,50 +156,56 @@ export default function ReviewCandidate() {
               Social ID: {citizen?.socialCode}
             </Heading>
           </Box>
-          <Grid
-            w="100%"
-            gridTemplateRows="repeat(4, min-content)"
-            gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-            gap="23px"
-          >
-            <Box>
-              <Text fontWeight="600">Name</Text>
-              <Text>{citizen?.fullName}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Occupation</Text>
-              <Text>{citizen?.occupation}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Personal ID Code</Text>
-              <Text>{citizen?.idCode}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Home Address</Text>
-              <Text>{citizen?.fullAddress}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">E-mail</Text>
-              <Text color="gray">{citizen?.email}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Phone Number</Text>
-              <Text color="gray">{citizen?.phoneNumber}</Text>
-            </Box>
-            <Box>
-              <Text fontWeight="600">Date of Birth</Text>
-              <Text>
-                {citizen?.dateOfBirth
-                  ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
-                      day: '2-digit',
-                      year: 'numeric',
-                      month: '2-digit',
-                    })
-                  : ''}
-              </Text>
-            </Box>
-          </Grid>
-        </Tooltip>
+            <Grid
+              w="100%"
+              gridTemplateRows="repeat(4, min-content)"
+              gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
+              gap="23px"
+            >
+              <Box>
+                <Text fontWeight="600">Name</Text>
+                <Text>{citizen?.fullName}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">Occupation</Text>
+                <Text>{citizen?.occupation}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">Personal ID Code</Text>
+                <Text>{citizen?.idCode}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">Address</Text>
+                <Text>{citizen?.fullAddress}</Text>
+              </Box>
+              <Box>
+                <Flex gap="12px">
+                  <Text fontWeight="600">Phone Number</Text>
+                  {!currentState  && <FileWarningIcon></FileWarningIcon>}
+                </Flex>
+                <Text color="gray">{citizen?.phoneNumber}</Text>
+              </Box>
+              <Box>
+                <Flex gap="12px">
+                  <Text fontWeight="600">E-mail</Text>
+                  {!currentState && <FileWarningIcon></FileWarningIcon>}
+                </Flex>
+                <Text color="gray">{citizen?.email}</Text>
+              </Box>
+              <Box>
+                <Text fontWeight="600">Date of Birth</Text>
+                <Text>
+                  {citizen?.dateOfBirth
+                    ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
+                        day: '2-digit',
+                        year: 'numeric',
+                        month: '2-digit',
+                      })
+                    : ''}
+                </Text>
+              </Box>
+            </Grid>
+          </Tooltip>
 
         <Tooltip letter="C">
           <Flex direction="column" gap="60px">

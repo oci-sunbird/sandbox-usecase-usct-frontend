@@ -51,7 +51,7 @@ export default function Sidebar({
         infoPosition="inside"
         mx="24px"
       >
-        <Heading mb="0.75rem" size="sm" textAlign="center" variant="caps">
+        <Heading mb="0.75rem" size="sm" textAlign="left" variant="caps">
           BUILDING BLOCK ACTIVITY
         </Heading>
         <Text size="sm" mb="1rem">

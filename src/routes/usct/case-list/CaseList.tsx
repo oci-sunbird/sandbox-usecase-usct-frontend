@@ -105,16 +105,16 @@ export default function CaseList() {
                     <Th color={colors.secondary[0]}>#</Th>
                     <Th color={colors.secondary[0]}>Topic</Th>
                     <Th color={colors.secondary[0]}>Case Created</Th>
-                    <Th color={colors.secondary[0]}>Case Closed</Th>
+                    <Th color={colors.secondary[0]}>Latest Update</Th>
                     <Th color={colors.secondary[0]}>Status</Th>
                     <Th></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>37793946215</Td>
-                    <Td>5</Td>
-                    <Td>High Priority</Td>
+                    <Td>3779394</Td>
+                    <Td>Package Information</Td>
+                    <Td>01/01/2023</Td>
                     <Td>Yesterday</Td>
                     <Td>Action Required</Td>
                     <Td>
@@ -168,12 +168,12 @@ export default function CaseList() {
               <Tbody>
                 <Tr>
                   <Td>37793946215</Td>
-                  <Td>(unassigned)</Td>
-                  <Td>High Priority</Td>
-                  <Td>Yesterday</Td>
+                  <Td>Other</Td>
+                  <Td>01/01/2023</Td>
+                  <Td>01/01/2023</Td>
                   <Td>
                     <Tag width="140px" justifyContent="center">
-                      Pending
+                      Resolved
                     </Tag>
                   </Td>
                   <Td>

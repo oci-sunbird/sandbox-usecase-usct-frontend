@@ -41,10 +41,10 @@ export default function ChatMessage({
         </Flex>
       </Flex>
       <Flex alignSelf="center" direction="column">
-        <Text size="sm" variant="caps">
+        <Text size="sm" variant="caps" textAlign="left">
           {Intl.DateTimeFormat('default').format(message.timestamp)}
         </Text>
-        <Text size="sm" variant="caps" textAlign="center">
+        <Text size="sm" variant="caps" textAlign="left">
           {Intl.DateTimeFormat('default', {
             hour: 'numeric',
             minute: 'numeric',

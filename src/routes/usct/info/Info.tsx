@@ -163,63 +163,62 @@ export default function Info() {
         </Accordion>
       </Box>
       <Flex direction="column" gap="20px" width={{ lg: '25%' }} flexShrink="0">
-        <Tooltip
-          letter="A"
-          letterPosition="right-center"
-          display="flex"
-          flexDirection="column"
-          gap="16px"
-        >
-          {searchParams.get('done') ? (
-            <>
-              <Flex gap="8px">
-                <CheckIcon />
-                Your Eligibility
-              </Flex>
-              <Text>
-                <strong>You are eligible</strong> for Unconditional Social Cash
-                Transfer Program!
-              </Text>
-              <Text>
-                Please check your enrolment status from enrolment page.
-              </Text>
-              <Button as={Link} to="../enrolment" colorScheme="citizen">
-                Enrolment
-              </Button>
-            </>
-          ) : (
-            <>
-              <Flex gap="8px">
-                <FileWarningIcon />
-                Your Eligibility
-              </Flex>
-              <Text>
-                There is <strong>not enough information</strong> to decide your
-                eligibility for this program
-              </Text>
-              <Text>
-                Please review your information and provide missing information
-                if needed.
-              </Text>
-              <Button colorScheme="citizen" to="../personal" as={Link}>
-                Review
-              </Button>
-            </>
-          )}
-        </Tooltip>
-        {!!searchParams.get('done') && (
-          <Tooltip letter="B">
-            <Button
-              w="100%"
-              colorScheme="citizen"
-              variant="outline"
-              as={Link}
-              to="../personal?done=true"
-            >
-              My Information
+
+      <Tooltip
+        letter="A"
+        letterPosition="right-center"
+        display="flex"
+        flexDirection="column"
+        gap="16px"
+      >
+        {searchParams.get("done") ? (
+          <>
+            <Flex gap="8px">
+              <CheckIcon />
+              Your Eligibility
+            </Flex>
+            <Text>
+              <strong>You are eligible</strong> for Unconditional Social
+              Cash Transfer Program!
+            </Text>
+            <Text>
+              Please check your enrolment status from enrolment page.
+            </Text>
+            <Button as={Link} to="../enrolment" colorScheme="citizen">
+              Enrolment
             </Button>
-          </Tooltip>
+          </>
+        ) : (
+          <>
+            <Flex gap="8px">
+              <FileWarningIcon />
+              Your Eligibility
+            </Flex>
+            <Text>
+              For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
+            </Text>
+            <Text>
+              Please review your information and provide missing information if needed.
+            </Text>
+            <Button colorScheme="citizen" to="../personal" as={Link}>
+              Review
+            </Button>
+          </>
         )}
+      </Tooltip>
+      {!!searchParams.get("done") && (
+        <Tooltip letter="B">
+          <Button
+            w="100%"
+            colorScheme="citizen"
+            variant="outline"
+            as={Link}
+            to="../personal?done=true"
+          >
+            My Information
+            </Button>
+        </Tooltip>
+      )}
       </Flex>
     </Flex>
   );

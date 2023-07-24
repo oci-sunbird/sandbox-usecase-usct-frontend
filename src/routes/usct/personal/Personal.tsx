@@ -83,13 +83,13 @@ const documentsData = [
 
 const person: DriverPOC.Person = {
   id: 125125,
-  firstName: 'Tom',
+  firstName: 'Thomas',
   lastName: 'Anderson',
   foundationalId: '124-235-613-4242',
-  email: 'tom.holland@gmail.com',
-  dateOfBirth: '03-10-1994',
-  bankAccountOwnerName: 'Tom Anderson',
-  financialAddress: 'Iceland Square 14',
+  email: 'tom@myspace.com',
+  dateOfBirth: '12.12.1975',
+  bankAccountOwnerName: 'Thomas Anderson',
+  financialAddress: 'Parkway 320 C',
   iban: 'EE 2151 5325 6393 5334',
   bankName: 'Deutsche Bank',
   financialModality: 'Bank Account',

@@ -46,8 +46,8 @@ export default function ContextualHelp() {
   return (
     <Box h="100%">
       <Text size="sm" mb="12px">
-        Generic Processes and interactions of Building Blocks. These are generic
-        processes that are used in here can be used on various use cases.
+        Generic Processes and interactions of Building Blocks.
+        These are generic processes that are used in here and can be used on various use cases.
       </Text>
       {letterContextualTitleMap && (
         <>
@@ -133,10 +133,31 @@ export default function ContextualHelp() {
           borderColor: `transparent transparent ${colors.green[500]}  transparent`,
           transform: 'rotate(180deg)',
         }}
+        overflowY="scroll"
+        sx={{
+          '&::-webkit-scrollbar': {
+            w: '7px',
+          },
+          '&::-webkit-scrollbar-track': {
+            w: '2px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            width: '20px',
+            borderRadius: '10',
+            backgroundColor: `#2bc582`,
+          },
+          
+          scrollbarWidth: "thin",
+          scrollbarColor: "#2bc582 transparent",
+        }}
       >
         {activeContent && (
           <>
-            <Flex mb="12px" gap="8px" alignItems="center">
+            <Flex
+              mb="12px"
+              gap="8px"
+              alignItems="center"
+            >
               <Flex
                 height="24px"
                 width="24px"

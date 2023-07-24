@@ -118,11 +118,11 @@ export default function ActiveProgram() {
           gap="20px"
         >
           <Heading>Conversations</Heading>
-          <Text>Conversations</Text>
+          <Text>Please start a conversation if you need any help or have any question.</Text>
 
           <Tabs isFitted>
             <TabList>
-              <Tab>My Active Conversations (1)</Tab>
+              <Tab>My Active Conversations (0)</Tab>
               <Tab>Closed Conversations (0)</Tab>
             </TabList>
             <TabPanels>
