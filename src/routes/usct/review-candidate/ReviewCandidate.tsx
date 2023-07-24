@@ -35,7 +35,13 @@ import {
 import BankInformation from '../personal/BankInformation';
 import { BUILDING_BLOCK } from '../utils';
 import { ActionAlert } from './ActionAlert';
-import { bankData, getHistoryData, historyData, householdData, personData } from './data';
+import {
+  bankData,
+  getHistoryData,
+  historyData,
+  householdData,
+  personData,
+} from './data';
 
 const getConfig = (state: string | null) => {
   if (state === 'done') {
@@ -122,140 +128,111 @@ export default function ReviewCandidate() {
     });
   }, []);
 
-  const currentState = searchParams.get("state");
-  
+  const currentState = searchParams.get('state');
+
   return (
-    <FakeLoader
-      label="Changing perspective to civil servant"
-      override={searchParams.get('state') === 'dog'}
-    >
-      <Flex w="100%" direction="column" gap="60px">
-        <Flex direction="column" gap="20px">
-          <Flex justifyContent="space-between">
-            <Flex alignItems="center" gap="12px">
-              <Heading variant="h2" fontSize="24px">
-                Candidate Info
-              </Heading>
-              <Tag colorScheme="info">Action Required</Tag>
-            </Flex>
+    <Flex w="100%" direction="column" gap="60px">
+      <Flex direction="column" gap="20px">
+        <Flex justifyContent="space-between">
+          <Flex alignItems="center" gap="12px">
+            <Heading variant="h2" fontSize="24px">
+              Candidate Info
+            </Heading>
+            <Tag colorScheme="info">Action Required</Tag>
           </Flex>
-          <Tooltip letter="A">
-            <ActionAlert state={searchParams.get('state')} />
-          </Tooltip>
+        </Flex>
+        <Tooltip letter="A">
+          <ActionAlert state={searchParams.get('state')} />
+        </Tooltip>
 
-          <Tooltip letter="B" mb="10px">
-            <Box mb="20px">
-              <Heading variant="h3" fontSize="18px">
-                Personal Information
-              </Heading>
-              <Heading variant="h3" fontSize="18px" color="secondary.800">
-                Social ID: {citizen?.socialCode}
-              </Heading>
+        <Tooltip letter="B" mb="10px">
+          <Box mb="20px">
+            <Heading variant="h3" fontSize="18px">
+              Personal Information
+            </Heading>
+            <Heading variant="h3" fontSize="18px" color="secondary.800">
+              Social ID: {citizen?.socialCode}
+            </Heading>
+          </Box>
+          <Grid
+            w="100%"
+            gridTemplateRows="repeat(4, min-content)"
+            gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
+            gap="23px"
+          >
+            <Box>
+              <Text fontWeight="600">Name</Text>
+              <Text>{citizen?.fullName}</Text>
             </Box>
-            <Grid
-              w="100%"
-              gridTemplateRows="repeat(4, min-content)"
-              gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-              gap="23px"
-            >
-              <Box>
-                <Text fontWeight="600">Name</Text>
-                <Text>{citizen?.fullName}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Occupation</Text>
-                <Text>{citizen?.occupation}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Personal ID Code</Text>
-                <Text>{citizen?.idCode}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Home Address</Text>
-                <Text>{citizen?.fullAddress}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">E-mail</Text>
-                <Text color="gray">{citizen?.email}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Phone Number</Text>
-                <Text color="gray">{citizen?.phoneNumber}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Date of Birth</Text>
-                <Text>
-                  {citizen?.dateOfBirth
-                    ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
-                        day: '2-digit',
-                        year: 'numeric',
-                        month: '2-digit',
-                      })
-                    : ''}
-                </Text>
-              </Box>
-            </Grid>
-          </Tooltip>
+            <Box>
+              <Text fontWeight="600">Occupation</Text>
+              <Text>{citizen?.occupation}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Personal ID Code</Text>
+              <Text>{citizen?.idCode}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Home Address</Text>
+              <Text>{citizen?.fullAddress}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">E-mail</Text>
+              <Text color="gray">{citizen?.email}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Phone Number</Text>
+              <Text color="gray">{citizen?.phoneNumber}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Date of Birth</Text>
+              <Text>
+                {citizen?.dateOfBirth
+                  ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
+                      day: '2-digit',
+                      year: 'numeric',
+                      month: '2-digit',
+                    })
+                  : ''}
+              </Text>
+            </Box>
+          </Grid>
+        </Tooltip>
 
-          <Tooltip letter="C">
-            <Flex direction="column" gap="60px">
-              <Flex direction="column" gap="30px">
-                <Flex direction={{ base: 'column', lg: 'row' }}>
-                  <Flex w="100%" direction="column" gap="12px">
-                    <Heading variant="h3" fontSize="18px">
-                      Household needs
-                    </Heading>
-                    <Flex flexWrap="wrap" gap="4px">
-                      {citizen.householdNeeds
-                        .map((need) => {
-                          return (
-                            <Tag
-                              p="6px 12px"
-                              mb="12px"
-                              colorScheme="gray"
-                              variant="outline"
-                              key={need}
-                            >
-                              <TagLabel>{need}</TagLabel>
-                            </Tag>
-                          );
-                        })}
-                    </Flex>
-                  </Flex>
-                  <Flex w="100%" direction="column" gap="12px">
-                    <Heading variant="h3" fontSize="18px">
-                      Recommended Benefit Package
-                    </Heading>
-                    {!searchParams.get('state') ? (
-                      <Text>
-                        Additional information required to decide eligibility and
-                        recommend benefit packages
-                      </Text>
-                    ) : (
-                      <Flex gap="20px">
-                        <Flex
-                          h="56px"
-                          w="56px"
-                          alignItems="center"
-                          justifyContent="center"
-                          borderRadius="8px"
-                          border="2px solid var(--chakra-colors-secondary-1000)"
+        <Tooltip letter="C">
+          <Flex direction="column" gap="60px">
+            <Flex direction="column" gap="30px">
+              <Flex direction={{ base: 'column', lg: 'row' }}>
+                <Flex w="100%" direction="column" gap="12px">
+                  <Heading variant="h3" fontSize="18px">
+                    Household needs
+                  </Heading>
+                  <Flex flexWrap="wrap" gap="4px">
+                    {citizen.householdNeeds.map((need) => {
+                      return (
+                        <Tag
+                          p="6px 12px"
+                          mb="12px"
+                          colorScheme="gray"
+                          variant="outline"
+                          key={need}
                         >
-                          <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
-                        </Flex>
-                        <Text>
-                          Monthly Package <br /> Monthly Cash help for families in
-                          need.
-                        </Text>
-                      </Flex>
-                    )}
+                          <TagLabel>{need}</TagLabel>
+                        </Tag>
+                      );
+                    })}
                   </Flex>
                 </Flex>
-                {searchParams.get('state') === 'scheduling' && (
-                  <Box>
-                    <Heading variant="h3" fontSize="18px" mb="12px">
-                      Selected Payment Method
-                    </Heading>
+                <Flex w="100%" direction="column" gap="12px">
+                  <Heading variant="h3" fontSize="18px">
+                    Recommended Benefit Package
+                  </Heading>
+                  {!searchParams.get('state') ? (
+                    <Text>
+                      Additional information required to decide eligibility and
+                      recommend benefit packages
+                    </Text>
+                  ) : (
                     <Flex gap="20px">
                       <Flex
                         h="56px"
@@ -265,97 +242,120 @@ export default function ReviewCandidate() {
                         borderRadius="8px"
                         border="2px solid var(--chakra-colors-secondary-1000)"
                       >
-                        <CardIcon color="var(--chakra-colors-secondary-1000)" />
+                        <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
                       </Flex>
-                      <Box>
-                        <Text>Bank Payment</Text>
-                        <Text size="sm" fontWeight="500">
-                          Direct cash transfer to beneficaries bank account.
-                        </Text>
-                      </Box>
+                      <Text>
+                        Monthly Package <br /> Monthly Cash help for families in
+                        need.
+                      </Text>
                     </Flex>
-                  </Box>
-                )}
+                  )}
+                </Flex>
               </Flex>
-              <Flex direction="column" gap="20px">
-                <Heading variant="h3" fontSize="18px">
-                  Household information
-                </Heading>
-                <TableContainer>
-                  <Table variant="simple" size="sm">
-                    <Thead
-                      backgroundColor={colors.secondary[800]}
-                      color={colors.secondary[0]}
+              {searchParams.get('state') === 'scheduling' && (
+                <Box>
+                  <Heading variant="h3" fontSize="18px" mb="12px">
+                    Selected Payment Method
+                  </Heading>
+                  <Flex gap="20px">
+                    <Flex
+                      h="56px"
+                      w="56px"
+                      alignItems="center"
+                      justifyContent="center"
+                      borderRadius="8px"
+                      border="2px solid var(--chakra-colors-secondary-1000)"
                     >
-                      <Tr>
-                        <Th color={colors.secondary[0]}>National ID</Th>
-                        <Th color={colors.secondary[0]}>Name</Th>
-                        <Th color={colors.secondary[0]}>Relation</Th>
-                        <Th color={colors.secondary[0]}>Date of Birth</Th>
-                        <Th color={colors.secondary[0]}>Individual Needs</Th>
-                        <Th>
-                          <IconButton
-                            borderRadius="100%"
-                            icon={<AddIcon />}
-                            aria-label="asd"
-                            size="xs"
-                          />
-                        </Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {householdData.map((person) => {
-                        return (
-                          <Tr key={person.personalCode}>
-                            <Td>{person.personalCode}</Td>
-                            <Td>{person.name}</Td>
-                            <Td>{person.relation}</Td>
-                            <Td>{person.dateOfBirth}</Td>
-                            <Td>
-                              <Flex wrap="wrap" gap="4px">
-                                {person.needs.map((need) => (
-                                  <Tag
-                                    p="6px 12px"
-                                    variant="outline"
-                                    colorScheme="gray"
-                                    key={need}
-                                  >
-                                    <TagLabel>{need}</TagLabel>
-                                  </Tag>
-                                ))}
-                              </Flex>
-                            </Td>
-                            <Td>
-                              <MoreIcon />
-                            </Td>
-                          </Tr>
-                        );
-                      })}
-                    </Tbody>
-                  </Table>
-                </TableContainer>
-              </Flex>
+                      <CardIcon color="var(--chakra-colors-secondary-1000)" />
+                    </Flex>
+                    <Box>
+                      <Text>Bank Payment</Text>
+                      <Text size="sm" fontWeight="500">
+                        Direct cash transfer to beneficaries bank account.
+                      </Text>
+                    </Box>
+                  </Flex>
+                </Box>
+              )}
             </Flex>
-          </Tooltip>
-        </Flex>
-
-        <Tooltip letter="D">
-          <Box>
-            <BankInformation {...bankData} />
-          </Box>
-        </Tooltip>
-
-        <Box>
-          <Heading variant="h3" size="sm" mb="20px">
-            Candidate's Program History
-          </Heading>
-          <Flex flexDirection="column" gap="20px">
-            {getHistoryData(currentState).map((historyItem: any) => (
-              <Timeline key={historyItem?.title} {...historyItem}></Timeline>
-            ))}
+            <Flex direction="column" gap="20px">
+              <Heading variant="h3" fontSize="18px">
+                Household information
+              </Heading>
+              <TableContainer>
+                <Table variant="simple" size="sm">
+                  <Thead
+                    backgroundColor={colors.secondary[800]}
+                    color={colors.secondary[0]}
+                  >
+                    <Tr>
+                      <Th color={colors.secondary[0]}>National ID</Th>
+                      <Th color={colors.secondary[0]}>Name</Th>
+                      <Th color={colors.secondary[0]}>Relation</Th>
+                      <Th color={colors.secondary[0]}>Date of Birth</Th>
+                      <Th color={colors.secondary[0]}>Individual Needs</Th>
+                      <Th>
+                        <IconButton
+                          borderRadius="100%"
+                          icon={<AddIcon />}
+                          aria-label="asd"
+                          size="xs"
+                        />
+                      </Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {householdData.map((person) => {
+                      return (
+                        <Tr key={person.personalCode}>
+                          <Td>{person.personalCode}</Td>
+                          <Td>{person.name}</Td>
+                          <Td>{person.relation}</Td>
+                          <Td>{person.dateOfBirth}</Td>
+                          <Td>
+                            <Flex wrap="wrap" gap="4px">
+                              {person.needs.map((need) => (
+                                <Tag
+                                  p="6px 12px"
+                                  variant="outline"
+                                  colorScheme="gray"
+                                  key={need}
+                                >
+                                  <TagLabel>{need}</TagLabel>
+                                </Tag>
+                              ))}
+                            </Flex>
+                          </Td>
+                          <Td>
+                            <MoreIcon />
+                          </Td>
+                        </Tr>
+                      );
+                    })}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </Flex>
           </Flex>
-        </Box>
+        </Tooltip>
       </Flex>
-    </FakeLoader>
+
+      <Tooltip letter="D">
+        <Box>
+          <BankInformation {...bankData} />
+        </Box>
+      </Tooltip>
+
+      <Box>
+        <Heading variant="h3" size="sm" mb="20px">
+          Candidate's Program History
+        </Heading>
+        <Flex flexDirection="column" gap="20px">
+          {getHistoryData(currentState).map((historyItem: any) => (
+            <Timeline key={historyItem?.title} {...historyItem}></Timeline>
+          ))}
+        </Flex>
+      </Box>
+    </Flex>
   );
 }

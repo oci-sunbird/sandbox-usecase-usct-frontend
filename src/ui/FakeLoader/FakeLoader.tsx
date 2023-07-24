@@ -11,24 +11,25 @@ import { useEffect, useState } from 'react';
 export default function FakeLoader({
   children,
   label,
-  override,
+  loading,
+  onLoadEnd,
 }: {
   children: React.ReactNode;
   label: string;
-  override?: boolean;
+  loading: boolean;
+  onLoadEnd: () => void;
 }) {
-  const [loader, setLoader] = useState<boolean>(
-    override === undefined ? true : override
-  );
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoader(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    if (loading) {
+      const timer = setTimeout(() => {
+        onLoadEnd();
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
   return (
     <>
-      <Fade in={loader} unmountOnExit>
+      <Fade in={loading} unmountOnExit>
         <Box
           position="absolute"
           top="0"
@@ -47,7 +48,7 @@ export default function FakeLoader({
           </Center>
         </Box>
       </Fade>
-      {!loader && children}
+      {!loading && children}
     </>
   );
 }
