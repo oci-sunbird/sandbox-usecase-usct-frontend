@@ -133,7 +133,7 @@ export default function DIAL() {
                   in={!active}
                   unmountOnExit
                 >
-                  <Box padding="1rem" pt="0">
+                  <Box>
                     <Text mb="1rem" size="sm" color={colors.secondary[500]}>
                       The DIAL Exchange promotes a Whole-of-Government approach
                       to investing in digital technologies to achieve the
@@ -226,7 +226,7 @@ export default function DIAL() {
                   in={active}
                   unmountOnExit
                 >
-                  <Box p="1rem">
+                  <Box pt="16px">
                     <Button
                       variant="link"
                       colorScheme="light"

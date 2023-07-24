@@ -2,7 +2,6 @@ import { Button, Center, Heading, Text, VStack } from '@chakra-ui/react';
 import Tooltip from '@ui/Tooltip/Tooltip';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
 import { ContextualHelpContext } from '../ContextualHelpContext';
 import { ContextualTitle } from '../ContextualHelpUtils';
 import {
@@ -56,36 +55,34 @@ export default function AuthoriseCitizen() {
   }, []);
 
   return (
-    <FakeLoader label="Changing perspective to applicant">
-      <Center w="100%">
-        <VStack maxW="312px" textAlign="center" gap="20px">
-          <Heading>Log In</Heading>
-          <Tooltip
-            letter="A"
-            letterPosition="right-center"
-            display="flex"
-            flexDirection="column"
-            gap="20px"
-          >
-            <Text>
-              Our self-service environment is your opportunity to communicate
-              with us conveniently and paper-free.
-            </Text>
-            <Button colorScheme="citizen" as={Link} to="../info" w="100%">
-              ID Card
-            </Button>
-            <Button colorScheme="citizen" as={Link} to="../info" w="100%">
-              Mobile ID
-            </Button>
-            <Button colorScheme="citizen" as={Link} to="../info" w="100%">
-              e-ID Account
-            </Button>
-            <Button colorScheme="citizen" as={Link} to="../info" w="100%">
-              Online Bank
-            </Button>
-          </Tooltip>
-        </VStack>
-      </Center>
-    </FakeLoader>
+    <Center w="100%">
+      <VStack maxW="312px" textAlign="center" gap="20px">
+        <Heading>Log In</Heading>
+        <Tooltip
+          letter="A"
+          letterPosition="right-center"
+          display="flex"
+          flexDirection="column"
+          gap="20px"
+        >
+          <Text>
+            Our self-service environment is your opportunity to communicate with
+            us conveniently and paper-free.
+          </Text>
+          <Button colorScheme="citizen" as={Link} to="../info" w="100%">
+            ID Card
+          </Button>
+          <Button colorScheme="citizen" as={Link} to="../info" w="100%">
+            Mobile ID
+          </Button>
+          <Button colorScheme="citizen" as={Link} to="../info" w="100%">
+            e-ID Account
+          </Button>
+          <Button colorScheme="citizen" as={Link} to="../info" w="100%">
+            Online Bank
+          </Button>
+        </Tooltip>
+      </VStack>
+    </Center>
   );
 }

@@ -1,5 +1,5 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Link, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Link, Slide, Text } from '@chakra-ui/react';
 import { buildingBlocksList } from '@ui/Activity/BuildingBlockActivity';
 import React, { useContext, useMemo } from 'react';
 import { colors } from '../../../chakra-overrides/colors';
@@ -28,7 +28,7 @@ export default function BuildingBlockView() {
             {buildingBlocksList.map((bb) => {
               return (
                 <Button
-                  p="4px"
+                  p="2px"
                   cursor="pointer"
                   variant="unstyled"
                   textAlign="left"
@@ -60,30 +60,32 @@ export default function BuildingBlockView() {
         </>
       )}
       {openedBlockData && (
-        <>
-          <Flex
-            p="4px"
-            mt="24px"
-            mb="20px"
-            borderBottom="1px solid white"
-            alignItems="center"
-            gap="12px"
-          >
-            {React.cloneElement(openedBlockData.icon, {
-              height: '24px',
-              width: '24px',
-            })}
-            <Text size="sm" fontWeight={600} textTransform="uppercase">
-              {openedBlockData.label}
+        <Box position="relative">
+          <Slide in={true} direction="right" style={{ position: 'relative' }}>
+            <Flex
+              p="4px"
+              mt="24px"
+              mb="20px"
+              borderBottom="1px solid white"
+              alignItems="center"
+              gap="12px"
+            >
+              {React.cloneElement(openedBlockData.icon, {
+                height: '24px',
+                width: '24px',
+              })}
+              <Text size="sm" fontWeight={600} textTransform="uppercase">
+                {openedBlockData.label}
+              </Text>
+            </Flex>
+            <Text mb="20px" size="sm" fontWeight={600}>
+              Description:
             </Text>
-          </Flex>
-          <Text mb="20px" size="sm" fontWeight={600}>
-            Description:
-          </Text>
-          <Text mb="20px" size="sm">
-            {bbDescriptionMock[openedBlockData.id]}
-          </Text>
-        </>
+            <Text mb="20px" size="sm">
+              {bbDescriptionMock[openedBlockData.id]}
+            </Text>
+          </Slide>
+        </Box>
       )}
       <Box p={!openedBlockData ? '16px' : 0}>
         <Text as="i" size="sm" fontWeight="300">

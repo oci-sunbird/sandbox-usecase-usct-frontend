@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { createContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
 import { ContextualHelpContextProvider } from './ContextualHelpContext';
@@ -7,6 +7,7 @@ import Header from './Header';
 import { BUILDING_BLOCK } from './utils';
 import { HelpOverlay } from '@ui/HelpOverlay/HelpOverlayContext';
 import { DIALBuildingBlockContextProvider } from '@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext';
+import FakeLoader from '@ui/FakeLoader/FakeLoader';
 
 export interface IRouteDescription {
   title: string;
@@ -16,6 +17,17 @@ export interface IRouteDescription {
 export enum EUserType {
   CITIZEN_SERVANT = 'CITIZEN_SERVANT',
   CITIZEN = 'CITIZEN',
+}
+
+const getLoaderLabel = (userType: EUserType | null) => {
+  if (!userType) {
+    return '';
+  }
+  if (userType === EUserType.CITIZEN) {
+    return 'Changing perspective to Applicant...'
+  } else {
+    return 'Changing perspective to Civil Servant...'
+  }
 }
 
 export interface ISimulationState {
@@ -111,6 +123,8 @@ export default function USCT() {
     simulationReducer,
     initialSimulationState
   );
+  const [showLoader, setShowLoader] = useState(false);
+  const prevUserType = useRef<EUserType | null>(null);
 
   const [activeBuildingBlocks, setActiveBuildingBlocks] = useState(
     activeBuildingBlockState
@@ -125,6 +139,13 @@ export default function USCT() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [width]);
+
+  useEffect(() => {
+    if (prevUserType.current) {
+      setShowLoader(true);
+    }
+    prevUserType.current = state.userType;
+  }, [state.userType]);
 
   return (
     <HelpOverlay>
@@ -146,7 +167,13 @@ export default function USCT() {
                     paddingBottom="80px"
                     flexGrow="1"
                   >
-                    <Outlet />
+                    <FakeLoader
+                      label={getLoaderLabel(state.userType)}
+                      loading={showLoader}
+                      onLoadEnd={() => setShowLoader(false)}
+                    >
+                      <Outlet />
+                    </FakeLoader>
                   </Flex>
                 </Flex>
               </ScenarioLayout>

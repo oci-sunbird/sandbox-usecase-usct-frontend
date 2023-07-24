@@ -1,5 +1,5 @@
-import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
-import { ReactComponent as CheckIcon } from "@assets/icons/check-circle.svg";
+import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
+import { ReactComponent as CheckIcon } from '@assets/icons/check-circle.svg';
 import {
   Accordion,
   AccordionButton,
@@ -11,38 +11,38 @@ import {
   Flex,
   Heading,
   Text,
-} from "@chakra-ui/react";
-import FakeLoader from "@ui/FakeLoader/FakeLoader";
-import Tooltip from "@ui/Tooltip/Tooltip";
-import { useContext, useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { ContextualHelpContext } from "../ContextualHelpContext";
-import { ContextualTitle } from "../ContextualHelpUtils";
+} from '@chakra-ui/react';
+import FakeLoader from '@ui/FakeLoader/FakeLoader';
+import Tooltip from '@ui/Tooltip/Tooltip';
+import { useContext, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { ContextualHelpContext } from '../ContextualHelpContext';
+import { ContextualTitle } from '../ContextualHelpUtils';
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from "../USCT";
-import { BUILDING_BLOCK } from "../utils";
+} from '../USCT';
+import { BUILDING_BLOCK } from '../utils';
 
 const getConfig = (done: string | null) => {
   if (done) {
     return {
       description: {
-        title: "CITIZEN CHECKS ENROLMENT",
-        subtitle: "PRIMARY TASK",
+        title: 'CITIZEN CHECKS ENROLMENT',
+        subtitle: 'PRIMARY TASK',
       },
-      previousStep: "../review-candidate/2895379235?state=done",
-      nextStep: "../enrolment",
+      previousStep: '../review-candidate/2895379235?state=done',
+      nextStep: '../enrolment',
     };
   } else {
     return {
       description: {
-        title: "CITIZEN REVIEWS ELIGIBILITY",
-        subtitle: "PRIMARY TASK",
+        title: 'CITIZEN REVIEWS ELIGIBILITY',
+        subtitle: 'PRIMARY TASK',
       },
-      previousStep: "../authorise-citizen",
-      nextStep: "../personal",
+      previousStep: '../authorise-citizen',
+      nextStep: '../personal',
     };
   }
 };
@@ -53,10 +53,10 @@ export default function Info() {
 
   useEffect(() => {
     dispatch({
-      type: "SET_ALL",
+      type: 'SET_ALL',
       ...state,
       userType: EUserType.CITIZEN,
-      ...getConfig(searchParams.get("done")),
+      ...getConfig(searchParams.get('done')),
       userAuthorized: true,
     });
   }, [location]);
@@ -79,7 +79,7 @@ export default function Info() {
 
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   useEffect(() => {
-    if (!!searchParams.get("done")) {
+    if (!!searchParams.get('done')) {
       setLetterContextualTitleMap({
         A: ContextualTitle.ELIGIBILITY_STATUS,
         B: ContextualTitle.PERSONAL_INFO,
@@ -92,143 +92,134 @@ export default function Info() {
   }, []);
 
   return (
-    <FakeLoader
-      label="CHANGING PERSPECTIVE TO APPLICANT"
-      override={!!searchParams.get("done")}
+    <Flex
+      mt={{ base: '8px', md: '128px' }}
+      gap={{ base: '20px', lg: '125px' }}
+      direction={{ base: 'column', lg: 'row' }}
     >
-      <Flex
-        mt={{ base: "8px", md: "128px" }}
-        gap={{ base: "20px", lg: "125px" }}
-        direction={{ base: "column", lg: "row" }}
-      >
-        <Box>
-          <Box marginBottom="40px">
-            <Heading>Social Welfare Progam:</Heading>
-            <Heading marginBottom="20px">
-              Unconditional Social Cash Transfer
-            </Heading>
-            <Text>
-              Unconditional Social Cash Transfer helps families meet their basic
-              needs for well-being and safety and serves as their path to
-              self-sufficiency. Unconditional Social Cash Transfer program
-              provides temporary cash benefits and supportive services to the
-              neediest families.
-            </Text>
-          </Box>
-          <Accordion>
-            <AccordionItem>
-              <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: "inherit" }} px="0">
-                  <Box as="span" flex="1" textAlign="left">
-                    How does it work?
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </Heading>
-              <AccordionPanel pb={4} px="0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: "inherit" }} px="0">
-                  <Box as="span" flex="1" textAlign="left">
-                    Eligibility and Requirements
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </Heading>
-              <AccordionPanel pb={4} px="0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <Heading variant="h2" size="md">
-                <AccordionButton style={{ font: "inherit" }} px="0">
-                  <Box as="span" flex="1" textAlign="left">
-                    Similar Programs
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </Heading>
-              <AccordionPanel pb={4} px="0">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
+      <Box>
+        <Box marginBottom="40px">
+          <Heading>Social Welfare Progam:</Heading>
+          <Heading marginBottom="20px">
+            Unconditional Social Cash Transfer
+          </Heading>
+          <Text>
+            Unconditional Social Cash Transfer helps families meet their basic
+            needs for well-being and safety and serves as their path to
+            self-sufficiency. Unconditional Social Cash Transfer program
+            provides temporary cash benefits and supportive services to the
+            neediest families.
+          </Text>
         </Box>
-        <Flex
-          direction="column"
-          gap="20px"
-          width={{ lg: "25%" }}
-          flexShrink="0"
-        >
-          <Tooltip
-            letter="A"
-            letterPosition="right-center"
-            display="flex"
-            flexDirection="column"
-            gap="16px"
+        <Accordion>
+          <AccordionItem>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
+                <Box as="span" flex="1" textAlign="left">
+                  How does it work?
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
+                <Box as="span" flex="1" textAlign="left">
+                  Eligibility and Requirements
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+          <AccordionItem>
+            <Heading variant="h2" size="md">
+              <AccordionButton style={{ font: 'inherit' }} px="0">
+                <Box as="span" flex="1" textAlign="left">
+                  Similar Programs
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </Heading>
+            <AccordionPanel pb={4} px="0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      </Box>
+      <Flex direction="column" gap="20px" width={{ lg: '25%' }} flexShrink="0">
+
+      <Tooltip
+        letter="A"
+        letterPosition="right-center"
+        display="flex"
+        flexDirection="column"
+        gap="16px"
+      >
+        {searchParams.get("done") ? (
+          <>
+            <Flex gap="8px">
+              <CheckIcon />
+              Your Eligibility
+            </Flex>
+            <Text>
+              <strong>You are eligible</strong> for Unconditional Social
+              Cash Transfer Program!
+            </Text>
+            <Text>
+              Please check your enrolment status from enrolment page.
+            </Text>
+            <Button as={Link} to="../enrolment" colorScheme="citizen">
+              Enrolment
+            </Button>
+          </>
+        ) : (
+          <>
+            <Flex gap="8px">
+              <FileWarningIcon />
+              Your Eligibility
+            </Flex>
+            <Text>
+              For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
+            </Text>
+            <Text>
+              Please review your information and provide missing information if needed.
+            </Text>
+            <Button colorScheme="citizen" to="../personal" as={Link}>
+              Review
+            </Button>
+          </>
+        )}
+      </Tooltip>
+      {!!searchParams.get("done") && (
+        <Tooltip letter="B">
+          <Button
+            w="100%"
+            colorScheme="citizen"
+            variant="outline"
+            as={Link}
+            to="../personal?done=true"
           >
-            {searchParams.get("done") ? (
-              <>
-                <Flex gap="8px">
-                  <CheckIcon />
-                  Your Eligibility
-                </Flex>
-                <Text>
-                  <strong>You are eligible</strong> for Unconditional Social
-                  Cash Transfer Program!
-                </Text>
-                <Text>
-                  Please check your enrolment status from enrolment page.
-                </Text>
-                <Button as={Link} to="../enrolment" colorScheme="citizen">
-                  Enrolment
-                </Button>
-              </>
-            ) : (
-              <>
-                <Flex gap="8px">
-                  <FileWarningIcon />
-                  Your Eligibility
-                </Flex>
-                <Text>
-                  For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
-                </Text>
-                <Text>
-                  Please review your information and provide missing information if needed.
-                </Text>
-                <Button colorScheme="citizen" to="../personal" as={Link}>
-                  Review
-                </Button>
-              </>
-            )}
-          </Tooltip>
-          {!!searchParams.get("done") && (
-            <Tooltip letter="B">
-              <Button
-                w="100%"
-                colorScheme="citizen"
-                variant="outline"
-                as={Link}
-                to="../personal?done=true"
-              >
-                My Information
-              </Button>
-            </Tooltip>
-          )}
-        </Flex>
+            My Information
+            </Button>
+        </Tooltip>
+      )}
       </Flex>
-    </FakeLoader>
+    </Flex>
   );
 }

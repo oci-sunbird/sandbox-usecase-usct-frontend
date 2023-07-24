@@ -71,6 +71,8 @@ export default function BuildingBlock({
       h="40px"
       position="relative"
       onClick={() => setOpenedBuildingBlock(id)}
+      cursor="pointer"
+      data-group
     >
       <Icon
         active={active}
@@ -112,6 +114,7 @@ export default function BuildingBlock({
       <Text
         transition="opacity 0.3s ease-in-out"
         opacity={active || highlighted ? '1' : '0.5'}
+        mr="4px"
       >
         {label}
       </Text>
@@ -126,6 +129,9 @@ export default function BuildingBlock({
         borderRadius="100%"
         color={colors.secondary[1000]}
         marginLeft="auto"
+        _groupHover={{
+          background: 'theme.success',
+        }}
       >
         i
       </Flex>
