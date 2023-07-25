@@ -313,15 +313,27 @@ export default function Enrolment() {
           I reviewed Entitlements of Beneficiaries document and accept...
         </Checkbox>
         <Flex justifyContent="flex-end">
-          <Button
-            w="167px"
-            as={Link}
-            to="../candidate-list?state=scheduling"
-            isDisabled={!paymentMethodSelected || !acceptedTerms}
-            _disabled={{ bg: "secondary.400" }}
-          >
-            Enroll
-          </Button>
+          {paymentMethodSelected && acceptedTerms 
+           ? (
+            <Button
+              w="167px"
+              as={Link}
+              to="../candidate-list?state=scheduling"
+              colorScheme="citizen"
+            >
+              Enroll
+            </Button>
+          ) : (
+            <Button
+              w="167px"
+              as={Button}
+              isDisabled
+              _disabled={{ bg: "secondary.400" }}
+              colorScheme="secondary"
+            >
+              Enroll
+            </Button>
+          )}
         </Flex>
       </Tooltip>
     </Flex>

@@ -52,8 +52,7 @@ export default function ScenarioLayout({
       >
         <ScenarioHeader>
           <Text size={{ base: 'sm', md: 'md' }}>
-            <strong>Use Case Simulation</strong> Unconditional Social Cash
-            Transfer
+            <strong>Use Case Simulation</strong> {view === 'desktop' && 'Unconditional Social Cash Transfer'}
           </Text>
         </ScenarioHeader>
         <ScenarioView>{children}</ScenarioView>
@@ -80,56 +79,100 @@ export default function ScenarioLayout({
           paddingBottom={{ base: '16px', md: 0 }}
         >
           <GridItem>
-            <Flex alignItems="center" gap="16px">
-              {view === "desktop" && (
-                <HelpHighlightWrapper
-                  info={
-                    <Box w="420px">
-                      The <b>navigation</b> allows you to move back and forth
-                      through the pages of the simulation
-                    </Box>
-                  }
-                  infoPosition="top"
-                >
-                  <Flex gap="0.5rem">
-                    <IconButton
-                      as={Link}
-                      to={state.previousStep}
-                      aria-label="Previous step"
-                      icon={<ArrowBackIcon />}
-                    />
-                    <IconButton
-                      as={Link}
-                      to="./case-management"
-                      aria-label="Start over"
-                      icon={<RefreshIcon />}
-                    />
-                    {isPersonalDone || isFeedback ? (
-                      <IconButton
-                        as={Button}
-                        aria-label="Next step"
-                        icon={<ArrowForwardIcon />}
-                        isDisabled
-                      />
-                    ) : (
+            <Flex flexDirection="column">
+              <Flex alignItems="center" gap="16px">
+                {view === "desktop" ? (
+                  <HelpHighlightWrapper
+                    info={
+                      <Box w="420px">
+                        The <b>navigation</b> allows you to move back and forth
+                        through the pages of the simulation
+                      </Box>
+                    }
+                    infoPosition="top"
+                  >
+                    <Flex gap="0.5rem">
                       <IconButton
                         as={Link}
-                        to={state.nextStep}
-                        aria-label="Next step"
-                        icon={<ArrowForwardIcon />}
+                        to={state.previousStep}
+                        aria-label="Previous step"
+                        icon={<ArrowBackIcon />}
                       />
-                    )}
-                  </Flex>
-                </HelpHighlightWrapper>
-              )}
-              <Box>
-                <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
-                  {state.description.title}
-                </Text>
-                <Text color={colors.theme.light} fontSize={12}>
-                  {state.description.subtitle}
-                </Text>
-              </Box>
+                      <IconButton
+                        as={Link}
+                        to="./case-management"
+                        aria-label="Start over"
+                        icon={<RefreshIcon />}
+                      />
+                      {isPersonalDone || isFeedback ? (
+                        <IconButton
+                          as={Button}
+                          aria-label="Next step"
+                          icon={<ArrowForwardIcon />}
+                          isDisabled
+                        />
+                      ) : (
+                        <IconButton
+                          as={Link}
+                          to={state.nextStep}
+                          aria-label="Next step"
+                          icon={<ArrowForwardIcon />}
+                        />
+                      )}
+                    </Flex>
+                  </HelpHighlightWrapper>
+                ) : (
+                  <Flex gap="0.5rem">
+                      <IconButton
+                        as={Link}
+                        to={state.previousStep}
+                        aria-label="Previous step"
+                        icon={<ArrowBackIcon />}
+                      />
+                      <IconButton
+                        as={Link}
+                        to="./case-management"
+                        aria-label="Start over"
+                        icon={<RefreshIcon />}
+                      />
+                      {isPersonalDone || isFeedback ? (
+                        <IconButton
+                          as={Button}
+                          aria-label="Next step"
+                          icon={<ArrowForwardIcon />}
+                          isDisabled
+                        />
+                      ) : (
+                        <IconButton
+                          as={Link}
+                          to={state.nextStep}
+                          aria-label="Next step"
+                          icon={<ArrowForwardIcon />}
+                        />
+                      )}
+                    </Flex>
+                )}
+                <Box>
+                  <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
+                    {state.description.title}
+                  </Text>
+                  <Text color={colors.theme.light} fontSize={12}>
+                    {state.description.subtitle}
+                  </Text>
+                </Box>
+                
+              </Flex>
+              <Flex
+                justifyContent="center"
+                display={{ base: 'flex', md: 'none' }}
+                gap="16px"
+                color={colors.secondary[500]}
+                marginTop="8px"
+              >
+                <Text size="sm">FAQ</Text>
+                <Text size="sm">Terms of usage</Text>
+                <Text size="sm">Get in touch</Text>
+              </Flex>
             </Flex>
           </GridItem>
           {view === "desktop" && (
@@ -163,7 +206,7 @@ export default function ScenarioLayout({
           <Text size="sm">Terms of usage</Text>
           <Text size="sm">Get in touch</Text>
         </Flex>
-        <DIAL/>
+        {view === 'desktop' && <DIAL/>}
       </Flex>
       <Flex
         h="100%"
