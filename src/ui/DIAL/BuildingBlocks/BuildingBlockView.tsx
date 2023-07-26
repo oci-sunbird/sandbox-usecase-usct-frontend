@@ -89,8 +89,8 @@ export default function BuildingBlockView() {
       )}
       <Box p={!openedBlockData ? '16px' : 0}>
         <Text as="i" size="sm" fontWeight="300">
-          For more information about Building Blocks, please{' '}
-          <Link>click here</Link>.
+          For more information about Building Blocks, please visit{' '}
+          <Link>Digital Impact Exchange</Link>.
         </Text>
       </Box>
     </>

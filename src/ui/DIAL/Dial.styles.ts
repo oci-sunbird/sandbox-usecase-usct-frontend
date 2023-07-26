@@ -26,6 +26,7 @@ export const Popup = styled(Flex)`
   border-radius: 12px;
   gap: 16px;
   position: relative;
+  padding: 32px 24px 32px 24px;
 
   @media (max-width:400px) {
     width: calc(100vw - 1rem);

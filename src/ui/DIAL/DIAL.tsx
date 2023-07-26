@@ -112,10 +112,15 @@ export default function DIAL() {
         />
       </Button>
       <PopupContainer>
-        <SlideFade in={isOpen} offsetY="20px">
+        <Slide
+          direction='bottom'
+          in={isOpen}
+          style={{position: 'relative', transition: 'all 0.2s ease-out'}}
+          unmountOnExit
+        >
           {isOpen && (
             <Popup>
-              <Flex justifyContent="space-between" padding="16px" pb="0">
+              <Flex justifyContent="space-between" pb="0">
                 <Text maxW="60%" color="theme.light" variant="caps">
                   Catalog of digital solutions
                 </Text>
@@ -272,7 +277,7 @@ export default function DIAL() {
               </Box>
             </Popup>
           )}
-        </SlideFade>
+        </Slide>
       </PopupContainer>
     </Box>
   );
