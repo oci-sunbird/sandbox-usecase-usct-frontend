@@ -192,7 +192,7 @@ export default function ScenarioLayout({
           )}
         </Grid>
         <Flex
-          mt="22px"
+          mt={{ base: 0, '2xl': "22px"}}
           justifyContent="center"
           display={{ base: 'none', md: 'flex' }}
           gap="16px"
