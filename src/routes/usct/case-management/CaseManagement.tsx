@@ -96,6 +96,8 @@ export default function CaseManagement() {
 
     setLetterContextualTitleMap({
       A: ContextualTitle.ASSIGNED_CANDIDATES,
+      B: ContextualTitle.ASSIGNED_CASES,
+      C: ContextualTitle.PROGRAM_INFORMATION
     });
   }, []);
 
