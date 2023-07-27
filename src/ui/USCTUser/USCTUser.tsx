@@ -1,6 +1,7 @@
 import { Avatar, Box, Flex, Icon, IconButton, Text } from '@chakra-ui/react';
 import { colors } from '../../chakra-overrides/colors';
 import { EUserType } from '../../routes/usct/USCT';
+import { ReactComponent as ApplicantIcon } from '@assets/icons/people_person.svg';
 
 export function USCTUser({ userType }: { userType: EUserType | null }) {
   if (userType === EUserType.CITIZEN) {
@@ -10,16 +11,24 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         borderRadius="36px"
         justifyContent="center"
         alignItems="center"
-        padding={{ base: '12px', lg: '11px 48px' }}
+        padding={{ base: '12px', lg: '10px 48px' }}
         marginRight="36px"
       >
         <Flex gap="8px" alignItems="center">
-          <Avatar h="32px" w="32px" />
+          <ApplicantIcon height="32px" width="32px"
+            style={{
+              borderRadius: "50%",
+              backgroundColor: colors.secondary[0],
+              padding: "2px",
+              fill: colors.secondary[0],
+            }}
+          />
+          {/* <Avatar h="32px" w="32px" /> */}
           <Box display={{ base: 'none', lg: 'block' }}>
-            <Text size="sm" color={colors.secondary[0]}>
+            <Text size="sm" lineHeight="18px" color={colors.secondary[0]} fontWeight={600}>
               Applicant
             </Text>
-            <Text size="sm" color={colors.secondary[0]}>
+            <Text fontSize="10px" lineHeight="14px" color={colors.secondary[0]}>
               ID: 1234567810
             </Text>
           </Box>
