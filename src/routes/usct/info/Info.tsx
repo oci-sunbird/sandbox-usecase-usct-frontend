@@ -175,13 +175,13 @@ export default function Info() {
           <>
             <Flex gap="8px">
               <CheckIcon />
-              Your Eligibility
+              <Heading as="h3" fontSize="18px" lineHeight="24px">Your Eligibility</Heading>
             </Flex>
-            <Text>
+            <Text fontSize="14px">
               <strong>You are eligible</strong> for Unconditional Social
               Cash Transfer Program!
             </Text>
-            <Text>
+            <Text fontSize="14px">
               Please check your enrolment status from enrolment page.
             </Text>
             <Button as={Link} to="../enrolment" colorScheme="citizen">
@@ -192,12 +192,12 @@ export default function Info() {
           <>
             <Flex gap="8px">
               <FileWarningIcon />
-              Your Eligibility
+              <Heading as="h3" fontSize="18px" lineHeight="24px">Your Eligibility</Heading>
             </Flex>
-            <Text>
+            <Text fontSize="14px">
               For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
             </Text>
-            <Text>
+            <Text fontSize="14px">
               Please review your information and provide missing information if needed.
             </Text>
             <Button colorScheme="citizen" to="../personal" as={Link}>

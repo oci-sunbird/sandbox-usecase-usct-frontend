@@ -124,12 +124,12 @@ export const ContextualHelpContent: Record<
     diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
-      'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
+      'The Digital Registries building block sends the data about the case and person which can then be displayed in the application.”',
     ],
   },
   [ContextualTitle.CANDIDATE_LIST]: {
     title: 'Candidate List',
-    diagram: RequestingInfoDiagram,
+    diagram: AC_AC_CIDiagram,
     activeBuildingBlocks: [BUILDING_BLOCK.DIGITAL_REGISTRIES],
     bulletpoints: [
       'The Digital Registries Building Block send the data about that case/person that can then be displayed in the application',
@@ -184,7 +184,8 @@ export const ContextualHelpContent: Record<
       BUILDING_BLOCK.WORKFLOW,
     ],
     bulletpoints: [
-      'The Payment Building Block is used to retrieve bank account details for payment purposes. The Information Mediator Building Block and Workflow Building Block collaborate to ensure secure communication.',
+      "The Payment Building Block is used to retrieve bank account details for payment purposes.",
+      "The Information Mediator Building Block and Workflow Building Block collaborate to ensure secure communication.",
     ],
   },
   [ContextualTitle.REQUEST_ASSIGN_CANDIDATES]: {
@@ -286,7 +287,9 @@ export const ContextualHelpContent: Record<
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
     ],
     bulletpoints: [
-      "The Workflow Building Block triggers the Digital Registries Building Blocks to analyze the applicant's information and determine their eligibility status. The Information Mediator Building Block ensures secure communication between the Building Blocks.",
+      "The Workflow Building Block triggers the Digital Registries Building Blocks to analyze the applicant's information and determine their eligibility status.",
+      "The Information Mediator Building Block ensures secure communication between the Building Blocks.",
+      "Together, these building blocks provide a secure and efficient eligibility status page for users.",
     ],
   },
   [ContextualTitle.VALIDATING_INFO]: {
@@ -315,7 +318,8 @@ export const ContextualHelpContent: Record<
     ],
     bulletpoints: [
       "The Payment Method Building Block offers the applicant a selection of available payment methods. The Digital Registries Building Block pulls and provides information about the available payment methods to be displayed to the applicant. The Registries Building Block registers the chosen method with the applicant's consent.",
-      'The Workflow building block is used to coordinate the flow of information between these Building Blocks. The Information Mediator ensures secure communication between the Building Blocks and services.',
+      "The Workflow building block is used to coordinate the flow of information between these Building Blocks.",
+      "The Information Mediator ensures secure communication between the Building Blocks and services.",
     ],
   },
   [ContextualTitle.PAYMENT_HISTORY]: {
