@@ -136,8 +136,15 @@ export const router = createBrowserRouter([
                 <CaseManagement />
               </React.Suspense>
             ),
-            path: 'case-management',
             index: true,
+          },
+          {
+            element: (
+              <React.Suspense>
+                <CaseManagement />
+              </React.Suspense>
+            ),
+            path: 'case-management',
           },
           {
             element: (
