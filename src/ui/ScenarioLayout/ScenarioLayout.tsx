@@ -52,7 +52,8 @@ export default function ScenarioLayout({
       >
         <ScenarioHeader>
           <Text size={{ base: 'sm', md: 'md' }}>
-            <strong>Use Case Simulation</strong> {view === 'desktop' && 'Unconditional Social Cash Transfer'}
+            <strong>Use Case Simulation</strong>{' '}
+            {view === 'desktop' && 'Unconditional Social Cash Transfer'}
           </Text>
         </ScenarioHeader>
         <ScenarioView>{children}</ScenarioView>
@@ -81,7 +82,7 @@ export default function ScenarioLayout({
           <GridItem>
             <Flex flexDirection="column">
               <Flex alignItems="center" gap="16px">
-                {view === "desktop" ? (
+                {view === 'desktop' ? (
                   <HelpHighlightWrapper
                     info={
                       <Box w="420px">
@@ -123,44 +124,47 @@ export default function ScenarioLayout({
                   </HelpHighlightWrapper>
                 ) : (
                   <Flex gap="0.5rem">
+                    <IconButton
+                      as={Link}
+                      to={state.previousStep}
+                      aria-label="Previous step"
+                      icon={<ArrowBackIcon />}
+                    />
+                    <IconButton
+                      as={Link}
+                      to="./case-management"
+                      aria-label="Start over"
+                      icon={<RefreshIcon />}
+                    />
+                    {isPersonalDone || isFeedback ? (
+                      <IconButton
+                        as={Button}
+                        aria-label="Next step"
+                        icon={<ArrowForwardIcon />}
+                        isDisabled
+                      />
+                    ) : (
                       <IconButton
                         as={Link}
-                        to={state.previousStep}
-                        aria-label="Previous step"
-                        icon={<ArrowBackIcon />}
+                        to={state.nextStep}
+                        aria-label="Next step"
+                        icon={<ArrowForwardIcon />}
                       />
-                      <IconButton
-                        as={Link}
-                        to="./case-management"
-                        aria-label="Start over"
-                        icon={<RefreshIcon />}
-                      />
-                      {isPersonalDone || isFeedback ? (
-                        <IconButton
-                          as={Button}
-                          aria-label="Next step"
-                          icon={<ArrowForwardIcon />}
-                          isDisabled
-                        />
-                      ) : (
-                        <IconButton
-                          as={Link}
-                          to={state.nextStep}
-                          aria-label="Next step"
-                          icon={<ArrowForwardIcon />}
-                        />
-                      )}
-                    </Flex>
+                    )}
+                  </Flex>
                 )}
                 <Box>
-                  <Text color={colors.theme.light} fontWeight={700} fontSize={12}>
+                  <Text
+                    color={colors.theme.light}
+                    fontWeight={700}
+                    fontSize={12}
+                  >
                     {state.description.title}
                   </Text>
                   <Text color={colors.theme.light} fontSize={12}>
                     {state.description.subtitle}
                   </Text>
                 </Box>
-                
               </Flex>
               <Flex
                 justifyContent="center"
@@ -169,14 +173,20 @@ export default function ScenarioLayout({
                 color={colors.secondary[500]}
                 marginTop="8px"
               >
-                <Text size="sm">FAQ</Text>
-                <Text size="sm">Terms of usage</Text>
-                <Text size="sm">Get in touch</Text>
+                <Text size="sm">
+                  GovStack 2023 - this is a frontend only simulation
+                </Text>
+                <Link to="https://www.govstack.global/privacy/" target="_blank">
+                  <Text size="sm">Privacy & Legal</Text>
+                </Link>
+                <Link to="mailto:info@govstack.global">
+                  <Text size="sm">Get in touch</Text>
+                </Link>
               </Flex>
             </Flex>
           </GridItem>
-          {view === "desktop" && (
-            <GridItem rowStart={{ base: 1, md: "auto" }}>
+          {view === 'desktop' && (
+            <GridItem rowStart={{ base: 1, md: 'auto' }}>
               <HelpHighlightWrapper
                 info={
                   <Box w="340px">
@@ -186,13 +196,13 @@ export default function ScenarioLayout({
                 }
                 infoPosition="top"
               >
-                {view === "desktop" && <ViewInfo />}
+                {view === 'desktop' && <ViewInfo />}
               </HelpHighlightWrapper>
             </GridItem>
           )}
         </Grid>
         <Flex
-          mt={{ base: 0, '2xl': "22px"}}
+          mt={{ base: 0, '2xl': '22px' }}
           justifyContent="center"
           display={{ base: 'none', md: 'flex' }}
           gap="16px"
@@ -202,10 +212,14 @@ export default function ScenarioLayout({
           <Text size="sm">
             GovStack 2023 - this is a frontend only simulation
           </Text>
-          <Link to="https://www.govstack.global/privacy/" target="_blank"><Text size="sm">Privacy & Legal</Text></Link>
-          <Link to="mailto:info@govstack.global"><Text size="sm">Get in touch</Text></Link>
+          <Link to="https://www.govstack.global/privacy/" target="_blank">
+            <Text size="sm">Privacy & Legal</Text>
+          </Link>
+          <Link to="mailto:info@govstack.global">
+            <Text size="sm">Get in touch</Text>
+          </Link>
         </Flex>
-        {view === 'desktop' && <DIAL/>}
+        {view === 'desktop' && <DIAL />}
       </Flex>
       <Flex
         h="100%"
@@ -235,7 +249,7 @@ export default function ScenarioLayout({
           }}
           transition="right 0.3s ease-in-out"
         ></IconButton>
-        <Sidebar view={view}/>
+        <Sidebar view={view} />
       </Flex>
     </Flex>
   );
