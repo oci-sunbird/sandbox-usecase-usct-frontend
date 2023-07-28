@@ -202,9 +202,8 @@ export default function ScenarioLayout({
           <Text size="sm">
             GovStack 2023 - this is a frontend only simulation
           </Text>
-          <Text size="sm">FAQ</Text>
-          <Text size="sm">Terms of usage</Text>
-          <Text size="sm">Get in touch</Text>
+          <Link to="https://www.govstack.global/privacy/" target="_blank"><Text size="sm">Privacy & Legal</Text></Link>
+          <Link to="mailto:info@govstack.global"><Text size="sm">Get in touch</Text></Link>
         </Flex>
         {view === 'desktop' && <DIAL/>}
       </Flex>
