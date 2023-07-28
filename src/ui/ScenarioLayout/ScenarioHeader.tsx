@@ -10,7 +10,7 @@ const breakpoints = {
   md: '768px',
   lg: '960px',
   xl: '1200px',
-  '2xl': '1536px',
+  '2xl': '1300px',
 }
 
 const theme = extendTheme({ breakpoints })
@@ -25,7 +25,7 @@ export default function ScenarioHeader({
     <ChakraProvider theme={theme}>
     <SimpleGrid
       templateColumns={{xs: "87px 1fr", md: "87px 1fr 87px"}}
-      padding={{ xs: "24px 12px", lg: "24px 64px" }}
+      padding={{ xs: "16px 12px", lg: "16px 64px", '2xl': '24px 64px' }}
       alignItems="center" 
       width="100%"
       spacing={{ xs: '2'}} 

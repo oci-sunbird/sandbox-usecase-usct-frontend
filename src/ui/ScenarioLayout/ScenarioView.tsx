@@ -20,7 +20,7 @@ export default function ScenarioView({
       w="100%"
       height="100%"
       direction="column"
-      p={{ base: '4px 16px 0 16px', lg: '16px 64px 0 64px' }}
+      p={{ base: '4px 16px 0 16px', lg: '4px 64px 0 64px', '2xl': '16px 64px 0 64px' }}
       flexGrow="1"
       alignItems="center"
       minHeight="0"
@@ -28,13 +28,12 @@ export default function ScenarioView({
       <Flex w="100%" h="100%" direction="column" maxW="1024px">
         <Flex
           alignItems="center"
-          height="56px"
           gap="16px"
           borderTopRadius="8px"
           w="100%"
           backgroundColor="#f2f2f2"
           boxShadow="0px 0px 16px rgba(0, 0, 0, 0.25);"
-          p="12px 16px"
+          p={{ base: "8px 16px", '2xl': "12px 16px" }}
           zIndex="1"
           boxSizing="border-box"
         >
@@ -59,7 +58,7 @@ export default function ScenarioView({
             ></Box>
           </Flex>
           <Flex
-            h="32px"
+            h={{ base: '24px', '2xl': '32px' }}
             borderRadius="4px"
             w="100%"
             backgroundColor={colors.secondary[0]}

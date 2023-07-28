@@ -12,7 +12,7 @@ export default function Header(props: HeaderProps) {
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      height={props.userType === EUserType.CITIZEN ? "100px" : "72px"}
+      height={{ base: "72px", '2xl': props.userType === EUserType.CITIZEN ? "100px" : "72px"}}
       flexShrink="0"
       borderBottom={
         props.userType === EUserType.CITIZEN_SERVANT
@@ -20,7 +20,7 @@ export default function Header(props: HeaderProps) {
           : ""
       }
       paddingLeft={{ base: "8px", lg: "64px" }}
-      marginBottom="20px"
+      marginBottom={{ base: '12px', '2xl': "20px"}}
     >
       <Flex alignItems="center" gap="12px">
         <Flex flexShrink="0">
