@@ -22,9 +22,9 @@ const theme = extendTheme({
     List: List,
   },
   breakpoints: {
-    xs: '200px', //xs
-    sm: '320px', //sm
-    md_sm: '520px', //md_sm
+    xs: '200px',
+    sm: '320px',
+    md_sm: '520px',
     md: '768px',
     lg: '991px',
     xl: '1240px',
