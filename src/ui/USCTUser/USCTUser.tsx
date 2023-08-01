@@ -90,10 +90,10 @@ export function USCTUser({ userType }: { userType: EUserType | null }) {
         <Flex gap="8px" alignItems="center" height="100%">
           <Avatar h="32px" w="32px" />
           <Box>
-            <Text fontSize="14px" fontWeight="600" lineHeight="20px">
+            <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }} fontWeight="600" lineHeight="20px">
               Civil Servant
             </Text>
-            <Text fontSize="10px" fontWeight="400" lineHeight="20px">
+            <Text fontSize={{ xs: '8px', sm: '10px'}} fontWeight="400" lineHeight="20px">
               Work ID: 1234567810
             </Text>
           </Box>
