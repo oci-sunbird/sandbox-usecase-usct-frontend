@@ -11,6 +11,7 @@ import { colors } from './chakra-overrides/colors';
 import './index.css';
 import { router } from './routes/router';
 import { List } from './chakra-overrides/List';
+import { Accordion } from './chakra-overrides/Accordion';
 
 const theme = extendTheme({
   colors,
@@ -20,6 +21,7 @@ const theme = extendTheme({
     Progress: Progress,
     Tabs: Tabs,
     List: List,
+    Accordion: Accordion,
   },
   breakpoints: {
     xs: '200px',

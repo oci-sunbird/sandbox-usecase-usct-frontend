@@ -1,4 +1,4 @@
-import { Flex, useBreakpointValue, Text, Heading, ListItem, List } from '@chakra-ui/react';
+import { Flex, useBreakpointValue, Text, Heading, List, Accordion } from '@chakra-ui/react';
 import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
@@ -188,6 +188,11 @@ export default function USCT() {
   Heading.defaultProps = {
     ...Heading.defaultProps,
     size: HeadingFontsize
+  }
+
+  Accordion.defaultProps = {
+    ...Accordion.defaultProps,
+    size: TextFontsize
   }
 
   return (
