@@ -88,7 +88,7 @@ export default function DIAL() {
   const [active, setActive] = useState<null | any>();
 
   return (
-    <Box position="absolute" bottom="1rem" left="1rem">
+    <Box position="absolute" bottom="0.5rem" left="0.5rem">
       <Button
         onClick={() => { onToggle(); setOpenedBuildingBlock(null) }}
         h="72px"

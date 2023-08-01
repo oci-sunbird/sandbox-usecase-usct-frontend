@@ -152,20 +152,20 @@ export default function USCT() {
   const TextFontsize = useBreakpointValue(
     {
       xs: 'xs',
-      md_sm: 'sm',
+      sm: 'sm',
       md: 'md',
       lg: 'sm',
       xl: 'md'
     },
     {
-      fallback: 'md',
+      fallback: 'xs',
     },
   );
 
   const HeadingFontsize = useBreakpointValue(
     {
       xs: 'md',
-      md_sm: 'lg',
+      sm: 'lg',
       md: 'lg',
       lg: 'md',
       xl: 'lg',

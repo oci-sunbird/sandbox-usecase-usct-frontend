@@ -80,7 +80,7 @@ export default function ScenarioLayout({
           paddingBottom={{ base: '16px', md: 0 }}
         >
           <GridItem>
-            <Flex flexDirection="column"  paddingTop={{ sm: '8px', md: '0' }}>
+            <Flex flexDirection="column"  paddingTop={{ xs: '8px', md: '0' }}>
               <Flex alignItems="center" gap="16px">
                 {view === 'desktop' ? (
                   <HelpHighlightWrapper
@@ -173,14 +173,14 @@ export default function ScenarioLayout({
                 color={colors.secondary[500]}
                 marginTop="8px"
               >
-                <Text size={{ xs: 'xxs', md_sm: 'xs', md: 'sm' }}>
+                <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>
                   GovStack 2023 - this is a frontend only simulation
                 </Text>
                 <Link to="https://www.govstack.global/privacy/" target="_blank">
-                  <Text size={{ xs: 'xxs', md_sm: 'xs', md: 'sm' }}>Privacy & Legal</Text>
+                  <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>Privacy & Legal</Text>
                 </Link>
                 <Link to="mailto:info@govstack.global">
-                  <Text size={{ xs: 'xxs', md_sm: 'xs', md: 'sm' }}>Get in touch</Text>
+                  <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>Get in touch</Text>
                 </Link>
               </Flex>
             </Flex>
