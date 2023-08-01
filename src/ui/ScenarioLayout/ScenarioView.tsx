@@ -66,7 +66,7 @@ export default function ScenarioView({
             textAlign="center"
             justifyContent="center"
           >
-            <Text fontSize="12px" color="#9B9B9B;">
+            <Text size={{ xs: 'xxs', md_sm: 'xs', md: 'sm' }} color="#9B9B9B;">
               openisland-self-service-welfare.govstack
             </Text>
           </Flex>

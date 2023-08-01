@@ -2,18 +2,6 @@ import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Button, ChakraProvider, Flex, Image, SimpleGrid } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { extendTheme } from '@chakra-ui/react'
-
-const breakpoints = {
-  xs: '200px',
-  sm: '320px',
-  md: '768px',
-  lg: '960px',
-  xl: '1200px',
-  '2xl': '1300px',
-}
-
-const theme = extendTheme({ breakpoints })
 
 export default function ScenarioHeader({
   children,
@@ -22,7 +10,6 @@ export default function ScenarioHeader({
 }) {
 
   return (
-    <ChakraProvider theme={theme}>
     <SimpleGrid
       templateColumns={{xs: "87px 1fr", md: "87px 1fr 87px"}}
       padding={{ xs: "16px 12px", lg: "16px 64px", '2xl': '24px 64px' }}
@@ -51,6 +38,5 @@ export default function ScenarioHeader({
         {children}
       </Flex>
     </SimpleGrid>
-    </ChakraProvider>
   );
 }

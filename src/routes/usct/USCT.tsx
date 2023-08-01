@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, useBreakpointValue, Text, Heading, ListItem, List } from '@chakra-ui/react';
 import { createContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
@@ -146,6 +146,49 @@ export default function USCT() {
     }
     prevUserType.current = state.userType;
   }, [state.userType]);
+
+  // dyncamic default font sizes,
+  // breakpoints from main.tsx
+  const TextFontsize = useBreakpointValue(
+    {
+      xs: 'xs',
+      md_sm: 'sm',
+      md: 'md',
+      lg: 'sm',
+      xl: 'md'
+    },
+    {
+      fallback: 'md',
+    },
+  );
+
+  const HeadingFontsize = useBreakpointValue(
+    {
+      xs: 'md',
+      md_sm: 'lg',
+      md: 'lg',
+      lg: 'md',
+      xl: 'lg',
+    },
+    {
+      fallback: 'md',
+    },
+  );
+
+  Text.defaultProps = {
+    ...Text.defaultProps,
+    size: TextFontsize
+  }
+
+  List.defaultProps = {
+    ...List.defaultProps,
+    size: TextFontsize
+  }
+
+  Heading.defaultProps = {
+    ...Heading.defaultProps,
+    size: HeadingFontsize
+  }
 
   return (
     <HelpOverlay>
