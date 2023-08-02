@@ -38,9 +38,14 @@ export default function ScenarioLayout({
 
   const view = width < 992 ? 'mobile' : 'desktop';
 
-  const isPersonalDone =
-    location.pathname === '/personal' && location.search === '?done=true';
-  const isFeedback = location.pathname === '/feedback';
+  const disabledRoutes = {
+    previous: ['/case-management'],
+    next : ['/personal?done=true', '/feedback']
+  }
+
+  const isNavigationDisabled = (direction: 'previous' | 'next') => {
+    return disabledRoutes[direction].some((r: string) => r === location.pathname + location.search)
+  }
 
   return (
     <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
@@ -93,19 +98,28 @@ export default function ScenarioLayout({
                     infoPosition="top"
                   >
                     <Flex gap="0.5rem">
-                      <IconButton
-                        as={Link}
-                        to={state.previousStep}
-                        aria-label="Previous step"
-                        icon={<ArrowBackIcon />}
-                      />
+                      {isNavigationDisabled('previous') ? (
+                        <IconButton
+                          as={Button}
+                          aria-label="Previous step"
+                          icon={<ArrowBackIcon />}
+                          isDisabled
+                        />
+                      ) : (
+                        <IconButton
+                          as={Link}
+                          to={state.previousStep}
+                          aria-label="Previous step"
+                          icon={<ArrowBackIcon />}
+                        />
+                      )}
                       <IconButton
                         as={Link}
                         to="./case-management"
                         aria-label="Start over"
                         icon={<RefreshIcon />}
                       />
-                      {isPersonalDone || isFeedback ? (
+                      {isNavigationDisabled('next')  ? (
                         <IconButton
                           as={Button}
                           aria-label="Next step"
@@ -124,19 +138,28 @@ export default function ScenarioLayout({
                   </HelpHighlightWrapper>
                 ) : (
                   <Flex gap="0.5rem">
-                    <IconButton
-                      as={Link}
-                      to={state.previousStep}
-                      aria-label="Previous step"
-                      icon={<ArrowBackIcon />}
-                    />
+                    {isNavigationDisabled('previous') ? (
+                      <IconButton
+                        as={Button}
+                        aria-label="Previous step"
+                        icon={<ArrowBackIcon />}
+                        isDisabled
+                      />
+                    ) : (
+                      <IconButton
+                        as={Link}
+                        to={state.previousStep}
+                        aria-label="Previous step"
+                        icon={<ArrowBackIcon />}
+                      />
+                    )}
                     <IconButton
                       as={Link}
                       to="./case-management"
                       aria-label="Start over"
                       icon={<RefreshIcon />}
                     />
-                    {isPersonalDone || isFeedback ? (
+                    {isNavigationDisabled('next') ? (
                       <IconButton
                         as={Button}
                         aria-label="Next step"
