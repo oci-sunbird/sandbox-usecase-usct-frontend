@@ -36,6 +36,9 @@ const StartNewConversation = lazy(
 );
 const Feedback = lazy(() => import('./usct/feedback/Feedback'));
 
+const CreateCandidate = lazy(() => import('./driver-poc/CreateCandidate'));
+const PersonalInformationEdit = lazy(() => import('./usct/personal/PersonalInformationEdit'));
+const BankInformationEdit = lazy(() => import('./usct/personal/BankInformationEdit'));
 export const router = createBrowserRouter([
   {
     path: '',
@@ -75,10 +78,56 @@ export const router = createBrowserRouter([
                 guard={() =>
                   isAllowedRoleGuard([
                     Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
+                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
                   ])
                 }
               >
                 <CandidatesList />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'candidate/edit/personalInformation/:id',
+            element: (
+              <ProtectedRoute
+                guard={() =>
+                  isAllowedRoleGuard([
+                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
+                  ])
+                }
+                redirect="/driver-poc"
+              >
+                <PersonalInformationEdit/>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'candidate/edit/bankInformation/:id',
+            element: (
+              <ProtectedRoute
+                guard={() =>
+                  isAllowedRoleGuard([
+                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
+                  ])
+                }
+                redirect="/driver-poc"
+              >
+                <BankInformationEdit/>
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'candidate/create',
+            element: (
+              <ProtectedRoute
+                guard={() =>
+                  isAllowedRoleGuard([
+                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
+                  ])
+                }
+                redirect="/driver-poc"
+              >
+                <CreateCandidate />
               </ProtectedRoute>
             ),
           },
@@ -92,8 +141,10 @@ export const router = createBrowserRouter([
                     guard={() =>
                       isAllowedRoleGuard([
                         Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
+                        Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
                       ])
                     }
+                    redirect="/driver-poc"
                   >
                     <CandidateDetail />
                   </ProtectedRoute>

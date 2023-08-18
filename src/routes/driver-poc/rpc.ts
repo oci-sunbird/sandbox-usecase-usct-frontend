@@ -35,6 +35,9 @@ export default class RPC {
   login = (email: string, password: string) =>
     this.RPCProviderFactory.getProvider('login').login(email, password);
   getRoles = () => this.RPCProviderFactory.getProvider('getRoles').getRoles();
+  createCandidate = (candidate: DriverPOC.Candidate) => this.RPCProviderFactory.getProvider('createCandidate').createCandidate(candidate);
+  updateCandidate = (candidate: DriverPOC.Candidate) => this.RPCProviderFactory.getProvider('updateCandidate').updateCandidate(candidate);
+  deleteCandidate = (id: number) => this.RPCProviderFactory.getProvider('deleteCandidate').deleteCandidate(id);
 }
 
 export const RPCContext = createContext(new RPC());

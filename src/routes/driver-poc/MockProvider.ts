@@ -73,11 +73,17 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: 1,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -90,11 +96,17 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: 2,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -107,11 +119,17 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: 3,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -124,11 +142,17 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: 4,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -141,11 +165,17 @@ const mockCandidateList: DriverPOC.Candidate[] = [
     id: 5,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -161,11 +191,17 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
     id: 1,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -179,11 +215,17 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
     id: 2,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -197,11 +239,17 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
     id: 3,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -215,11 +263,17 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
     id: 4,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -233,11 +287,17 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
     id: 5,
     person: {
       id: faker.number.int(),
-      foundationalId: faker.string.uuid(),
+      personalIdCode: faker.string.uuid(),
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
       email: faker.internet.email(),
       dateOfBirth: faker.date.birthdate().toString(),
+      region: faker.location.city(),
+      homeAddress: faker.location.streetAddress(),
+      phoneNumber: faker.phone.number(),
+      occupation: faker.person.jobTitle(),
+      municipality: faker.location.city(),
+      zipCode: faker.location.zipCode(),
       bankAccountOwnerName: faker.person.fullName(),
       financialAddress: faker.location.streetAddress(),
       iban: faker.finance.iban(),
@@ -328,6 +388,24 @@ export default class MockProvider extends BaseProvider {
   getRoles(): Promise<string> {
     return new Promise<string>((resolve) => {
       resolve('ROLE_PAYMENT_OFFICER');
+    });
+  }
+
+  createCandidate(candidate: DriverPOC.Candidate) {
+    return new Promise<DriverPOC.Candidate>((resolve) => {
+      resolve(candidate);
+    });
+  }
+
+  updateCandidate(candidate: DriverPOC.Candidate) {
+    return new Promise<DriverPOC.Candidate>((resolve) => {
+      resolve(candidate);
+    });
+  }
+
+  deleteCandidate(candidateId: number) {
+    return new Promise<string>((resolve) => {
+      resolve('Successfully deleted candidate with id '+candidateId+'!');
     });
   }
 }

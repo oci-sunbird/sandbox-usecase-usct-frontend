@@ -23,11 +23,17 @@ export namespace DriverPOC {
   }
   export interface Person {
     id: number;
-    foundationalId: string;
+    personalIdCode: string;
     firstName: string;
     lastName: string;
     email: string;
     dateOfBirth: string;
+    region: string;
+    homeAddress: string;
+    phoneNumber: string;
+    occupation: string;
+    municipality: string;
+    zipCode: string;
     bankAccountOwnerName: string;
     financialAddress: string;
     financialModality: string;

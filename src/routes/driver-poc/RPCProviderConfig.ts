@@ -17,6 +17,9 @@ export default class RPCProviderConfig {
     executePayments: this.providers.API,
     login: this.providers.API,
     getRoles: this.providers.API,
+    createCandidate: this.providers.API,
+    updateCandidate: this.providers.API,
+    deleteCandidate: this.providers.API,
   };
   addProvider = (key: string, provider: BaseProvider) => {
     this.providers = { ...this.providers, [key]: provider };
