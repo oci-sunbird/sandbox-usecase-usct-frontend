@@ -24,6 +24,10 @@ const userData = {
     name: 'Max Bob',
     role: 'Enrollment Officer',
   },
+  ROLE_REGISTRY_ADMINISTRATION: {
+    name: 'Jason Hans',
+    role: 'Registry Officer',
+  }
 };
 
 export default function Header() {

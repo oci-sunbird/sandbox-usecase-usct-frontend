@@ -27,6 +27,29 @@ export const bankData = {
   ownerName: 'Thomas Anderson',
   bankName: 'Sunshine Bank',
   iban: 'AA02300209000106531065',
+  candidate: {
+    id: 0,
+    person: {
+      id: 1,
+      personalIdCode: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      dateOfBirth: '',
+      region: '',
+      homeAddress: '',
+      phoneNumber: '',
+      occupation: '',
+      municipality: '',
+      zipCode: '',
+      bankAccountOwnerName: '',
+      financialAddress: '',
+      iban: '',
+      bankName: '',
+      financialModality: '',
+    },
+    packages: []
+  }
 }
 
 export const householdData = [

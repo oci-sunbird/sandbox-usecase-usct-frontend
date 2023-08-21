@@ -43,7 +43,7 @@ export function Action(props: IActionProps) {
           {icon}
         </Flex>
         <Box>
-          <Text mb="12px">{title}</Text>
+          <Text fontWeight="bold" mb="12px">{title}</Text>
           <Text>{description}</Text>
         </Box>
       </Flex>

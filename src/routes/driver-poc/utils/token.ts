@@ -2,6 +2,7 @@ export namespace Authentication {
   export enum Scope {
     ROLE_PAYMENT_OFFICER = 'ROLE_PAYMENT_OFFICER',
     ROLE_ENROLLMENT_OFFICER = 'ROLE_ENROLLMENT_OFFICER',
+    ROLE_REGISTRY_ADMINISTRATION = 'ROLE_REGISTRY_ADMINISTRATION',
   }
 
   export interface Token {

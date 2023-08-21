@@ -35,6 +35,11 @@ const users = [
     role: 'Payment Officer',
     value: 'payment-officer',
   },
+  {
+    username: 'jason.hans@gov.stack',
+    role: 'Registry Officer',
+    value: 'registry-administration',
+  },
 ];
 
 export default function Login() {

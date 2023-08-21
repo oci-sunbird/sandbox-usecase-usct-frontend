@@ -1,22 +1,38 @@
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
-import { ReactComponent as YisIcon } from '@assets/icons/yis-circle.svg';
-import { Avatar, Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react';
+import { ReactComponent as EditIcon } from '@assets/icons/edit.svg';
+import { Avatar, Box, Button, Flex, Grid, Heading, Spacer, Text } from '@chakra-ui/react';
 import { DriverPOC } from '../../driver-poc/types';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getRole } from '../../driver-poc/utils/token';
 
 export default function PersonalInformation({
+  newCandidate,
   person,
   simulation,
   reviewed,
 }: {
+  newCandidate?: boolean;
   person: DriverPOC.Person | null;
   simulation?: boolean;
   reviewed?: boolean;
 }) {
-  const SimulationIcon = reviewed ? YisIcon : FileWarningIcon;
+const navigate = useNavigate();
+const id = useParams<{ id: string }>();
+const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
+  // const SimulationIcon = reviewed ? YisIcon : FileWarningIcon;
 
   return (
     <Flex gap="24px" direction="column">
-      <Heading fontSize="18px">Personal Information</Heading>
+      <Flex>
+          {(newCandidate)?(<Heading mb="40px">New Candidate</Heading>):""}
+          <Heading fontSize="18px">Candidate Information</Heading>
+          <Spacer/>
+          {(isRegistryAdministrator && !newCandidate)?(
+          <Button onClick={() => navigate(`/driver-poc/candidate/edit/personalInformation/${id.id}`, {state: {newCandidate: false}})} variant="outline" colorScheme="admin" w="180px" leftIcon={<EditIcon />}>
+            Edit
+          </Button>
+          ):""
+        }
+      </Flex>
       <Flex gap="40px" direction={{ base: 'column', xl: 'row' }}>
         <Avatar
           borderRadius="8px"
@@ -41,48 +57,38 @@ export default function PersonalInformation({
           </Box>
           <Box>
             <Text fontWeight="600">Personal ID Code</Text>
-            <Text>12345678910</Text>
-          </Box>
-          <Box>
-            <Text fontWeight="600">Social ID Code</Text>
-            <Text>123456789</Text>
-          </Box>
-          <Box>
-            <Text fontWeight="600">Home Address</Text>
-            <Text>{person?.financialAddress}</Text>
+            <Text>{person?.personalIdCode}</Text>
           </Box>
           <Box>
             <Text fontWeight="600">Occupation</Text>
-            <Text>Unemployed</Text>
+            <Text>{person?.occupation}</Text>
           </Box>
           <Box>
-            <Flex alignItems="center" gap="10px">
-              <Text fontWeight="600">E-mail</Text>
-              {simulation && <SimulationIcon height="20px" width="20px" />}
-            </Flex>
-            {simulation ? (
-              <Text color="gray">tom@myspace.com</Text>
-            ) : (
-              <Text color="gray">{person?.email}</Text>
-            )}
+            <Text fontWeight="600">Region / District</Text>
+            <Text>{person?.region}</Text>
           </Box>
           <Box>
-            <Flex alignItems="center" gap="10px">
-              <Text fontWeight="600">Phone Number</Text>
-              {simulation && <SimulationIcon height="20px" width="20px" />}
-            </Flex>
-            <Text color="gray">(+00) 94 843 432</Text>
+            <Text fontWeight="600">Municipality</Text>
+            <Text>{person?.municipality}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="600">Home Address</Text>
+            <Text>{person?.homeAddress}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="600">ZIP Code</Text>
+            <Text>{person?.zipCode}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="600">Phone Number</Text>
+            <Text>{person?.phoneNumber}</Text>
+          </Box>
+          <Box>
+            <Text fontWeight="600">Email Address</Text>
+            <Text>{person?.email}</Text>
           </Box>
         </Grid>
       </Flex>
-      <Text>
-        If the shown information is not up to date, please update the
-        information via the{' '}
-        <Link textDecoration="underline" href="#">
-          citizen portal
-        </Link>
-        .
-      </Text>
     </Flex>
   );
 }

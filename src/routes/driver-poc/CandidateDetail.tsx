@@ -7,27 +7,31 @@ import {
   Flex,
   Heading,
   SimpleGrid,
+  Spacer,
   Spinner,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { useQuery } from 'react-query';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { colors } from '../../chakra-overrides/colors';
-import { ActiveBuildingBlockContext } from '../usct/USCT';
 import BankInformation from '../usct/personal/BankInformation';
 import PersonalInformation from '../usct/personal/PersonalInformation';
 import { RPCContext } from './rpc';
 import { DriverPOC } from './types';
+import { ReactComponent as DeleteIcon} from '@assets/icons/trash.svg';
+import { getRole } from './utils/token';
 
 export default function CandidateDetail() {
-  const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
+  const rpc = useContext(RPCContext);
   const [selectedPackage, setSelectedPackage] = useState<DriverPOC.Package>();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
-  const rpc = useContext(RPCContext);
+  const isEnrollmentOfficer = (getRole() === "ROLE_ENROLLMENT_OFFICER");
+  const isRegistryAdministrator = (getRole() === "ROLE_REGISTRY_ADMINISTRATION");
 
   const { data: packages } = useQuery('packages', rpc.getPackages);
 
@@ -35,10 +39,15 @@ export default function CandidateDetail() {
     `candidate-${id}`,
     async () => {
       if (id) {
-        return rpc.getCandidateInfo(+id);
+        const res = await rpc.getCandidateInfo(+id);
+        return (res.person != null)?(res):(navigate('/driver-poc'));
       }
     }
   );
+  const deleteCandidate = async (id: number) => {
+    rpc.deleteCandidate(id);
+    return navigate('/driver-poc/candidates');
+  }
 
   const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
     if (candidate && selectedPackage) {
@@ -73,14 +82,14 @@ export default function CandidateDetail() {
             </Text>
           </Box>
           <Box>
-            <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
+            {/* <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
               Home
-            </Button>
+            </Button> */}
             <ButtonGroup
               maxW="380px"
               w="100%"
               colorScheme="admin"
-              variant="outline"
+              variant="solid"
               gap="20px"
             >
               <Button as={Link} to="/driver-poc" w="100%">
@@ -105,28 +114,14 @@ export default function CandidateDetail() {
   }
   return (
     <Flex direction="column" gap="60px">
-      <Heading>Assign candidate to the program</Heading>
+      {/* <Heading>Assign candidate to the program</Heading> */}
       {candidate ? (
         <>
           <PersonalInformation person={candidate.person} />
-          {/* <PersonalInformationTable
-            title="Household Information"
-            columns={[
-              "Name",
-              "National ID",
-              "Relation",
-              "Date of Birth",
-              "Needs",
-            ]}
-            data={candidate.household}
-          /> */}
-          <BankInformation
-            ownerName={candidate.person.bankAccountOwnerName}
-            bankName={candidate.person.bankName}
-            iban={candidate.person.iban}
+          <BankInformation candidate={candidate}
           />
-          <Flex direction="column" gap="20px">
-            <Heading size="md">Select a Benefit Package</Heading>
+           <Flex direction="column" gap="20px">
+            { isEnrollmentOfficer?  (<Heading size="md">Select a Benefit Package</Heading>):""}
             <SimpleGrid columns={4} gap="40px">
               {packages?.map((p) => {
                 return (
@@ -157,7 +152,8 @@ export default function CandidateDetail() {
                       <Text textAlign="left" size="lg">
                         <strong>{p.name}</strong>
                       </Text>
-                      <Box
+                      { isEnrollmentOfficer ? (
+                        <Box
                         w="20px"
                         h="20px"
                         flexShrink="0"
@@ -169,8 +165,10 @@ export default function CandidateDetail() {
                             : colors.secondary[0]
                         }
                       ></Box>
+                      ):""}
                     </Flex>
                     <Text textAlign="left">{p.description}</Text>
+                    <Text textAlign="left">Payment Amount: 1 234 €</Text>
                     {!candidate.packages.some(
                       (candidatePackage) => candidatePackage.id === p.id
                     ) && (
@@ -189,15 +187,27 @@ export default function CandidateDetail() {
               })}
             </SimpleGrid>
           </Flex>
-          <Flex justifyContent="flex-end">
-            <ButtonGroup colorScheme="admin">
-              <Button as={Link} to="/driver-poc" w="180px" variant="outline">
-                Back
-              </Button>
-              <Button w="180px" onClick={() => handleEnroll(selectedPackage)}>
-                Enroll
-              </Button>
-            </ButtonGroup>
+          <Flex>
+            { isRegistryAdministrator ? (
+              <Flex>
+                <Button  onClick={() => deleteCandidate(candidate.id)} colorScheme="red" leftIcon={<DeleteIcon/>} w="180px">
+                  Delete candidate
+                </Button>
+              </Flex>
+              ):""}
+            <Spacer/>
+            <Flex>
+              <ButtonGroup colorScheme="admin">
+                <Button as={Link} to="/driver-poc/candidates" w="180px" variant={ isEnrollmentOfficer ? "outline" : "solid" }>
+                  Back
+                </Button>
+                { isEnrollmentOfficer ? (
+                  <Button w="180px" onClick={() => handleEnroll(selectedPackage)}>
+                    Enroll
+                  </Button>
+                ):""}
+              </ButtonGroup>
+            </Flex>
           </Flex>
         </>
       ) : (

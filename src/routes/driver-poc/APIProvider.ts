@@ -108,4 +108,41 @@ export default class APIProvider extends BaseProvider {
     );
     return req.json() as Promise<string>;
   }
+  async createCandidate(candidate: DriverPOC.Candidate) {
+    const req = await fetchWithToken(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      {
+        method: 'POST',
+        body: JSON.stringify(candidate),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return req.json() as Promise<DriverPOC.Candidate>;
+  }
+
+  async updateCandidate(candidate: DriverPOC.Candidate) {
+    const req = await fetchWithToken(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${candidate.person.id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(candidate),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return req.json() as Promise<DriverPOC.Candidate>;
+  }
+
+  async deleteCandidate (id: number) {
+    const req = await fetchWithToken(
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    return req.json() as Promise<string>;
+  }
 }

@@ -17,4 +17,7 @@ export default abstract class BaseProvider {
   ): Promise<string>;
   abstract login(email: string, password: string): Promise<string>;
   abstract getRoles(): Promise<string>;
+  abstract createCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
+  abstract updateCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
+  abstract deleteCandidate(id: number): Promise<string>;
 }
