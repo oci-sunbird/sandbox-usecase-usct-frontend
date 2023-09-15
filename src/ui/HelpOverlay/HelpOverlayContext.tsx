@@ -1,5 +1,5 @@
-import { Box } from '@chakra-ui/react';
-import React, { createContext, useState } from 'react';
+import { Box } from "@chakra-ui/react";
+import React, { createContext, useState } from "react";
 
 interface IHelpOverlayContext {
   showOverlay: boolean;
@@ -7,12 +7,12 @@ interface IHelpOverlayContext {
 }
 
 export const HelpOverlayContext = createContext<IHelpOverlayContext>({
-  showOverlay: false,
+  showOverlay: true,
   setShowOverlay: () => {},
 });
 
 export const HelpOverlay = ({ children }: { children: React.ReactNode }) => {
-  const [showOverlay, setShowOverlay] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(true);
 
   return (
     <HelpOverlayContext.Provider
@@ -21,9 +21,10 @@ export const HelpOverlay = ({ children }: { children: React.ReactNode }) => {
         setShowOverlay,
       }}
     >
-      <Box filter={showOverlay ? 'blur(2px)' : undefined}>{children}</Box>
+      <Box filter={showOverlay ? "blur(2px)" : undefined}>{children}</Box>
       {showOverlay && (
         <Box
+          onClick={() => setShowOverlay(false)}
           position="fixed"
           inset="0"
           background="rgba(0, 0, 0, 0.7)"

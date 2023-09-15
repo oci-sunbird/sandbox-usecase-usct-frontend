@@ -1,5 +1,5 @@
-import { ReactComponent as HighPriorityIcon } from '@assets/icons/high-priority.svg';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as HighPriorityIcon } from "@assets/icons/high-priority.svg";
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
 import {
   Button,
   Flex,
@@ -18,50 +18,50 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import Pagination from '@ui/Pagination/Pagination';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import Tooltip from '../../../ui/Tooltip/Tooltip';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import Pagination from "@ui/Pagination/Pagination";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case 'scheduling':
-    case 'enrolled':
+    case "scheduling":
+    case "enrolled":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../enrolment',
-        nextStep: '../review-candidate/2895379235?state=scheduling',
+        previousStep: "../enrolment",
+        nextStep: "../review-candidate/2895379235?state=scheduling",
       };
-    case 'submitted':
+    case "submitted":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../case-management?state=submitted',
-        nextStep: '../review-candidate/2895379235?state=done',
+        previousStep: "../case-management?state=submitted",
+        nextStep: "../review-candidate/2895379235?state=done",
       };
     default:
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATE",
+          subtitle: "PRIMARY TASK",
         },
-        nextStep: '../review-candidate/2895379235',
-        previousStep: '../case-management',
+        nextStep: "../review-candidate/2895379235",
+        previousStep: "../case-management",
       };
   }
 };
@@ -71,18 +71,17 @@ export default function CandidateList() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
-  const isCandidateEnrolled = searchParams.get('state') === 'enrolled';
-  const isScheduling = searchParams.get('state') === 'scheduling';
-  const isSubmitted = searchParams.get('state') === 'submitted';
+  const isScheduling = searchParams.get("state") === "scheduling";
+  const isSubmitted = searchParams.get("state") === "submitted";
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
-      ...getConfig(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
     });
   }, [location]);
 
@@ -108,19 +107,19 @@ export default function CandidateList() {
   }, []);
 
   return (
-    <Flex w="100%" direction="column" gap="60px">
-      <Flex gap="20px" direction="column">
+    <Flex w="100%" direction="column" gap="3.75rem">
+      <Flex gap="1.25rem" direction="column">
         <Heading>Review Candidate</Heading>
         <Flex justifyContent="space-between">
-          <Flex gap="10px" flexShrink="0" alignItems="center">
+          <Flex gap=".625rem" flexShrink="0" alignItems="center">
             <Flex
               backgroundColor="secondary.1000"
               flexShrink="0"
               alignItems="center"
               justifyContent="center"
               borderRadius="100%"
-              w="24px"
-              h="24px"
+              w="1.5rem"
+              h="1.5rem"
             >
               <Text color="white" fontWeight="700" fontSize="12">
                 1
@@ -140,7 +139,7 @@ export default function CandidateList() {
             </TabList>
             <TabPanels>
               <TabPanel padding="0">
-                <Flex direction="column" gap="20px">
+                <Flex direction="column" gap="1.25rem">
                   <TableContainer>
                     <Table variant="simple">
                       <Thead
@@ -162,13 +161,13 @@ export default function CandidateList() {
                             <Td>37793946215</Td>
                             <Td>5</Td>
                             <Td>
-                              <Flex gap="10px" alignItems="center">
+                              <Flex gap=".625rem" alignItems="center">
                                 <HighPriorityIcon /> High Priority
                               </Flex>
                             </Td>
                             <Td>Yesterday</Td>
                             <Td>
-                              <Tag justifyContent="center" w="140px">
+                              <Tag justifyContent="center" w="8.75rem">
                                 Action Required
                               </Tag>
                             </Td>
@@ -191,8 +190,8 @@ export default function CandidateList() {
                         as={Link}
                         to={
                           isSubmitted
-                            ? '../review-candidate/2895379235?state=done'
-                            : '../review-candidate/2895379235'
+                            ? "../review-candidate/2895379235?state=done"
+                            : "../review-candidate/2895379235"
                         }
                         colorScheme="admin"
                       >
@@ -203,7 +202,7 @@ export default function CandidateList() {
                 </Flex>
               </TabPanel>
               <TabPanel padding="0">
-                <Flex direction="column" gap="20px">
+                <Flex direction="column" gap="1.25rem">
                   <TableContainer>
                     <Table variant="simple">
                       <Thead
@@ -225,13 +224,13 @@ export default function CandidateList() {
                             <Td>37793946215</Td>
                             <Td>5</Td>
                             <Td>
-                              <Flex gap="10px" alignItems="center">
+                              <Flex gap=".625rem" alignItems="center">
                                 <HighPriorityIcon /> High Priority
                               </Flex>
                             </Td>
                             <Td>Today</Td>
                             <Td>
-                              <Tag justifyContent="center" w="140px">
+                              <Tag justifyContent="center" w="8.75rem">
                                 Action Required
                               </Tag>
                             </Td>
@@ -273,17 +272,17 @@ export default function CandidateList() {
           </Tabs>
         </Tooltip>
       </Flex>
-      <Flex gap="20px" direction="column">
+      <Flex gap="1.25rem" direction="column">
         <Heading>Candidate List</Heading>
         <Flex justifyContent="space-between">
-          <Flex gap="10px" flexShrink="0" alignItems="center">
+          <Flex gap=".625rem" flexShrink="0" alignItems="center">
             <Text>
               <strong>211</strong> ACTIVE CANDIDATES
             </Text>
           </Flex>
         </Flex>
         <Tooltip letter="B" letterPosition="top">
-          <TableContainer mb="20px">
+          <TableContainer mb="1.25rem">
             <Table variant="simple">
               <Thead
                 backgroundColor={colors.secondary[800]}
@@ -305,7 +304,7 @@ export default function CandidateList() {
                   <Td>Yesterday</Td>
                   <Td>Allison Beal</Td>
                   <Td>
-                    <Tag justifyContent="center" w="140px">
+                    <Tag justifyContent="center" w="8.75rem">
                       Pending
                     </Tag>
                   </Td>
@@ -319,8 +318,8 @@ export default function CandidateList() {
 
           <Flex
             justifyContent="space-between"
-            gap="20px"
-            flexDirection={{ base: 'column', xl: 'row' }}
+            gap="1.25rem"
+            flexDirection={{ base: "column", xl: "row" }}
           >
             <Pagination />
             <Button

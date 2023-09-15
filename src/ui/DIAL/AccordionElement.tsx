@@ -1,4 +1,4 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   AccordionButton,
   AccordionIcon,
@@ -9,7 +9,7 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 interface IAccordionElementProps {
   data: {
@@ -19,7 +19,7 @@ interface IAccordionElementProps {
     }[];
   };
   title: string;
-  setActive: (state: any) => void;
+  setActive: (state: { type: string; name: string; self_url: string }) => void;
 }
 
 export default function AccordionElement({
@@ -40,23 +40,25 @@ export default function AccordionElement({
         </Heading>
         <AccordionPanel>
           <UnorderedList>
-            {data?.results?.map((result: any) => {
-              return (
-                <ListItem
-                  cursor="pointer"
-                  onClick={() => setActive(result)}
-                  _hover={{
-                    textDecoration: 'underline',
-                  }}
-                  key={result.self_url}
-                >
-                  <Flex justifyContent="space-between">
-                    <Text size="sm">{result.name}</Text>
-                    <ArrowForwardIcon />
-                  </Flex>
-                </ListItem>
-              );
-            })}
+            {data?.results?.map(
+              (result: { self_url: string; name: string; type: string }) => {
+                return (
+                  <ListItem
+                    cursor="pointer"
+                    onClick={() => setActive(result)}
+                    _hover={{
+                      textDecoration: "underline",
+                    }}
+                    key={result.self_url}
+                  >
+                    <Flex justifyContent="space-between">
+                      <Text size="sm">{result.name}</Text>
+                      <ArrowForwardIcon />
+                    </Flex>
+                  </ListItem>
+                );
+              },
+            )}
           </UnorderedList>
         </AccordionPanel>
       </AccordionItem>

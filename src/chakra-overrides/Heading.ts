@@ -8,16 +8,16 @@ export const Heading = defineStyleConfig({
   },
   sizes: {
     lg: {
-      fontSize: "36px",
-      lineHeight: "48px",
+      fontSize: "2.25rem",
+      lineHeight: "3rem",
     },
     md: {
-      fontSize: "24px",
-      lineHeight: "32px",
+      fontSize: "1.5rem",
+      lineHeight: "2rem",
     },
     sm: {
-      fontSize: "18px",
-      lineHeight: "24px",
+      fontSize: "1.125rem",
+      lineHeight: "1.5rem",
     },
   },
 });

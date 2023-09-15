@@ -22,7 +22,12 @@ export default function AuthoriseCitizenServant() {
   }, []);
   return (
     <Center w="100%">
-      <VStack maxW="312px" textAlign="center" gap="20px" position="relative">
+      <VStack
+        maxW="19.5rem"
+        textAlign="center"
+        gap="1.25rem"
+        position="relative"
+      >
         <Heading>Ministry of Social Welfare Log In</Heading>
         <Text>
           Please use your National ID Card or Work ID Card to enter the system.

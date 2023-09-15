@@ -1,4 +1,4 @@
-import { DriverPOC } from './types';
+import { DriverPOC } from "./types";
 
 export default abstract class BaseProvider {
   abstract getCandidateList(): Promise<DriverPOC.Candidate[]>;
@@ -6,18 +6,22 @@ export default abstract class BaseProvider {
   abstract getCandidateInfo(id: number): Promise<DriverPOC.Candidate>;
   abstract enrollCandidate(
     candidate: DriverPOC.Candidate,
-    enrolledPackage: DriverPOC.Package
+    enrolledPackage: DriverPOC.Package,
   ): Promise<DriverPOC.Beneficiary>;
   abstract getBeneficiariesList(): Promise<DriverPOC.Beneficiary[]>;
   abstract validateBeneficiaries(
-    beneficiares: DriverPOC.Beneficiary[]
+    beneficiares: DriverPOC.Beneficiary[],
   ): Promise<DriverPOC.Beneficiary[]>;
   abstract executePayments(
-    beneficiaries: DriverPOC.Beneficiary[]
+    beneficiaries: DriverPOC.Beneficiary[],
   ): Promise<string>;
   abstract login(email: string, password: string): Promise<string>;
   abstract getRoles(): Promise<string>;
-  abstract createCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
-  abstract updateCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
+  abstract createCandidate(
+    candidate: DriverPOC.Candidate,
+  ): Promise<DriverPOC.Candidate>;
+  abstract updateCandidate(
+    candidate: DriverPOC.Candidate,
+  ): Promise<DriverPOC.Candidate>;
   abstract deleteCandidate(id: number): Promise<string>;
 }

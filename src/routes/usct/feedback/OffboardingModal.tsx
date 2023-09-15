@@ -1,16 +1,16 @@
 import {
   Button,
+  ChakraProvider,
+  extendTheme,
+  Flex,
+  Link,
   Modal,
-  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  Flex,
+  ModalOverlay,
   Text,
-  extendTheme,
-  ChakraProvider,
-  Link,
 } from "@chakra-ui/react";
 import { colors } from "../../../chakra-overrides/colors";
 import { ModalFlex } from "./OffboardingModal.styles";
@@ -21,11 +21,11 @@ const theme = extendTheme({
       baseStyle: () => ({
         dialog: {
           width: "100%",
-          maxWidth: ["528px", "528px", "528px"],
-          minWidth: "240px",
+          maxWidth: ["33rem", "33rem", "33rem"],
+          minWidth: "15rem",
           bg: "#FFFFFF",
-          borderRadius: "16px",
-          border: "2px solid #000000",
+          borderRadius: "1rem",
+          border: ".125rem solid #000000",
         },
       }),
     },
@@ -44,32 +44,32 @@ export default function OffboardingModal({
       <Modal isOpen={opened} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontSize="24px" paddingTop="6" fontWeight="700">
+          <ModalHeader fontSize="1.5rem" paddingTop="6" fontWeight="700">
             All done!
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody paddingBottom={6}>
-            <Flex direction="column" justifyContent="center" gap="24px">
-              <Text fontSize="14px">
+            <Flex direction="column" justifyContent="center" gap="1.5rem">
+              <Text fontSize=".875rem">
                 We hope this experience was helpful for you to understand
                 GovStacks approach for sustainable development.
               </Text>
               <ModalFlex
                 direction="column"
                 alignItems="flex-start"
-                padding="8px"
+                padding=".5rem"
                 backgroundColor="green.100"
               >
                 <Text
                   size="md"
                   as="b"
                   color="secondary.900"
-                  marginBottom="14px"
+                  marginBottom=".875rem"
                 >
                   Your next steps towards implementation
                 </Text>
                 <ModalFlex
-                  marginBottom="12px"
+                  marginBottom=".75rem"
                   justifyContent="space-between"
                   width="100%"
                   alignItems="center"
@@ -107,7 +107,7 @@ export default function OffboardingModal({
                     colorScheme="secondary"
                     backgroundColor={colors.secondary[0]}
                     color={colors.secondary[1000]}
-                    border={`2px solid ${colors.secondary[1000]}`}
+                    border={`.125rem solid ${colors.secondary[1000]}`}
                     fontWeight="500"
                   >
                     Open Community page

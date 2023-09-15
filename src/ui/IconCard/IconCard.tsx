@@ -1,23 +1,28 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import React from 'react';
+import { Box, Flex, Text } from "@chakra-ui/react";
+import React from "react";
 
 interface IIconCardProps {
   icon: JSX.Element;
   title: string;
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export default function IconCard({ icon, title, children }: IIconCardProps) {
   return (
-    <Box w="100%" border="2px solid black" borderRadius="8px" minH="200px">
-      <Flex gap="20px" alignItems="center">
+    <Box
+      w="100%"
+      border=".125rem solid black"
+      borderRadius=".5rem"
+      minH="12.5rem"
+    >
+      <Flex gap="1.25rem" alignItems="center">
         <Flex
-          w="60px"
-          h="60px"
-          borderBottomRightRadius="35px"
+          w="3.75rem"
+          h="3.75rem"
+          borderBottomRightRadius="2.1875rem"
           borderColor="black"
-          borderBottomWidth="2px"
-          borderRightWidth="2px"
+          borderBottomWidth=".125rem"
+          borderRightWidth=".125rem"
           alignItems="center"
           justifyContent="center"
         >

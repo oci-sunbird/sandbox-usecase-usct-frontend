@@ -12,17 +12,20 @@ export default function Header(props: HeaderProps) {
     <Flex
       justifyContent="space-between"
       alignItems="center"
-      height={{ base: "72px", '2xl': props.userType === EUserType.CITIZEN ? "100px" : "72px"}}
+      height={{
+        base: "4.5rem",
+        "2xl": props.userType === EUserType.CITIZEN ? "6.25rem" : "4.5rem",
+      }}
       flexShrink="0"
       borderBottom={
         props.userType === EUserType.CITIZEN_SERVANT
-          ? "1px solid secondary.1000"
+          ? ".0625rem solid secondary.1000"
           : ""
       }
-      paddingLeft={{ base: "8px", lg: "64px" }}
-      marginBottom={{ base: '12px', '2xl': "20px"}}
+      paddingLeft={{ base: ".5rem", lg: "4rem" }}
+      marginBottom={{ base: ".75rem", "2xl": "1.25rem" }}
     >
-      <Flex alignItems="center" gap="12px">
+      <Flex alignItems="center" gap=".75rem">
         <Flex flexShrink="0">
           <Image
             src={
@@ -31,15 +34,15 @@ export default function Header(props: HeaderProps) {
                 : "/images/open-island-citizen.svg"
             }
             alt=""
-            w="38px"
-            h="38px"
+            w="2.375rem"
+            h="2.375rem"
           />
         </Flex>
         <Box display={{ base: "none", sm: "block" }}>
-          <Heading fontSize="12px" fontWeight="900" lineHeight="15px">
+          <Heading fontSize=".75rem" fontWeight="900" lineHeight=".9375rem">
             Open Island
           </Heading>
-          <Text fontSize="10px" fontWeight="400" lineHeight="12px">
+          <Text fontSize=".625rem" fontWeight="400" lineHeight=".75rem">
             Ministry of Social Welfare
             {props.userType === EUserType.CITIZEN && (
               <>

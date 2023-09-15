@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react';
-import { Navigate } from 'react-router-dom';
-import { Authentication, getRole, getToken } from './utils/token';
+import { PropsWithChildren } from "react";
+import { Navigate } from "react-router-dom";
+import { Authentication, getRole, getToken } from "./utils/token";
 
 interface RouteProps extends PropsWithChildren {
   guard: () => boolean;

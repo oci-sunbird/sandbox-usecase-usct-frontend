@@ -7,8 +7,8 @@ import {
   Td,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { colors } from '../../../chakra-overrides/colors';
+} from "@chakra-ui/react";
+import { colors } from "../../../chakra-overrides/colors";
 
 export default function PersonalInformationTable({
   columns,
@@ -16,7 +16,7 @@ export default function PersonalInformationTable({
   title,
 }: {
   columns: string[];
-  data: Record<string, any>[];
+  data: Record<string, unknown>[];
   title: string | React.ReactNode;
 }) {
   return (
@@ -26,10 +26,15 @@ export default function PersonalInformationTable({
       </Heading>
       <TableContainer>
         <Table variant="simple">
-          <Thead borderBottomWidth="medium" borderBottomColor={colors.secondary[600]}>
+          <Thead
+            borderBottomWidth="medium"
+            borderBottomColor={colors.secondary[600]}
+          >
             <Tr>
               {columns.map((column) => (
-                <Td key={column}><strong>{column}</strong></Td>
+                <Td key={column}>
+                  <strong>{column}</strong>
+                </Td>
               ))}
             </Tr>
           </Thead>

@@ -1,13 +1,20 @@
-import { Flex, useBreakpointValue, Text, Heading, List, Accordion } from '@chakra-ui/react';
-import { createContext, useEffect, useReducer, useRef, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import ScenarioLayout from '../../ui/ScenarioLayout/ScenarioLayout';
-import { ContextualHelpContextProvider } from './ContextualHelpContext';
-import Header from './Header';
-import { BUILDING_BLOCK } from './utils';
-import { HelpOverlay } from '@ui/HelpOverlay/HelpOverlayContext';
-import { DIALBuildingBlockContextProvider } from '@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext';
-import FakeLoader from '@ui/FakeLoader/FakeLoader';
+import {
+  Accordion,
+  Flex,
+  Heading,
+  List,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import { DIALBuildingBlockContextProvider } from "@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext";
+import FakeLoader from "@ui/FakeLoader/FakeLoader";
+import { HelpOverlay } from "@ui/HelpOverlay/HelpOverlayContext";
+import { createContext, useEffect, useReducer, useRef, useState } from "react";
+import { Outlet } from "react-router-dom";
+import ScenarioLayout from "../../ui/ScenarioLayout/ScenarioLayout";
+import { ContextualHelpContextProvider } from "./ContextualHelpContext";
+import Header from "./Header";
+import { BUILDING_BLOCK } from "./utils";
 
 export interface IRouteDescription {
   title: string;
@@ -15,20 +22,20 @@ export interface IRouteDescription {
 }
 
 export enum EUserType {
-  CITIZEN_SERVANT = 'CITIZEN_SERVANT',
-  CITIZEN = 'CITIZEN',
+  CITIZEN_SERVANT = "CITIZEN_SERVANT",
+  CITIZEN = "CITIZEN",
 }
 
 const getLoaderLabel = (userType: EUserType | null) => {
   if (!userType) {
-    return '';
+    return "";
   }
   if (userType === EUserType.CITIZEN) {
-    return 'Changing perspective to Applicant...'
+    return "Changing perspective to Applicant...";
   } else {
-    return 'Changing perspective to Civil Servant...'
+    return "Changing perspective to Civil Servant...";
   }
-}
+};
 
 export interface ISimulationState {
   progress: number;
@@ -42,32 +49,32 @@ export interface ISimulationState {
 
 export interface ISimulationAction extends ISimulationState {
   type:
-    | 'SET_PROGRESS'
-    | 'SET_DESCRIPTION'
-    | 'SET_OVERLAYS'
-    | 'SET_USERTYPE'
-    | 'SET_ALL';
+    | "SET_PROGRESS"
+    | "SET_DESCRIPTION"
+    | "SET_OVERLAYS"
+    | "SET_USERTYPE"
+    | "SET_ALL";
 }
 
 const initialSimulationState: ISimulationState = {
   progress: 0,
   description: {
-    title: '',
-    subtitle: '',
+    title: "",
+    subtitle: "",
   },
   overlays: true,
   userType: null,
   userAuthorized: false,
-  nextStep: '',
-  previousStep: '',
+  nextStep: "",
+  previousStep: "",
 };
 
 const simulationReducer = (
   state: ISimulationState,
-  action: ISimulationAction
+  action: ISimulationAction,
 ) => {
   switch (action.type) {
-    case 'SET_ALL':
+    case "SET_ALL":
       return {
         ...state,
         progress: action.progress,
@@ -109,7 +116,7 @@ const activeBuildingBlockState = {
 
 export interface ActiveBuildingBlockContext {
   activeBuildingBlocks: Record<BUILDING_BLOCK, boolean>;
-  setActiveBuildingBlocks: Function;
+  setActiveBuildingBlocks: (arg: Record<string, boolean>) => void;
 }
 
 export const ActiveBuildingBlockContext =
@@ -121,13 +128,13 @@ export const ActiveBuildingBlockContext =
 export default function USCT() {
   const [state, dispatch] = useReducer(
     simulationReducer,
-    initialSimulationState
+    initialSimulationState,
   );
   const [showLoader, setShowLoader] = useState(false);
   const prevUserType = useRef<EUserType | null>(null);
 
   const [activeBuildingBlocks, setActiveBuildingBlocks] = useState(
-    activeBuildingBlockState
+    activeBuildingBlockState,
   );
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -136,8 +143,8 @@ export default function USCT() {
     function handleResize() {
       setWidth(window.innerWidth);
     }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [width]);
 
   useEffect(() => {
@@ -151,49 +158,49 @@ export default function USCT() {
   // breakpoints from main.tsx
   const TextFontsize = useBreakpointValue(
     {
-      xs: 'xs',
-      sm: 'sm',
-      md: 'md',
-      lg: 'sm',
-      xl: 'md'
+      xs: "xs",
+      sm: "sm",
+      md: "md",
+      lg: "sm",
+      xl: "md",
     },
     {
-      fallback: 'xs',
+      fallback: "xs",
     },
   );
 
   const HeadingFontsize = useBreakpointValue(
     {
-      xs: 'md',
-      sm: 'lg',
-      md: 'lg',
-      lg: 'md',
-      xl: 'lg',
+      xs: "md",
+      sm: "lg",
+      md: "lg",
+      lg: "md",
+      xl: "lg",
     },
     {
-      fallback: 'md',
+      fallback: "md",
     },
   );
 
   Text.defaultProps = {
     ...Text.defaultProps,
-    size: TextFontsize
-  }
+    size: TextFontsize,
+  };
 
   List.defaultProps = {
     ...List.defaultProps,
-    size: TextFontsize
-  }
+    size: TextFontsize,
+  };
 
   Heading.defaultProps = {
     ...Heading.defaultProps,
-    size: HeadingFontsize
-  }
+    size: HeadingFontsize,
+  };
 
   Accordion.defaultProps = {
     ...Accordion.defaultProps,
-    size: TextFontsize
-  }
+    size: TextFontsize,
+  };
 
   return (
     <HelpOverlay>
@@ -210,9 +217,9 @@ export default function USCT() {
                     userAuthorized={state.userAuthorized}
                   />
                   <Flex
-                    paddingRight={{ base: '15px', lg: '60px' }}
-                    paddingLeft={{ base: '15px', lg: '60px' }}
-                    paddingBottom="80px"
+                    paddingRight={{ base: ".9375rem", lg: "3.75rem" }}
+                    paddingLeft={{ base: ".9375rem", lg: "3.75rem" }}
+                    paddingBottom="5rem"
                     flexGrow="1"
                   >
                     <FakeLoader

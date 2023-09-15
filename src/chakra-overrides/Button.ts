@@ -4,13 +4,13 @@ export const Button = defineStyleConfig({
   baseStyle: {},
   sizes: {
     lg: {
-      fontSize: '18px',
+      fontSize: "1.125rem",
     },
     md: {
-      fontSize: '16px',
+      fontSize: "1rem",
     },
     sm: {
-      fontSize: '14px',
+      fontSize: ".875rem",
     },
   },
   variants: {

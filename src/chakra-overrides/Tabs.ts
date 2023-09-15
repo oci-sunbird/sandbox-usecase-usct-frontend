@@ -1,30 +1,30 @@
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
+import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
 const Tabs = createMultiStyleConfigHelpers([
-  'tab',
-  'tablist',
+  "tab",
+  "tablist",
 ]).defineMultiStyleConfig({
   variants: {
     enclosed: {
       tab: {
-        color: 'secondary.1000',
-        fontWeight: '600',
-        borderTopLeftRadius: '8px',
-        borderTopRightRadius: '8px',
+        color: "secondary.1000",
+        fontWeight: "600",
+        borderTopLeftRadius: ".5rem",
+        borderTopRightRadius: ".5rem",
         _selected: {
-          bg: 'secondary.1000',
-          color: 'secondary.0',
-          borderBottomColor: 'secondary.1000',
+          bg: "secondary.1000",
+          color: "secondary.0",
+          borderBottomColor: "secondary.1000",
         },
       },
       tablist: {
-        borderColor: 'secondary.1000',
+        borderColor: "secondary.1000",
         marginBottom: 0,
       },
     },
   },
   defaultProps: {
-    variant: 'enclosed',
+    variant: "enclosed",
   },
 });
 

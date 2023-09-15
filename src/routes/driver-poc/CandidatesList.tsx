@@ -1,9 +1,12 @@
+import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
+import { ReactComponent as PlusIcon } from "@assets/icons/plus.svg";
 import {
   Button,
-  IconButton,
   Flex,
   Heading,
   HStack,
+  IconButton,
+  Spacer,
   Spinner,
   Table,
   Tag,
@@ -13,38 +16,37 @@ import {
   Th,
   Thead,
   Tr,
-  Spacer,
-} from '@chakra-ui/react';
-import { useContext } from 'react';
-import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { colors } from '../../chakra-overrides/colors';
-import { RPCContext } from './rpc';
-import { ReactComponent as PlusIcon } from '@assets/icons/plus.svg';
-import { ReactComponent as EditIcon } from '@assets/icons/edit.svg';
-import { getRole } from './utils/token';
+} from "@chakra-ui/react";
+import { useContext } from "react";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
+import { RPCContext } from "./rpc";
+import { getRole } from "./utils/token";
 
 export default function CandidatesList() {
   const rpc = useContext(RPCContext);
   const navigate = useNavigate();
-  const isRegistryAdministrator = (getRole() === "ROLE_REGISTRY_ADMINISTRATION");
+  const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
   const { data: candidates, isLoading } = useQuery(
-    'candidates',
-    rpc.getCandidateList
+    "candidates",
+    rpc.getCandidateList,
   );
   return (
     <>
-      <Heading mb="40px">Candidate List</Heading>
-      <Text mb="40px">
-      Please choose a candidate from the list of program candidates to modify their information. If you wish to register a new candidate, please use the 'Create Candidate' option.
+      <Heading mb="2.5rem">Candidate List</Heading>
+      <Text mb="2.5rem">
+        Please choose a candidate from the list of program candidates to modify
+        their information. If you wish to register a new candidate, please use
+        the 'Create Candidate' option.
       </Text>
-      <Heading mb="20px" size="md">
+      <Heading mb="1.25rem" size="md">
         Program Candidates
       </Heading>
-      <Flex alignItems="center" mb="20px" gap="10px">
+      <Flex alignItems="center" mb="1.25rem" gap=".625rem">
         <Flex
-          w="24px"
-          h="24px"
+          w="1.5rem"
+          h="1.5rem"
           alignItems="center'"
           justifyContent="center"
           borderRadius="100%"
@@ -57,11 +59,19 @@ export default function CandidatesList() {
           CANDIDATES
         </Text>
         <Spacer />
-        {(isRegistryAdministrator)?(
-        <Flex>
-          <Button onClick={() => navigate(`/driver-poc/candidate/create`)} colorScheme='admin' leftIcon={<PlusIcon />}>Create Candidate</Button>
-        </Flex>
-        ):""}
+        {isRegistryAdministrator ? (
+          <Flex>
+            <Button
+              onClick={() => navigate(`/driver-poc/candidate/create`)}
+              colorScheme="admin"
+              leftIcon={<PlusIcon />}
+            >
+              Create Candidate
+            </Button>
+          </Flex>
+        ) : (
+          ""
+        )}
       </Flex>
       <Table variant="simple">
         <Thead
@@ -73,15 +83,17 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>Name</Th>
             <Th color={colors.secondary[0]}>ID Number</Th>
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
-            {(isRegistryAdministrator)?(
-            <Th color={colors.secondary[0]}></Th>
-            ):""}
+            {isRegistryAdministrator ? (
+              <Th color={colors.secondary[0]}></Th>
+            ) : (
+              ""
+            )}
           </Tr>
         </Thead>
         <Tbody>
           {isLoading && (
             <Tr>
-              <Td colSpan={(isRegistryAdministrator)?5:4}>
+              <Td colSpan={isRegistryAdministrator ? 5 : 4}>
                 <Flex justifyContent="center" alignItems="center" w="100%">
                   <Spinner size="md" />
                 </Flex>
@@ -93,11 +105,11 @@ export default function CandidatesList() {
               key={candidate.id}
               onClick={() => navigate(`/driver-poc/candidate/${candidate.id}`)}
               _hover={{
-                cursor: 'pointer',
+                cursor: "pointer",
                 background: colors.secondary[100],
               }}
             >
-              <Td borderStartRadius={16} >{index + 1}</Td>
+              <Td borderStartRadius={16}>{index + 1}</Td>
               <Td>
                 <Text>{`${candidate.person.firstName} ${candidate.person.lastName}`}</Text>
               </Td>
@@ -106,7 +118,7 @@ export default function CandidatesList() {
               </Td>
               <Td>
                 {candidate.packages?.length > 0 ? (
-                  <HStack gap="10px">
+                  <HStack gap=".625rem">
                     {candidate?.packages
                       .sort((a, b) => b.name.localeCompare(a.name))
                       .map((p) => {
@@ -115,7 +127,7 @@ export default function CandidatesList() {
                             justifyContent="center"
                             color={colors.secondary[0]}
                             backgroundColor={colors.secondary[800]}
-                            w="140px"
+                            w="8.75rem"
                             key={p.id}
                           >
                             {p.name}
@@ -128,22 +140,26 @@ export default function CandidatesList() {
                     justifyContent="center"
                     color={colors.secondary[0]}
                     backgroundColor={colors.info[600]}
-                    w="140px"
+                    w="8.75rem"
                   >
                     Not Eligible
                   </Tag>
                 )}
               </Td>
-              {(isRegistryAdministrator)?(
-               <Td borderEndRadius={16}>
-                <IconButton
+              {isRegistryAdministrator ? (
+                <Td borderEndRadius={16}>
+                  <IconButton
                     variant="borderless"
-                    aria-label='Edit candidate'
+                    aria-label="Edit candidate"
                     icon={<EditIcon />}
-                    onClick={() => navigate(`/driver-poc/candidate/${candidate.id}`)}
-                />
+                    onClick={() =>
+                      navigate(`/driver-poc/candidate/${candidate.id}`)
+                    }
+                  />
                 </Td>
-              ):""}
+              ) : (
+                ""
+              )}
             </Tr>
           ))}
         </Tbody>

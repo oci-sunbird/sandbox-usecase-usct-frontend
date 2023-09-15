@@ -1,7 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import { ReactElement, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { colors } from '../../chakra-overrides/colors';
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { ReactElement, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
 
 export default function ScenarioView({
   children,
@@ -20,61 +20,65 @@ export default function ScenarioView({
       w="100%"
       height="100%"
       direction="column"
-      p={{ base: '4px 16px 0 16px', lg: '4px 64px 0 64px', '2xl': '16px 64px 0 64px' }}
+      p={{
+        base: ".25rem 1rem 0 1rem",
+        lg: ".25rem 4rem 0 4rem",
+        "2xl": "1rem 4rem 0 4rem",
+      }}
       flexGrow="1"
       alignItems="center"
       minHeight="0"
     >
-      <Flex w="100%" h="100%" direction="column" maxW="1024px">
+      <Flex w="100%" h="100%" direction="column" maxW="64rem">
         <Flex
           alignItems="center"
-          gap="16px"
-          borderTopRadius="8px"
+          gap="1rem"
+          borderTopRadius=".5rem"
           w="100%"
           backgroundColor="#f2f2f2"
-          boxShadow="0px 0px 16px rgba(0, 0, 0, 0.25);"
-          p={{ base: "8px 16px", '2xl': "12px 16px" }}
+          boxShadow="0rem 0rem 1rem rgba(0, 0, 0, 0.25);"
+          p={{ base: ".5rem 1rem", "2xl": ".75rem 1rem" }}
           zIndex="1"
           boxSizing="border-box"
         >
-          <Flex gap="6px">
+          <Flex gap=".375rem">
             <Box
               borderRadius="100%"
-              height="16px"
-              width="16px"
+              height="1rem"
+              width="1rem"
               backgroundColor={colors.secondary[900]}
             ></Box>
             <Box
               borderRadius="100%"
-              height="16px"
-              width="16px"
+              height="1rem"
+              width="1rem"
               backgroundColor={colors.secondary[500]}
             ></Box>
             <Box
               borderRadius="100%"
-              height="16px"
-              width="16px"
+              height="1rem"
+              width="1rem"
               backgroundColor={colors.secondary[300]}
             ></Box>
           </Flex>
           <Flex
-            h={{ base: '24px', '2xl': '32px' }}
-            borderRadius="4px"
+            h={{ base: "1.5rem", "2xl": "2rem" }}
+            borderRadius=".25rem"
             w="100%"
             backgroundColor={colors.secondary[0]}
             alignItems="center"
             textAlign="center"
             justifyContent="center"
           >
-            <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }} color="#9B9B9B;">
+            <Text size={{ xs: "xxs", sm: "xs", md: "sm" }} color="#9B9B9B;">
               openisland-self-service-welfare.govstack
             </Text>
           </Flex>
         </Flex>
         <Box
-          boxShadow="0px 0px 16px rgba(0, 0, 0, 0.25);"
+          boxShadow="0rem 0rem 1rem rgba(0, 0, 0, 0.25);"
           h="100%"
-          borderBottomRadius="16px"
+          borderBottomRadius="1rem"
           overflow="auto"
           backgroundColor="#fff"
           position="relative"

@@ -1,50 +1,54 @@
-import React, { lazy } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
-import Login from './driver-poc/Login';
+import React, { lazy } from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Dashboard } from "./driver-poc/dashboard/Dashboard";
+import Login from "./driver-poc/Login";
 import {
-  ProtectedRoute,
   isAllowedRoleGuard,
   isAuthenticatedGuard,
-} from './driver-poc/ProtectedRoute';
-import { Dashboard } from './driver-poc/dashboard/Dashboard';
-import { Authentication } from './driver-poc/utils/token';
-const BeneficiaryList = lazy(() => import('./driver-poc/BeneficiaryList'));
-const CandidateDetail = lazy(() => import('./driver-poc/CandidateDetail'));
-const CandidatesList = lazy(() => import('./driver-poc/CandidatesList'));
-const DriverPoc = lazy(() => import('./driver-poc/DriverPoc'));
-const USCT = lazy(() => import('./usct/USCT'));
-const ActiveProgram = lazy(() => import('./usct/active-program/ActiveProgram'));
+  ProtectedRoute,
+} from "./driver-poc/ProtectedRoute";
+import { Scope } from "./driver-poc/utils/token";
+const BeneficiaryList = lazy(() => import("./driver-poc/BeneficiaryList"));
+const CandidateDetail = lazy(() => import("./driver-poc/CandidateDetail"));
+const CandidatesList = lazy(() => import("./driver-poc/CandidatesList"));
+const DriverPoc = lazy(() => import("./driver-poc/DriverPoc"));
+const USCT = lazy(() => import("./usct/USCT"));
+const ActiveProgram = lazy(() => import("./usct/active-program/ActiveProgram"));
 const AuthoriseCitizen = lazy(
-  () => import('./usct/authorise-citizen/AuthoriseCitizen')
+  () => import("./usct/authorise-citizen/AuthoriseCitizen"),
 );
-const CandidateList = lazy(() => import('./usct/candidate-list/CandidateList'));
-const CaseList = lazy(() => import('./usct/case-list/CaseList'));
+const CandidateList = lazy(() => import("./usct/candidate-list/CandidateList"));
+const CaseList = lazy(() => import("./usct/case-list/CaseList"));
 const CaseManagement = lazy(
-  () => import('./usct/case-management/CaseManagement')
+  () => import("./usct/case-management/CaseManagement"),
 );
-const Conversation = lazy(() => import('./usct/conversation/Conversation'));
-const Enrolment = lazy(() => import('./usct/enrolment/Enrolment'));
-const Info = lazy(() => import('./usct/info/Info'));
-const Personal = lazy(() => import('./usct/personal/Personal'));
+const Conversation = lazy(() => import("./usct/conversation/Conversation"));
+const Enrolment = lazy(() => import("./usct/enrolment/Enrolment"));
+const Info = lazy(() => import("./usct/info/Info"));
+const Personal = lazy(() => import("./usct/personal/Personal"));
 const ReviewCandidate = lazy(
-  () => import('./usct/review-candidate/ReviewCandidate')
+  () => import("./usct/review-candidate/ReviewCandidate"),
 );
-const ReviewCase = lazy(() => import('./usct/review-case/ReviewCase'));
-const Review = lazy(() => import('./usct/review/Review'));
+const ReviewCase = lazy(() => import("./usct/review-case/ReviewCase"));
+const Review = lazy(() => import("./usct/review/Review"));
 const StartNewConversation = lazy(
-  () => import('./usct/start-new-conversation/StartNewConversation')
+  () => import("./usct/start-new-conversation/StartNewConversation"),
 );
-const Feedback = lazy(() => import('./usct/feedback/Feedback'));
+const Feedback = lazy(() => import("./usct/feedback/Feedback"));
 
-const CreateCandidate = lazy(() => import('./driver-poc/CreateCandidate'));
-const PersonalInformationEdit = lazy(() => import('./usct/personal/PersonalInformationEdit'));
-const BankInformationEdit = lazy(() => import('./usct/personal/BankInformationEdit'));
+const CreateCandidate = lazy(() => import("./driver-poc/CreateCandidate"));
+const PersonalInformationEdit = lazy(
+  () => import("./usct/personal/PersonalInformationEdit"),
+);
+const BankInformationEdit = lazy(
+  () => import("./usct/personal/BankInformationEdit"),
+);
 export const router = createBrowserRouter([
   {
-    path: '',
+    path: "",
     children: [
       {
-        path: 'driver-poc/login',
+        path: "driver-poc/login",
         element: (
           <ProtectedRoute
             guard={() => !isAuthenticatedGuard()}
@@ -55,7 +59,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'driver-poc',
+        path: "driver-poc",
         element: (
           <ProtectedRoute
             guard={() => isAuthenticatedGuard()}
@@ -72,13 +76,13 @@ export const router = createBrowserRouter([
             element: <Dashboard />,
           },
           {
-            path: 'candidates',
+            path: "candidates",
             element: (
               <ProtectedRoute
                 guard={() =>
                   isAllowedRoleGuard([
-                    Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
-                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
+                    Scope.ROLE_ENROLLMENT_OFFICER,
+                    Scope.ROLE_REGISTRY_ADMINISTRATION,
                   ])
                 }
               >
@@ -87,43 +91,37 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: 'candidate/edit/personalInformation/:id',
+            path: "candidate/edit/personalInformation/:id",
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([
-                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
-                  ])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
                 }
                 redirect="/driver-poc"
               >
-                <PersonalInformationEdit/>
+                <PersonalInformationEdit />
               </ProtectedRoute>
             ),
           },
           {
-            path: 'candidate/edit/bankInformation/:id',
+            path: "candidate/edit/bankInformation/:id",
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([
-                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
-                  ])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
                 }
                 redirect="/driver-poc"
               >
-                <BankInformationEdit/>
+                <BankInformationEdit />
               </ProtectedRoute>
             ),
           },
           {
-            path: 'candidate/create',
+            path: "candidate/create",
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([
-                    Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
-                  ])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
                 }
                 redirect="/driver-poc"
               >
@@ -132,7 +130,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: 'candidate/:id',
+            path: "candidate/:id",
             children: [
               {
                 index: true,
@@ -140,8 +138,8 @@ export const router = createBrowserRouter([
                   <ProtectedRoute
                     guard={() =>
                       isAllowedRoleGuard([
-                        Authentication.Scope.ROLE_ENROLLMENT_OFFICER,
-                        Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION,
+                        Scope.ROLE_ENROLLMENT_OFFICER,
+                        Scope.ROLE_REGISTRY_ADMINISTRATION,
                       ])
                     }
                     redirect="/driver-poc"
@@ -153,15 +151,11 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: 'beneficiaries',
+            path: "beneficiaries",
             element: (
               <>
                 <ProtectedRoute
-                  guard={() =>
-                    isAllowedRoleGuard([
-                      Authentication.Scope.ROLE_PAYMENT_OFFICER,
-                    ])
-                  }
+                  guard={() => isAllowedRoleGuard([Scope.ROLE_PAYMENT_OFFICER])}
                 >
                   <BeneficiaryList />
                 </ProtectedRoute>
@@ -171,7 +165,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: 'driver-poc/*',
+        path: "driver-poc/*",
         element: <Navigate to="/driver-poc/dashboard" />,
       },
       {
@@ -195,7 +189,7 @@ export const router = createBrowserRouter([
                 <CaseManagement />
               </React.Suspense>
             ),
-            path: 'case-management',
+            path: "case-management",
           },
           {
             element: (
@@ -203,7 +197,7 @@ export const router = createBrowserRouter([
                 <CandidateList />
               </React.Suspense>
             ),
-            path: 'candidate-list',
+            path: "candidate-list",
           },
           {
             element: (
@@ -211,7 +205,7 @@ export const router = createBrowserRouter([
                 <CaseList />
               </React.Suspense>
             ),
-            path: 'case-list',
+            path: "case-list",
           },
           {
             element: (
@@ -219,7 +213,7 @@ export const router = createBrowserRouter([
                 <ReviewCandidate />
               </React.Suspense>
             ),
-            path: 'review-candidate/:id',
+            path: "review-candidate/:id",
           },
           {
             element: (
@@ -227,7 +221,7 @@ export const router = createBrowserRouter([
                 <Enrolment />
               </React.Suspense>
             ),
-            path: 'enrolment',
+            path: "enrolment",
           },
           {
             element: (
@@ -235,7 +229,7 @@ export const router = createBrowserRouter([
                 <ActiveProgram />
               </React.Suspense>
             ),
-            path: 'active-program',
+            path: "active-program",
           },
           {
             element: (
@@ -243,7 +237,7 @@ export const router = createBrowserRouter([
                 <ReviewCase />
               </React.Suspense>
             ),
-            path: 'review-case/:id',
+            path: "review-case/:id",
           },
           {
             element: (
@@ -251,7 +245,7 @@ export const router = createBrowserRouter([
                 <Conversation />
               </React.Suspense>
             ),
-            path: 'conversation/:id',
+            path: "conversation/:id",
           },
           {
             element: (
@@ -259,7 +253,7 @@ export const router = createBrowserRouter([
                 <StartNewConversation />
               </React.Suspense>
             ),
-            path: 'new-conversation',
+            path: "new-conversation",
           },
           {
             element: (
@@ -267,7 +261,7 @@ export const router = createBrowserRouter([
                 <AuthoriseCitizen />
               </React.Suspense>
             ),
-            path: 'authorise-citizen',
+            path: "authorise-citizen",
           },
           {
             element: (
@@ -275,7 +269,7 @@ export const router = createBrowserRouter([
                 <Info />
               </React.Suspense>
             ),
-            path: 'info',
+            path: "info",
           },
           {
             element: (
@@ -283,7 +277,7 @@ export const router = createBrowserRouter([
                 <Personal />
               </React.Suspense>
             ),
-            path: 'personal',
+            path: "personal",
           },
           {
             element: (
@@ -291,7 +285,7 @@ export const router = createBrowserRouter([
                 <Review />
               </React.Suspense>
             ),
-            path: 'review',
+            path: "review",
           },
           {
             element: (
@@ -299,7 +293,7 @@ export const router = createBrowserRouter([
                 <Feedback />
               </React.Suspense>
             ),
-            path: 'feedback',
+            path: "feedback",
           },
         ],
       },

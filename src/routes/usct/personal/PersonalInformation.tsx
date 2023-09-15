@@ -1,51 +1,68 @@
-import { ReactComponent as EditIcon } from '@assets/icons/edit.svg';
-import { Avatar, Box, Button, Flex, Grid, Heading, Spacer, Text } from '@chakra-ui/react';
-import { DriverPOC } from '../../driver-poc/types';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getRole } from '../../driver-poc/utils/token';
+import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DriverPOC } from "../../driver-poc/types";
+import { getRole } from "../../driver-poc/utils/token";
 
 export default function PersonalInformation({
   newCandidate,
   person,
-  simulation,
-  reviewed,
 }: {
   newCandidate?: boolean;
   person: DriverPOC.Person | null;
-  simulation?: boolean;
-  reviewed?: boolean;
 }) {
-const navigate = useNavigate();
-const id = useParams<{ id: string }>();
-const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
+  const navigate = useNavigate();
+  const id = useParams<{ id: string }>();
+  const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
   // const SimulationIcon = reviewed ? YisIcon : FileWarningIcon;
 
   return (
-    <Flex gap="24px" direction="column">
+    <Flex gap="1.5rem" direction="column">
       <Flex>
-          {(newCandidate)?(<Heading mb="40px">New Candidate</Heading>):""}
-          <Heading fontSize="18px">Candidate Information</Heading>
-          <Spacer/>
-          {(isRegistryAdministrator && !newCandidate)?(
-          <Button onClick={() => navigate(`/driver-poc/candidate/edit/personalInformation/${id.id}`, {state: {newCandidate: false}})} variant="outline" colorScheme="admin" w="180px" leftIcon={<EditIcon />}>
+        {newCandidate ? <Heading mb="2.5rem">New Candidate</Heading> : ""}
+        <Heading fontSize="1.125rem">Candidate Information</Heading>
+        <Spacer />
+        {isRegistryAdministrator && !newCandidate ? (
+          <Button
+            onClick={() =>
+              navigate(
+                `/driver-poc/candidate/edit/personalInformation/${id.id}`,
+                { state: { newCandidate: false } },
+              )
+            }
+            variant="outline"
+            colorScheme="admin"
+            w="11.25rem"
+            leftIcon={<EditIcon />}
+          >
             Edit
           </Button>
-          ):""
-        }
+        ) : (
+          ""
+        )}
       </Flex>
-      <Flex gap="40px" direction={{ base: 'column', xl: 'row' }}>
+      <Flex gap="2.5rem" direction={{ base: "column", xl: "row" }}>
         <Avatar
-          borderRadius="8px"
-          maxH="254px"
-          maxW="192px"
+          borderRadius=".5rem"
+          maxH="15.875rem"
+          maxW="12rem"
           width="100%"
           height="auto"
         />
         <Grid
           w="100%"
           gridTemplateRows="repeat(4, min-content)"
-          gridTemplateColumns={{ sm: 'repeat(2, 1fr)' }}
-          gap="20px"
+          gridTemplateColumns={{ sm: "repeat(2, 1fr)" }}
+          gap="1.25rem"
         >
           <Box>
             <Text fontWeight="600">Name</Text>

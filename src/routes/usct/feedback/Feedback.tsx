@@ -1,4 +1,3 @@
-import { ReactComponent as StarIcon } from "@assets/icons/star.svg";
 import { Box, Button, Flex, Heading, Text, Textarea } from "@chakra-ui/react";
 import Tooltip from "@ui/Tooltip/Tooltip";
 import { useContext, useEffect, useState } from "react";
@@ -6,9 +5,8 @@ import { ContextualHelpContext } from "../ContextualHelpContext";
 import { ContextualTitle, EUserType } from "../ContextualHelpUtils";
 import { ActiveBuildingBlockContext, SimulationContext } from "../USCT";
 import { BUILDING_BLOCK } from "../utils";
-import OffboardingModal from "./OffboardingModal";
-import { colors } from "../../../chakra-overrides/colors";
 import { RatingIcon } from "./Feedback.styles";
+import OffboardingModal from "./OffboardingModal";
 
 export default function Feedback() {
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
@@ -46,41 +44,47 @@ export default function Feedback() {
         subtitle: "PRIMARY TASK",
       },
       userAuthorized: true,
-      previousStep: '../conversation/300'
+      previousStep: "../conversation/300",
     });
   }, []);
 
   return (
-    <Box w="100%" pt="80px">
+    <Box w="100%" pt="5rem">
       <Tooltip letter="A">
-        <Heading mb="20px">Thank you for your time!</Heading>
+        <Heading mb="1.25rem">Thank you for your time!</Heading>
         <Text>How would you rate your experience with our service?</Text>
-        <Flex py="40px" justifyContent="center" gap="10px">
+        <Flex py="2.5rem" justifyContent="center" gap=".625rem">
           <Flex direction="column" alignItems="flex-end">
-            <RatingIcon onClick={() => setRating(1)} $isSelected={rating === 1}/>
+            <RatingIcon
+              onClick={() => setRating(1)}
+              $isSelected={rating === 1}
+            />
             <Text size="sm" color="secondary.900">
               Unsatisfied
             </Text>
           </Flex>
-          <RatingIcon onClick={() => setRating(2)} $isSelected={rating === 2}/>
-          <RatingIcon onClick={() => setRating(3)} $isSelected={rating === 3}/>
-          <RatingIcon onClick={() => setRating(4)} $isSelected={rating === 4}/>
+          <RatingIcon onClick={() => setRating(2)} $isSelected={rating === 2} />
+          <RatingIcon onClick={() => setRating(3)} $isSelected={rating === 3} />
+          <RatingIcon onClick={() => setRating(4)} $isSelected={rating === 4} />
           <Flex direction="column">
-            <RatingIcon onClick={() => setRating(5)} $isSelected={rating === 5}/>
+            <RatingIcon
+              onClick={() => setRating(5)}
+              $isSelected={rating === 5}
+            />
             <Text size="sm" color="secondary.900">
               Pleased
             </Text>
           </Flex>
         </Flex>
-        <Text fontWeight="bold" mb="4px">
+        <Text fontWeight="bold" mb=".25rem">
           Let us know more about your experience (Optional)
         </Text>
         <Textarea
           resize="none"
           borderColor="secondary.1000"
-          mb="24px"
+          mb="1.5rem"
         ></Textarea>
-        <Flex gap="12px" justifyContent="flex-end">
+        <Flex gap=".75rem" justifyContent="flex-end">
           <Button colorScheme="citizen" variant="outline">
             Skip
           </Button>

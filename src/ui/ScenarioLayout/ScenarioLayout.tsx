@@ -3,7 +3,7 @@ import {
   ArrowForwardIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from '@chakra-ui/icons';
+} from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -12,18 +12,18 @@ import {
   GridItem,
   IconButton,
   Text,
-} from '@chakra-ui/react';
-import DIAL from '@ui/DIAL/DIAL';
-import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
-import { useContext, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ReactComponent as RefreshIcon } from '../../assets/icons/refresh.svg';
-import { colors } from '../../chakra-overrides/colors';
-import { SimulationContext } from '../../routes/usct/USCT';
-import ScenarioHeader from './ScenarioHeader';
-import ScenarioView from './ScenarioView';
-import Sidebar from './Sidebar';
-import ViewInfo from './ViewInfo';
+} from "@chakra-ui/react";
+import DIAL from "@ui/DIAL/DIAL";
+import HelpHighlightWrapper from "@ui/HelpOverlay/HelpHighlightWrapper";
+import { useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ReactComponent as RefreshIcon } from "../../assets/icons/refresh.svg";
+import { colors } from "../../chakra-overrides/colors";
+import { SimulationContext } from "../../routes/usct/USCT";
+import ScenarioHeader from "./ScenarioHeader";
+import ScenarioView from "./ScenarioView";
+import Sidebar from "./Sidebar";
+import ViewInfo from "./ViewInfo";
 
 export default function ScenarioLayout({
   width,
@@ -33,32 +33,36 @@ export default function ScenarioLayout({
   children: React.ReactElement[] | React.ReactElement;
 }) {
   const location = useLocation();
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { state, dispatch } = useContext(SimulationContext);
+  const [isExpanded, setIsExpanded] = useState(
+    window.innerWidth < 992 ? true : false,
+  );
+  const { state } = useContext(SimulationContext);
 
-  const view = width < 992 ? 'mobile' : 'desktop';
+  const view = width < 992 ? "mobile" : "desktop";
 
   const disabledRoutes = {
-    previous: ['/case-management'],
-    next : ['/personal?done=true', '/feedback']
-  }
+    previous: ["/case-management"],
+    next: ["/personal?done=true", "/feedback"],
+  };
 
-  const isNavigationDisabled = (direction: 'previous' | 'next') => {
-    return disabledRoutes[direction].some((r: string) => r === location.pathname + location.search)
-  }
+  const isNavigationDisabled = (direction: "previous" | "next") => {
+    return disabledRoutes[direction].some(
+      (r: string) => r === location.pathname + location.search,
+    );
+  };
 
   return (
     <Flex h="100vh" position="relative" w="100vw" overflowX="hidden">
       <Flex
-        w={{ base: '100%', lg: 'calc(100% - 320px)' }}
+        w={{ base: "100%", lg: "calc(100% - 20rem)" }}
         direction="column"
         position="relative"
         alignItems="center"
       >
         <ScenarioHeader>
-          <Text size={{ base: 'sm', md: 'md' }}>
-            <strong>Use Case Simulation</strong>{' '}
-            {view === 'desktop' && 'Unconditional Social Cash Transfer'}
+          <Text size={{ base: "sm", md: "md" }}>
+            <strong>Use Case Simulation</strong>{" "}
+            {view === "desktop" && "Unconditional Social Cash Transfer"}
           </Text>
         </ScenarioHeader>
         <ScenarioView>{children}</ScenarioView>
@@ -69,28 +73,28 @@ export default function ScenarioLayout({
           bottom="0"
           zIndex="-1"
           backgroundColor={colors.primary[900]}
-          clipPath={{ md: 'polygon(0 34%, 100% 0, 100% 100%, 0% 100%)' }}
-          transform={{ md: 'skew(25)' }}
+          clipPath={{ md: "polygon(0 34%, 100% 0, 100% 100%, 0% 100%)" }}
+          transform={{ md: "skew(25)" }}
         />
         <Grid
-          templateColumns={{ md: 'auto auto' }}
-          justifyContent={{ base: 'stretch', md: 'space-between' }}
+          templateColumns={{ md: "auto auto" }}
+          justifyContent={{ base: "stretch", md: "space-between" }}
           alignItems="center"
-          gap="16px"
-          maxW="1024px"
+          gap="1rem"
+          maxW="64rem"
           w="100%"
           margin="0 auto"
-          padding={{ base: '0 32px', md: '0 64px' }}
-          paddingRight={{ md: '80px' }}
-          paddingBottom={{ base: '16px', md: 0 }}
+          padding={{ base: "0 2rem", md: "0 4rem" }}
+          paddingRight={{ md: "5rem" }}
+          paddingBottom={{ base: "1rem", md: 0 }}
         >
           <GridItem>
-            <Flex flexDirection="column"  paddingTop={{ xs: '8px', md: '0' }}>
-              <Flex alignItems="center" gap="16px">
-                {view === 'desktop' ? (
+            <Flex flexDirection="column" paddingTop={{ xs: ".5rem", md: "0" }}>
+              <Flex alignItems="center" gap="1rem">
+                {view === "desktop" ? (
                   <HelpHighlightWrapper
                     info={
-                      <Box w="420px">
+                      <Box w="26.25rem">
                         The <b>navigation</b> allows you to move back and forth
                         through the pages of the simulation
                       </Box>
@@ -98,7 +102,7 @@ export default function ScenarioLayout({
                     infoPosition="top"
                   >
                     <Flex gap="0.5rem">
-                      {isNavigationDisabled('previous') ? (
+                      {isNavigationDisabled("previous") ? (
                         <IconButton
                           as={Button}
                           aria-label="Previous step"
@@ -119,7 +123,7 @@ export default function ScenarioLayout({
                         aria-label="Start over"
                         icon={<RefreshIcon />}
                       />
-                      {isNavigationDisabled('next')  ? (
+                      {isNavigationDisabled("next") ? (
                         <IconButton
                           as={Button}
                           aria-label="Next step"
@@ -138,7 +142,7 @@ export default function ScenarioLayout({
                   </HelpHighlightWrapper>
                 ) : (
                   <Flex gap="0.5rem">
-                    {isNavigationDisabled('previous') ? (
+                    {isNavigationDisabled("previous") ? (
                       <IconButton
                         as={Button}
                         aria-label="Previous step"
@@ -159,7 +163,7 @@ export default function ScenarioLayout({
                       aria-label="Start over"
                       icon={<RefreshIcon />}
                     />
-                    {isNavigationDisabled('next') ? (
+                    {isNavigationDisabled("next") ? (
                       <IconButton
                         as={Button}
                         aria-label="Next step"
@@ -180,56 +184,63 @@ export default function ScenarioLayout({
                   <Text
                     color={colors.theme.light}
                     fontWeight={700}
-                    fontSize={{ xs: '10px', md: '12px' }}
+                    fontSize={{ xs: ".625rem", md: ".75rem" }}
                   >
                     {state.description.title}
                   </Text>
-                  <Text color={colors.theme.light} fontSize={{ xs: '10px', md: '12px' }}>
+                  <Text
+                    color={colors.theme.light}
+                    fontSize={{ xs: ".625rem", md: ".75rem" }}
+                  >
                     {state.description.subtitle}
                   </Text>
                 </Box>
               </Flex>
               <Flex
                 justifyContent="center"
-                display={{ base: 'flex', md: 'none' }}
-                gap="16px"
+                display={{ base: "flex", md: "none" }}
+                gap="1rem"
                 color={colors.secondary[500]}
-                marginTop="8px"
+                marginTop=".5rem"
               >
-                <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>
+                <Text size={{ xs: "xxs", sm: "xs", md: "sm" }}>
                   GovStack 2023 - this is a frontend only simulation
                 </Text>
                 <Link to="https://www.govstack.global/privacy/" target="_blank">
-                  <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>Privacy & Legal</Text>
+                  <Text size={{ xs: "xxs", sm: "xs", md: "sm" }}>
+                    Privacy & Legal
+                  </Text>
                 </Link>
                 <Link to="mailto:info@govstack.global">
-                  <Text size={{ xs: 'xxs', sm: 'xs', md: 'sm' }}>Get in touch</Text>
+                  <Text size={{ xs: "xxs", sm: "xs", md: "sm" }}>
+                    Get in touch
+                  </Text>
                 </Link>
               </Flex>
             </Flex>
           </GridItem>
-          {view === 'desktop' && (
-            <GridItem rowStart={{ base: 1, md: 'auto' }}>
+          {view === "desktop" && (
+            <GridItem rowStart={{ base: 1, md: "auto" }}>
               <HelpHighlightWrapper
                 info={
-                  <Box w="340px">
+                  <Box w="21.25rem">
                     This shows your current <b>perspective</b> on the use case:
                     Civil servant or applicant
                   </Box>
                 }
                 infoPosition="top"
               >
-                {view === 'desktop' && <ViewInfo />}
+                {view === "desktop" && <ViewInfo />}
               </HelpHighlightWrapper>
             </GridItem>
           )}
         </Grid>
         <Flex
-          mt={{ base: 0, '2xl': '22px' }}
+          mt={{ base: 0, "2xl": "1.375rem" }}
           justifyContent="center"
-          display={{ base: 'none', md: 'flex' }}
-          gap="16px"
-          p="8px"
+          display={{ base: "none", md: "flex" }}
+          gap="1rem"
+          p=".5rem"
           color={colors.secondary[500]}
         >
           <Text size="sm">
@@ -242,15 +253,15 @@ export default function ScenarioLayout({
             <Text size="sm">Get in touch</Text>
           </Link>
         </Flex>
-        {view === 'desktop' && <DIAL />}
+        {view === "desktop" && <DIAL />}
       </Flex>
       <Flex
         h="100%"
         color={colors.secondary[0]}
-        w="320px"
+        w="20rem"
         backgroundColor="primary.900"
-        position={{ base: 'absolute', lg: 'relative' }}
-        right={{ base: isExpanded ? '0' : '-320px', lg: '0' }}
+        position={{ base: "absolute", lg: "relative" }}
+        right={{ base: isExpanded ? "0" : "-20rem", lg: "0" }}
         top={0}
         flexShrink="0"
         transition="width 0.3s ease-in-out"
@@ -258,11 +269,11 @@ export default function ScenarioLayout({
         zIndex={1}
       >
         <IconButton
-          display={{ base: 'block', lg: 'none' }}
+          display={{ base: "block", lg: "none" }}
           position="absolute"
-          left="-32px"
+          left="-2rem"
           top="0"
-          w="32px"
+          w="2rem"
           icon={isExpanded ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           borderRadius="0"
           colorScheme="admin"

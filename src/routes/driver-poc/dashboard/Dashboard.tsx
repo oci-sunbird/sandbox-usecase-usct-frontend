@@ -1,20 +1,24 @@
-import { ReactComponent as BankNoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as HeartShakeIcon } from '@assets/icons/heartshake.svg';
-import { ReactComponent as MailOpenIcon } from '@assets/icons/mail-open.svg';
-import { ReactComponent as PieChartIcon } from '@assets/icons/pie-chart.svg';
-import { ReactComponent as UserCOG } from '@assets/icons/user-cog.svg';
+import { ReactComponent as BankNoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as HeartShakeIcon } from "@assets/icons/heartshake.svg";
+import { ReactComponent as MailOpenIcon } from "@assets/icons/mail-open.svg";
+import { ReactComponent as PieChartIcon } from "@assets/icons/pie-chart.svg";
+import { ReactComponent as UserCOG } from "@assets/icons/user-cog.svg";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Scope } from "../utils/token";
+import { Action } from "./Action";
 
-import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
-import { Authentication } from '../utils/token';
-import { Action } from './Action';
 export function Dashboard() {
   return (
     <>
-      <Box mb="60px">
+      <Box mb="3.75rem">
         <Heading size="sm">Social Welfare Program</Heading>
         <Heading>Unconditional Social Cash Transfer Program</Heading>
       </Box>
-      <SimpleGrid columns={{ base: 1, lg: 2 }} rowGap="20px" columnGap="40px">
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        rowGap="1.25rem"
+        columnGap="2.5rem"
+      >
         <Action
           title="Candidate Management"
           buttonText="Lorem ipsum"
@@ -27,13 +31,16 @@ export function Dashboard() {
           description="Respond to beneficiary or stakeholder queries related to the program."
           icon={<MailOpenIcon />}
         />
-         <Action
+        <Action
           title="Enrollment / Candidate List"
           buttonText="Candidate Database"
           description="Access the candidate list for enrollment into the program."
           icon={<HeartShakeIcon />}
           to="./candidates"
-          allowedRoles={[Authentication.Scope.ROLE_ENROLLMENT_OFFICER, Authentication.Scope.ROLE_REGISTRY_ADMINISTRATION]}
+          allowedRoles={[
+            Scope.ROLE_ENROLLMENT_OFFICER,
+            Scope.ROLE_REGISTRY_ADMINISTRATION,
+          ]}
         />
         <Action
           title="Monitor Program Performance"
@@ -47,7 +54,7 @@ export function Dashboard() {
           buttonText="Beneficiary Database"
           description="Access the active beneficiary list of the program for payment."
           to="./beneficiaries"
-          allowedRoles={[Authentication.Scope.ROLE_PAYMENT_OFFICER]}
+          allowedRoles={[Scope.ROLE_PAYMENT_OFFICER]}
         />
       </SimpleGrid>
     </>

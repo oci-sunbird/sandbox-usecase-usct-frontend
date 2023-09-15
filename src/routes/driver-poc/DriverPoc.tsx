@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
-import Header from './Header';
-import RPC, { RPCContext } from './rpc';
+import { Flex } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import RPC, { RPCContext } from "./rpc";
 export default function DriverPoc() {
   return (
     <RPCContext.Provider value={new RPC()}>

@@ -1,7 +1,17 @@
-# sandbox-playgroud
+# GovStack Unconditional Social Cash Transfer Front-End Demo
 
-## Coding standards & code quality
+USCT front-end demo is used to showcase a possible use-case's flow and explain what could the Building Blocks used be and how they are interconnected for a variety of use-cases.
 
-None right now, due to the project's front-end still being a proof of concept and more of a playground to familiarise with the component libraries and such.
+## Installation
 
-TODO: Be nice and fill this out in the future.
+Use `npm` to install dependencies.
+
+```bash
+npm install
+```
+
+## Short description
+
+Project is bootstrapped with [React](https://react.dev/), [Vite](https://vitejs.dev/), [Chakra-UI](https://chakra-ui.com/)
+
+For an explanation on why these tools were chosen, read about the [Component Library Evaluation](https://govstack-global.atlassian.net/wiki/spaces/DEMO/pages/96043009/Component+Library+Evaluation) and [Front-end framework](https://govstack-global.atlassian.net/wiki/spaces/DEMO/pages/95912054/Frontend+Framework)

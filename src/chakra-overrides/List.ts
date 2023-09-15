@@ -1,29 +1,28 @@
+import { listAnatomy as parts } from "@chakra-ui/anatomy";
 import {
-  defineStyle,
   createMultiStyleConfigHelpers,
-} from '@chakra-ui/styled-system'
-import { listAnatomy as parts } from '@chakra-ui/anatomy'
+  defineStyle,
+} from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys)
-  
+  createMultiStyleConfigHelpers(parts.keys);
+
 const sizes = {
   xs: definePartsStyle(() => ({
     container: defineStyle({
-      fontSize: '12px',
-    })
+      fontSize: ".75rem",
+    }),
   })),
   sm: definePartsStyle(() => ({
     container: defineStyle({
-      fontSize: '14px',
-    })
+      fontSize: ".875rem",
+    }),
   })),
   md: definePartsStyle(() => ({
     container: defineStyle({
-      fontSize: '16px',
-    })
+      fontSize: "1rem",
+    }),
   })),
-}
+};
 
-export const List = defineMultiStyleConfig({sizes})
-
+export const List = defineMultiStyleConfig({ sizes });

@@ -1,34 +1,44 @@
-import { Box, Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, Tag, TagLabel, Text, Textarea, color } from '@chakra-ui/react';
-import ChatMessage from '@ui/ChatMessage/ChatMessage';
-import { useContext, useEffect } from 'react';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+import { ReactComponent as SendMessageIcon } from "@assets/icons/send-message.svg";
+import {
+  Box,
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  InputGroup,
+  InputRightElement,
+  Text,
+  Textarea,
+} from "@chakra-ui/react";
+import ChatMessage from "@ui/ChatMessage/ChatMessage";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import { colors } from '../../../chakra-overrides/colors';
-import { ReactComponent as SendMessageIcon } from '@assets/icons/send-message.svg';
-import { Link } from 'react-router-dom';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const conversation = [
   {
-    id: 'hdfhdrf5',
+    id: "hdfhdrf5",
     timestamp: 1678891185842,
     content:
-      'Would you please provide me more detail about my package information?',
-    user: 'Applicant',
+      "Would you please provide me more detail about my package information?",
+    user: "Applicant",
   },
   {
-    id: 'hdf2hdrf5',
+    id: "hdf2hdrf5",
     timestamp: 1678891185842,
     content: `Dear beneficiary,
     As a recipient of our unconditional social cash transfer benefit package, you will receive a monthly bank payment of 1 234 Euro for six months, which will be paid at the start of each month. In addition, you can take advantage of a free online consultation for career assessment. The consultation date and location can be arranged over the phone.
     We hope that this benefit package will assist you and your family in meeting your basic needs and achieving your goals. If you have any further questions or concerns, please don't hesitate to contact us.
     Thank you for your time.`,
-    user: 'Civil Servant',
+    user: "Civil Servant",
   },
 ];
 
@@ -37,15 +47,15 @@ export default function Conversation() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'CITIZEN FINALIZES THE CONVERSATION',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN FINALIZES THE CONVERSATION",
+        subtitle: "PRIMARY TASK",
       },
-      nextStep: '../feedback',
-      previousStep: '../active-program?state=done',
+      nextStep: "../feedback",
+      previousStep: "../active-program?state=done",
       userAuthorized: true,
     });
   }, []);
@@ -75,11 +85,13 @@ export default function Conversation() {
   }, []);
 
   return (
-    <Flex direction="column" w="100%" gap="20px">
+    <Flex direction="column" w="100%" gap="1.25rem">
       <Flex justifyContent="space-between">
         <Flex direction="column">
           <Heading>Conversation</Heading>
-          <Text color={colors.secondary[700]}><strong>#3779394</strong></Text>
+          <Text color={colors.secondary[700]}>
+            <strong>#3779394</strong>
+          </Text>
         </Flex>
         <Button
           as={Link}
@@ -97,45 +109,42 @@ export default function Conversation() {
         </Button>
       </Flex>
       <Box>
-        <Flex direction="column" gap="20px" mb="20px">
+        <Flex direction="column" gap="1.25rem" mb="1.25rem">
           {conversation.map((message) => {
             return <ChatMessage message={message} key={message.id} />;
           })}
         </Flex>
-        <InputGroup >
+        <InputGroup>
           <Textarea
-            border="2px solid black"
-            borderRadius="8px"
+            border=".125rem solid black"
+            borderRadius=".5rem"
             w="100%"
             h="7.25rem"
             backgroundColor="white"
             isDisabled
-            placeholder='-Disabled-'
+            placeholder="-Disabled-"
             _placeholder={{ color: colors.secondary[900] }}
             fontSize="1.125rem"
           ></Textarea>
-          <InputRightElement
-            w="10rem"
-            top="unset"
-            bottom="16px"
-            right="16px"
-          >
+          <InputRightElement w="10rem" top="unset" bottom="1rem" right="1rem">
             <Button
               color={colors.secondary[0]}
               backgroundColor={colors.secondary[400]}
-              leftIcon={<SendMessageIcon color={colors.secondary[0]}/>}
+              leftIcon={<SendMessageIcon color={colors.secondary[0]} />}
             >
               Send Message
             </Button>
           </InputRightElement>
         </InputGroup>
       </Box>
-      <Flex direction="column" gap="20px">
-        <Heading as="h3" fontSize="1.125rem">Conversation Info</Heading>
+      <Flex direction="column" gap="1.25rem">
+        <Heading as="h3" fontSize="1.125rem">
+          Conversation Info
+        </Heading>
         <Grid
           gridTemplateRows="repeat(4, min-content)"
           gridTemplateColumns="repeat(2, 1fr)"
-          gap="20px"
+          gap="1.25rem"
         >
           <Box>
             <Text fontWeight="600">Case Code</Text>

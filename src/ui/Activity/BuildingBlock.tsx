@@ -1,9 +1,9 @@
-import { Box, BoxProps, Flex, Text } from '@chakra-ui/react';
-import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
-import { colors } from '../../chakra-overrides/colors';
-import { useContext } from 'react';
-import { DIALBuildingBlockContext } from '@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext';
-import { BUILDING_BLOCK } from '../../routes/usct/utils';
+import { Box, BoxProps, Flex, Text } from "@chakra-ui/react";
+import { DIALBuildingBlockContext } from "@ui/DIAL/BuildingBlocks/DIALBuildingBlockContext";
+import { useContext } from "react";
+import { ReactComponent as MinusIcon } from "../../assets/icons/minus.svg";
+import { colors } from "../../chakra-overrides/colors";
+import { BUILDING_BLOCK } from "../../routes/usct/utils";
 
 const Icon = ({
   active,
@@ -14,8 +14,8 @@ const Icon = ({
   if (active) {
     return (
       <Box
-        h="12px"
-        w="12px"
+        h=".75rem"
+        w=".75rem"
         borderRadius="100%"
         backgroundColor={colors.secondary[0]}
         mr="1.5rem"
@@ -26,8 +26,8 @@ const Icon = ({
   if (highlighted) {
     return (
       <Box
-        h="12px"
-        w="12px"
+        h=".75rem"
+        w=".75rem"
         borderRadius="100%"
         backgroundColor={colors.green[500]}
         mr="1.5rem"
@@ -38,8 +38,8 @@ const Icon = ({
   return (
     <Box color="inherit" mr="1.5rem" {...boxProps}>
       <MinusIcon
-        opacity={active ? '1' : '0.5'}
-        visibility={tail ? 'hidden' : 'visible'}
+        opacity={active ? "1" : "0.5"}
+        visibility={tail ? "hidden" : "visible"}
       />
     </Box>
   );
@@ -61,17 +61,29 @@ export default function BuildingBlock({
   id: BUILDING_BLOCK;
 }) {
   const { openedBuildingBlock, setOpenedBuildingBlock } = useContext(
-    DIALBuildingBlockContext
+    DIALBuildingBlockContext,
   );
 
   return (
     <Flex
       alignItems="center"
-      w="100%"
-      h="40px"
+      w="calc(100% + 1.5rem)"
+      h="2.5rem"
       position="relative"
       onClick={() => setOpenedBuildingBlock(id)}
       cursor="pointer"
+      borderRadius=".5rem"
+      style={{
+        transition: "background-color 0.1s ease-in-out",
+        margin: "0 -0.75rem",
+        padding: "0 .75rem",
+      }}
+      background={
+        openedBuildingBlock === id ? "rgba(59, 51, 115, 1)" : "transparent"
+      }
+      _hover={{
+        backgroundColor: "rgba(59, 51, 115, 1)",
+      }}
       data-group
     >
       <Icon
@@ -81,56 +93,56 @@ export default function BuildingBlock({
         position="relative"
         _after={{
           content: '""',
-          position: 'absolute',
-          height: '50px',
-          width: '3px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundColor: tail ? colors.green[500] : 'transparent',
-          display: 'block',
-          top: '0',
+          position: "absolute",
+          height: "3.125rem",
+          width: ".1875rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: tail ? colors.green[500] : "transparent",
+          display: "block",
+          top: "0",
         }}
         _before={{
-          position: 'absolute',
-          left: '8px',
-          width: '0',
-          top: '0px',
+          position: "absolute",
+          left: ".5rem",
+          width: "0",
+          top: "0rem",
           content: '""',
-          borderWidth: '0 6px 12px 6px',
-          borderStyle: 'solid',
+          borderWidth: "0 .375rem .75rem .375rem",
+          borderStyle: "solid",
           borderColor: highlighted
             ? `transparent transparent ${colors.green[500]}  transparent`
-            : 'transparent',
-          transform: 'rotate(90deg)',
+            : "transparent",
+          transform: "rotate(90deg)",
         }}
       />
       <Box
         transition="opacity 0.3s ease-in-out"
-        opacity={active || highlighted ? '1' : '0.5'}
+        opacity={active || highlighted ? "1" : "0.5"}
         mr="1rem"
       >
         {icon}
       </Box>
       <Text
         transition="opacity 0.3s ease-in-out"
-        opacity={active || highlighted ? '1' : '0.5'}
-        mr="4px"
+        opacity={active || highlighted ? "1" : "0.5"}
+        mr=".25rem"
       >
         {label}
       </Text>
       <Flex
-        w="20px"
+        w="1.25rem"
         alignItems="center"
         justifyContent="center"
-        h="20px"
+        h="1.25rem"
         backgroundColor={
-          openedBuildingBlock === id ? 'theme.success' : colors.darkblue[300]
+          openedBuildingBlock === id ? "theme.success" : colors.darkblue[300]
         }
         borderRadius="100%"
         color={colors.secondary[1000]}
         marginLeft="auto"
         _groupHover={{
-          background: 'theme.success',
+          background: "theme.success",
         }}
       >
         i

@@ -1,6 +1,6 @@
-import APIProvider from './APIProvider';
-import BaseProvider from './BaseProvider';
-import MockProvider from './MockProvider';
+import APIProvider from "./APIProvider";
+import BaseProvider from "./BaseProvider";
+import MockProvider from "./MockProvider";
 
 export default class RPCProviderConfig {
   providers = {

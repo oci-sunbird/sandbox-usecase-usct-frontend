@@ -1,21 +1,20 @@
-import { ArrowBackIcon } from '@chakra-ui/icons';
-import { Button, ChakraProvider, Flex, Image, SimpleGrid } from '@chakra-ui/react';
-import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { Button, Flex, Image, SimpleGrid } from "@chakra-ui/react";
+import { ReactElement } from "react";
+import { Link } from "react-router-dom";
 
 export default function ScenarioHeader({
   children,
 }: {
   children: ReactElement[] | ReactElement;
 }) {
-
   return (
     <SimpleGrid
-      templateColumns={{xs: "87px 1fr", md: "87px 1fr 87px"}}
-      padding={{ xs: "16px 12px", lg: "16px 64px", '2xl': '24px 64px' }}
-      alignItems="center" 
+      templateColumns={{ xs: "5.4375rem 1fr", md: "5.4375rem 1fr 5.4375rem" }}
+      padding={{ xs: "1rem .75rem", lg: "1rem 4rem", "2xl": "1.5rem 4rem" }}
+      alignItems="center"
       width="100%"
-      spacing={{ xs: '2'}} 
+      spacing={{ xs: "2" }}
     >
       <Button
         justifySelf="flex-start"
@@ -28,9 +27,9 @@ export default function ScenarioHeader({
       >
         Exit
       </Button>
-      <Flex gap="16px" justifySelf="center" alignItems="center">
+      <Flex gap="1rem" justifySelf="center" alignItems="center">
         <Image
-          height="40px"
+          height="2.5rem"
           width="auto"
           src="/govstack-sandbox-logo.svg"
           alt="govstack sandbox logo"

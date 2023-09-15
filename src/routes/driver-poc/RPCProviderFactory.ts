@@ -5,7 +5,7 @@ export default class RPCProviderFactory {
   RPCProviderConfig: RPCProviderConfig = new RPCProviderConfig();
 
   addProvider = (key: string, provider: BaseProvider) => {
-    this.RPCProviderConfig.addProvider;
+    this.RPCProviderConfig.addProvider(key, provider);
   };
 
   getProvider = (method: string) => {
