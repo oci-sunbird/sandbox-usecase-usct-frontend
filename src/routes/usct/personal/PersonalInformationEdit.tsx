@@ -33,7 +33,7 @@ export default function PersonalInformationEdit({
   handleContinue?: () => void;
   handleBack?: () => void;
   newCandidate?: boolean;
-  setCandidateData?: (e: { target: Record<string, string> }) => void;
+  setCandidateData?: (e: ChangeEvent<HTMLInputElement>) => void;
   simulation?: boolean;
   reviewed?: boolean;
 }) {
@@ -81,7 +81,7 @@ export default function PersonalInformationEdit({
         [e.target.name]: e.target.value,
       });
     } else {
-      setCandidateData(e);
+      setCandidateData && setCandidateData(e);
     }
     validateFields();
   };
@@ -292,11 +292,9 @@ export default function PersonalInformationEdit({
             <Button
               colorScheme="admin"
               onClick={() =>
-                navigate(
-                  !newCandidate
-                    ? navigate("/driver-poc/candidate/" + id.id)
-                    : handleBack(),
-                )
+                !newCandidate
+                  ? navigate("/driver-poc/candidate/" + id.id)
+                  : handleBack && handleBack()
               }
               w="11.25rem"
               variant="outline"
@@ -310,7 +308,7 @@ export default function PersonalInformationEdit({
                 enabled
                   ? !newCandidate
                     ? saveCandidateInfo()
-                    : handleContinue()
+                    : handleContinue && handleContinue()
                   : ""
               }
               w="11.25rem"

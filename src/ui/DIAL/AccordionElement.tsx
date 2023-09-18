@@ -16,6 +16,7 @@ interface IAccordionElementProps {
     results: {
       self_url: string;
       name: string;
+      type: string;
     }[];
   };
   title: string;
@@ -41,7 +42,7 @@ export default function AccordionElement({
         <AccordionPanel>
           <UnorderedList>
             {data?.results?.map(
-              (result: { self_url: string; name: string; type: string }) => {
+              (result: { type: string; name: string; self_url: string }) => {
                 return (
                   <ListItem
                     cursor="pointer"

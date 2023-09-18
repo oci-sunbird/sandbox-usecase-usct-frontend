@@ -11,7 +11,7 @@ import {
   Spacer,
   Spinner,
   Text,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useQuery } from "react-query";
@@ -20,14 +20,14 @@ import { colors } from "../../chakra-overrides/colors";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
-import { DriverPOC } from "./types";
+import { Package } from "./types";
 import { getRole } from "./utils/token";
 
 export default function CandidateDetail() {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const rpc = useContext(RPCContext);
-  const [selectedPackage, setSelectedPackage] = useState<DriverPOC.Package>();
+  const [selectedPackage, setSelectedPackage] = useState<Package>();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const isEnrollmentOfficer = getRole() === "ROLE_ENROLLMENT_OFFICER";
@@ -49,7 +49,7 @@ export default function CandidateDetail() {
     return navigate("/driver-poc/candidates");
   };
 
-  const handleEnroll = async (selectedPackage?: DriverPOC.Package) => {
+  const handleEnroll = async (selectedPackage?: Package) => {
     if (candidate && selectedPackage) {
       setIsEnrolling(true);
       const res = await rpc.enrollCandidate(candidate, selectedPackage);
@@ -138,7 +138,8 @@ export default function CandidateDetail() {
                       border: `.0625rem solid ${colors.secondary[1000]}`,
                       padding: "1.25rem",
                       color: candidate.packages.some(
-                        (candidatePackage) => candidatePackage.id === p.id,
+                        (candidatePackage: Package) =>
+                          candidatePackage.id === p.id,
                       )
                         ? colors.secondary[1000]
                         : colors.secondary[200],
@@ -175,7 +176,8 @@ export default function CandidateDetail() {
                     <Text textAlign="left">{p.description}</Text>
                     <Text textAlign="left">Payment Amount: 1 234 €</Text>
                     {!candidate.packages.some(
-                      (candidatePackage) => candidatePackage.id === p.id,
+                      (candidatePackage: Package) =>
+                        candidatePackage.id === p.id,
                     ) && (
                       <Text
                         color={colors.secondary[200]}

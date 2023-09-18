@@ -11,11 +11,11 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { RPCContext } from "../../driver-poc/rpc";
-import { DriverPOC } from "../../driver-poc/types";
+import { Candidate } from "../../driver-poc/types";
 
 export default function BankInformationEdit({
   candidatei,
@@ -23,8 +23,8 @@ export default function BankInformationEdit({
   handleBack,
   handleContinue,
 }: {
-  candidatei?: DriverPOC.Candidate;
-  setCandidateData?: (arg: { target: Record<string, string> }) => void;
+  candidatei?: Candidate;
+  setCandidateData?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleBack?: () => void;
   handleContinue?: () => void;
 }) {
@@ -34,7 +34,7 @@ export default function BankInformationEdit({
   const [enabled, setEnabled] = useState(false);
   const navigate = useNavigate();
 
-  const [candidate, setCandidate] = useState<DriverPOC.Candidate>(
+  const [candidate, setCandidate] = useState<Candidate>(
     candidatei ? candidatei : state.candidate,
   );
   const { isFetching } = useQuery(`candidate-${id}`, async () => {
@@ -49,14 +49,14 @@ export default function BankInformationEdit({
     </Center>;
   }
 
-  const updateData = (e: { target: { name: string; value: string } }) => {
+  const updateData = (e: ChangeEvent<HTMLInputElement>) => {
     if (!candidatei) {
       candidate.person = Object.assign({}, candidate.person, {
         [e.target.name]: e.target.value,
       });
     } else {
       if (e) {
-        setCandidateData(e);
+        setCandidateData && setCandidateData(e);
       }
     }
     validateFields();
@@ -133,7 +133,9 @@ export default function BankInformationEdit({
             <ButtonGroup colorScheme="admin">
               {/* To be figured out */}
               <Button
-                onClick={() => (candidatei ? handleBack() : navigate(-1))}
+                onClick={() =>
+                  candidatei ? handleBack && handleBack() : navigate(-1)
+                }
                 w="11.25rem"
                 variant="outline"
               >
@@ -146,7 +148,7 @@ export default function BankInformationEdit({
                   enabled
                     ? !candidatei
                       ? updateCandidate()
-                      : handleContinue()
+                      : handleContinue && handleContinue()
                     : ""
                 }
                 w="11.25rem"

@@ -5,7 +5,7 @@ import { Button, ButtonGroup, Flex, Heading, Tag } from "@chakra-ui/react";
 import Tooltip from "@ui/Tooltip/Tooltip";
 import { useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { DriverPOC } from "../../driver-poc/types";
+import { Person } from "../../driver-poc/types";
 import { ContextualHelpContext } from "../ContextualHelpContext";
 import { ContextualTitle } from "../ContextualHelpUtils";
 import { bankData } from "../review-candidate/data";
@@ -81,7 +81,7 @@ const documentsData = [
   },
 ];
 
-const person: DriverPOC.Person = {
+const person: Person = {
   id: 125125,
   firstName: "Tom",
   lastName: "Anderson",
@@ -207,11 +207,7 @@ export default function Personal() {
         )}
       </Flex>
       <Tooltip letter="B" letterPosition="right-center">
-        <PersonalInformation
-          person={person}
-          simulation
-          reviewed={!!searchParams.get("done")}
-        />
+        <PersonalInformation person={person} />
       </Tooltip>
 
       <Tooltip

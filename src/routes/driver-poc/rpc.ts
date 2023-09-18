@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import RPCProviderFactory from "./RPCProviderFactory";
-import { DriverPOC } from "./types";
+import { Beneficiary, Candidate, Package } from "./types";
 
 export default class RPC {
   RPCProviderFactory: RPCProviderFactory = new RPCProviderFactory();
@@ -12,10 +12,7 @@ export default class RPC {
     this.RPCProviderFactory.getProvider("getCandidateInfo").getCandidateInfo(
       id,
     );
-  enrollCandidate = (
-    candidate: DriverPOC.Candidate,
-    selectedPackage: DriverPOC.Package,
-  ) =>
+  enrollCandidate = (candidate: Candidate, selectedPackage: Package) =>
     this.RPCProviderFactory.getProvider("enrollCandidate").enrollCandidate(
       candidate,
       selectedPackage,
@@ -24,22 +21,22 @@ export default class RPC {
     this.RPCProviderFactory.getProvider(
       "getBeneficiariesList",
     ).getBeneficiariesList();
-  validateBeneficiaries = (beneficiaries: DriverPOC.Beneficiary[]) =>
+  validateBeneficiaries = (beneficiaries: Beneficiary[]) =>
     this.RPCProviderFactory.getProvider(
       "validateBeneficiaries",
     ).validateBeneficiaries(beneficiaries);
-  executePayments = (beneficiaries: DriverPOC.Beneficiary[]) =>
+  executePayments = (beneficiaries: Beneficiary[]) =>
     this.RPCProviderFactory.getProvider("executePayments").executePayments(
       beneficiaries,
     );
   login = (email: string, password: string) =>
     this.RPCProviderFactory.getProvider("login").login(email, password);
   getRoles = () => this.RPCProviderFactory.getProvider("getRoles").getRoles();
-  createCandidate = (candidate: DriverPOC.Candidate) =>
+  createCandidate = (candidate: Candidate) =>
     this.RPCProviderFactory.getProvider("createCandidate").createCandidate(
       candidate,
     );
-  updateCandidate = (candidate: DriverPOC.Candidate) =>
+  updateCandidate = (candidate: Candidate) =>
     this.RPCProviderFactory.getProvider("updateCandidate").updateCandidate(
       candidate,
     );

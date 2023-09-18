@@ -352,7 +352,7 @@ export default function ReviewCandidate() {
         </Heading>
         <Flex flexDirection="column" gap="1.25rem">
           {getHistoryData(currentState).map(
-            (historyItem: { title?: string }) => (
+            (historyItem: { title: string; icon: JSX.Element }) => (
               <Timeline key={historyItem?.title} {...historyItem}></Timeline>
             ),
           )}

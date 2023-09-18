@@ -18,7 +18,7 @@ import {
   useSteps,
   VStack,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BankInformation from "../usct/personal/BankInformation";
 import BankInformationEdit from "../usct/personal/BankInformationEdit";
@@ -77,7 +77,7 @@ export default function CreateCandidate() {
     }
   };
 
-  const updateData = (e: { target: Record<string, string> }) => {
+  const updateData = (e: ChangeEvent<HTMLInputElement>) => {
     candidate.person = Object.assign({}, candidate.person, {
       [e.target.name]: e.target.value,
     });

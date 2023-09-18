@@ -116,7 +116,7 @@ const activeBuildingBlockState = {
 
 export interface ActiveBuildingBlockContext {
   activeBuildingBlocks: Record<BUILDING_BLOCK, boolean>;
-  setActiveBuildingBlocks: (arg: Record<string, boolean>) => void;
+  setActiveBuildingBlocks: (value: Record<BUILDING_BLOCK, boolean>) => void;
 }
 
 export const ActiveBuildingBlockContext =

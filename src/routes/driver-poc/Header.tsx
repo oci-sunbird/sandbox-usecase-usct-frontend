@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { colors } from "../../chakra-overrides/colors";
-import { Authentication, getRole } from "./utils/token";
+import { getRole, Scope } from "./utils/token";
 import { useAuthentication } from "./utils/useAuthentication";
 
 const userData = {
@@ -77,11 +77,9 @@ export default function Header() {
                 </Flex>
                 <Box textAlign="left">
                   <Text size="sm" variant="bold">
-                    {userData[getRole() as Authentication.Scope].name}
+                    {userData[getRole() as Scope].name}
                   </Text>
-                  <Text size="xs">
-                    {userData[getRole() as Authentication.Scope].role}
-                  </Text>
+                  <Text size="xs">{userData[getRole() as Scope].role}</Text>
                 </Box>
               </Flex>
             </MenuButton>

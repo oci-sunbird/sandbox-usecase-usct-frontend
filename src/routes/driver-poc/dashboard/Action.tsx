@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { colors } from "../../../chakra-overrides/colors";
-import { Authentication, getRole } from "../utils/token";
+import { getRole, Scope } from "../utils/token";
 
 interface IActionProps {
   disabled?: boolean;
@@ -10,7 +10,7 @@ interface IActionProps {
   title: string;
   description: string;
   buttonText: string;
-  allowedRoles?: Authentication.Scope[];
+  allowedRoles?: Scope[];
 }
 
 export function Action(props: IActionProps) {

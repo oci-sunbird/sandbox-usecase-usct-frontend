@@ -22,6 +22,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
+import { Package } from "./types";
 import { getRole } from "./utils/token";
 
 export default function CandidatesList() {
@@ -120,7 +121,9 @@ export default function CandidatesList() {
                 {candidate.packages?.length > 0 ? (
                   <HStack gap=".625rem">
                     {candidate?.packages
-                      .sort((a, b) => b.name.localeCompare(a.name))
+                      .sort((a: Package, b: Package) =>
+                        b.name.localeCompare(a.name),
+                      )
                       .map((p) => {
                         return (
                           <Tag

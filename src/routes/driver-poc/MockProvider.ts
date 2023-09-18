@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
 import BaseProvider from "./BaseProvider";
-import { DriverPOC } from "./types";
+import { Beneficiary, Candidate, Package } from "./types";
 
-const mockPackages: DriverPOC.Package[] = [
+const mockPackages: Package[] = [
   {
     id: 1,
     name: "Universal Basic Income (UBI)",
@@ -37,7 +37,7 @@ const mockPackages: DriverPOC.Package[] = [
   },
 ];
 
-const mockCandidateList: DriverPOC.Candidate[] = [
+const mockCandidateList: Candidate[] = [
   {
     id: 1,
     person: {
@@ -155,7 +155,7 @@ const mockCandidateList: DriverPOC.Candidate[] = [
   },
 ];
 
-const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
+const mockBeneficiaryList: Beneficiary[] = [
   {
     id: 1,
     person: {
@@ -280,22 +280,22 @@ const mockBeneficiaryList: DriverPOC.Beneficiary[] = [
 
 export default class MockProvider extends BaseProvider {
   candidateList = [...mockCandidateList];
-  packagesList: DriverPOC.Package[] = [...mockPackages];
-  beneficiaryList: DriverPOC.Beneficiary[] = [...mockBeneficiaryList];
+  packagesList: Package[] = [...mockPackages];
+  beneficiaryList: Beneficiary[] = [...mockBeneficiaryList];
   getCandidateList() {
-    return new Promise<DriverPOC.Candidate[]>((resolve) =>
+    return new Promise<Candidate[]>((resolve) =>
       setTimeout(() => {
         resolve(this.candidateList);
       }, 1000),
     );
   }
   getPackages() {
-    return new Promise<DriverPOC.Package[]>((resolve) =>
+    return new Promise<Package[]>((resolve) =>
       setTimeout(() => resolve(this.packagesList), 1000),
     );
   }
   getCandidateInfo(id: number) {
-    return new Promise<DriverPOC.Candidate>((resolve, reject) => {
+    return new Promise<Candidate>((resolve, reject) => {
       setTimeout(() => {
         const candidate = this.candidateList.find(
           (candidate) => candidate.id === id,
@@ -308,11 +308,8 @@ export default class MockProvider extends BaseProvider {
       }, 1000);
     });
   }
-  enrollCandidate(
-    candidate: DriverPOC.Candidate,
-    enrolledPackage: DriverPOC.Package,
-  ) {
-    const enrolledCandidate: DriverPOC.Beneficiary = {
+  enrollCandidate(candidate: Candidate, enrolledPackage: Package) {
+    const enrolledCandidate: Beneficiary = {
       id: faker.number.int(),
       paymentStatus: "INITIATE",
       person: candidate.person,
@@ -322,17 +319,17 @@ export default class MockProvider extends BaseProvider {
       (c) => c.person.id !== candidate.id,
     );
     this.beneficiaryList = [...this.beneficiaryList, enrolledCandidate];
-    return new Promise<DriverPOC.Beneficiary>((resolve) =>
+    return new Promise<Beneficiary>((resolve) =>
       setTimeout(() => resolve(enrolledCandidate), 1000),
     );
   }
   getBeneficiariesList() {
-    return new Promise<DriverPOC.Beneficiary[]>((resolve) =>
+    return new Promise<Beneficiary[]>((resolve) =>
       setTimeout(() => resolve(this.beneficiaryList), 1000),
     );
   }
-  validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
-    return new Promise<DriverPOC.Beneficiary[]>((resolve) => {
+  validateBeneficiaries(beneficiaries: Beneficiary[]) {
+    return new Promise<Beneficiary[]>((resolve) => {
       setTimeout(() => resolve(beneficiaries), 1000);
     });
   }
@@ -360,14 +357,14 @@ export default class MockProvider extends BaseProvider {
     });
   }
 
-  createCandidate(candidate: DriverPOC.Candidate) {
-    return new Promise<DriverPOC.Candidate>((resolve) => {
+  createCandidate(candidate: Candidate) {
+    return new Promise<Candidate>((resolve) => {
       resolve(candidate);
     });
   }
 
-  updateCandidate(candidate: DriverPOC.Candidate) {
-    return new Promise<DriverPOC.Candidate>((resolve) => {
+  updateCandidate(candidate: Candidate) {
+    return new Promise<Candidate>((resolve) => {
       resolve(candidate);
     });
   }

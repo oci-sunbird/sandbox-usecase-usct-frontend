@@ -16,7 +16,7 @@ export default function PersonalInformationTable({
   title,
 }: {
   columns: string[];
-  data: Record<string, unknown>[];
+  data: Record<string, string | JSX.Element | null>[];
   title: string | React.ReactNode;
 }) {
   return (

@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DriverPOC } from "../../driver-poc/types";
+import { Person } from "../../driver-poc/types";
 import { getRole } from "../../driver-poc/utils/token";
 
 export default function PersonalInformation({
@@ -18,7 +18,7 @@ export default function PersonalInformation({
   person,
 }: {
   newCandidate?: boolean;
-  person: DriverPOC.Person | null;
+  person: Person | null;
 }) {
   const navigate = useNavigate();
   const id = useParams<{ id: string }>();

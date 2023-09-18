@@ -1,11 +1,11 @@
 import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
 import { Box, Button, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DriverPOC } from "../../driver-poc/types";
+import { Candidate } from "../../driver-poc/types";
 import { getRole } from "../../driver-poc/utils/token";
 
 interface BankInformationProps {
-  candidate: DriverPOC.Candidate;
+  candidate: Candidate;
   newCandidate?: boolean;
 }
 
