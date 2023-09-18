@@ -1,6 +1,10 @@
+
 import { faker } from "@faker-js/faker";
 import BaseProvider from "./BaseProvider";
 import { Beneficiary, Candidate, Package } from "./types";
+import ObjectToTree from "../../objectToTree";
+
+const localStorageVariable = "No such variable in mock storage";
 
 const mockPackages: Package[] = [
   {
@@ -60,6 +64,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[0], mockPackages[1], mockPackages[3]],
+    relative: null
   },
   {
     id: 2,
@@ -83,6 +88,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[1]],
+    relative: null
   },
   {
     id: 3,
@@ -106,6 +112,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[1], mockPackages[3]],
+    relative: null
   },
   {
     id: 4,
@@ -129,6 +136,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[0], mockPackages[2]],
+    relative: null
   },
   {
     id: 5,
@@ -152,8 +160,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [],
+    relative: null
   },
 ];
+
+mockCandidateList[0].relative = mockCandidateList[1];
+mockCandidateList[1].relative = mockCandidateList[0];
 
 const mockBeneficiaryList: Beneficiary[] = [
   {
@@ -372,6 +384,16 @@ export default class MockProvider extends BaseProvider {
   deleteCandidate(candidateId: number) {
     return new Promise<string>((resolve) => {
       resolve("Successfully deleted candidate with id " + candidateId + "!");
+    });
+  }
+
+  getMockItem(key: string) : Promise<string> {
+    const objectToTree = new ObjectToTree();
+    return new Promise<string>((resolve) => {
+      if (key == "candidates") resolve(JSON.stringify(objectToTree.decompose(this.candidateList)));
+      else if (key == "beneficiaries") resolve(JSON.stringify(objectToTree.decompose(this.beneficiaryList)));
+      else if (key == "packages") resolve(JSON.stringify(objectToTree.decompose(this.packagesList)));
+      else resolve(JSON.stringify(localStorageVariable));
     });
   }
 }

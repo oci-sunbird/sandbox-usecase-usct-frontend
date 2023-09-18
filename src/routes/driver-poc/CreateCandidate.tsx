@@ -54,6 +54,7 @@ export default function CreateCandidate() {
       financialModality: "",
     },
     packages: [],
+    relative: null
   });
 
   const handleBack = () => {

@@ -62,7 +62,8 @@ export default function PersonalInformationEdit({
       financialModality: "",
     },
     packages: [],
-  });
+    relative: null
+    });
 
   const [enabled, setEnabled] = useState(false);
   const saveCandidateInfo = async () => {
