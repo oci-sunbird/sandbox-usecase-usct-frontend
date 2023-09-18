@@ -1,6 +1,6 @@
-import { Flex, Radio, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
-import radioCheck from '@assets/icons/radio-check.svg';
+import radioCheck from "@assets/icons/radio-check.svg";
+import { Flex, Radio, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 interface IConversationTopic {
   available?: boolean;
@@ -20,28 +20,27 @@ export default function ConversationTopic({
     if (onSelect) {
       onSelect();
     }
-    
   };
 
   return (
     <Flex
-      h="160px"
-      w="200px"
+      h="10rem"
+      w="12.5rem"
       boxSizing="border-box"
       flexDirection="column"
       justifyContent="space-between"
-      borderRadius="8px"
-      p="20px"
+      borderRadius=".5rem"
+      p="1.25rem"
       pb="0"
-      color={available ? 'secondary.1000' : 'secondary.700'}
+      color={available ? "secondary.1000" : "secondary.700"}
       border={`${selected ? 2 : 1}px solid ${
         available
-          ? 'var(--chakra-colors-secondary-1000)'
-          : 'var(--chakra-colors-secondary-600)'
+          ? "var(--chakra-colors-secondary-1000)"
+          : "var(--chakra-colors-secondary-600)"
       }`}
     >
       <Flex justifyContent="space-between" alignItems="flex-start">
-        <Text fontSize="14px" fontWeight="500" width="125px">
+        <Text fontSize=".875rem" fontWeight="500" width="7.8125rem">
           {topic}
         </Text>
         {available && (
@@ -50,7 +49,7 @@ export default function ConversationTopic({
             ml="auto"
             borderColor="secondary.1000"
             _checked={{
-              background: 'black',
+              background: "black",
               content: `url(${radioCheck})`,
             }}
             onChange={onChange}
@@ -58,7 +57,11 @@ export default function ConversationTopic({
         )}
       </Flex>
 
-      {!available && <Text fontSize="10px" color="secondary.700" textAlign="right">Unavailable</Text>}
+      {!available && (
+        <Text fontSize=".625rem" color="secondary.700" textAlign="right">
+          Unavailable
+        </Text>
+      )}
     </Flex>
   );
 }

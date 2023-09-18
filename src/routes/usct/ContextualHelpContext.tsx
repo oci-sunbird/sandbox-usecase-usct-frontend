@@ -1,15 +1,15 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState } from "react";
 import {
   ContextualTitle,
   INormalizedContextualContent,
-} from './ContextualHelpUtils';
+} from "./ContextualHelpUtils";
 
 interface IContextualHelpContext {
   activeLetter: string | null;
   setActiveLetter: (letter: string | null) => void;
   letterContextualTitleMap: { [letter: string]: ContextualTitle } | null;
   setLetterContextualTitleMap: (
-    map: { [letter: string]: ContextualTitle } | null
+    map: { [letter: string]: ContextualTitle } | null,
   ) => void;
   activeContent: INormalizedContextualContent | null;
   setActiveContent: (content: INormalizedContextualContent | null) => void;

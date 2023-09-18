@@ -5,16 +5,16 @@ import { colors } from "../../chakra-overrides/colors";
 export default function Header() {
   return (
     <Flex
-      borderWidth="2px"
+      borderWidth=".125rem"
       borderStyle="solid"
       borderColor="secondary.1000"
-      padding="16px 24px"
+      padding="1rem 1.5rem"
       alignItems="center"
       justifyContent="space-between"
       as="header"
     >
       <Flex as="a" href="/" alignItems="center">
-        <Image src="/govstack-logo.png" marginRight="24px" />
+        <Image src="/govstack-logo.png" marginRight="1.5rem" />
         <Text fontSize="3xl">
           Open <strong>Sandbox</strong>
         </Text>
@@ -25,7 +25,7 @@ export default function Header() {
           to="/sign-in"
           variant="outline"
           borderColor="secondary.1000"
-          borderWidth="2px"
+          borderWidth=".125rem"
         >
           Login
         </Button>

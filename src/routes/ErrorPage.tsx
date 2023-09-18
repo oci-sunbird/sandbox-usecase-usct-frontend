@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 
 export default function ErrorPage() {
-  const error = useRouteError() as any;
+  const error = useRouteError() as { statusText: string; message: string };
   if (isRouteErrorResponse(error) && error.status === 401) {
     return <Navigate to="/sign-in" />;
   }

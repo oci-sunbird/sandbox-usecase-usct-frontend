@@ -1,36 +1,35 @@
-import { Button, Flex, Heading, Text } from '@chakra-ui/react';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import TextEditor from '../../../ui/TextEditor/TextEditor';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import TextEditor from "../../../ui/TextEditor/TextEditor";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
-import ConversationTopic from './ConversationTopic';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+import ConversationTopic from "./ConversationTopic";
 
 export default function StartNewConversation() {
   const { state, dispatch } = useContext(SimulationContext);
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
-  const navigation = useLocation();
 
   const [topicSelected, setTopicSelected] = useState(false);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'CITIZEN STARTS A NEW CONVERSATION',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN STARTS A NEW CONVERSATION",
+        subtitle: "PRIMARY TASK",
       },
-      nextStep: '../case-management?state=done',
-      previousStep: '../active-program',
+      nextStep: "../case-management?state=done",
+      previousStep: "../active-program",
       userAuthorized: true,
     });
   }, []);
@@ -56,16 +55,16 @@ export default function StartNewConversation() {
     });
   }, []);
   return (
-    <Flex direction="column" w="100%" gap="20px">
+    <Flex direction="column" w="100%" gap="1.25rem">
       <Heading>Start New Conversation</Heading>
-      <Tooltip letter="A" display="flex" flexDirection="column" gap="20px">
+      <Tooltip letter="A" display="flex" flexDirection="column" gap="1.25rem">
         <Text>
           <strong>Topic</strong>
         </Text>
         <Text>
           Please select the topic you would like to discuss. Lorem ipsum.
         </Text>
-        <Flex gap="20px" flexWrap="wrap">
+        <Flex gap="1.25rem" flexWrap="wrap">
           <ConversationTopic
             topic="Package Information"
             available
@@ -82,32 +81,30 @@ export default function StartNewConversation() {
         <TextEditor
           value={
             topicSelected
-              ? '(Autofilled) Would you please provide me more detail about my package information?'
+              ? "(Autofilled) Would you please provide me more detail about my package information?"
               : undefined
           }
         />
         <Flex justifyContent="flex-end">
-          {topicSelected
-            ? (
-              <Button
-                colorScheme="citizen"
-                as={Link}
-                to="../case-management?state=done"
-                _disabled={{ bg: 'secondary.400' }}
-              >
-                Submit
-              </Button>
-            ) : (
-              <Button
-                colorScheme="secondary"
-                as={Button}
-                isDisabled
-                _disabled={{ bg: 'secondary.400' }}
-              >
-                Submit
-              </Button>
-            )
-          }
+          {topicSelected ? (
+            <Button
+              colorScheme="citizen"
+              as={Link}
+              to="../case-management?state=done"
+              _disabled={{ bg: "secondary.400" }}
+            >
+              Submit
+            </Button>
+          ) : (
+            <Button
+              colorScheme="secondary"
+              as={Button}
+              isDisabled
+              _disabled={{ bg: "secondary.400" }}
+            >
+              Submit
+            </Button>
+          )}
         </Flex>
       </Tooltip>
     </Flex>

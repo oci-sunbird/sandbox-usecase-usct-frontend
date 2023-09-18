@@ -17,13 +17,13 @@ import {
   Thead,
   Tr,
   VStack,
-} from '@chakra-ui/react';
-import { useContext, useState } from 'react';
-import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
-import { colors } from '../../chakra-overrides/colors';
-import { RPCContext } from './rpc';
-import { DriverPOC } from './types';
+} from "@chakra-ui/react";
+import { useContext, useState } from "react";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
+import { RPCContext } from "./rpc";
+import { Beneficiary } from "./types";
 
 export default function BeneficiaryList() {
   const rpc = useContext(RPCContext);
@@ -31,18 +31,18 @@ export default function BeneficiaryList() {
   const [isPaymentProcessing, setIsPaymentProcessing] = useState(false);
   const [isPaymentProcessed, setisPaymentProcessed] = useState(false);
   const [checkedBeneficiaries, setCheckedBeneficiaries] = useState<
-    DriverPOC.Beneficiary[]
+    Beneficiary[]
   >([]);
 
   const { data: beneficiaries } = useQuery(
     `beneficiaries`,
-    rpc.getBeneficiariesList
+    rpc.getBeneficiariesList,
   );
 
-  const handleCheck = (beneficiary: DriverPOC.Beneficiary) => {
+  const handleCheck = (beneficiary: Beneficiary) => {
     if (checkedBeneficiaries.find((b) => b.id === beneficiary.id)) {
       setCheckedBeneficiaries(
-        [...checkedBeneficiaries].filter((b) => b.id !== beneficiary.id)
+        [...checkedBeneficiaries].filter((b) => b.id !== beneficiary.id),
       );
     } else {
       setCheckedBeneficiaries([...checkedBeneficiaries, beneficiary]);
@@ -63,20 +63,20 @@ export default function BeneficiaryList() {
   if (isPaymentProcessed) {
     return (
       <Center display="flex" margin="auto">
-        <VStack maxW="640px" gap="40px">
-          <Heading size="md" mb="20px">
+        <VStack maxW="40rem" gap="2.5rem">
+          <Heading size="md" mb="1.25rem">
             Thank you! Payment Order received.
           </Heading>
           <Box>
-            <Button mb="10px" maxW="380px" w="100%" colorScheme="admin">
+            <Button mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
               Home
             </Button>
             <ButtonGroup
-              maxW="380px"
+              maxW="23.75rem"
               w="100%"
               colorScheme="admin"
               variant="outline"
-              gap="20px"
+              gap="1.25rem"
             >
               <Button as={Link} to="/driver-poc" w="100%">
                 Candidate List
@@ -94,9 +94,9 @@ export default function BeneficiaryList() {
   if (isPaymentProcessing) {
     return (
       <Center display="flex" margin="auto">
-        <VStack gap="40px">
-          <CircularProgress isIndeterminate size={100} mb="40px" />
-          <Heading mb="20px">Receiving Payment Order!</Heading>
+        <VStack gap="2.5rem">
+          <CircularProgress isIndeterminate size={100} mb="2.5rem" />
+          <Heading mb="1.25rem">Receiving Payment Order!</Heading>
           <Text>Please wait! This process might take some time.</Text>
         </VStack>
       </Center>
@@ -105,7 +105,7 @@ export default function BeneficiaryList() {
 
   if (isOrderingPayment) {
     return (
-      <Flex direction="column" gap="60px">
+      <Flex direction="column" gap="3.75rem">
         <Heading>Confirmation</Heading>
         <Text>
           Please confirm that the payment order will be sent for the candidates
@@ -146,17 +146,17 @@ export default function BeneficiaryList() {
           </Tbody>
         </Table>
         <Flex justifyContent="flex-end">
-          <ButtonGroup colorScheme="admin" gap="20px">
+          <ButtonGroup colorScheme="admin" gap="1.25rem">
             <Button
               onClick={() => {
                 setIsOrderingPayment(false);
               }}
-              w="180px"
+              w="11.25rem"
               variant="outline"
             >
               Cancel
             </Button>
-            <Button onClick={() => handleConfirmPayment()} w="180px">
+            <Button onClick={() => handleConfirmPayment()} w="11.25rem">
               Confirm
             </Button>
           </ButtonGroup>
@@ -167,18 +167,18 @@ export default function BeneficiaryList() {
 
   return (
     <>
-      <Heading mb="40px">Beneficiary List</Heading>
-      <Text mb="40px">
+      <Heading mb="2.5rem">Beneficiary List</Heading>
+      <Text mb="2.5rem">
         Please choose the beneficiaries for sending payment order. You can
         select multiple beneficiaries.
       </Text>
-      <Heading mb="20px" size="md">
+      <Heading mb="1.25rem" size="md">
         Beneficiaries
       </Heading>
-      <Flex mb="20px" gap="10px">
+      <Flex mb="1.25rem" gap=".625rem">
         <Flex
-          w="24px"
-          h="24px"
+          w="1.5rem"
+          h="1.5rem"
           alignItems="center'"
           justifyContent="center"
           borderRadius="100%"
@@ -191,7 +191,7 @@ export default function BeneficiaryList() {
           BENEFICIARIES
         </Text>
       </Flex>
-      <Table mb="20px" variant="simple">
+      <Table mb="1.25rem" variant="simple">
         <Thead backgroundColor={colors.secondary[800]}>
           <Tr>
             <Th></Th>
@@ -212,7 +212,7 @@ export default function BeneficiaryList() {
               </Td>
             </Tr>
           )}
-          {beneficiaries?.map((beneficiary, index) => (
+          {beneficiaries?.map((beneficiary) => (
             <Tr
               key={beneficiary.id}
               _hover={{
@@ -223,7 +223,7 @@ export default function BeneficiaryList() {
                 <Checkbox
                   size="lg"
                   isChecked={checkedBeneficiaries.some(
-                    (b) => beneficiary.id === b.id
+                    (b) => beneficiary.id === b.id,
                   )}
                   onChange={() => handleCheck(beneficiary)}
                 />
@@ -238,7 +238,7 @@ export default function BeneficiaryList() {
                   justifyContent="center"
                   color={colors.secondary[0]}
                   backgroundColor={colors.secondary[800]}
-                  w="140px"
+                  w="8.75rem"
                 >
                   {beneficiary.enrolledPackage.name}
                 </Tag>
@@ -248,7 +248,7 @@ export default function BeneficiaryList() {
                   justifyContent="center"
                   color={colors.secondary[0]}
                   backgroundColor={colors.secondary[800]}
-                  w="140px"
+                  w="8.75rem"
                   textAlign="center"
                 >
                   {beneficiary.paymentStatus}

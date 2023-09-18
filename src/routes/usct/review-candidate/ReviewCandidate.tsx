@@ -1,9 +1,8 @@
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as CardIcon } from '@assets/icons/credit-card-simple.svg';
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
-
-import { AddIcon } from '@chakra-ui/icons';
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as CardIcon } from "@assets/icons/credit-card-simple.svg";
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -20,64 +19,57 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import Timeline from '@ui/Timeline/Timeline';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import Timeline from "@ui/Timeline/Timeline";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
+import BankInformation from "../personal/BankInformation";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import BankInformation from '../personal/BankInformation';
-import { BUILDING_BLOCK } from '../utils';
-import { ActionAlert } from './ActionAlert';
-import {
-  bankData,
-  getHistoryData,
-  historyData,
-  householdData,
-  personData,
-} from './data';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
+import { ActionAlert } from "./ActionAlert";
+import { bankData, getHistoryData, householdData, personData } from "./data";
 
 const getConfig = (state: string | null) => {
-  if (state === 'done') {
+  if (state === "done") {
     return {
       description: {
-        title: 'CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE',
-        subtitle: 'PRIMARY TASK',
+        title: "CIVIL SERVANT REQUESTS TO ASSIGN THE CANDIDATE",
+        subtitle: "PRIMARY TASK",
       },
-      nextStep: '../info?done=true',
-      previousStep: '../candidate-list?state=submitted',
+      nextStep: "../info?done=true",
+      previousStep: "../candidate-list?state=submitted",
     };
   }
-  if (state === 'scheduling') {
+  if (state === "scheduling") {
     return {
       description: {
-        title: 'CIVIL SERVANT ENROLLS THE CANDIDATE',
-        subtitle: 'PRIMARY TASK',
+        title: "CIVIL SERVANT ENROLLS THE CANDIDATE",
+        subtitle: "PRIMARY TASK",
       },
-      nextStep: '../active-program',
-      previousStep: '../candidate-list?state=scheduling',
+      nextStep: "../active-program",
+      previousStep: "../candidate-list?state=scheduling",
     };
   }
   return {
     description: {
-      title: 'CIVIL SERVANT ASKS FOR VALIDATION',
-      subtitle: 'PRIMARY TASK',
+      title: "CIVIL SERVANT ASKS FOR VALIDATION",
+      subtitle: "PRIMARY TASK",
     },
-    nextStep: '../authorise-citizen',
-    previousStep: '../candidate-list',
+    nextStep: "../authorise-citizen",
+    previousStep: "../candidate-list",
   };
 };
 
 export default function ReviewCandidate() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
   const citizen = personData;
   const { setActiveBuildingBlocks } = useContext(ActiveBuildingBlockContext);
@@ -85,16 +77,16 @@ export default function ReviewCandidate() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getConfig(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
     });
   }, []);
 
   useEffect(() => {
-    if (searchParams.get('state') === 'scheduling') {
+    if (searchParams.get("state") === "scheduling") {
       setActiveBuildingBlocks({
         [BUILDING_BLOCK.CONSENT]: false,
         [BUILDING_BLOCK.AUTHENTICATION]: false,
@@ -130,97 +122,97 @@ export default function ReviewCandidate() {
     });
   }, []);
 
-  const currentState = searchParams.get('state');
+  const currentState = searchParams.get("state");
 
   return (
-    <Flex w="100%" direction="column" gap="60px">
-      <Flex direction="column" gap="20px">
+    <Flex w="100%" direction="column" gap="3.75rem">
+      <Flex direction="column" gap="1.25rem">
         <Flex justifyContent="space-between">
-          <Flex alignItems="center" gap="12px">
-            <Heading variant="h2" fontSize="24px">
+          <Flex alignItems="center" gap=".75rem">
+            <Heading variant="h2" fontSize="1.5rem">
               Candidate Info
             </Heading>
             <Tag colorScheme="info">Action Required</Tag>
           </Flex>
         </Flex>
         <Tooltip letter="A">
-          <ActionAlert state={searchParams.get('state')} />
+          <ActionAlert state={searchParams.get("state")} />
         </Tooltip>
 
-        <Tooltip letter="B" mb="10px">
-          <Box mb="20px">
-            <Heading variant="h3" fontSize="18px">
+        <Tooltip letter="B" mb=".625rem">
+          <Box mb="1.25rem">
+            <Heading variant="h3" fontSize="1.125rem">
               Personal Information
             </Heading>
-            <Heading variant="h3" fontSize="18px" color="secondary.800">
+            <Heading variant="h3" fontSize="1.125rem" color="secondary.800">
               Social ID: {citizen?.socialCode}
             </Heading>
           </Box>
-            <Grid
-              w="100%"
-              gridTemplateRows="repeat(4, min-content)"
-              gridTemplateColumns={{ base: '1fr', lg: 'repeat(2, 1fr)' }}
-              gap="23px"
-            >
-              <Box>
-                <Text fontWeight="600">Name</Text>
-                <Text>{citizen?.fullName}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Occupation</Text>
-                <Text>{citizen?.occupation}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Personal ID Code</Text>
-                <Text>{citizen?.idCode}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Address</Text>
-                <Text>{citizen?.fullAddress}</Text>
-              </Box>
-              <Box>
-                <Flex gap="12px">
-                  <Text fontWeight="600">Phone Number</Text>
-                  {!currentState  && <FileWarningIcon></FileWarningIcon>}
-                </Flex>
-                <Text color="gray">{citizen?.phoneNumber}</Text>
-              </Box>
-              <Box>
-                <Flex gap="12px">
-                  <Text fontWeight="600">E-mail</Text>
-                  {!currentState && <FileWarningIcon></FileWarningIcon>}
-                </Flex>
-                <Text color="gray">{citizen?.email}</Text>
-              </Box>
-              <Box>
-                <Text fontWeight="600">Date of Birth</Text>
-                <Text>
-                  {citizen?.dateOfBirth
-                    ? new Date(citizen?.dateOfBirth).toLocaleString('et', {
-                        day: '2-digit',
-                        year: 'numeric',
-                        month: '2-digit',
-                      })
-                    : ''}
-                </Text>
-              </Box>
-            </Grid>
-          </Tooltip>
+          <Grid
+            w="100%"
+            gridTemplateRows="repeat(4, min-content)"
+            gridTemplateColumns={{ base: "1fr", lg: "repeat(2, 1fr)" }}
+            gap="1.4375rem"
+          >
+            <Box>
+              <Text fontWeight="600">Name</Text>
+              <Text>{citizen?.fullName}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Occupation</Text>
+              <Text>{citizen?.occupation}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Personal ID Code</Text>
+              <Text>{citizen?.idCode}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Address</Text>
+              <Text>{citizen?.fullAddress}</Text>
+            </Box>
+            <Box>
+              <Flex gap=".75rem">
+                <Text fontWeight="600">Phone Number</Text>
+                {!currentState && <FileWarningIcon></FileWarningIcon>}
+              </Flex>
+              <Text color="gray">{citizen?.phoneNumber}</Text>
+            </Box>
+            <Box>
+              <Flex gap=".75rem">
+                <Text fontWeight="600">E-mail</Text>
+                {!currentState && <FileWarningIcon></FileWarningIcon>}
+              </Flex>
+              <Text color="gray">{citizen?.email}</Text>
+            </Box>
+            <Box>
+              <Text fontWeight="600">Date of Birth</Text>
+              <Text>
+                {citizen?.dateOfBirth
+                  ? new Date(citizen?.dateOfBirth).toLocaleString("et", {
+                      day: "2-digit",
+                      year: "numeric",
+                      month: "2-digit",
+                    })
+                  : ""}
+              </Text>
+            </Box>
+          </Grid>
+        </Tooltip>
 
         <Tooltip letter="C">
-          <Flex direction="column" gap="60px">
-            <Flex direction="column" gap="30px">
-              <Flex direction={{ base: 'column', lg: 'row' }}>
-                <Flex w="100%" direction="column" gap="12px">
-                  <Heading variant="h3" fontSize="18px">
+          <Flex direction="column" gap="3.75rem">
+            <Flex direction="column" gap="1.875rem">
+              <Flex direction={{ base: "column", lg: "row" }}>
+                <Flex w="100%" direction="column" gap=".75rem">
+                  <Heading variant="h3" fontSize="1.125rem">
                     Household needs
                   </Heading>
-                  <Flex flexWrap="wrap" gap="4px">
+                  <Flex flexWrap="wrap" gap=".25rem">
                     {citizen.householdNeeds.map((need) => {
                       return (
                         <Tag
-                          p="6px 12px"
-                          mb="12px"
+                          p=".375rem .75rem"
+                          mb=".75rem"
                           colorScheme="gray"
                           variant="outline"
                           key={need}
@@ -231,24 +223,24 @@ export default function ReviewCandidate() {
                     })}
                   </Flex>
                 </Flex>
-                <Flex w="100%" direction="column" gap="12px">
-                  <Heading variant="h3" fontSize="18px">
+                <Flex w="100%" direction="column" gap=".75rem">
+                  <Heading variant="h3" fontSize="1.125rem">
                     Recommended Benefit Package
                   </Heading>
-                  {!searchParams.get('state') ? (
+                  {!searchParams.get("state") ? (
                     <Text>
                       Additional information required to decide eligibility and
                       recommend benefit packages
                     </Text>
                   ) : (
-                    <Flex gap="20px">
+                    <Flex gap="1.25rem">
                       <Flex
-                        h="56px"
-                        w="56px"
+                        h="3.5rem"
+                        w="3.5rem"
                         alignItems="center"
                         justifyContent="center"
-                        borderRadius="8px"
-                        border="2px solid var(--chakra-colors-secondary-1000)"
+                        borderRadius=".5rem"
+                        border=".125rem solid var(--chakra-colors-secondary-1000)"
                       >
                         <BanknoteIcon color="var(--chakra-colors-secondary-1000)" />
                       </Flex>
@@ -260,19 +252,19 @@ export default function ReviewCandidate() {
                   )}
                 </Flex>
               </Flex>
-              {searchParams.get('state') === 'scheduling' && (
+              {searchParams.get("state") === "scheduling" && (
                 <Box>
-                  <Heading variant="h3" fontSize="18px" mb="12px">
+                  <Heading variant="h3" fontSize="1.125rem" mb=".75rem">
                     Selected Payment Method
                   </Heading>
-                  <Flex gap="20px">
+                  <Flex gap="1.25rem">
                     <Flex
-                      h="56px"
-                      w="56px"
+                      h="3.5rem"
+                      w="3.5rem"
                       alignItems="center"
                       justifyContent="center"
-                      borderRadius="8px"
-                      border="2px solid var(--chakra-colors-secondary-1000)"
+                      borderRadius=".5rem"
+                      border=".125rem solid var(--chakra-colors-secondary-1000)"
                     >
                       <CardIcon color="var(--chakra-colors-secondary-1000)" />
                     </Flex>
@@ -286,8 +278,8 @@ export default function ReviewCandidate() {
                 </Box>
               )}
             </Flex>
-            <Flex direction="column" gap="20px">
-              <Heading variant="h3" fontSize="18px">
+            <Flex direction="column" gap="1.25rem">
+              <Heading variant="h3" fontSize="1.125rem">
                 Household information
               </Heading>
               <TableContainer>
@@ -321,10 +313,10 @@ export default function ReviewCandidate() {
                           <Td>{person.relation}</Td>
                           <Td>{person.dateOfBirth}</Td>
                           <Td>
-                            <Flex wrap="wrap" gap="4px">
+                            <Flex wrap="wrap" gap=".25rem">
                               {person.needs.map((need) => (
                                 <Tag
-                                  p="6px 12px"
+                                  p=".375rem .75rem"
                                   variant="outline"
                                   colorScheme="gray"
                                   key={need}
@@ -355,13 +347,15 @@ export default function ReviewCandidate() {
       </Tooltip>
 
       <Box>
-        <Heading variant="h3" size="sm" mb="20px">
+        <Heading variant="h3" size="sm" mb="1.25rem">
           Candidate's Program History
         </Heading>
-        <Flex flexDirection="column" gap="20px">
-          {getHistoryData(currentState).map((historyItem: any) => (
-            <Timeline key={historyItem?.title} {...historyItem}></Timeline>
-          ))}
+        <Flex flexDirection="column" gap="1.25rem">
+          {getHistoryData(currentState).map(
+            (historyItem: { title: string; icon: JSX.Element }) => (
+              <Timeline key={historyItem?.title} {...historyItem}></Timeline>
+            ),
+          )}
         </Flex>
       </Box>
     </Flex>

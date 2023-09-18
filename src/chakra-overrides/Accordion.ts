@@ -1,29 +1,28 @@
+import { accordionAnatomy as parts } from "@chakra-ui/anatomy";
 import {
-  defineStyle,
   createMultiStyleConfigHelpers,
-} from '@chakra-ui/styled-system'
-import { accordionAnatomy as parts } from '@chakra-ui/anatomy'
+  defineStyle,
+} from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(parts.keys)
-  
+  createMultiStyleConfigHelpers(parts.keys);
+
 const sizes = {
   xs: definePartsStyle(() => ({
     panel: defineStyle({
-      fontSize: '12px',
-    })
+      fontSize: ".75rem",
+    }),
   })),
   sm: definePartsStyle(() => ({
     panel: defineStyle({
-      fontSize: '14px',
-    })
+      fontSize: ".875rem",
+    }),
   })),
   md: definePartsStyle(() => ({
     panel: defineStyle({
-      fontSize: '16px',
-    })
+      fontSize: "1rem",
+    }),
   })),
-}
+};
 
-export const Accordion = defineMultiStyleConfig({sizes})
-
+export const Accordion = defineMultiStyleConfig({ sizes });

@@ -1,4 +1,4 @@
-import { ArrowForwardIcon, ChevronLeftIcon, CloseIcon } from '@chakra-ui/icons';
+import { ArrowForwardIcon, ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -12,110 +12,90 @@ import {
   Image,
   Link,
   Slide,
-  SlideFade,
   Text,
   useDisclosure,
-} from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import { colors } from '../../chakra-overrides/colors';
-import AccordionElement from './AccordionElement';
-import { DIALBuildingBlockContext } from './BuildingBlocks/DIALBuildingBlockContext';
-import BuildingBlockView from './BuildingBlocks/BuildingBlockView';
-import { SimulationContext } from '../../routes/usct/USCT';
-import { Popup, PopupContainer } from './Dial.styles';
+} from "@chakra-ui/react";
+import { useContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { colors } from "../../chakra-overrides/colors";
+import AccordionElement from "./AccordionElement";
+import BuildingBlockView from "./BuildingBlocks/BuildingBlockView";
+import { DIALBuildingBlockContext } from "./BuildingBlocks/DIALBuildingBlockContext";
+import { Popup, PopupContainer } from "./Dial.styles";
 
 export default function DIAL() {
-  const { data: buildingBlocks } = useQuery(
-    'building-blocks',
-    async () => {
-      const req = await fetch(
-        'https://exchange.dial.global/api/v1/building_blocks'
-      );
-      const res = await req.json();
-      return res;
-    },
-    { refetchOnWindowFocus: false }
-  );
   const { data: sdgs } = useQuery(
-    'sdgs',
+    "sdgs",
     async () => {
-      const req = await fetch('https://exchange.dial.global/api/v1/sdgs');
+      const req = await fetch("https://exchange.dial.global/api/v1/sdgs");
       const res = await req.json();
       return res;
     },
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false },
   );
-  const { data: useCases } = useQuery(
-    'use-cases',
-    async () => {
-      const req = await fetch('https://exchange.dial.global/api/v1/use_cases');
-      const res = await req.json();
-      const filteredRes = {
-        ...res,
-        results: res.results.filter(
-          (result: any) => result.maturity === 'PUBLISHED'
-        ),
-      };
-      return filteredRes;
-    },
-    { refetchOnWindowFocus: false }
-  );
-
   const { data: workflows } = useQuery(
-    'workflows',
+    "workflows",
     async () => {
-      const req = await fetch('https://exchange.dial.global/api/v1/workflows');
+      const req = await fetch("https://exchange.dial.global/api/v1/workflows");
       const res = await req.json();
       return res;
     },
-    { refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false },
   );
 
   const { openedBuildingBlock, setOpenedBuildingBlock } = useContext(
-    DIALBuildingBlockContext
+    DIALBuildingBlockContext,
   );
 
   useEffect(() => {
     if (openedBuildingBlock) {
       onOpen();
-      setActive({ type: 'BUILDING_BLOCKS' });
+      setActive({ type: "BUILDING_BLOCKS" });
     }
   }, [openedBuildingBlock]);
 
   const { isOpen, onToggle, onOpen } = useDisclosure();
-  const { state, dispatch } = useContext(SimulationContext);
-  const [active, setActive] = useState<null | any>();
+  const [active, setActive] = useState<null | {
+    type: string;
+    name?: string;
+    long_title?: string;
+    sdg_targets?: { name: string }[];
+    use_case_descriptions?: { description: string }[];
+    description?: string;
+  }>();
 
   return (
     <Box position="absolute" bottom="0.5rem" left="0.5rem">
       <Button
-        onClick={() => { onToggle(); setOpenedBuildingBlock(null) }}
-        h="72px"
-        w="72px"
+        onClick={() => {
+          onToggle();
+          setOpenedBuildingBlock(null);
+        }}
+        h="4.5rem"
+        w="4.5rem"
         backgroundColor="secondary.1000"
-        borderWidth="2px"
+        borderWidth=".125rem"
         borderStyle="solid"
         borderColor="#ffC107"
         colorScheme="admin"
-        boxShadow="0px 4px 32px rgba(0, 0, 0, 0.25)"
+        boxShadow="0rem .25rem 2rem rgba(0, 0, 0, 0.25)"
         borderRadius="100%"
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
-        <CloseIcon color="#FFC107" display={!isOpen ? 'none' : undefined} />
+        <CloseIcon color="#FFC107" display={!isOpen ? "none" : undefined} />
         <Image
           src="/images/digital-impact-alliance-logo.png"
           alt="Digital Impact Alliance Logo"
-          display={isOpen ? 'none' : undefined}
+          display={isOpen ? "none" : undefined}
         />
       </Button>
       <PopupContainer>
         <Slide
-          direction='bottom'
+          direction="bottom"
           in={isOpen}
-          style={{position: 'relative', transition: 'all 0.2s ease-out'}}
+          style={{ position: "relative", transition: "all 0.2s ease-out" }}
           unmountOnExit
         >
           {isOpen && (
@@ -125,8 +105,8 @@ export default function DIAL() {
                   Catalog of digital solutions
                 </Text>
                 <Image
-                  w="84px"
-                  h="24px"
+                  w="5.25rem"
+                  h="1.5rem"
                   src="/images/digital-impact-alliance-logo.png"
                   alt="Digital Impact Alliance Logo"
                 />
@@ -134,7 +114,7 @@ export default function DIAL() {
               <Box position="relative">
                 <Slide
                   direction="left"
-                  style={{ position: 'absolute' }}
+                  style={{ position: "absolute" }}
                   in={!active}
                   unmountOnExit
                 >
@@ -162,7 +142,7 @@ export default function DIAL() {
                             objective.
                           </Text>
                           <Text size="sm">
-                            For more information please check{' '}
+                            For more information please check{" "}
                             <Link
                               isExternal
                               href="https://exchange-dev.dial.global/use_cases"
@@ -188,7 +168,7 @@ export default function DIAL() {
                             <Button
                               variant="unstyled"
                               onClick={() =>
-                                setActive({ type: 'BUILDING_BLOCKS' })
+                                setActive({ type: "BUILDING_BLOCKS" })
                               }
                             >
                               List of Building Blocks <ArrowForwardIcon />
@@ -212,7 +192,7 @@ export default function DIAL() {
                             designed to implement one or more Building Blocks
                           </Text>
                           <Text size="sm">
-                            For more information please check{' '}
+                            For more information please check{" "}
                             <Link
                               isExternal
                               href="https://exchange-dev.dial.global/products"
@@ -227,11 +207,11 @@ export default function DIAL() {
                 </Slide>
                 <Slide
                   direction="right"
-                  style={{ position: 'absolute' }}
-                  in={active}
+                  style={{ position: "absolute" }}
+                  in={!!active}
                   unmountOnExit
                 >
-                  <Box pt="16px">
+                  <Box pt="1rem">
                     <Button
                       variant="link"
                       colorScheme="light"
@@ -243,32 +223,46 @@ export default function DIAL() {
                     >
                       Back to overview
                     </Button>
-                    {active?.type === 'BUILDING_BLOCKS' && <BuildingBlockView />}
-                    {active?.type !== 'BUILDING_BLOCKS' && (
+                    {active?.type === "BUILDING_BLOCKS" && (
+                      <BuildingBlockView />
+                    )}
+                    {active?.type !== "BUILDING_BLOCKS" && (
                       <Flex direction="column" gap="1rem" mt="1rem">
                         <Heading size="sm">{active?.name}</Heading>
                         {active?.long_title && (
                           <Text>{active?.long_title}</Text>
                         )}
-                        {active?.sdg_targets?.map((target: any) => (
-                          <Text size="sm">{target.name}</Text>
-                        ))}
-                        {active?.use_case_descriptions?.map((el: any) => (
+                        {active?.sdg_targets?.map(
+                          (target: { name: string }, index: number) => (
+                            <Text key={index} size="sm">
+                              {target.name}
+                            </Text>
+                          ),
+                        )}
+                        {active?.use_case_descriptions?.map((el) => (
                           <Text
                             key={el.description}
-                            dangerouslySetInnerHTML={{ __html: el.description }}
+                            dangerouslySetInnerHTML={{
+                              __html: el.description,
+                            }}
                           />
                         ))}
                         {active?.description &&
                           JSON.parse(active.description).ops.map(
-                            (op: any, index: number) => (
+                            (
+                              op: {
+                                attributes: { bold: string };
+                                insert: string;
+                              },
+                              index: number,
+                            ) => (
                               <Text
                                 key={index}
-                                variant={op?.attributes?.bold && 'bold'}
+                                variant={op?.attributes?.bold && "bold"}
                               >
                                 {op.insert}
                               </Text>
-                            )
+                            ),
                           )}
                       </Flex>
                     )}

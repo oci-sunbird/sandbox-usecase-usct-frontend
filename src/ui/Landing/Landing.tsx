@@ -6,21 +6,21 @@ export default function Landing() {
   return (
     <Grid templateColumns="3fr 1fr" h="100%">
       <Flex
-        paddingTop="128px"
-        gap="64px"
+        paddingTop="8rem"
+        gap="4rem"
         direction="column"
-        paddingLeft="110px"
-        paddingRight="80px"
+        paddingLeft="6.875rem"
+        paddingRight="5rem"
         alignItems="center"
       >
         <Text fontSize="4xl" textAlign="center">
           <strong>Open Sandbox</strong> is a{" "}
           <strong>free and public demo</strong> to{" "}
-          <strong>try, test (and break)</strong> Govstack. It's simulating parts
-          of a synthetic governmental eService system - the government of Open
-          Island.
+          <strong>try, test (and break)</strong> Govstack. It&apos;s simulating
+          parts of a synthetic governmental eService system - the government of
+          Open Island.
         </Text>
-        <Flex direction="column" gap="16px" alignItems="center">
+        <Flex direction="column" gap="1rem" alignItems="center">
           <Button
             backgroundColor="secondary.1000"
             color={colors.secondary[0]}
@@ -30,13 +30,12 @@ export default function Landing() {
             Enter Open Island now
           </Button>
           <Text>
-            It's <strong>free</strong> and only takes one minute to get started!
+            It&apos;s <strong>free</strong> and only takes one minute to get
+            started!
           </Text>
         </Flex>
       </Flex>
-      <Box height="100%" backgroundColor="main.100">
-        //stuff here
-      </Box>
+      <Box height="100%" backgroundColor="main.100"></Box>
     </Grid>
   );
 }

@@ -1,8 +1,8 @@
-import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
-import { ReactComponent as GitCompareIcon } from '@assets/icons/git-compare.svg';
-import { ReactComponent as HeartShakeIcon } from '@assets/icons/heartshake.svg';
-import { ReactComponent as PigIcon } from '@assets/icons/pig.svg';
-import { ReactComponent as UsersIcon } from '@assets/icons/users.svg';
+import { ReactComponent as CalendarIcon } from "@assets/icons/calendar.svg";
+import { ReactComponent as GitCompareIcon } from "@assets/icons/git-compare.svg";
+import { ReactComponent as HeartShakeIcon } from "@assets/icons/heartshake.svg";
+import { ReactComponent as PigIcon } from "@assets/icons/pig.svg";
+import { ReactComponent as UsersIcon } from "@assets/icons/users.svg";
 import {
   Box,
   Button,
@@ -11,50 +11,49 @@ import {
   ListItem,
   Text,
   UnorderedList,
-} from '@chakra-ui/react';
-import IconCard from '@ui/IconCard/IconCard';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import FakeLoader from '../../../ui/FakeLoader/FakeLoader';
-import Tooltip from '../../../ui/Tooltip/Tooltip';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import IconCard from "@ui/IconCard/IconCard";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import Tooltip from "../../../ui/Tooltip/Tooltip";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case 'done':
+    case "done":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS BENEFICIARY CASES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS BENEFICIARY CASES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../new-conversation',
-        nextStep: '../case-list?state=scheduling',
+        previousStep: "../new-conversation",
+        nextStep: "../case-list?state=scheduling",
       };
-    case 'submitted':
+    case "submitted":
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../personal?done=true',
-        nextStep: '../candidate-list?state=submitted',
+        previousStep: "../personal?done=true",
+        nextStep: "../candidate-list?state=submitted",
       };
     default:
       return {
         description: {
-          title: 'CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES',
-          subtitle: 'PRIMARY TASK',
+          title: "CIVIL SERVANT REVIEWS ASSIGNED CANDIDATES",
+          subtitle: "PRIMARY TASK",
         },
-        previousStep: '../case-management',
-        nextStep: '../candidate-list',
+        previousStep: "../case-management",
+        nextStep: "../candidate-list",
       };
   }
 };
@@ -66,18 +65,17 @@ export default function CaseManagement() {
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   const location = useLocation();
 
-  const isDone = searchParams.get('state') === 'done';
-  const isSubmitted = searchParams.get('state') === 'submitted';
+  const isDone = searchParams.get("state") === "done";
+  const isSubmitted = searchParams.get("state") === "submitted";
   const isDisabled = !location.search || isSubmitted;
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       userAuthorized: true,
-      ...getConfig(searchParams.get('state')),
-      previousStep: '../info',
+      ...getConfig(searchParams.get("state")),
     });
   }, [searchParams, location]);
 
@@ -97,38 +95,38 @@ export default function CaseManagement() {
     setLetterContextualTitleMap({
       A: ContextualTitle.ASSIGNED_CANDIDATES,
       B: ContextualTitle.ASSIGNED_CASES,
-      C: ContextualTitle.PROGRAM_INFORMATION
+      C: ContextualTitle.PROGRAM_INFORMATION,
     });
   }, []);
 
   return (
-    <Flex gap="60px" mt="60px" direction="column">
+    <Flex gap="3.75rem" mt="3.75rem" direction="column">
       <Box>
         <Heading variant="h1">
           Unconditional Social <br /> Cash Transfer Program
         </Heading>
       </Box>
-      <Flex direction="column" gap="20px">
+      <Flex direction="column" gap="1.25rem">
         <Heading>Hello, Civil Servant!</Heading>
         <Text>You have 1 candidates, 0 cases up for review today!</Text>
-        <Flex gap="20px" direction={{ base: 'column', xl: 'row' }}>
+        <Flex gap="1.25rem" direction={{ base: "column", xl: "row" }}>
           <Tooltip
             display="flex"
             letter="A"
             letterPosition="top"
             flexDirection="column"
-            gap="16px"
+            gap="1rem"
           >
             <Flex
               w="100%"
-              padding="28px 38px"
-              gap="35px"
-              border="2px solid black"
-              borderRadius="8px"
+              padding="1.75rem 2.375rem"
+              gap="2.1875rem"
+              border=".125rem solid black"
+              borderRadius=".5rem"
             >
               <Flex
-                w="80px"
-                h="80px"
+                w="5rem"
+                h="5rem"
                 borderRadius="100%"
                 backgroundColor={colors.secondary[1000]}
                 color={colors.secondary[0]}
@@ -137,10 +135,10 @@ export default function CaseManagement() {
                 flexShrink="0"
               >
                 <Heading color={colors.secondary[0]}>
-                  {searchParams.get('state') === 'done' ? 0 : 1}
+                  {searchParams.get("state") === "done" ? 0 : 1}
                 </Heading>
               </Flex>
-              <Flex gap="14px" direction="column">
+              <Flex gap=".875rem" direction="column">
                 <Text>Assigned Candidates</Text>
                 <Text>Candidate assigned to you for your review</Text>
               </Flex>
@@ -161,8 +159,8 @@ export default function CaseManagement() {
                   as={Link}
                   to={
                     isSubmitted
-                      ? '../candidate-list?state=submitted'
-                      : '../candidate-list'
+                      ? "../candidate-list?state=submitted"
+                      : "../candidate-list"
                   }
                   variant="solid"
                   colorScheme="admin"
@@ -177,29 +175,29 @@ export default function CaseManagement() {
             letterPosition="top"
             display="flex"
             flexDirection="column"
-            gap="16px"
+            gap="1rem"
           >
             <Flex
               w="100%"
-              padding="28px 38px"
-              gap="35px"
-              border="2px solid black"
-              borderRadius="8px"
+              padding="1.75rem 2.375rem"
+              gap="2.1875rem"
+              border=".125rem solid black"
+              borderRadius=".5rem"
             >
               <Flex
-                w="80px"
-                h="80px"
+                w="5rem"
+                h="5rem"
                 borderRadius="100%"
                 backgroundColor={colors.secondary[0]}
                 color="secondary.1000"
-                border="1px solid black"
+                border=".0625rem solid black"
                 alignItems="center"
                 justifyContent="center"
                 flexShrink="0"
               >
                 <Heading>{isDone ? 1 : 0}</Heading>
               </Flex>
-              <Flex gap="14px" direction="column">
+              <Flex gap=".875rem" direction="column">
                 <Text>Beneficiary Cases</Text>
                 <Text>Open Cases assigned to you for your review</Text>
               </Flex>
@@ -210,18 +208,18 @@ export default function CaseManagement() {
                   colorScheme="secondary"
                   backgroundColor={colors.secondary[400]}
                   as={Button}
-                  variant={'solid'}
+                  variant={"solid"}
                   isDisabled
                 >
                   Review Cases
                 </Button>
               ) : (
                 <Button
-                  colorScheme={isDone ? 'admin' : 'secondary'}
+                  colorScheme={isDone ? "admin" : "secondary"}
                   backgroundColor={isDone ? undefined : colors.secondary[400]}
                   as={Link}
-                  to={isDone ? '../case-list?state=scheduling' : '../case-list'}
-                  variant={'solid'}
+                  to={isDone ? "../case-list?state=scheduling" : "../case-list"}
+                  variant={"solid"}
                   isDisabled={!isDone}
                 >
                   Review Cases
@@ -232,9 +230,9 @@ export default function CaseManagement() {
         </Flex>
       </Flex>
       <Tooltip letter="C" letterPosition="top">
-        <Flex direction={{ base: 'column', xl: 'row' }} marginBottom="60px">
-          <Box w="100%" marginBottom={{ sm: '60px', xl: 0 }}>
-            <Heading mb="20px">Program Description</Heading>
+        <Flex direction={{ base: "column", xl: "row" }} marginBottom="3.75rem">
+          <Box w="100%" marginBottom={{ sm: "3.75rem", xl: 0 }}>
+            <Heading mb="1.25rem">Program Description</Heading>
             <Text>
               Unconditional Social Cash Transfer helps families meet their basic
               needs for well-being and safety and serves as their path to
@@ -245,71 +243,71 @@ export default function CaseManagement() {
           </Box>
           <Flex
             w="100%"
-            textAlign={{ base: 'left', xl: 'right' }}
+            textAlign={{ base: "left", xl: "right" }}
             direction="column"
-            alignItems={{ base: 'flex-start', xl: 'flex-end' }}
-            gap="20px"
+            alignItems={{ base: "flex-start", xl: "flex-end" }}
+            gap="1.25rem"
           >
             <Heading>Benefit Packages</Heading>
-            <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+            <Flex gap="1.25rem" direction={{ base: "row-reverse", xl: "row" }}>
               <Box>
-                <Text fontWeight="600" fontSize="16px">
+                <Text fontWeight="600" fontSize="1rem">
                   Monthly Package
                 </Text>
                 <Text>Monthly Cash help for families in need</Text>
               </Box>
               <Flex
-                w="57px"
-                h="57px"
+                w="3.5625rem"
+                h="3.5625rem"
                 alignItems="center"
                 justifyContent="center"
-                borderRadius="8px"
-                border="2px solid black"
+                borderRadius=".5rem"
+                border=".125rem solid black"
               >
                 <CalendarIcon stroke="black" />
               </Flex>
             </Flex>
-            <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+            <Flex gap="1.25rem" direction={{ base: "row-reverse", xl: "row" }}>
               <Box>
-                <Text fontWeight="600" fontSize="16px">
+                <Text fontWeight="600" fontSize="1rem">
                   Short-Term Package
                 </Text>
                 <Text>One-time Cash help for families in need</Text>
               </Box>
               <Flex
-                w="57px"
-                h="57px"
+                w="3.5625rem"
+                h="3.5625rem"
                 alignItems="center"
                 justifyContent="center"
-                borderRadius="8px"
-                border="2px solid black"
+                borderRadius=".5rem"
+                border=".125rem solid black"
               >
                 <PigIcon stroke="black" />
               </Flex>
             </Flex>
-            <Flex gap="20px" direction={{ base: 'row-reverse', xl: 'row' }}>
+            <Flex gap="1.25rem" direction={{ base: "row-reverse", xl: "row" }}>
               <Box>
-                <Text fontWeight="600" fontSize="16px">
+                <Text fontWeight="600" fontSize="1rem">
                   Special Package
                 </Text>
                 <Text>Tailored Package based on family needs</Text>
               </Box>
               <Flex
-                w="57px"
-                h="57px"
+                w="3.5625rem"
+                h="3.5625rem"
                 alignItems="center"
                 justifyContent="center"
-                borderRadius="8px"
-                border="2px solid black"
+                borderRadius=".5rem"
+                border=".125rem solid black"
               >
                 <HeartShakeIcon stroke="black" />
               </Flex>
             </Flex>
           </Flex>
         </Flex>
-        <Flex gap="60px" direction={{ base: 'column', xl: 'row' }}>
+        <Flex gap="3.75rem" direction={{ base: "column", xl: "row" }}>
           <Box w="100%">
-            <Heading mb="20px">Eligibility Conditions</Heading>
+            <Heading mb="1.25rem">Eligibility Conditions</Heading>
             <Text>
               The eligibility criteria for an unconditional cash transfer
               service can include:
@@ -326,29 +324,29 @@ export default function CaseManagement() {
             </UnorderedList>
           </Box>
           <Box w="100%">
-            <Heading mb="20px" textAlign={{ sm: 'left', xl: 'right' }}>
+            <Heading mb="1.25rem" textAlign={{ sm: "left", xl: "right" }}>
               Program Overview
             </Heading>
             <Flex
-              gap={{ base: '12px', md: '24px' }}
-              flexDirection={{ base: 'column', md: 'row' }}
+              gap={{ base: ".75rem", md: "1.5rem" }}
+              flexDirection={{ base: "column", md: "row" }}
             >
               <IconCard
                 icon={<UsersIcon stroke="black" />}
                 title="Beneficiaries"
               >
-                <Heading fontSize="24px" marginTop="5px">
+                <Heading fontSize="1.5rem" marginTop=".3125rem">
                   2212
                 </Heading>
-                <Text marginBottom="5px">Households</Text>
-                <Heading fontSize="24px">10105</Heading>
+                <Text marginBottom=".3125rem">Households</Text>
+                <Heading fontSize="1.5rem">10105</Heading>
                 <Text>Individuals</Text>
               </IconCard>
               <IconCard
                 icon={<GitCompareIcon stroke="black" />}
                 title="Active Cases"
               >
-                <Heading fontSize="36px" marginTop="24px">
+                <Heading fontSize="2.25rem" marginTop="1.5rem">
                   32
                 </Heading>
                 <Text>Active Cases</Text>

@@ -1,32 +1,30 @@
-import { Button, Center, Heading, Text, VStack } from '@chakra-ui/react';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+import { Button, Center, Heading, Text, VStack } from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function AuthoriseCitizen() {
   const { state, dispatch } = useContext(SimulationContext);
-  const navigation = useLocation();
-  const [loader, setLoader] = useState(true);
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       description: {
-        title: 'CITIZEN LOGS IN',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN LOGS IN",
+        subtitle: "PRIMARY TASK",
       },
       userAuthorized: false,
-      previousStep: '../review-candidate/2895379235',
-      nextStep: '../info',
+      previousStep: "../review-candidate/2895379235",
+      nextStep: "../info",
     });
   }, [location]);
 
@@ -56,14 +54,14 @@ export default function AuthoriseCitizen() {
 
   return (
     <Center w="100%">
-      <VStack maxW="312px" textAlign="center" gap="20px">
+      <VStack maxW="19.5rem" textAlign="center" gap="1.25rem">
         <Heading>Log In</Heading>
         <Tooltip
           letter="A"
           letterPosition="right-center"
           display="flex"
           flexDirection="column"
-          gap="20px"
+          gap="1.25rem"
         >
           <Text>
             Our self-service environment is your opportunity to communicate with

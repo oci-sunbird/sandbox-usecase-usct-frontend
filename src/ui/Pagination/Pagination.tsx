@@ -1,6 +1,6 @@
-import { Button, ButtonGroup } from '@chakra-ui/react';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import React from 'react';
+import { Button, ButtonGroup } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import React from "react";
 
 export default function Pagination() {
   return (

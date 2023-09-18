@@ -90,12 +90,12 @@ export default function Enrolment() {
   }, [paymentMethodSelected]);
 
   return (
-    <Flex direction="column" gap="40px" w="100%">
+    <Flex direction="column" gap="2.5rem" w="100%">
       <Flex direction="column">
-        <Heading fontSize="36px">Enrolling to the Program</Heading>
-        <Heading fontSize="24px">Unconditional Social Cash Transfer</Heading>
+        <Heading fontSize="2.25rem">Enrolling to the Program</Heading>
+        <Heading fontSize="1.5rem">Unconditional Social Cash Transfer</Heading>
       </Flex>
-      <Tooltip letter="A" display="flex" flexDirection="column" gap="20px">
+      <Tooltip letter="A" display="flex" flexDirection="column" gap="1.25rem">
         <Box>
           <Text>
             You have been assinged to <strong>Monthly Benefit Package</strong>{" "}
@@ -105,54 +105,54 @@ export default function Enrolment() {
             With this benefit package, you and your family will receive:
           </Text>
         </Box>
-        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap="20px">
-          <Flex alignItems="center" gap="20px">
+        <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap="1.25rem">
+          <Flex alignItems="center" gap="1.25rem">
             <Flex
-              borderRadius="8px"
+              borderRadius=".5rem"
               alignItems="center"
               justifyContent="center"
               flexShrink="0"
-              w="64px"
-              h="64px"
-              border="2px dashed var(--chakra-colors-secondary-1000)"
+              w="4rem"
+              h="4rem"
+              border=".125rem dashed var(--chakra-colors-secondary-1000)"
             >
               <BanknoteIcon
-                width="34px"
-                height="34px"
+                width="2.125rem"
+                height="2.125rem"
                 color="var(--chakra-colors-secondary-1000)"
               />
             </Flex>
-            <Flex direction="column" gap="8px">
-              <Heading fontSize="16px">Monthly cash</Heading>
+            <Flex direction="column" gap=".5rem">
+              <Heading fontSize="1rem">Monthly cash</Heading>
               <Text>
                 Help for you and your family without any additional conditions
               </Text>
             </Flex>
           </Flex>
-          <Flex alignItems="center" gap="20px">
+          <Flex alignItems="center" gap="1.25rem">
             <Flex
-              borderRadius="8px"
+              borderRadius=".5rem"
               alignItems="center"
               justifyContent="center"
               flexShrink="0"
-              w="64px"
-              h="64px"
-              border="2px dashed var(--chakra-colors-secondary-1000)"
+              w="4rem"
+              h="4rem"
+              border=".125rem dashed var(--chakra-colors-secondary-1000)"
             >
               <BanknoteIcon
-                width="34px"
-                height="34px"
+                width="2.125rem"
+                height="2.125rem"
                 color="var(--chakra-colors-secondary-1000)"
               />
             </Flex>
-            <Flex direction="column" gap="4px">
-              <Heading fontSize="16px">Career assessment</Heading>
+            <Flex direction="column" gap=".25rem">
+              <Heading fontSize="1rem">Career assessment</Heading>
               <Text>Online monthly consultation and job referrals</Text>
             </Flex>
           </Flex>
         </Grid>
-        <Flex direction="column" gap="20px">
-          <Heading fontSize="18px">Package payment</Heading>
+        <Flex direction="column" gap="1.25rem">
+          <Heading fontSize="1.125rem">Package payment</Heading>
           <TableContainer>
             <Table>
               <Thead>
@@ -176,25 +176,25 @@ export default function Enrolment() {
         </Flex>
       </Tooltip>
 
-      <Tooltip letter="B" display="flex" flexDirection="column" gap="20px">
-        <Flex direction="column" gap="20px">
-          <Heading fontSize="18px">Preferred Payment Method:</Heading>
+      <Tooltip letter="B" display="flex" flexDirection="column" gap="1.25rem">
+        <Flex direction="column" gap="1.25rem">
+          <Heading fontSize="1.125rem">Preferred Payment Method:</Heading>
           <Text>
             Please select your payment method to enroll into the program.
           </Text>
-          <Flex direction="column" gap="12px">
+          <Flex direction="column" gap=".75rem">
             <Box
-              borderRadius="8px"
-              border={`2px solid ${
+              borderRadius=".5rem"
+              border={`.125rem solid ${
                 paymentMethodSelected
                   ? "var(--chakra-colors-secondary-1000)"
                   : "lightgray"
               }`}
             >
-              <Flex p="32px 24px" gap="20px" alignItems="center">
+              <Flex p="2rem 1.5rem" gap="1.25rem" alignItems="center">
                 <CreditCardIcon />
-                <Flex direction="column" gap="8px">
-                  <Heading fontSize="16px">Bank Payment</Heading>
+                <Flex direction="column" gap=".5rem">
+                  <Heading fontSize="1rem">Bank Payment</Heading>
                   <Text>Direct cash transfer to your bank account.</Text>
                 </Flex>
                 <Radio
@@ -209,19 +209,19 @@ export default function Enrolment() {
                 />
               </Flex>
               <Collapse in={paymentMethodSelected}>
-                <Box px="24px" pb="20px">
-                  <Text mb="16px">
+                <Box px="1.5rem" pb="1.25rem">
+                  <Text mb="1rem">
                     With this method, the arranged amount will be transferred
                     directly to your bank account at the designated time for
                     each month.
                   </Text>
-                  <Text mb="24px">
+                  <Text mb="1.5rem">
                     Please review your bank account information:
                   </Text>
                   <Tooltip letter="C" letterPosition="top">
                     <Grid
-                      marginBottom="24px"
-                      gap="12px"
+                      marginBottom="1.5rem"
+                      gap=".75rem"
                       templateColumns={{ sm: "1fr", xl: "1fr 1fr" }}
                     >
                       <GridItem>
@@ -256,46 +256,46 @@ export default function Enrolment() {
             </Box>
 
             <Flex
-              borderRadius="8px"
-              border="2px solid lightgray"
-              p="26px 29px"
-              gap="20px"
+              borderRadius=".5rem"
+              border=".125rem solid lightgray"
+              p="1.625rem 1.8125rem"
+              gap="1.25rem"
               alignItems="center"
               color="secondary.600"
             >
               <MobilePaymentIcon />
-              <Flex direction="column" gap="8px">
-                <Heading fontSize="16px">Mobile Money</Heading>
+              <Flex direction="column" gap=".5rem">
+                <Heading fontSize="1rem">Mobile Money</Heading>
                 <Text>Direct cash transfer to mobile money account.</Text>
               </Flex>
               <Text ml="auto">Not Available*</Text>
             </Flex>
             <Flex
-              borderRadius="8px"
-              border="2px solid lightgray"
-              p="26px 29px"
-              gap="20px"
+              borderRadius=".5rem"
+              border=".125rem solid lightgray"
+              p="1.625rem 1.8125rem"
+              gap="1.25rem"
               alignItems="center"
               color="secondary.600"
             >
               <HashIcon />
-              <Flex direction="column" gap="8px">
-                <Heading fontSize="16px">Cash Payment</Heading>
+              <Flex direction="column" gap=".5rem">
+                <Heading fontSize="1rem">Cash Payment</Heading>
                 <Text>Direct cash transfer to your bank account.</Text>
               </Flex>
               <Text ml="auto">Not Available*</Text>
             </Flex>
             <Flex
-              borderRadius="8px"
-              border="2px solid lightgray"
-              p="26px 29px"
-              gap="20px"
+              borderRadius=".5rem"
+              border=".125rem solid lightgray"
+              p="1.625rem 1.8125rem"
+              gap="1.25rem"
               alignItems="center"
               color="secondary.600"
             >
               <WalletIcon />
-              <Flex direction="column" gap="8px">
-                <Heading fontSize="16px">Bank Payment</Heading>
+              <Flex direction="column" gap=".5rem">
+                <Heading fontSize="1rem">Bank Payment</Heading>
                 <Text>Direct cash transfer to your bank account.</Text>
               </Flex>
               <Text ml="auto">Not Available*</Text>
@@ -313,10 +313,9 @@ export default function Enrolment() {
           I reviewed Entitlements of Beneficiaries document and accept...
         </Checkbox>
         <Flex justifyContent="flex-end">
-          {paymentMethodSelected && acceptedTerms 
-           ? (
+          {paymentMethodSelected && acceptedTerms ? (
             <Button
-              w="167px"
+              w="10.4375rem"
               as={Link}
               to="../candidate-list?state=scheduling"
               colorScheme="citizen"
@@ -325,7 +324,7 @@ export default function Enrolment() {
             </Button>
           ) : (
             <Button
-              w="167px"
+              w="10.4375rem"
               as={Button}
               isDisabled
               _disabled={{ bg: "secondary.400" }}

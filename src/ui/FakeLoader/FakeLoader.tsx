@@ -5,8 +5,8 @@ import {
   Fade,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+} from "@chakra-ui/react";
+import { useEffect } from "react";
 
 export default function FakeLoader({
   children,

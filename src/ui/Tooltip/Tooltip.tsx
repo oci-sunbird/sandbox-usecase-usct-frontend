@@ -4,35 +4,35 @@ import {
   Flex,
   Text,
   useBreakpointValue,
-} from '@chakra-ui/react';
-import { useContext } from 'react';
-import { colors } from '../../chakra-overrides/colors';
-import { ContextualHelpContext } from '../../routes/usct/ContextualHelpContext';
+} from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { colors } from "../../chakra-overrides/colors";
+import { ContextualHelpContext } from "../../routes/usct/ContextualHelpContext";
 
 const letterPositionProps = {
   top: {
-    top: '-45px',
-    right: '-8px',
+    top: "-2.8125rem",
+    right: "-0.5rem",
   },
-  'right-corner': {
-    top: '-8px',
-    right: '-45px',
+  "right-corner": {
+    top: "-0.5rem",
+    right: "-2.8125rem",
   },
-  'right-center': {
-    right: '-45px',
-    top: '50%',
-    transform: 'translateY(-50%)',
+  "right-center": {
+    right: "-2.8125rem",
+    top: "50%",
+    transform: "translateY(-50%)",
   },
 };
 
 function Tooltip({
   children,
   letter,
-  letterPosition = 'right-corner',
+  letterPosition = "right-corner",
   ...boxProps
 }: {
   letter: string;
-  letterPosition?: 'top' | 'right-corner' | 'right-center';
+  letterPosition?: "top" | "right-corner" | "right-center";
 } & BoxProps) {
   const { activeLetter, setActiveLetter } = useContext(ContextualHelpContext);
 
@@ -45,24 +45,24 @@ function Tooltip({
     <Box
       position="relative"
       _after={{
-        content: `""`,
-        border: `5px dashed ${
-          activeLetter === letter ? colors.green[400] : 'transparent'
+        content: '""',
+        border: `.3125rem dashed ${
+          activeLetter === letter ? colors.green[400] : "transparent"
         }`,
-        position: 'absolute',
-        inset: '-8px',
-        borderRadius: '8px',
-        pointerEvents: 'none',
-        transition: 'border-color 0.3s ease-in-out',
+        position: "absolute",
+        inset: "-0.5rem",
+        borderRadius: ".5rem",
+        pointerEvents: "none",
+        transition: "border-color 0.3s ease-in-out",
       }}
       {...boxProps}
     >
       {children}
       <Flex
         position="absolute"
-        opacity={!!activeLetter && activeLetter !== letter ? '0' : '1'}
-        width="34px"
-        height="34px"
+        opacity={!!activeLetter && activeLetter !== letter ? "0" : "1"}
+        width="2.125rem"
+        height="2.125rem"
         borderRadius="100%"
         backgroundColor={
           !!activeLetter && activeLetter === letter
@@ -74,7 +74,7 @@ function Tooltip({
         justifyContent="center"
         cursor="pointer"
         pointerEvents={
-          !!activeLetter && activeLetter !== letter ? 'none' : 'auto'
+          !!activeLetter && activeLetter !== letter ? "none" : "auto"
         }
         zIndex="1"
         transition="opacity 0.3s ease-in-out, background-color 0.3s ease-in-out"

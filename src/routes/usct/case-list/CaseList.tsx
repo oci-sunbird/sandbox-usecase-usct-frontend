@@ -1,4 +1,4 @@
-import { ReactComponent as MoreIcon } from '@assets/icons/more-horizontal.svg';
+import { ReactComponent as MoreIcon } from "@assets/icons/more-horizontal.svg";
 import {
   Button,
   Flex,
@@ -12,20 +12,20 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import Pagination from '@ui/Pagination/Pagination';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import Pagination from "@ui/Pagination/Pagination";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 export default function CaseList() {
   const { state, dispatch } = useContext(SimulationContext);
@@ -34,16 +34,16 @@ export default function CaseList() {
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN_SERVANT,
       description: {
-        title: 'CIVIL SERVANT REVIEWS THE BENEFICIARY CASE',
-        subtitle: 'PRIMARY TASK',
+        title: "CIVIL SERVANT REVIEWS THE BENEFICIARY CASE",
+        subtitle: "PRIMARY TASK",
       },
       userAuthorized: true,
-      previousStep: '../case-management?state=done',
-      nextStep: '../review-case/2895379235',
+      previousStep: "../case-management?state=done",
+      nextStep: "../review-case/2895379235",
     });
   }, []);
 
@@ -69,11 +69,11 @@ export default function CaseList() {
   }, []);
 
   return (
-    <Flex w="100%" direction="column" gap="60px">
-      <Flex gap="20px" direction="column">
+    <Flex w="100%" direction="column" gap="3.75rem">
+      <Flex gap="1.25rem" direction="column">
         <Heading>Active Cases</Heading>
         <Flex justifyContent="space-between">
-          <Flex gap="10px" flexShrink="0" alignItems="center">
+          <Flex gap=".625rem" flexShrink="0" alignItems="center">
             <Flex
               color="white"
               backgroundColor="secondary.1000"
@@ -81,20 +81,20 @@ export default function CaseList() {
               alignItems="center"
               justifyContent="center"
               borderRadius="100%"
-              w="24px"
-              h="24px"
-              fontSize="12px"
+              w="1.5rem"
+              h="1.5rem"
+              fontSize=".75rem"
               fontWeight="700"
             >
               1
             </Flex>
-            <Text color="secondary.500" fontSize="12px">
+            <Text color="secondary.500" fontSize=".75rem">
               ACTIVE CASES
             </Text>
           </Flex>
         </Flex>
         <Tooltip letter="A" letterPosition="top">
-          <Flex direction="column" gap="20px">
+          <Flex direction="column" gap="1.25rem">
             <TableContainer>
               <Table variant="simple">
                 <Thead
@@ -137,10 +137,10 @@ export default function CaseList() {
           </Flex>
         </Tooltip>
       </Flex>
-      <Flex gap="20px" direction="column">
+      <Flex gap="1.25rem" direction="column">
         <Heading>Canditate List</Heading>
         <Flex justifyContent="space-between">
-          <Flex gap="8px" flexShrink="0" alignItems="center">
+          <Flex gap=".5rem" flexShrink="0" alignItems="center">
             <Text fontSize="12" fontWeight="bold">
               211
             </Text>
@@ -150,7 +150,7 @@ export default function CaseList() {
           </Flex>
         </Flex>
         <Tooltip letter="B" letterPosition="top">
-          <TableContainer mb="20px">
+          <TableContainer mb="1.25rem">
             <Table variant="simple">
               <Thead
                 backgroundColor={colors.secondary[800]}
@@ -172,7 +172,7 @@ export default function CaseList() {
                   <Td>01/01/2023</Td>
                   <Td>01/01/2023</Td>
                   <Td>
-                    <Tag width="140px" justifyContent="center">
+                    <Tag width="8.75rem" justifyContent="center">
                       Resolved
                     </Tag>
                   </Td>
@@ -185,8 +185,8 @@ export default function CaseList() {
           </TableContainer>
 
           <Flex
-            direction={{ base: 'column', md: 'row' }}
-            gap="20px"
+            direction={{ base: "column", md: "row" }}
+            gap="1.25rem"
             justifyContent="space-between"
           >
             <Pagination />

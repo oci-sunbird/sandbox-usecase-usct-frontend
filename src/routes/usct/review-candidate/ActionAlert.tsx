@@ -1,13 +1,13 @@
-import { Button, Flex, Input, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { ReactComponent as TimerIcon } from '@assets/icons/timer.svg';
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
-import { ReactComponent as CalendarIcon } from '@assets/icons/calendar.svg';
-import Alert from '@ui/Alert/Alert';
+import { ReactComponent as CalendarIcon } from "@assets/icons/calendar.svg";
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
+import { ReactComponent as TimerIcon } from "@assets/icons/timer.svg";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
+import Alert from "@ui/Alert/Alert";
+import { Link } from "react-router-dom";
 
 const getActionAlertProps = (state: string | null) => {
   switch (state) {
-    case 'done':
+    case "done":
       return {
         icon: <TimerIcon color="white" />,
         content: (
@@ -27,7 +27,7 @@ const getActionAlertProps = (state: string | null) => {
         ),
       };
 
-    case 'scheduling':
+    case "scheduling":
       return {
         icon: <TimerIcon color="white" />,
         content: (
@@ -37,10 +37,12 @@ const getActionAlertProps = (state: string | null) => {
           </Text>
         ),
         actions: (
-          <Flex direction="column" marginLeft="auto" gap="10px">
-            <Flex gap="10px">
-              <Input placeholder="01/01/23" isReadOnly/>
-              <Button isDisabled><CalendarIcon /></Button>
+          <Flex direction="column" marginLeft="auto" gap=".625rem">
+            <Flex gap=".625rem">
+              <Input placeholder="01/01/23" isReadOnly />
+              <Button isDisabled>
+                <CalendarIcon />
+              </Button>
             </Flex>
             <Button colorScheme="admin" as={Link} to="../active-program">
               Enroll Into the Program
@@ -51,7 +53,7 @@ const getActionAlertProps = (state: string | null) => {
 
     default:
       return {
-        icon: <FileWarningIcon color="white" height="32px" width="32px" />,
+        icon: <FileWarningIcon color="white" height="2rem" width="2rem" />,
         content: (
           <Text>
             Additional validation is required from <br /> applicant to decide
@@ -60,7 +62,9 @@ const getActionAlertProps = (state: string | null) => {
         ),
         actions: (
           <Button
-            leftIcon={<FileWarningIcon color="white" height="20px" width="20px" />}
+            leftIcon={
+              <FileWarningIcon color="white" height="1.25rem" width="1.25rem" />
+            }
             marginLeft="auto"
             colorScheme="admin"
             as={Link}
@@ -74,7 +78,5 @@ const getActionAlertProps = (state: string | null) => {
 };
 
 export const ActionAlert = ({ state }: { state: string | null }) => {
-  return (
-    <Alert {...getActionAlertProps(state)} />
-  );
+  return <Alert {...getActionAlertProps(state)} />;
 };

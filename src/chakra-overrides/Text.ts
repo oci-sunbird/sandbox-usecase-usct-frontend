@@ -1,9 +1,9 @@
-import { defineStyleConfig } from '@chakra-ui/react';
+import { defineStyleConfig } from "@chakra-ui/react";
 
 export const Text = defineStyleConfig({
   baseStyle: {
-    fontFamily: 'Inter',
-    color: 'inherit',
+    fontFamily: "Inter",
+    color: "inherit",
     fontWeight: 400,
   },
   variants: {
@@ -11,33 +11,33 @@ export const Text = defineStyleConfig({
       fontWeight: 600,
     },
     caps: {
-      textTransform: 'uppercase',
+      textTransform: "uppercase",
       fontWeight: 600,
     },
   },
   sizes: {
     xxs: {
-      fontSize: '10px',
-      lineHeight: '14px',
+      fontSize: ".625rem",
+      lineHeight: ".875rem",
     },
     xs: {
-      fontSize: '12px',
-      lineHeight: '16px',
+      fontSize: ".75rem",
+      lineHeight: "1rem",
     },
     sm: {
-      fontSize: '14px',
-      lineHeight: '20px',
+      fontSize: ".875rem",
+      lineHeight: "1.25rem",
     },
     md: {
-      fontSize: '16px',
-      lineHeight: '24px',
+      fontSize: "1rem",
+      lineHeight: "1.5rem",
     },
     lg: {
-      fontSize: '18px',
-      lineHeight: '28px',
+      fontSize: "1.125rem",
+      lineHeight: "1.75rem",
     },
   },
   defaultProps: {
-    size: 'md',
+    size: "md",
   },
 });

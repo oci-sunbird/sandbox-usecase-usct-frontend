@@ -1,3 +1,5 @@
+import { ReactComponent as ArrowIcon } from "@assets/icons/arrow.svg";
+import { ReactComponent as UploadIcon } from "@assets/icons/upload.svg";
 import {
   Box,
   Button,
@@ -7,22 +9,16 @@ import {
   GridItem,
   Heading,
   Slide,
-  Text,
-} from '@chakra-ui/react';
-import BuildingBlockActivity from '@ui/Activity/BuildingBlockActivity';
-import HelpHighlightWrapper from '@ui/HelpOverlay/HelpHighlightWrapper';
-import React, { useState } from 'react';
-import ContextualHelp from './ContextualHelp';
-import HelpButton from '@ui/HelpOverlay/HelpButton';
-import { ReactComponent as UploadIcon } from '@assets/icons/upload.svg';
-import { ReactComponent as ArrowIcon } from '@assets/icons/arrow.svg';
-import { ReactComponent as MinusIcon } from '../../assets/icons/minus.svg';
+  Text
+} from "@chakra-ui/react";
+import BuildingBlockActivity from "@ui/Activity/BuildingBlockActivity";
+import HelpButton from "@ui/HelpOverlay/HelpButton";
+import HelpHighlightWrapper from "@ui/HelpOverlay/HelpHighlightWrapper";
+import React, { useState } from "react";
+import { ReactComponent as MinusIcon } from "../../assets/icons/minus.svg";
+import ContextualHelp from "./ContextualHelp";
 
-export default function Sidebar({
-  view,
-}: {
-  view?: "desktop" | "mobile"
-}) {
+export default function Sidebar({ view }: { view?: "desktop" | "mobile" }) {
   const [showCopy, setShowCopy] = useState(false);
 
   const copy = () => {
@@ -36,7 +32,7 @@ export default function Sidebar({
   return (
     <Flex
       boxSizing="border-box"
-      pt="24px"
+      pt="1.5rem"
       h="100%"
       direction="column"
       overflowY="scroll"
@@ -49,7 +45,7 @@ export default function Sidebar({
           </>
         }
         infoPosition="inside"
-        mx="24px"
+        mx="1.5rem"
       >
         <Heading mb="0.75rem" size="sm" textAlign="left" variant="caps">
           BUILDING BLOCK ACTIVITY
@@ -62,11 +58,11 @@ export default function Sidebar({
       </HelpHighlightWrapper>
 
       <Flex direction="column" position="relative" height="100%">
-        <Flex justifyContent="space-around" mb="1rem" px="24px">
+        <Flex justifyContent="space-around" mb="1rem" px="1.5rem">
           <Flex alignItems="center">
             <Box
-              h="8px"
-              w="8px"
+              h=".5rem"
+              w=".5rem"
               mr="0.75rem"
               borderRadius="100%"
               backgroundColor="secondary.0"
@@ -86,20 +82,20 @@ export default function Sidebar({
             <>
               <b>
                 <i>Learn more</i>
-              </b>{' '}
+              </b>{" "}
               about interactions of the Building Blocks
               {view === "desktop" && (
                 <Grid
                   position="absolute"
-                  bottom="calc(100% + 40px)"
-                  right="calc(100% + 24px)"
+                  bottom="calc(100% + 2.5rem)"
+                  right="calc(100% + 1.5rem)"
                 >
                   <GridItem>
                     <Flex
                       borderRadius="50%"
-                      border="2px solid white"
-                      height="64px"
-                      w="64px"
+                      border=".125rem solid white"
+                      height="4rem"
+                      w="4rem"
                       alignItems="center"
                       justifyContent="center"
                     >
@@ -111,33 +107,35 @@ export default function Sidebar({
                   </GridItem>
                 </Grid>
               )}
-              <Text position="absolute" left="0" top="-24px">
+              <Text position="absolute" left="0" top="-1.5rem">
                 A
               </Text>
             </>
           }
           infoPosition="inside"
-          mx="24px"
+          mx="1.5rem"
         >
           <ContextualHelp />
         </HelpHighlightWrapper>
 
         <Divider borderColor="darkblue.300" mt="auto" />
-        <Flex px="16px" py="24px" justifyContent="space-between">
-          {showCopy && <Slide direction="bottom" in={true}>
-            <Flex justifyContent="center">
-              <Box
-                margin="0 auto"
-                color="white"
-                borderRadius="8px"
-                p="24px"
-                bg="primary.500"
-                fontWeight="700"
-              >
-                Link copied to clipboard
-              </Box>
-            </Flex>
-          </Slide>}
+        <Flex px="1rem" py="1.5rem" justifyContent="space-between">
+          {showCopy && (
+            <Slide direction="bottom" in={true}>
+              <Flex justifyContent="center">
+                <Box
+                  margin="0 auto"
+                  color="white"
+                  borderRadius=".5rem"
+                  p="1.5rem"
+                  bg="primary.500"
+                  fontWeight="700"
+                >
+                  Link copied to clipboard
+                </Box>
+              </Flex>
+            </Slide>
+          )}
           <Button leftIcon={<UploadIcon />} colorScheme="admin" onClick={copy}>
             SHARE
           </Button>

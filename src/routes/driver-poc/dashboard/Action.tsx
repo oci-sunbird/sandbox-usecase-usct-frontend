@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { colors } from '../../../chakra-overrides/colors';
-import { Authentication, getRole } from '../utils/token';
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { colors } from "../../../chakra-overrides/colors";
+import { getRole, Scope } from "../utils/token";
 
 interface IActionProps {
   disabled?: boolean;
@@ -10,7 +10,7 @@ interface IActionProps {
   title: string;
   description: string;
   buttonText: string;
-  allowedRoles?: Authentication.Scope[];
+  allowedRoles?: Scope[];
 }
 
 export function Action(props: IActionProps) {
@@ -19,22 +19,22 @@ export function Action(props: IActionProps) {
   return (
     <Flex
       direction="column"
-      gap="20px"
-      border={`2px solid ${colors.secondary[1000]}`}
-      padding="24px"
-      borderRadius="8px"
-      paddingBottom={disabled ? '4px' : 'auto'}
+      gap="1.25rem"
+      border={`.125rem solid ${colors.secondary[1000]}`}
+      padding="1.5rem"
+      borderRadius=".5rem"
+      paddingBottom={disabled ? ".25rem" : "auto"}
     >
       <Flex>
         <Flex
-          w="68px"
-          h="68px"
-          mt="8px"
-          borderRadius="8px"
+          w="4.25rem"
+          h="4.25rem"
+          mt=".5rem"
+          borderRadius=".5rem"
           backgroundColor={
             disabled ? colors.secondary[400] : colors.primary[900]
           }
-          mr="34px"
+          mr="2.125rem"
           flexShrink="0"
           color="white"
           alignItems="center"
@@ -43,7 +43,9 @@ export function Action(props: IActionProps) {
           {icon}
         </Flex>
         <Box>
-          <Text fontWeight="bold" mb="12px">{title}</Text>
+          <Text fontWeight="bold" mb=".75rem">
+            {title}
+          </Text>
           <Text>{description}</Text>
         </Box>
       </Flex>
@@ -51,11 +53,11 @@ export function Action(props: IActionProps) {
         <Button
           w="100%"
           as={Link}
-          to={disabled ? '' : to}
+          to={disabled ? "" : to}
           disabled={disabled}
-          colorScheme={disabled ? 'disabled' : 'admin'}
+          colorScheme={disabled ? "disabled" : "admin"}
         >
-          {disabled ? 'Disabled' : buttonText}
+          {disabled ? "Disabled" : buttonText}
         </Button>
         {disabled && (
           <Text size="sm" textAlign="center" color={colors.secondary[900]}>

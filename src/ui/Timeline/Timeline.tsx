@@ -1,6 +1,6 @@
-import { Box, Flex, Grid, GridItem, Text, space } from '@chakra-ui/react';
-import React, { Fragment } from 'react';
-import { ReactComponent as CheckIcon } from '@assets/icons/check.svg';
+import { ReactComponent as CheckIcon } from "@assets/icons/check.svg";
+import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
+import React, { Fragment } from "react";
 
 interface ITimelineEvent {
   name: string;
@@ -18,29 +18,35 @@ interface ITimelineProps {
 
 const lineStyles = {
   content: "''",
-  position: 'absolute',
-  left: '50%',
-  width: '4px',
-  bg: 'secondary.400',
-  transform: 'translateX(-50%)',
+  position: "absolute",
+  left: "50%",
+  width: ".25rem",
+  bg: "secondary.400",
+  transform: "translateX(-50%)",
 };
 
-export default function Timeline({ icon, title, events, isCompleted }: ITimelineProps) {
+export default function Timeline({
+  icon,
+  title,
+  events,
+  isCompleted,
+}: ITimelineProps) {
   const disabled = !events?.length;
-  const allCompleted = (!disabled && events.every((e) => e.completed)) || isCompleted;
+  const allCompleted =
+    (!disabled && events.every((e) => e.completed)) || isCompleted;
 
   const iconBackGround = () => {
     if (allCompleted) {
-      return 'secondary.1000';
+      return "secondary.1000";
     }
     if (disabled) {
-      return 'theme.light';
+      return "theme.light";
     }
-    return 'secondary.0';
+    return "secondary.0";
   };
 
   return (
-    <Grid templateColumns="36px auto" templateRows="36px" gap="24px">
+    <Grid templateColumns="2.25rem auto" templateRows="2.25rem" gap="1.5rem">
       <GridItem
         position="relative"
         zIndex="1"
@@ -48,8 +54,8 @@ export default function Timeline({ icon, title, events, isCompleted }: ITimeline
           !disabled
             ? {
                 ...lineStyles,
-                top: '50%',
-                bottom: '-12px',
+                top: "50%",
+                bottom: "-0.75rem",
                 zIndex: -1,
               }
             : undefined
@@ -58,9 +64,9 @@ export default function Timeline({ icon, title, events, isCompleted }: ITimeline
         <Flex
           borderRadius="50%"
           h="100%"
-          borderWidth="2px"
+          borderWidth=".125rem"
           borderStyle="solid"
-          borderColor={disabled ? 'secondary.800' : 'secondary.1000'}
+          borderColor={disabled ? "secondary.800" : "secondary.1000"}
           background={iconBackGround()}
           alignItems="center"
           justifyContent="center"
@@ -70,8 +76,8 @@ export default function Timeline({ icon, title, events, isCompleted }: ITimeline
           ) : (
             React.cloneElement(icon, {
               color: disabled
-                ? 'var(--chakra-colors-secondary-800)'
-                : 'var(--chakra-colors-secondary-1000)',
+                ? "var(--chakra-colors-secondary-800)"
+                : "var(--chakra-colors-secondary-1000)",
             })
           )}
         </Flex>
@@ -87,27 +93,27 @@ export default function Timeline({ icon, title, events, isCompleted }: ITimeline
             position="relative"
             _before={{
               ...lineStyles,
-              top: '-12px',
-              bottom: index < events.length - 1 ? '-12px' : '50%',
+              top: "-0.75rem",
+              bottom: index < events.length - 1 ? "-0.75rem" : "50%",
             }}
             _after={{
               content: "''",
-              boxSizing: 'border-box',
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              borderRadius: '50%',
-              height: '12px',
-              width: '12px',
-              border: '2px solid var(--chakra-colors-secondary-1000)',
-              bg: event.completed ? 'secondary.1000' : 'secondary.0',
+              boxSizing: "border-box",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              height: ".75rem",
+              width: ".75rem",
+              border: ".125rem solid var(--chakra-colors-secondary-1000)",
+              bg: event.completed ? "secondary.1000" : "secondary.0",
             }}
           ></GridItem>
           <GridItem>
             <Flex
               justifyContent="space-between"
-              flexDirection={{ sm: 'column', xl: 'row' }}
+              flexDirection={{ sm: "column", xl: "row" }}
             >
               <Box>
                 <Text>{event.name}</Text>

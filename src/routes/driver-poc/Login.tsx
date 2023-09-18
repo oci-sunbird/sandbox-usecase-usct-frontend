@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Button,
   Center,
@@ -13,10 +13,10 @@ import {
   MenuList,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { colors } from '../../chakra-overrides/colors';
-import { useAuthentication } from './utils/useAuthentication';
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { colors } from "../../chakra-overrides/colors";
+import { useAuthentication } from "./utils/useAuthentication";
 
 interface IUser {
   username: string;
@@ -26,19 +26,19 @@ interface IUser {
 
 const users = [
   {
-    username: 'max.bob@gov.stack',
-    role: 'Enrollment Officer',
-    value: 'enrollment-officer',
+    username: "max.bob@gov.stack",
+    role: "Enrollment Officer",
+    value: "enrollment-officer",
   },
   {
-    username: 'susie.may@gov.stack',
-    role: 'Payment Officer',
-    value: 'payment-officer',
+    username: "susie.may@gov.stack",
+    role: "Payment Officer",
+    value: "payment-officer",
   },
   {
-    username: 'jason.hans@gov.stack',
-    role: 'Registry Officer',
-    value: 'registry-administration',
+    username: "jason.hans@gov.stack",
+    role: "Registry Officer",
+    value: "registry-administration",
   },
 ];
 
@@ -47,7 +47,7 @@ export default function Login() {
   const [user, setUser] = useState<IUser>();
   const handleLogin = () => {
     if (user) {
-      login(user.value, 'password');
+      login(user.value, "password");
     }
   };
   return (
@@ -59,14 +59,14 @@ export default function Login() {
           <Menu matchWidth>
             <MenuButton
               textAlign="left"
-              _expanded={{ bg: 'transparent' }}
+              _expanded={{ bg: "transparent" }}
               w="100%"
               as={Button}
               backgroundColor="transparent"
               border={`1px solid ${colors.secondary[1000]}`}
               rightIcon={<ChevronDownIcon />}
             >
-              {!user ? 'Select a user' : user.username}
+              {!user ? "Select a user" : user.username}
             </MenuButton>
             <MenuList>
               {users.map((user) => {
@@ -94,11 +94,11 @@ export default function Login() {
             border={`1px solid ${colors.secondary[1000]}`}
             type="password"
             placeholder="Password"
-            value={!user ? '' : 'password'}
+            value={!user ? "" : "password"}
           />
         </FormControl>
         <Button
-          colorScheme={!user ? 'disabled' : 'admin'}
+          colorScheme={!user ? "disabled" : "admin"}
           w="100%"
           disabled={!user}
           onClick={() => {

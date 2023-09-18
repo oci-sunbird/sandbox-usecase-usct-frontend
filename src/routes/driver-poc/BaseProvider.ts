@@ -1,23 +1,21 @@
-import { DriverPOC } from './types';
+import { Beneficiary, Candidate, Package } from "./types";
 
 export default abstract class BaseProvider {
-  abstract getCandidateList(): Promise<DriverPOC.Candidate[]>;
-  abstract getPackages(): Promise<DriverPOC.Package[]>;
-  abstract getCandidateInfo(id: number): Promise<DriverPOC.Candidate>;
+  abstract getCandidateList(): Promise<Candidate[]>;
+  abstract getPackages(): Promise<Package[]>;
+  abstract getCandidateInfo(id: number): Promise<Candidate>;
   abstract enrollCandidate(
-    candidate: DriverPOC.Candidate,
-    enrolledPackage: DriverPOC.Package
-  ): Promise<DriverPOC.Beneficiary>;
-  abstract getBeneficiariesList(): Promise<DriverPOC.Beneficiary[]>;
+    candidate: Candidate,
+    enrolledPackage: Package,
+  ): Promise<Beneficiary>;
+  abstract getBeneficiariesList(): Promise<Beneficiary[]>;
   abstract validateBeneficiaries(
-    beneficiares: DriverPOC.Beneficiary[]
-  ): Promise<DriverPOC.Beneficiary[]>;
-  abstract executePayments(
-    beneficiaries: DriverPOC.Beneficiary[]
-  ): Promise<string>;
+    beneficiares: Beneficiary[],
+  ): Promise<Beneficiary[]>;
+  abstract executePayments(beneficiaries: Beneficiary[]): Promise<string>;
   abstract login(email: string, password: string): Promise<string>;
   abstract getRoles(): Promise<string>;
-  abstract createCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
-  abstract updateCandidate(candidate: DriverPOC.Candidate): Promise<DriverPOC.Candidate>;
+  abstract createCandidate(candidate: Candidate): Promise<Candidate>;
+  abstract updateCandidate(candidate: Candidate): Promise<Candidate>;
   abstract deleteCandidate(id: number): Promise<string>;
 }

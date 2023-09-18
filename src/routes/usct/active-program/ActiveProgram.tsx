@@ -1,5 +1,5 @@
-import { ReactComponent as BanknoteIcon } from '@assets/icons/banknote.svg';
-import { ReactComponent as MaybeCircleIcon } from '@assets/icons/maybe-circle.svg';
+import { ReactComponent as BanknoteIcon } from "@assets/icons/banknote.svg";
+import { ReactComponent as MaybeCircleIcon } from "@assets/icons/maybe-circle.svg";
 import {
   Box,
   Button,
@@ -19,39 +19,38 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import FakeLoader from '@ui/FakeLoader/FakeLoader';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (state: string | null) => {
   switch (state) {
-    case 'done':
+    case "done":
       return {
         description: {
-          title: 'CITIZEN REVIEWS CONVERSATION WITH CIVIL SERVANT',
-          subtitle: 'PRIMARY TASK',
+          title: "CITIZEN REVIEWS CONVERSATION WITH CIVIL SERVANT",
+          subtitle: "PRIMARY TASK",
         },
-        nextStep: '../conversation/300',
-        previousStep: '../review-case/2895379235',
+        nextStep: "../conversation/300",
+        previousStep: "../review-case/2895379235",
       };
     default:
       return {
         description: {
-          title: 'CITIZEN STARTS A NEW CONVERSATION',
-          subtitle: 'PRIMARY TASK',
+          title: "CITIZEN STARTS A NEW CONVERSATION",
+          subtitle: "PRIMARY TASK",
         },
-        nextStep: '../new-conversation',
-        previousStep: '../review-candidate/2895379235?state=scheduling',
+        nextStep: "../new-conversation",
+        previousStep: "../review-candidate/2895379235?state=scheduling",
       };
   }
 };
@@ -59,14 +58,13 @@ const getConfig = (state: string | null) => {
 export default function ActiveProgram() {
   const { state, dispatch } = useContext(SimulationContext);
   const [searchParams] = useSearchParams();
-  const navigation = useLocation();
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
       userAuthorized: true,
-      ...getConfig(searchParams.get('state')),
+      ...getConfig(searchParams.get("state")),
     });
   }, [location]);
 
@@ -96,10 +94,10 @@ export default function ActiveProgram() {
   }, []);
 
   return (
-    <Flex direction="column" gap="40px" width="100%">
+    <Flex direction="column" gap="2.5rem" width="100%">
       <Flex direction="column">
-        <Heading fontSize="36px">Active Program:</Heading>
-        <Heading fontSize="24px">Unconditional Social Cash Transfer</Heading>
+        <Heading fontSize="2.25rem">Active Program:</Heading>
+        <Heading fontSize="1.5rem">Unconditional Social Cash Transfer</Heading>
       </Flex>
       <Flex direction="column" maxW="60%">
         <Text>
@@ -109,34 +107,41 @@ export default function ActiveProgram() {
         </Text>
       </Flex>
 
-      <Box background="theme.light" px="60px" mx="-60px">
+      <Box background="theme.light" px="3.75rem" mx="-3.75rem">
         <Tooltip
-          py="20px"
+          py="1.25rem"
           letter="A"
           display="flex"
           flexDirection="column"
-          gap="20px"
+          gap="1.25rem"
         >
           <Heading>Conversations</Heading>
-          <Text>Please start a conversation if you need any help or have any question.</Text>
+          <Text>
+            Please start a conversation if you need any help or have any
+            question.
+          </Text>
 
           <Tabs isFitted>
             <TabList>
-              <Tab>My Active Conversations (0)</Tab>
+              {searchParams.get("state") === "done" ? (
+                <Tab>My Active Conversations (1)</Tab>
+              ) : (
+                <Tab>My Active Conversations (0)</Tab>
+              )}
               <Tab>Closed Conversations (0)</Tab>
             </TabList>
             <TabPanels>
               <TabPanel
-                gap="20px"
+                gap="1.25rem"
                 display="flex"
                 flexDirection="column"
                 padding={0}
               >
                 <TableContainer
                   backgroundColor={
-                    searchParams.get('state') === 'done'
-                      ? 'white'
-                      : 'transparent'
+                    searchParams.get("state") === "done"
+                      ? "white"
+                      : "transparent"
                   }
                 >
                   <Table>
@@ -151,13 +156,13 @@ export default function ActiveProgram() {
                     </Thead>
                     <Tbody>
                       <Tr>
-                        {searchParams.get('state') === 'done' ? (
+                        {searchParams.get("state") === "done" ? (
                           <>
                             <Td>01.01.2023</Td>
                             <Td>Package Information</Td>
                             <Td>USCT - Monthly Benefit Package</Td>
                             <Td>
-                              <Flex gap="10px" alignItems="center">
+                              <Flex gap=".625rem" alignItems="center">
                                 <MaybeCircleIcon /> In Progress
                               </Flex>
                             </Td>
@@ -190,67 +195,67 @@ export default function ActiveProgram() {
           </Tabs>
 
           <Button as={Link} to={state.nextStep} colorScheme="citizen" ml="auto">
-            {searchParams.get('state') === 'done'
-              ? 'Review Conversation'
-              : 'Start New Conversation'}
+            {searchParams.get("state") === "done"
+              ? "Review Conversation"
+              : "Start New Conversation"}
           </Button>
         </Tooltip>
       </Box>
 
       <Tooltip letter="B">
-        <Flex direction="column" gap="20px">
+        <Flex direction="column" gap="1.25rem">
           <Flex direction="column">
-            <Heading fontSize="18px">Assigned Benefit Package:</Heading>
+            <Heading fontSize="1.125rem">Assigned Benefit Package:</Heading>
             <Text>Monthly Benefit Package</Text>
           </Flex>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing="20px">
-            <Flex alignItems="center" gap="20px">
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing="1.25rem">
+            <Flex alignItems="center" gap="1.25rem">
               <Flex
-                borderRadius="8px"
+                borderRadius=".5rem"
                 alignItems="center"
                 justifyContent="center"
                 flexShrink="0"
-                w="64px"
-                h="64px"
-                border="2px dashed black"
+                w="4rem"
+                h="4rem"
+                border=".125rem dashed black"
               >
                 <BanknoteIcon
-                  width="34px"
-                  height="34px"
+                  width="2.125rem"
+                  height="2.125rem"
                   color="var(--chakra-colors-secondary-1000)"
                 />
               </Flex>
-              <Flex direction="column" gap="8px">
+              <Flex direction="column" gap=".5rem">
                 <Text>
                   Monthly cash help for you and your family without any
                   additional conditions.
                 </Text>
               </Flex>
             </Flex>
-            <Flex alignItems="center" gap="20px">
+            <Flex alignItems="center" gap="1.25rem">
               <Flex
-                borderRadius="8px"
+                borderRadius=".5rem"
                 alignItems="center"
                 justifyContent="center"
                 flexShrink="0"
-                w="64px"
-                h="64px"
-                border="2px dashed black"
+                w="4rem"
+                h="4rem"
+                border=".125rem dashed black"
               >
                 <BanknoteIcon
-                  width="34px"
-                  height="34px"
+                  width="2.125rem"
+                  height="2.125rem"
                   color="var(--chakra-colors-secondary-1000)"
                 />
               </Flex>
-              <Flex direction="column" gap="4px">
+              <Flex direction="column" gap=".25rem">
                 <Text>
                   Career assessment, online consultation and job referrals.
                 </Text>
               </Flex>
             </Flex>
           </SimpleGrid>
-          <SimpleGrid columns={{ base: 1, md: 2 }} spacing="20px">
+          <SimpleGrid columns={{ base: 1, md: 2 }} spacing="1.25rem">
             <Box>
               <Text fontWeight="600">Payment Amount</Text>
               <Text>1 234.00 at the beginning of each month</Text>
@@ -276,8 +281,8 @@ export default function ActiveProgram() {
       </Tooltip>
 
       <Tooltip letter="C">
-        <Flex direction="column" gap="20px">
-          <Heading fontSize="18px">Payment History</Heading>
+        <Flex direction="column" gap="1.25rem">
+          <Heading fontSize="1.125rem">Payment History</Heading>
           <TableContainer>
             <Table>
               <Thead>
@@ -297,7 +302,7 @@ export default function ActiveProgram() {
                   <Td>1 234.00</Td>
                   <Td>USCT - Monthly Benefit Package</Td>
                   <Td>
-                    <Flex gap="10px" alignItems="center">
+                    <Flex gap=".625rem" alignItems="center">
                       <MaybeCircleIcon /> In Progress
                     </Flex>
                   </Td>

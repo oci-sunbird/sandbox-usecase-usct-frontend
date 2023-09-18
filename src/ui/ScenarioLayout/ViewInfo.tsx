@@ -1,16 +1,16 @@
-import { Box, Flex, Text, useBreakpointValue } from '@chakra-ui/react';
-import React, { useContext } from 'react';
-import { SimulationContext } from '../../routes/usct/USCT';
-import { EUserType } from '../../routes/usct/ContextualHelpUtils';
-import { ReactComponent as ApplicantIcon } from '@assets/icons/people_person.svg';
-import { ReactComponent as CivilServantIcon } from '@assets/icons/user.svg';
+import { ReactComponent as ApplicantIcon } from "@assets/icons/people_person.svg";
+import { ReactComponent as CivilServantIcon } from "@assets/icons/user.svg";
+import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import React, { useContext } from "react";
+import { EUserType } from "../../routes/usct/ContextualHelpUtils";
+import { SimulationContext } from "../../routes/usct/USCT";
 
 const UserIcon = ({
   type,
   variant,
 }: {
   type: EUserType;
-  variant: 'foreground' | 'background';
+  variant: "foreground" | "background";
 }) => {
   const icon = {
     [EUserType.CITIZEN]: ApplicantIcon,
@@ -18,33 +18,33 @@ const UserIcon = ({
   };
 
   const bg = {
-    [EUserType.CITIZEN]: 'green.600',
-    [EUserType.CITIZEN_SERVANT]: 'primary.700',
+    [EUserType.CITIZEN]: "green.600",
+    [EUserType.CITIZEN_SERVANT]: "primary.700",
   };
 
   const foregroundIconSize = useBreakpointValue({
-    base: { height: '22px', width: '22px' },
-    '2xl': { height: '30px', width: '30px' },
+    base: { height: "1.375rem", width: "1.375rem" },
+    "2xl": { height: "1.875rem", width: "1.875rem" },
   });
 
   const backgroundIconSize = useBreakpointValue({
-    base: { height: '16px', width: '16px' },
-    '2xl': { height: '22px', width: '22px' },
+    base: { height: "1rem", width: "1rem" },
+    "2xl": { height: "1.375rem", width: "1.375rem" },
   });
 
-  if (variant === 'foreground') {
+  if (variant === "foreground") {
     return (
       <Flex
         alignItems="center"
         justifyContent="center"
-        height={{ base: "40px", '2xl': "48px"}}
-        width={{ base: "40px", '2xl': "48px"}}
+        height={{ base: "2.5rem", "2xl": "3rem" }}
+        width={{ base: "2.5rem", "2xl": "3rem" }}
         borderRadius="50%"
         color="theme.light"
         bg={bg[type]}
         position="absolute"
-        bottom="0px"
-        right="0px"
+        bottom="0rem"
+        right="0rem"
       >
         {icon[type](foregroundIconSize!)}
       </Flex>
@@ -54,8 +54,8 @@ const UserIcon = ({
       <Flex
         alignItems="center"
         justifyContent="center"
-        height={{ base: "32px", '2xl': "40px"}}
-        width={{ base: "32px", '2xl': "40px"}}
+        height={{ base: "2rem", "2xl": "2.5rem" }}
+        width={{ base: "2rem", "2xl": "2.5rem" }}
         borderRadius="50%"
         color="theme.dark"
         bg="secondary.500"
@@ -74,12 +74,16 @@ export default function ViewInfo() {
   return (
     <Flex
       alignItems="center"
-      gap="16px"
-      padding={{ base: '12px 24px', '2xl': "16px 32px"}}
-      borderRadius="0px 0px 8px 8px"
+      gap="1rem"
+      padding={{ base: ".75rem 1.5rem", "2xl": "1rem 2rem" }}
+      borderRadius="0rem 0rem .5rem .5rem"
       bg="secondary.50"
     >
-      <Box paddingBottom={{ base: '10px', '2xl':"14px"}} paddingRight={{ base: '34px', '2xl': "38px"}} position="relative">
+      <Box
+        paddingBottom={{ base: ".625rem", "2xl": ".875rem" }}
+        paddingRight={{ base: "2.125rem", "2xl": "2.375rem" }}
+        position="relative"
+      >
         <UserIcon
           type={
             userType === EUserType.CITIZEN_SERVANT
@@ -93,7 +97,7 @@ export default function ViewInfo() {
 
       <Box>
         <Text fontWeight="700" size="xs">
-          {userType === EUserType.CITIZEN ? 'APPLICANT' : 'CIVIL SERVANT'}
+          {userType === EUserType.CITIZEN ? "APPLICANT" : "CIVIL SERVANT"}
         </Text>
         <Text size="xs">CURRENT VIEW</Text>
       </Box>

@@ -1,36 +1,50 @@
-import { Box, Flex, Heading, Text, Button, Spacer } from '@chakra-ui/react';
-import { ReactComponent as EditIcon } from '@assets/icons/edit.svg'
-import { useNavigate, useParams } from 'react-router-dom';
-import { getRole } from '../../driver-poc/utils/token';
-import { DriverPOC } from '../../driver-poc/types';
+import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
+import { Box, Button, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Candidate } from "../../driver-poc/types";
+import { getRole } from "../../driver-poc/utils/token";
 
 interface BankInformationProps {
-  candidate: DriverPOC.Candidate;
+  candidate: Candidate;
   newCandidate?: boolean;
 }
 
 export default function BankInformation({
   candidate,
-  newCandidate
+  newCandidate,
 }: BankInformationProps) {
   const id = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const isRegistryAdministration = (getRole() == "ROLE_REGISTRY_ADMINISTRATION");
+  const isRegistryAdministration = getRole() == "ROLE_REGISTRY_ADMINISTRATION";
   return (
     <Box>
       <Flex display="flex">
-        <Heading variant="h3" size="sm" mb="24px">
-        Bank Information
-      </Heading><Spacer />
-      {(isRegistryAdministration && !newCandidate)?(
-      <Button onClick={() => navigate(`/driver-poc/candidate/edit/bankInformation/${id.id}`, {state: {candidate}})} w="180px" variant="outline" colorScheme="admin" leftIcon={<EditIcon/>}>Edit
-      </Button>
-      ):""}
+        <Heading variant="h3" size="sm" mb="1.5rem">
+          Bank Information
+        </Heading>
+        <Spacer />
+        {isRegistryAdministration && !newCandidate ? (
+          <Button
+            onClick={() =>
+              navigate(`/driver-poc/candidate/edit/bankInformation/${id.id}`, {
+                state: { candidate },
+              })
+            }
+            w="11.25rem"
+            variant="outline"
+            colorScheme="admin"
+            leftIcon={<EditIcon />}
+          >
+            Edit
+          </Button>
+        ) : (
+          ""
+        )}
       </Flex>
       <Flex
-        gap="20px"
+        gap="1.25rem"
         justifyContent="space-between"
-        flexDirection={{ base: 'column', md: 'row' }}
+        flexDirection={{ base: "column", md: "row" }}
         flexWrap="wrap"
       >
         <Box>

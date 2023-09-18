@@ -1,14 +1,13 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Flex, Link, Slide, Text } from '@chakra-ui/react';
-import { buildingBlocksList } from '@ui/Activity/BuildingBlockActivity';
-import React, { useContext, useMemo } from 'react';
-import { colors } from '../../../chakra-overrides/colors';
-import { DIALBuildingBlockContext } from './DIALBuildingBlockContext';
-import { bbDescriptionMock } from './buildingBlocksMock';
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Link, Slide, Text } from "@chakra-ui/react";
+import { buildingBlocksList } from "@ui/Activity/BuildingBlockActivity";
+import React, { useContext, useMemo } from "react";
+import { bbDescriptionMock } from "./buildingBlocksMock";
+import { DIALBuildingBlockContext } from "./DIALBuildingBlockContext";
 
 export default function BuildingBlockView() {
   const { openedBuildingBlock, setOpenedBuildingBlock } = useContext(
-    DIALBuildingBlockContext
+    DIALBuildingBlockContext,
   );
 
   const openedBlockData = useMemo(() => {
@@ -19,29 +18,29 @@ export default function BuildingBlockView() {
     <>
       {!openedBuildingBlock && (
         <>
-          <Box px="16px" py="8px" mt="24px">
+          <Box px="1rem" py=".5rem" mt="1.5rem">
             <Text size="sm" fontWeight={600}>
               BUILDING BLOCKS
             </Text>
           </Box>
-          <Flex direction="column" gap="4px" px="16px">
+          <Flex direction="column" gap=".25rem" px="1rem">
             {buildingBlocksList.map((bb) => {
               return (
                 <Button
-                  p="2px"
+                  p=".125rem"
                   cursor="pointer"
                   variant="unstyled"
                   textAlign="left"
                   onClick={() => setOpenedBuildingBlock(bb.id)}
                   _hover={{
-                    textDecoration: 'underline',
+                    textDecoration: "underline",
                   }}
                   key={bb.id}
                 >
-                  <Flex alignItems="center" gap="12px">
+                  <Flex alignItems="center" gap=".75rem">
                     {React.cloneElement(bb.icon, {
-                      height: '24px',
-                      width: '24px',
+                      height: "1.5rem",
+                      width: "1.5rem",
                     })}
                     <Text
                       size="xs"
@@ -61,36 +60,39 @@ export default function BuildingBlockView() {
       )}
       {openedBlockData && (
         <Box position="relative">
-          <Slide in={true} direction="right" style={{ position: 'relative' }}>
+          <Slide in={true} direction="right" style={{ position: "relative" }}>
             <Flex
-              p="4px"
-              mt="24px"
-              mb="20px"
-              borderBottom="1px solid white"
+              p=".25rem"
+              mt="1.5rem"
+              mb="1.25rem"
+              borderBottom=".0625rem solid white"
               alignItems="center"
-              gap="12px"
+              gap=".75rem"
             >
               {React.cloneElement(openedBlockData.icon, {
-                height: '24px',
-                width: '24px',
+                height: "1.5rem",
+                width: "1.5rem",
               })}
               <Text size="sm" fontWeight={600} textTransform="uppercase">
                 {openedBlockData.label}
               </Text>
             </Flex>
-            <Text mb="20px" size="sm" fontWeight={600}>
+            <Text mb="1.25rem" size="sm" fontWeight={600}>
               Description:
             </Text>
-            <Text mb="20px" size="sm">
+            <Text mb="1.25rem" size="sm">
               {bbDescriptionMock[openedBlockData.id]}
             </Text>
           </Slide>
         </Box>
       )}
-      <Box p={!openedBlockData ? '16px' : 0}>
+      <Box p={!openedBlockData ? "1rem" : 0}>
         <Text as="i" size="sm" fontWeight="300">
-          For more information about Building Blocks, please visit{' '}
-          <Link>Digital Impact Exchange</Link>.
+          For more information about Building Blocks, please visit{" "}
+          <Link href="https://exchange.dial.global/building-blocks">
+            Digital Impact Exchange
+          </Link>
+          .
         </Text>
       </Box>
     </>

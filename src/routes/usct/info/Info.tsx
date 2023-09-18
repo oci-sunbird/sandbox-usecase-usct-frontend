@@ -1,5 +1,5 @@
-import { ReactComponent as FileWarningIcon } from '@assets/icons/file-warning.svg';
-import { ReactComponent as CheckIcon } from '@assets/icons/check-circle.svg';
+import { ReactComponent as CheckIcon } from "@assets/icons/check-circle.svg";
+import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
 import {
   Accordion,
   AccordionButton,
@@ -11,52 +11,51 @@ import {
   Flex,
   Heading,
   Text,
-} from '@chakra-ui/react';
-import FakeLoader from '@ui/FakeLoader/FakeLoader';
-import Tooltip from '@ui/Tooltip/Tooltip';
-import { useContext, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { ContextualHelpContext } from '../ContextualHelpContext';
-import { ContextualTitle } from '../ContextualHelpUtils';
+} from "@chakra-ui/react";
+import Tooltip from "@ui/Tooltip/Tooltip";
+import { useContext, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { ContextualHelpContext } from "../ContextualHelpContext";
+import { ContextualTitle } from "../ContextualHelpUtils";
 import {
   ActiveBuildingBlockContext,
   EUserType,
   SimulationContext,
-} from '../USCT';
-import { BUILDING_BLOCK } from '../utils';
+} from "../USCT";
+import { BUILDING_BLOCK } from "../utils";
 
 const getConfig = (done: string | null) => {
   if (done) {
     return {
       description: {
-        title: 'CITIZEN CHECKS ENROLMENT',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN CHECKS ENROLMENT",
+        subtitle: "PRIMARY TASK",
       },
-      previousStep: '../review-candidate/2895379235?state=done',
-      nextStep: '../enrolment',
+      previousStep: "../review-candidate/2895379235?state=done",
+      nextStep: "../enrolment",
     };
   } else {
     return {
       description: {
-        title: 'CITIZEN REVIEWS ELIGIBILITY',
-        subtitle: 'PRIMARY TASK',
+        title: "CITIZEN REVIEWS ELIGIBILITY",
+        subtitle: "PRIMARY TASK",
       },
-      previousStep: '../authorise-citizen',
-      nextStep: '../personal',
+      previousStep: "../authorise-citizen",
+      nextStep: "../personal",
     };
   }
 };
 
 export default function Info() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { state, dispatch } = useContext(SimulationContext);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_ALL',
+      type: "SET_ALL",
       ...state,
       userType: EUserType.CITIZEN,
-      ...getConfig(searchParams.get('done')),
+      ...getConfig(searchParams.get("done")),
       userAuthorized: true,
     });
   }, [location]);
@@ -79,7 +78,7 @@ export default function Info() {
 
   const { setLetterContextualTitleMap } = useContext(ContextualHelpContext);
   useEffect(() => {
-    if (!!searchParams.get('done')) {
+    if (searchParams.get("done")) {
       setLetterContextualTitleMap({
         A: ContextualTitle.ELIGIBILITY_STATUS,
         B: ContextualTitle.PERSONAL_INFO,
@@ -93,14 +92,14 @@ export default function Info() {
 
   return (
     <Flex
-      mt={{ base: '8px', md: '128px' }}
-      gap={{ base: '20px', lg: '125px' }}
-      direction={{ base: 'column', lg: 'row' }}
+      mt={{ base: ".5rem", md: "8rem" }}
+      gap={{ base: "1.25rem", lg: "7.8125rem" }}
+      direction={{ base: "column", lg: "row" }}
     >
       <Box>
-        <Box marginBottom="40px">
+        <Box marginBottom="2.5rem">
           <Heading>Social Welfare Progam:</Heading>
-          <Heading marginBottom="20px">
+          <Heading marginBottom="1.25rem">
             Unconditional Social Cash Transfer
           </Heading>
           <Text>
@@ -114,7 +113,7 @@ export default function Info() {
         <Accordion>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   How does it work?
                 </Box>
@@ -130,7 +129,7 @@ export default function Info() {
           </AccordionItem>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Eligibility and Requirements
                 </Box>
@@ -146,7 +145,7 @@ export default function Info() {
           </AccordionItem>
           <AccordionItem>
             <Heading variant="h2" size="md">
-              <AccordionButton style={{ font: 'inherit' }} px="0">
+              <AccordionButton style={{ font: "inherit" }} px="0">
                 <Box as="span" flex="1" textAlign="left">
                   Similar Programs
                 </Box>
@@ -162,63 +161,73 @@ export default function Info() {
           </AccordionItem>
         </Accordion>
       </Box>
-      <Flex direction="column" gap="20px" width={{ lg: '25%' }} flexShrink="0">
-
-      <Tooltip
-        letter="A"
-        letterPosition="right-center"
-        display="flex"
-        flexDirection="column"
-        gap="16px"
+      <Flex
+        direction="column"
+        gap="1.25rem"
+        width={{ lg: "25%" }}
+        flexShrink="0"
       >
-        {searchParams.get("done") ? (
-          <>
-            <Flex gap="8px">
-              <CheckIcon />
-              <Heading as="h3" fontSize="18px" lineHeight="24px">Your Eligibility</Heading>
-            </Flex>
-            <Text fontSize="14px">
-              <strong>You are eligible</strong> for Unconditional Social
-              Cash Transfer Program!
-            </Text>
-            <Text fontSize="14px">
-              Please check your enrolment status from enrolment page.
-            </Text>
-            <Button as={Link} to="../enrolment" colorScheme="citizen">
-              Enrolment
-            </Button>
-          </>
-        ) : (
-          <>
-            <Flex gap="8px">
-              <FileWarningIcon />
-              <Heading as="h3" fontSize="18px" lineHeight="24px">Your Eligibility</Heading>
-            </Flex>
-            <Text fontSize="14px">
-              For deciding your eligibility, some of the Information needs to be <strong>validated</strong>.
-            </Text>
-            <Text fontSize="14px">
-              Please review your information and provide missing information if needed.
-            </Text>
-            <Button colorScheme="citizen" to="../personal" as={Link}>
-              Review
-            </Button>
-          </>
-        )}
-      </Tooltip>
-      {!!searchParams.get("done") && (
-        <Tooltip letter="B">
-          <Button
-            w="100%"
-            colorScheme="citizen"
-            variant="outline"
-            as={Link}
-            to="../personal?done=true"
-          >
-            My Information
-            </Button>
+        <Tooltip
+          letter="A"
+          letterPosition="right-center"
+          display="flex"
+          flexDirection="column"
+          gap="1rem"
+        >
+          {searchParams.get("done") ? (
+            <>
+              <Flex gap=".5rem">
+                <CheckIcon />
+                <Heading as="h3" fontSize="1.125rem" lineHeight="1.5rem">
+                  Your Eligibility
+                </Heading>
+              </Flex>
+              <Text fontSize=".875rem">
+                <strong>You are eligible</strong> for Unconditional Social Cash
+                Transfer Program!
+              </Text>
+              <Text fontSize=".875rem">
+                Please check your enrolment status from enrolment page.
+              </Text>
+              <Button as={Link} to="../enrolment" colorScheme="citizen">
+                Enrolment
+              </Button>
+            </>
+          ) : (
+            <>
+              <Flex gap=".5rem">
+                <FileWarningIcon />
+                <Heading as="h3" fontSize="1.125rem" lineHeight="1.5rem">
+                  Your Eligibility
+                </Heading>
+              </Flex>
+              <Text fontSize=".875rem">
+                For deciding your eligibility, some of the Information needs to
+                be <strong>validated</strong>.
+              </Text>
+              <Text fontSize=".875rem">
+                Please review your information and provide missing information
+                if needed.
+              </Text>
+              <Button colorScheme="citizen" to="../personal" as={Link}>
+                Review
+              </Button>
+            </>
+          )}
         </Tooltip>
-      )}
+        {!!searchParams.get("done") && (
+          <Tooltip letter="B">
+            <Button
+              w="100%"
+              colorScheme="citizen"
+              variant="outline"
+              as={Link}
+              to="../personal?done=true"
+            >
+              My Information
+            </Button>
+          </Tooltip>
+        )}
       </Flex>
     </Flex>
   );
