@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import BaseProvider from './BaseProvider';
-import { DriverPOC } from './types';
+import { Beneficiary, Candidate, Package } from './types';
 import MockProvider from './MockProvider';
 import ObjectToTree from '../../objectToTree';
 import { isEmptyArray } from 'formik';
@@ -8,13 +8,13 @@ import { isEmptyArray } from 'formik';
 export default class StorageProvider extends BaseProvider {
     objectToTree = new ObjectToTree();
     mockProvider = new MockProvider();
-    candidateList: DriverPOC.Candidate[] = [];
-    packagesList: DriverPOC.Package[] = [];
-    beneficiaryList: DriverPOC.Beneficiary[] = [];
+    candidateList: Candidate[] = [];
+    packagesList: Package[] = [];
+    beneficiaryList: Beneficiary[] = [];
     getCandidateList() {
-        return new Promise < DriverPOC.Candidate[] > ((resolve) =>
+        return new Promise < Candidate[] > ((resolve) =>
             setTimeout(async () => {
-                this.candidateList = await this.getLocalStorageObject("candidates") as DriverPOC.Candidate[];
+                this.candidateList = await this.getLocalStorageObject("candidates") as Candidate[];
                 this.candidateList.sort((a, b) => {
                     return a.id - b.id;
                 });
@@ -23,17 +23,17 @@ export default class StorageProvider extends BaseProvider {
         );
     }
     getPackages() {
-        return new Promise < DriverPOC.Package[] > ((resolve) =>
+        return new Promise < Package[] > ((resolve) =>
             setTimeout(async () => {
-                resolve(await this.getLocalStorageObject("packages") as DriverPOC.Package[]),
+                resolve(await this.getLocalStorageObject("packages") as Package[]),
                 1000
             })
         );
     }
     getCandidateInfo(id: number) {
-        return new Promise < DriverPOC.Candidate > ((resolve, reject) => {
+        return new Promise < Candidate > ((resolve, reject) => {
             setTimeout(async () => {
-                const candidates = await this.getLocalStorageObject("candidates") as DriverPOC.Candidate[];
+                const candidates = await this.getLocalStorageObject("candidates") as Candidate[];
                 const candidate = candidates.find(
                     (candidate) => candidate.id === id
                 );
@@ -46,10 +46,10 @@ export default class StorageProvider extends BaseProvider {
         });
     }
     enrollCandidate(
-        candidate: DriverPOC.Candidate,
-        enrolledPackage: DriverPOC.Package
+        candidate: Candidate,
+        enrolledPackage: Package
     ) {
-        const enrolledCandidate: DriverPOC.Beneficiary = {
+        const enrolledCandidate: Beneficiary = {
             id: faker.number.int(),
             paymentStatus: 'INITIATE',
             person: candidate.person,
@@ -59,20 +59,20 @@ export default class StorageProvider extends BaseProvider {
             (c) => c.person.id !== candidate.id
         );
         this.beneficiaryList = [...this.beneficiaryList, enrolledCandidate];
-        return new Promise < DriverPOC.Beneficiary > ((resolve) =>
+        return new Promise < Beneficiary > ((resolve) =>
             setTimeout(() => resolve(enrolledCandidate), 1000)
         );
     }
     getBeneficiariesList() {
-        return new Promise < DriverPOC.Beneficiary[] > ((resolve) =>
+        return new Promise < Beneficiary[] > ((resolve) =>
             setTimeout(async () => {
-                resolve(await this.getLocalStorageObject("beneficiaries") as DriverPOC.Beneficiary[]),
+                resolve(await this.getLocalStorageObject("beneficiaries") as Beneficiary[]),
                 1000
             })
         );
     }
-    validateBeneficiaries(beneficiaries: DriverPOC.Beneficiary[]) {
-        return new Promise < DriverPOC.Beneficiary[] > ((resolve) => {
+    validateBeneficiaries(beneficiaries: Beneficiary[]) {
+        return new Promise < Beneficiary[] > ((resolve) => {
             setTimeout(() => resolve(beneficiaries), 1000);
         });
     }
@@ -101,9 +101,9 @@ export default class StorageProvider extends BaseProvider {
         });
     }
 
-    createCandidate(candidate: DriverPOC.Candidate) {
-        return new Promise < DriverPOC.Candidate > (async (resolve) => {
-            var candidateList = await this.getLocalStorageObject("candidates") as DriverPOC.Candidate[];
+    createCandidate(candidate: Candidate) {
+        return new Promise < Candidate > (async (resolve) => {
+            var candidateList = await this.getLocalStorageObject("candidates") as Candidate[];
             if (!isEmptyArray(candidateList)) {
                 candidate.id = candidateList[candidateList.length - 1].id + 1;
                 candidateList.push(candidate);
@@ -117,8 +117,8 @@ export default class StorageProvider extends BaseProvider {
         });
     }
 
-    updateCandidate(candidate: DriverPOC.Candidate) {
-        return new Promise < DriverPOC.Candidate > ((resolve) => {
+    updateCandidate(candidate: Candidate) {
+        return new Promise < Candidate > ((resolve) => {
             resolve(candidate);
         });
     }
