@@ -28,7 +28,7 @@ import { getRole } from "./utils/token";
 export default function CandidatesList() {
   const rpc = useContext(RPCContext);
   const navigate = useNavigate();
-  const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
+  const isRegistryOfficer = getRole() === "ROLE_REGISTRY_OFFICER";
   const { data: candidates, isLoading } = useQuery(
     "candidates",
     rpc.getCandidateList,

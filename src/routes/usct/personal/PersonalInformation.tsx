@@ -22,7 +22,7 @@ export default function PersonalInformation({
 }) {
   const navigate = useNavigate();
   const id = useParams<{ id: string }>();
-  const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
+  const isRegistryOfficer = getRole() === "ROLE_REGISTRY_OFFICER";
   // const SimulationIcon = reviewed ? YisIcon : FileWarningIcon;
 
   return (
@@ -31,7 +31,7 @@ export default function PersonalInformation({
         {newCandidate ? <Heading mb="2.5rem">New Candidate</Heading> : ""}
         <Heading fontSize="1.125rem">Candidate Information</Heading>
         <Spacer />
-        {isRegistryAdministrator && !newCandidate ? (
+        {isRegistryOfficer && !newCandidate ? (
           <Button
             onClick={() =>
               navigate(

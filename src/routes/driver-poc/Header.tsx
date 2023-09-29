@@ -24,7 +24,7 @@ const userData = {
     name: "Max Bob",
     role: "Enrollment Officer",
   },
-  ROLE_REGISTRY_ADMINISTRATION: {
+  ROLE_REGISTRY_OFFICER: {
     name: "Jason Hans",
     role: "Registry Officer",
   },

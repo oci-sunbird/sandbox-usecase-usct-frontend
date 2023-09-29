@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
                 guard={() =>
                   isAllowedRoleGuard([
                     Scope.ROLE_ENROLLMENT_OFFICER,
-                    Scope.ROLE_REGISTRY_ADMINISTRATION,
+                    Scope.ROLE_REGISTRY_OFFICER,
                   ])
                 }
               >
@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_OFFICER])
                 }
                 redirect="/driver-poc"
               >
@@ -108,7 +108,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_OFFICER])
                 }
                 redirect="/driver-poc"
               >
@@ -121,7 +121,7 @@ export const router = createBrowserRouter([
             element: (
               <ProtectedRoute
                 guard={() =>
-                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_ADMINISTRATION])
+                  isAllowedRoleGuard([Scope.ROLE_REGISTRY_OFFICER])
                 }
                 redirect="/driver-poc"
               >
@@ -139,7 +139,7 @@ export const router = createBrowserRouter([
                     guard={() =>
                       isAllowedRoleGuard([
                         Scope.ROLE_ENROLLMENT_OFFICER,
-                        Scope.ROLE_REGISTRY_ADMINISTRATION,
+                        Scope.ROLE_REGISTRY_OFFICER,
                       ])
                     }
                     redirect="/driver-poc"
