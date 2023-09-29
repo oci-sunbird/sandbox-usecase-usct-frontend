@@ -21,7 +21,7 @@ import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
 import { Package } from "./types";
-import { getRole } from "./utils/token";
+import { getRole } from "./utils/user";
 
 export default function CandidateDetail() {
   const navigate = useNavigate();
@@ -119,12 +119,9 @@ export default function CandidateDetail() {
         <>
           <PersonalInformation person={candidate.person} />
           <BankInformation candidate={candidate} />
+          {isEnrollmentOfficer ? (
           <Flex direction="column" gap="1.25rem">
-            {isEnrollmentOfficer ? (
               <Heading size="md">Select a Benefit Package</Heading>
-            ) : (
-              ""
-            )}
             <SimpleGrid columns={4} gap="2.5rem">
               {packages?.map((p) => {
                 return (
@@ -156,7 +153,6 @@ export default function CandidateDetail() {
                       <Text textAlign="left" size="lg">
                         <strong>{p.name}</strong>
                       </Text>
-                      {isEnrollmentOfficer ? (
                         <Box
                           w="1.25rem"
                           h="1.25rem"
@@ -169,9 +165,6 @@ export default function CandidateDetail() {
                               : colors.secondary[0]
                           }
                         ></Box>
-                      ) : (
-                        ""
-                      )}
                     </Flex>
                     <Text textAlign="left">{p.description}</Text>
                     <Text textAlign="left">Payment Amount: 1 234 €</Text>
@@ -194,6 +187,9 @@ export default function CandidateDetail() {
               })}
             </SimpleGrid>
           </Flex>
+          ) : (
+            ""
+          )}
           <Flex>
             {isRegistryOfficer ? (
               <Flex>

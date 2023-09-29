@@ -7,7 +7,7 @@ import {
   isAuthenticatedGuard,
   ProtectedRoute,
 } from "./driver-poc/ProtectedRoute";
-import { Scope } from "./driver-poc/utils/token";
+import { Scope } from "./driver-poc/utils/user";
 const BeneficiaryList = lazy(() => import("./driver-poc/BeneficiaryList"));
 const CandidateDetail = lazy(() => import("./driver-poc/CandidateDetail"));
 const CandidatesList = lazy(() => import("./driver-poc/CandidatesList"));

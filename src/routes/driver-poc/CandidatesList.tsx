@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
 import { Package } from "./types";
-import { getRole } from "./utils/token";
+import { getRole } from "./utils/user";
 
 export default function CandidatesList() {
   const rpc = useContext(RPCContext);

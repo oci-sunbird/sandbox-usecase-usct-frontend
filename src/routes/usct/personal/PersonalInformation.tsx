@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Person } from "../../driver-poc/types";
-import { getRole } from "../../driver-poc/utils/token";
+import { getRole } from "../../driver-poc/utils/user";
 
 export default function PersonalInformation({
   newCandidate,
