@@ -14,6 +14,14 @@ export default defineConfig(({ mode }) => {
       },
     },
     define: {},
+    server: {
+      proxy: {
+        '/api': { 
+          'target': 'http://localhost:9080',
+          'xfwd': true
+        }
+      }
+    }
   };
   return config;
 });

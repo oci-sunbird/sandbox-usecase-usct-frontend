@@ -3,14 +3,7 @@ import { Beneficiary, Candidate, Package } from "./types";
 import { getToken } from "./utils/token";
 
 const fetchWithToken = (uri: string, request?: RequestInit) => {
-  const interceptedRequest = {
-    ...request,
-    headers: {
-      ...request?.headers,
-      Authorization: `Bearer ${getToken()}`,
-    },
-  };
-  return fetch(uri, interceptedRequest);
+  return fetch(uri, request);
 };
 
 export default class APIProvider extends BaseProvider {
@@ -87,17 +80,16 @@ export default class APIProvider extends BaseProvider {
   }
   async login(email: string, password: string) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/token`,
+      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/roles`,
       {
-        method: "POST",
-        mode: "cors",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: `Basic ${btoa(`${email}:${password}`)}`,
-        }),
+        method: "GET",
       },
     );
-    return req.json() as Promise<string>;
+    if (req.status == 401) {
+      throw "loginRequired"
+    } else {
+      return req.text() as Promise<string>;
+    }
   }
   async getRoles() {
     const req = await fetchWithToken(

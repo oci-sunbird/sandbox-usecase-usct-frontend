@@ -4,8 +4,10 @@ export enum Scope {
   ROLE_REGISTRY_ADMINISTRATION = "ROLE_REGISTRY_ADMINISTRATION",
 }
 
-export interface Token {
-  scope: Scope;
+export interface Role {
+  email: string,
+  name: string | null,
+  roles: string[]
 }
 
 export const getToken = () => {
@@ -19,8 +21,7 @@ export const getToken = () => {
 export const getRole = () => {
   const token = getToken();
   if (token) {
-    const payload = token.split(".")[1];
-    return (JSON.parse(atob(payload)) as Token).scope;
+    return (JSON.parse(token) as Role).roles[0];
   }
   return null;
 };

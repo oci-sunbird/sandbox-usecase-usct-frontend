@@ -7,13 +7,21 @@ export const useAuthentication = () => {
   const navigate = useNavigate();
   const rpc = useContext(RPCContext);
   const login = async (username: string, password: string) => {
-    const token = await rpc.login(username, password);
-    sessionStorage.setItem("driver-token", token);
-    navigate("/driver-poc");
+    try {
+      const token = await rpc.login(username, password);
+      sessionStorage.setItem("driver-token", token);
+      navigate("/driver-poc");
+    } catch (e) {
+      window.location.replace("/api/oauth2/authorization/esignet")
+    }
   };
   const logout = async () => {
-    sessionStorage.removeItem("driver-token");
-    navigate("/driver-poc/login");
+    try {
+      await fetch("/api/logout");
+    } finally {
+      sessionStorage.removeItem("driver-token");
+      navigate("/driver-poc/login");
+    }
   };
   const isAuthenticated = () => {
     return !!getToken();
