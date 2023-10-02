@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { colors } from "../../chakra-overrides/colors";
-import { getRole, Scope } from "./utils/token";
+import { getRole, Scope } from "./utils/user";
 import { useAuthentication } from "./utils/useAuthentication";
 
 const userData = {

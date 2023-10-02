@@ -13,7 +13,6 @@ export default abstract class BaseProvider {
     beneficiares: Beneficiary[],
   ): Promise<Beneficiary[]>;
   abstract executePayments(beneficiaries: Beneficiary[]): Promise<string>;
-  abstract login(email: string, password: string): Promise<string>;
   abstract getRoles(): Promise<string>;
   abstract createCandidate(candidate: Candidate): Promise<Candidate>;
   abstract updateCandidate(candidate: Candidate): Promise<Candidate>;

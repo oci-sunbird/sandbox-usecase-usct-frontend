@@ -4,7 +4,7 @@ import { ReactComponent as MailOpenIcon } from "@assets/icons/mail-open.svg";
 import { ReactComponent as PieChartIcon } from "@assets/icons/pie-chart.svg";
 import { ReactComponent as UserCOG } from "@assets/icons/user-cog.svg";
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
-import { Scope } from "../utils/token";
+import { Scope } from "../utils/user";
 import { Action } from "./Action";
 
 export function Dashboard() {

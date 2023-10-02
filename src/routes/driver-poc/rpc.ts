@@ -29,8 +29,6 @@ export default class RPC {
     this.RPCProviderFactory.getProvider("executePayments").executePayments(
       beneficiaries,
     );
-  login = (email: string, password: string) =>
-    this.RPCProviderFactory.getProvider("login").login(email, password);
   getRoles = () => this.RPCProviderFactory.getProvider("getRoles").getRoles();
   createCandidate = (candidate: Candidate) =>
     this.RPCProviderFactory.getProvider("createCandidate").createCandidate(

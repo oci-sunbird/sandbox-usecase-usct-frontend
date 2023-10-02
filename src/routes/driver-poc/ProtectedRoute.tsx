@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import { Navigate } from "react-router-dom";
-import { getRole, getToken, Scope } from "./utils/token";
+import { getRole, Scope } from "./utils/user";
 
 interface RouteProps extends PropsWithChildren {
   guard: () => boolean;
@@ -8,7 +8,7 @@ interface RouteProps extends PropsWithChildren {
 }
 
 export const isAuthenticatedGuard = () => {
-  return !!getToken();
+  return !!getRole();
 };
 
 export const isAllowedRoleGuard = (allowedRoles: Scope[]) => {

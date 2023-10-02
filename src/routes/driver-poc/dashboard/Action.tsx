@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { colors } from "../../../chakra-overrides/colors";
-import { getRole, Scope } from "../utils/token";
+import { getRole, Scope } from "../utils/user";
 
 interface IActionProps {
   disabled?: boolean;

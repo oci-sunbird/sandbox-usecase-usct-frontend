@@ -1,17 +1,17 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { RouterProvider } from "react-router-dom";
-import { Accordion } from "./chakra-overrides/Accordion";
-import { colors } from "./chakra-overrides/colors";
-import { Heading } from "./chakra-overrides/Heading";
-import { List } from "./chakra-overrides/List";
-import { Progress } from "./chakra-overrides/Progress";
+import {QueryClient, QueryClientProvider} from "react-query";
+import {RouterProvider} from "react-router-dom";
+import {Accordion} from "./chakra-overrides/Accordion";
+import {colors} from "./chakra-overrides/colors";
+import {Heading} from "./chakra-overrides/Heading";
+import {List} from "./chakra-overrides/List";
+import {Progress} from "./chakra-overrides/Progress";
 import Tabs from "./chakra-overrides/Tabs";
-import { Text } from "./chakra-overrides/Text";
+import {Text} from "./chakra-overrides/Text";
 import "./index.css";
-import { router } from "./routes/router";
+import {router} from "./routes/router";
 
 const theme = extendTheme({
   colors,
@@ -35,12 +35,26 @@ const theme = extendTheme({
 
 const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ChakraProvider>
-    </QueryClientProvider>
-  </React.StrictMode>,
-);
+// on (re)load, check signed-id status
+sessionStorage.removeItem("user");
+
+fetch(`/api/v1/roles`, {
+credentials: "include" ,
+signal: AbortSignal.timeout(5000)})
+.then(roles => {
+  if (roles.ok) {
+    return roles.text().then(text => {
+      sessionStorage.setItem("user", text)
+    })
+  }
+}).finally(() => {
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+      <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider theme={theme}>
+            <RouterProvider router={router}/>
+          </ChakraProvider>
+        </QueryClientProvider>
+      </React.StrictMode>,
+  );
+});
