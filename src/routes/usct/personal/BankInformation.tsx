@@ -15,7 +15,7 @@ export default function BankInformation({
 }: BankInformationProps) {
   const id = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const isRegistryAdministration = getRole() == "ROLE_REGISTRY_ADMINISTRATION";
+  const isRegistryOfficer = getRole() == "ROLE_REGISTRY_OFFICER";
   return (
     <Box>
       <Flex display="flex">
@@ -23,7 +23,7 @@ export default function BankInformation({
           Bank Information
         </Heading>
         <Spacer />
-        {isRegistryAdministration && !newCandidate ? (
+        {isRegistryOfficer && !newCandidate ? (
           <Button
             onClick={() =>
               navigate(`/driver-poc/candidate/edit/bankInformation/${id.id}`, {

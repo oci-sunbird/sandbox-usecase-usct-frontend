@@ -39,7 +39,7 @@ export function Dashboard() {
           to="./candidates"
           allowedRoles={[
             Scope.ROLE_ENROLLMENT_OFFICER,
-            Scope.ROLE_REGISTRY_ADMINISTRATION,
+            Scope.ROLE_REGISTRY_OFFICER,
           ]}
         />
         <Action

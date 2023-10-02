@@ -31,7 +31,7 @@ export default function CandidateDetail() {
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const isEnrollmentOfficer = getRole() === "ROLE_ENROLLMENT_OFFICER";
-  const isRegistryAdministrator = getRole() === "ROLE_REGISTRY_ADMINISTRATION";
+  const isRegistryOfficer = getRole() === "ROLE_REGISTRY_OFFICER";
 
   const { data: packages } = useQuery("packages", rpc.getPackages);
 

@@ -38,7 +38,7 @@ const users = [
   {
     username: "jason.hans@gov.stack",
     role: "Registry Officer",
-    value: "registry-administration",
+    value: "registry-officer",
   },
 ];
 
