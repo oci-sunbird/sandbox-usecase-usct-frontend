@@ -1,9 +1,8 @@
-
 export interface Candidate {
   id: number;
   person: Person;
   packages: Package[];
-  relative: Candidate | null;
+  relative?: Candidate | null;
 }
 
 export interface Beneficiary extends PaymentInformation {

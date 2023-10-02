@@ -2,6 +2,7 @@ import { ReactComponent as FileQuestionIcon } from "@assets/icons/file-question.
 import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
 import { ReactComponent as FileXIcon } from "@assets/icons/file-x.svg";
 import { Flex, Tag, Text } from "@chakra-ui/react";
+import { Candidate } from "../../driver-poc/types";
 
 export const personData = {
   fullName: "Thomas Anderson",
@@ -23,7 +24,14 @@ export const personData = {
   ],
 };
 
-export const bankData = {
+interface BankData {
+  ownerName: string;
+  bankName: string;
+  iban: string;
+  candidate: Candidate;
+}
+
+export const bankData: BankData = {
   ownerName: "Thomas Anderson",
   bankName: "Sunshine Bank",
   iban: "AA02300209000106531065",
