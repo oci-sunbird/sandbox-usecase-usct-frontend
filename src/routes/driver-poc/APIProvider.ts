@@ -5,7 +5,7 @@ export default class APIProvider extends BaseProvider {
   async getCandidateList() {
     try {
       const req = await fetch(
-        `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`, {
+        `/api/v1/candidates`, {
           credentials: "include"
         }
       );
@@ -16,7 +16,7 @@ export default class APIProvider extends BaseProvider {
   }
   async getPackages() {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/packages`, {
+      `/api/v1/packages`, {
         credentials: "include"
       }
     );
@@ -24,7 +24,7 @@ export default class APIProvider extends BaseProvider {
   }
   async getCandidateInfo(id: number) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`, {
+      `/api/v1/candidates/${id}`, {
         credentials: "include"
       }
     );
@@ -32,7 +32,7 @@ export default class APIProvider extends BaseProvider {
   }
   async enrollCandidate(candidate: Candidate, enrolledPackage: Package) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`,
+      `/api/v1/beneficiaries`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -49,7 +49,7 @@ export default class APIProvider extends BaseProvider {
   }
   async getBeneficiariesList() {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/beneficiaries`, {
+      `/api/v1/beneficiaries`, {
         credentials: "include"
       }
     );
@@ -57,9 +57,7 @@ export default class APIProvider extends BaseProvider {
   }
   async validateBeneficiaries(beneficiaries: Beneficiary[]) {
     const req = await fetch(
-      `${
-        import.meta.env.VITE_API_ENDPOINT
-      }/api/v1/payment/prepayment-validation`,
+      `/api/v1/payment/prepayment-validation`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -72,7 +70,7 @@ export default class APIProvider extends BaseProvider {
   }
   async executePayments(beneficiaries: Beneficiary[]) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/payment/order-payment`,
+      `/api/v1/payment/order-payment`,
       {
         method: "POST",
         body: JSON.stringify(beneficiaries),
@@ -86,7 +84,7 @@ export default class APIProvider extends BaseProvider {
   }
   async getRoles() {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/roles`,
+      `/api/v1/roles`,
       {
         method: "GET",
         credentials: "include"
@@ -100,7 +98,7 @@ export default class APIProvider extends BaseProvider {
   }
   async createCandidate(candidate: Candidate) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates`,
+      `/api/v1/candidates`,
       {
         method: "POST",
         body: JSON.stringify(candidate),
@@ -115,7 +113,7 @@ export default class APIProvider extends BaseProvider {
 
   async updateCandidate(candidate: Candidate) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${
+      `/api/v1/candidates/${
         candidate.person.id
       }`,
       {
@@ -132,7 +130,7 @@ export default class APIProvider extends BaseProvider {
 
   async deleteCandidate(id: number) {
     const req = await fetch(
-      `${import.meta.env.VITE_API_ENDPOINT}/api/v1/candidates/${id}`,
+      `/api/v1/candidates/${id}`,
       {
         method: "DELETE",
         credentials: "include"
