@@ -12,13 +12,13 @@ export const useAuthentication = () => {
       sessionStorage.setItem("user", JSON.parse(role));
       navigate("/driver-poc");
     } catch (e) {
-      window.location.replace(`${import.meta.env.VITE_API_ENDPOINT}/api/oauth2/authorization/esignet`)
+      window.location.replace(`/api/oauth2/authorization/esignet`);
     }
   };
 
   const logout = async () => {
     try {
-      await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/logout`, {credentials: "include"})
+      await fetch(`/api/logout`, { credentials: "include" });
     } finally {
       sessionStorage.removeItem("user");
       navigate("/driver-poc/login");
