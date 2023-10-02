@@ -60,7 +60,7 @@ export default function CandidatesList() {
           CANDIDATES
         </Text>
         <Spacer />
-        {isRegistryAdministrator ? (
+        {isRegistryOfficer ? (
           <Flex>
             <Button
               onClick={() => navigate(`/driver-poc/candidate/create`)}
@@ -84,7 +84,7 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>Name</Th>
             <Th color={colors.secondary[0]}>ID Number</Th>
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
-            {isRegistryAdministrator ? (
+            {isRegistryOfficer ? (
               <Th color={colors.secondary[0]}></Th>
             ) : (
               ""
@@ -94,7 +94,7 @@ export default function CandidatesList() {
         <Tbody>
           {isLoading && (
             <Tr>
-              <Td colSpan={isRegistryAdministrator ? 5 : 4}>
+              <Td colSpan={isRegistryOfficer ? 5 : 4}>
                 <Flex justifyContent="center" alignItems="center" w="100%">
                   <Spinner size="md" />
                 </Flex>
@@ -149,7 +149,7 @@ export default function CandidatesList() {
                   </Tag>
                 )}
               </Td>
-              {isRegistryAdministrator ? (
+              {isRegistryOfficer ? (
                 <Td borderEndRadius={16}>
                   <IconButton
                     variant="borderless"

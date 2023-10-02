@@ -195,7 +195,7 @@ export default function CandidateDetail() {
             </SimpleGrid>
           </Flex>
           <Flex>
-            {isRegistryAdministrator ? (
+            {isRegistryOfficer ? (
               <Flex>
                 <Button
                   onClick={() => deleteCandidate(candidate.id)}
