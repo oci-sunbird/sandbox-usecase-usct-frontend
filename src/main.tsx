@@ -38,7 +38,7 @@ const queryClient = new QueryClient();
 // on (re)load, check signed-id status
 sessionStorage.removeItem("user");
 
-fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/v1/roles`, {
+fetch(`/api/v1/roles`, {
 credentials: "include" ,
 signal: AbortSignal.timeout(5000)})
 .then(roles => {
