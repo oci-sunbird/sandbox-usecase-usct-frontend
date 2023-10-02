@@ -57,9 +57,7 @@ export default class APIProvider extends BaseProvider {
   }
   async validateBeneficiaries(beneficiaries: Beneficiary[]) {
     const req = await fetch(
-      `${
-        import.meta.env.VITE_API_ENDPOINT
-      }/api/v1/payment/prepayment-validation`,
+      `/api/v1/payment/prepayment-validation`,
       {
         method: "POST",
         body: JSON.stringify({
