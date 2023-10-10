@@ -3,8 +3,8 @@ import { BUILDING_BLOCK } from "../../../routes/usct/utils";
 export const bbDescriptionMock: Record<BUILDING_BLOCK, string> = {
   [BUILDING_BLOCK.CONSENT]:
     "Manages a set of policies allowing users to determine the information that will be accessible to specific potential information consumers, for which purpose, for how long and whether this information can be shared further.",
-  [BUILDING_BLOCK.AUTHENTICATION]:
-    "Enables unique identification and authentication of users, organizations and other entities.",
+  [BUILDING_BLOCK.IDENTITY]:
+    "Enables unique identification of users, organizations and other entities.",
   [BUILDING_BLOCK.INFORMATION_MEDIATOR]:
     "Provides a gateway between external digital applications and other ICT Building Blocks, thereby ensuring interoperability and implementation of standards, which is essential for integrating various ICT Building Blocks and applications.",
   [BUILDING_BLOCK.DIGITAL_REGISTRIES]:

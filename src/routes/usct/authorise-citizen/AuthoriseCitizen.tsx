@@ -33,7 +33,7 @@ export default function AuthoriseCitizen() {
   useEffect(() => {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
-      [BUILDING_BLOCK.AUTHENTICATION]: true,
+      [BUILDING_BLOCK.IDENTITY]: true,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: false,
       [BUILDING_BLOCK.MESSAGING]: false,

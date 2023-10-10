@@ -89,8 +89,8 @@ export default function BuildingBlockView() {
       <Box p={!openedBlockData ? "1rem" : 0}>
         <Text as="i" size="sm" fontWeight="300">
           For more information about Building Blocks, please visit{" "}
-          <Link href="https://exchange.dial.global/building-blocks">
-            Digital Impact Exchange
+          <Link href="https://govstack.gitbook.io/specification/">
+            GovStack Specifications
           </Link>
           .
         </Text>

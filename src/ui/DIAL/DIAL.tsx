@@ -83,11 +83,12 @@ export default function DIAL() {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        padding="0.8rem"
       >
         <CloseIcon color="#FFC107" display={!isOpen ? "none" : undefined} />
         <Image
-          src="/images/digital-impact-alliance-logo.png"
-          alt="Digital Impact Alliance Logo"
+          src="/images/govstack-exchange-logo.svg"
+          alt="GovStack Exchange Logo"
           display={isOpen ? "none" : undefined}
         />
       </Button>
@@ -102,13 +103,13 @@ export default function DIAL() {
             <Popup>
               <Flex justifyContent="space-between" pb="0">
                 <Text maxW="60%" color="theme.light" variant="caps">
-                  Catalog of digital solutions
+                  Govexchange catalogue
                 </Text>
                 <Image
-                  w="5.25rem"
-                  h="1.5rem"
-                  src="/images/digital-impact-alliance-logo.png"
-                  alt="Digital Impact Alliance Logo"
+                  w="5rem"
+                  h="3rem"
+                  src="/images/govstack-exchange-logo.svg"
+                  alt="GovStack Exchange Logo"
                 />
               </Flex>
               <Box position="relative">
@@ -120,8 +121,8 @@ export default function DIAL() {
                 >
                   <Box>
                     <Text mb="1rem" size="sm" color={colors.secondary[500]}>
-                      The DIAL Exchange promotes a Whole-of-Government approach
-                      to investing in digital technologies to achieve the
+                      The GovStack Exchange promotes a Whole-of-Government approach
+                      to invest in digital technologies to achieve the
                       sustainable development goals.
                     </Text>
                     <Accordion allowToggle>
@@ -145,10 +146,10 @@ export default function DIAL() {
                             For more information please check{" "}
                             <Link
                               isExternal
-                              href="https://exchange-dev.dial.global/use_cases"
+                              href="https://govstack.gitbook.io/use-cases/"
                             >
-                              DIAL Catalogue
-                            </Link>
+                              GovStack Specifications
+                            </Link>.
                           </Text>
                         </AccordionPanel>
                       </AccordionItem>
@@ -181,7 +182,7 @@ export default function DIAL() {
                         title="WORKFLOWS"
                         data={workflows}
                       />
-                      <AccordionItem>
+                      {/* <AccordionItem>
                         <AccordionButton justifyContent="space-between">
                           <Text size="sm">PRODUCTS</Text>
                           <AccordionIcon />
@@ -197,11 +198,11 @@ export default function DIAL() {
                               isExternal
                               href="https://exchange-dev.dial.global/products"
                             >
-                              DIAL Catalogue
+                              GovStack Exchange Catalogue
                             </Link>
                           </Text>
                         </AccordionPanel>
-                      </AccordionItem>
+                      </AccordionItem> */}
                     </Accordion>
                   </Box>
                 </Slide>

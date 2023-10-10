@@ -269,7 +269,7 @@ export const ContextualHelpContent: Record<
     title: "Log In",
     diagram: AuthorisationDiagram,
     activeBuildingBlocks: [
-      BUILDING_BLOCK.AUTHENTICATION,
+      BUILDING_BLOCK.IDENTITY,
       BUILDING_BLOCK.INFORMATION_MEDIATOR,
     ],
     bulletpoints: [

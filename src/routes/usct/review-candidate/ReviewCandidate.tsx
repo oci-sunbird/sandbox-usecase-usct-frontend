@@ -89,7 +89,7 @@ export default function ReviewCandidate() {
     if (searchParams.get("state") === "scheduling") {
       setActiveBuildingBlocks({
         [BUILDING_BLOCK.CONSENT]: false,
-        [BUILDING_BLOCK.AUTHENTICATION]: false,
+        [BUILDING_BLOCK.IDENTITY]: false,
         [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
         [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
         [BUILDING_BLOCK.MESSAGING]: false,
@@ -101,7 +101,7 @@ export default function ReviewCandidate() {
     } else {
       setActiveBuildingBlocks({
         [BUILDING_BLOCK.CONSENT]: false,
-        [BUILDING_BLOCK.AUTHENTICATION]: false,
+        [BUILDING_BLOCK.IDENTITY]: false,
         [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
         [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
         [BUILDING_BLOCK.MESSAGING]: false,
