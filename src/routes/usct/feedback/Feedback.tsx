@@ -18,7 +18,7 @@ export default function Feedback() {
   useEffect(() => {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
-      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.IDENTITY]: false,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: true,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: true,

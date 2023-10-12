@@ -24,8 +24,8 @@ export const LINKS = [
         icon: <PaperIcon />,
       },
       {
-        path: "experience-govstack/bb-demo-authentication-id",
-        name: "BB Demo Authentication & ID",
+        path: "experience-govstack/bb-demo-identity",
+        name: "BB Demo Identity",
         icon: <DocumentsIcon />,
       },
     ],

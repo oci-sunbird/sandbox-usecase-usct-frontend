@@ -82,7 +82,7 @@ export default function CaseManagement() {
   useEffect(() => {
     setActiveBuildingBlocks({
       [BUILDING_BLOCK.CONSENT]: false,
-      [BUILDING_BLOCK.AUTHENTICATION]: false,
+      [BUILDING_BLOCK.IDENTITY]: false,
       [BUILDING_BLOCK.INFORMATION_MEDIATOR]: false,
       [BUILDING_BLOCK.DIGITAL_REGISTRIES]: true,
       [BUILDING_BLOCK.MESSAGING]: false,

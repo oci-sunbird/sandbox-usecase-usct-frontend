@@ -31,8 +31,8 @@ export default function ScenarioHeader({
         <Image
           height="2.5rem"
           width="auto"
-          src="/govstack-sandbox-logo.svg"
-          alt="govstack sandbox logo"
+          src="/GovStack.svg"
+          alt="GovStack logo"
         />
         {children}
       </Flex>

@@ -17,9 +17,9 @@ import BuildingBlock from "./BuildingBlock";
 export const buildingBlocksList = [
   { label: "Consent", icon: <ConsentIcon />, id: BUILDING_BLOCK.CONSENT },
   {
-    label: "ID & Authentication",
+    label: "Identity",
     icon: <PassportIcon />,
-    id: BUILDING_BLOCK.AUTHENTICATION,
+    id: BUILDING_BLOCK.IDENTITY,
   },
   {
     label: "Information Mediator",
