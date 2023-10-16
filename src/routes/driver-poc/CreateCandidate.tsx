@@ -1,3 +1,4 @@
+import { ReactComponent as InfoIcon } from "@assets/icons/info.svg";
 import { ReactComponent as SaveIcon } from "@assets/icons/save.svg";
 import {
   Box,
@@ -11,21 +12,24 @@ import {
   StepIcon,
   StepIndicator,
   StepNumber,
-  Stepper,
   StepSeparator,
   StepStatus,
   StepTitle,
-  useSteps,
+  Stepper,
+  Text,
   VStack,
+  useSteps,
 } from "@chakra-ui/react";
 import { ChangeEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { colors } from "../../chakra-overrides/colors";
 import BankInformation from "../usct/personal/BankInformation";
 import BankInformationEdit from "../usct/personal/BankInformationEdit";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import PersonalInformationEdit from "../usct/personal/PersonalInformationEdit";
 import { RPCContext } from "./rpc";
 import { Candidate } from "./types";
+import { useAuthentication } from "./utils/useAuthentication";
 
 export default function CreateCandidate() {
   const rpc = useContext(RPCContext);
@@ -67,6 +71,11 @@ export default function CreateCandidate() {
 
   const handleContinue = () => {
     return setActiveStep(activeStep + 1);
+  };
+
+  const { logout } = useAuthentication();
+  const handleLogOut = () => {
+    logout();
   };
 
   const createCandidate = async () => {
@@ -137,8 +146,22 @@ export default function CreateCandidate() {
           <Heading size="md" mb="1.25rem">
             New candidate successfully created
           </Heading>
+          <Flex gap="10px" direction="column" padding="10px" border="1px solid" borderColor={colors.admin[500]} borderRadius="10px">
+            <Flex gap="10px" direction="row">
+              <InfoIcon stroke={colors.admin[500]}/>
+              <Text>
+                To continue the demo and enroll the newly created candidate, log out of the current role and log in as an Enrollment Officer.<br/><br/>
+                Please find credentials in the documentation.
+              </Text>
+            </Flex>
+            <Flex justifyContent="center">
+              <Button mb=".625rem" maxW="23.75rem" variant="outline" colorScheme="admin" onClick={handleLogOut}>
+                Log out
+              </Button>
+            </Flex>
+          </Flex>
           <Box>
-            <Button mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
+            <Button as={Link} to="/driver-poc" mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
               Home
             </Button>
             <ButtonGroup
@@ -148,7 +171,7 @@ export default function CreateCandidate() {
               variant="outline"
               gap="1.25rem"
             >
-              <Button as={Link} to="/driver-poc" w="100%">
+              <Button as={Link} to="/driver-poc/candidates" w="100%">
                 Candidate list
               </Button>
               <Button

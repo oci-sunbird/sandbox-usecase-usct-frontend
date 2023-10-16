@@ -1,3 +1,4 @@
+import { ReactComponent as InfoIcon } from "@assets/icons/info.svg";
 import { ReactComponent as DeleteIcon } from "@assets/icons/trash.svg";
 import {
   Box,
@@ -21,6 +22,7 @@ import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
 import { Package } from "./types";
+import { useAuthentication } from "./utils/useAuthentication";
 import { getRole } from "./utils/user";
 
 export default function CandidateDetail() {
@@ -58,6 +60,12 @@ export default function CandidateDetail() {
       }
     }
   };
+
+  const { logout } = useAuthentication();
+  const handleLogOut = () => {
+    logout();
+  };
+
   if (isFetching) {
     <Center>
       <Spinner />
@@ -76,10 +84,24 @@ export default function CandidateDetail() {
               Social Cash Transfer Program and has become a beneficiary of the
               program.
             </Text>
-            <Text size="lg">
+            <Flex gap="10px" direction="column" padding="10px" border="1px solid" borderColor={colors.admin[500]} borderRadius="10px">
+              <Flex gap="10px" direction="row">
+                <InfoIcon stroke={colors.admin[500]}/>
+                <Text>
+                  To continue the demo and order a payment to the enrolled candidate, log out of the current role and log in as a Payment Officer.<br/><br/>
+                  Please find credentials in the documentation.
+                </Text>
+              </Flex>
+              <Flex justifyContent="center">
+                <Button mb=".625rem" maxW="23.75rem" variant="outline" colorScheme="admin" onClick={handleLogOut}>
+                  Log out
+                </Button>
+              </Flex>
+            </Flex>
+            {/* <Text size="lg">
               To initiate a payment for the beneficiary, kindly access the
               beneficiary list.
-            </Text>
+            </Text> */}
           </Box>
           <Box>
             {/* <Button mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
@@ -92,7 +114,7 @@ export default function CandidateDetail() {
               variant="solid"
               gap="1.25rem"
             >
-              <Button as={Link} to="/driver-poc" w="100%">
+              <Button as={Link} to="/driver-poc/candidates" w="100%">
                 Candidate List
               </Button>
             </ButtonGroup>

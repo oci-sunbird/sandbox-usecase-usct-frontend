@@ -1,3 +1,4 @@
+import { ReactComponent as InfoIcon } from "@assets/icons/info.svg";
 import {
   Box,
   Button,
@@ -24,6 +25,7 @@ import { Link } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
 import { Beneficiary } from "./types";
+import { useAuthentication } from "./utils/useAuthentication";
 
 export default function BeneficiaryList() {
   const rpc = useContext(RPCContext);
@@ -60,6 +62,11 @@ export default function BeneficiaryList() {
     }
   };
 
+  const { logout } = useAuthentication();
+  const handleLogOut = () => {
+    logout();
+  };
+
   if (isPaymentProcessed) {
     return (
       <Center display="flex" margin="auto">
@@ -67,8 +74,17 @@ export default function BeneficiaryList() {
           <Heading size="md" mb="1.25rem">
             Thank you! Payment Order received.
           </Heading>
+          <Flex gap="10px" direction="column" padding="10px" border="1px solid" borderColor={colors.admin[500]} borderRadius="10px">
+            <Flex gap="10px" direction="row">
+              <InfoIcon stroke={colors.admin[500]}/>
+              <Text>
+                The payment status in the overview table will not be adapted to let other users issue that order as well. <br/>You have reached end of the demo user journey!<br/><br/>
+                Thank you very much!
+              </Text>
+            </Flex>
+          </Flex>
           <Box>
-            <Button mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
+            <Button as={Link} to="/driver-poc" mb=".625rem" maxW="23.75rem" w="100%" colorScheme="admin">
               Home
             </Button>
             <ButtonGroup
@@ -78,8 +94,8 @@ export default function BeneficiaryList() {
               variant="outline"
               gap="1.25rem"
             >
-              <Button as={Link} to="/driver-poc" w="100%">
-                Candidate List
+              <Button as={Link} to="/driver-poc/beneficiaries" w="100%">
+                Beneficiary List
               </Button>
               {/* <Button onClick={() => handleReset()} w="100%">
                 Beneficiary List
