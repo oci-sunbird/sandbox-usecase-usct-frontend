@@ -62,10 +62,11 @@ export default function BeneficiaryList() {
     }
   };
 
-  const { logout } = useAuthentication();
-  const handleLogOut = () => {
-    logout();
-  };
+  const handleReset = () => {
+    setCheckedBeneficiaries([]);
+    setIsOrderingPayment(false);
+    setisPaymentProcessed(false);
+  }
 
   if (isPaymentProcessed) {
     return (
@@ -94,12 +95,9 @@ export default function BeneficiaryList() {
               variant="outline"
               gap="1.25rem"
             >
-              <Button as={Link} to="/driver-poc/beneficiaries" w="100%">
+              <Button onClick={() => handleReset()} w="100%">
                 Beneficiary List
               </Button>
-              {/* <Button onClick={() => handleReset()} w="100%">
-                Beneficiary List
-              </Button> */}
             </ButtonGroup>
           </Box>
         </VStack>
@@ -275,7 +273,10 @@ export default function BeneficiaryList() {
         </Tbody>
       </Table>
       <Flex justifyContent="flex-end">
-        <Button colorScheme="admin" onClick={() => setIsOrderingPayment(true)}>
+        <Button
+        disabled={checkedBeneficiaries.length < 1}
+        colorScheme={(checkedBeneficiaries.length > 0)? "admin" : "disabled"}
+        onClick={() => (checkedBeneficiaries.length > 0)?setIsOrderingPayment(true):""}>
           Order payment
         </Button>
       </Flex>
