@@ -2,6 +2,17 @@ import BaseProvider from "./BaseProvider";
 import { Beneficiary, Candidate, Package } from "./types";
 
 export default class APIProvider extends BaseProvider {
+  async getAuthMode() {
+    try {
+      const req = await fetch(
+        `/api/authmode`,
+      );
+      if (req.ok) return req.text() as Promise<string>;
+    } catch (error) {
+      return "error";
+    }
+  }
+
   async getCandidateList() {
     try {
       const req = await fetch(
