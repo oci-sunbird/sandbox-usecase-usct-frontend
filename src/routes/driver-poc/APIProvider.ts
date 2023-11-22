@@ -1,7 +1,37 @@
 import BaseProvider from "./BaseProvider";
-import { Beneficiary, Candidate, Package } from "./types";
+import { Beneficiary, Candidate, ConsentStatus, Package } from "./types";
 
 export default class APIProvider extends BaseProvider {
+  async getAuthMode() {
+    try {
+      const req = await fetch(
+        `/api/authmode`,
+      );
+      if (req.ok) return req.text() as Promise<string>;
+      else throw "error"
+    } catch (error) {
+      return "error";
+    }
+  }
+
+  async requestConsent(candidate: Candidate) {
+    const req = await fetch(`/api/v1/consent/${candidate.id}`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+          "id": candidate.consent.id,
+          "candidateId": candidate.id,
+          "status": ConsentStatus.GRANTED,
+          "date": new Date().toISOString()
+        })
+      }
+    );
+    return req.ok;
+  }
+
   async getCandidateList() {
     try {
       const req = await fetch(

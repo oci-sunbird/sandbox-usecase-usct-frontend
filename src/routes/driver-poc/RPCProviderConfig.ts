@@ -26,6 +26,8 @@ export default class RPCProviderConfig {
     createCandidate: this.providers.API,
     updateCandidate: this.providers.API,
     deleteCandidate: this.providers.API,
+    requestConsent: this.providers.API,
+    getAuthMode: this.providers.API
   };
   addProvider = (key: string, provider: BaseProvider) => {
     this.providers = { ...this.providers, [key]: provider };

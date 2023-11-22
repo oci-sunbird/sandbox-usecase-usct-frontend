@@ -40,6 +40,10 @@ export default class RPC {
     );
   deleteCandidate = (id: number) =>
     this.RPCProviderFactory.getProvider("deleteCandidate").deleteCandidate(id);
+  requestConsent = (candidate: Candidate) =>
+    this.RPCProviderFactory.getProvider("requestConsent").requestConsent(candidate);
+  getAuthMode = () =>
+    this.RPCProviderFactory.getProvider("getAuthMode").getAuthMode();
 }
 
 export const RPCContext = createContext(new RPC());

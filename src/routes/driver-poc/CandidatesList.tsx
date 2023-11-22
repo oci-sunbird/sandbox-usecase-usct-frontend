@@ -1,5 +1,7 @@
+import { ReactComponent as CheckIcon } from "@assets/icons/check.svg";
 import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
 import { ReactComponent as PlusIcon } from "@assets/icons/plus.svg";
+import { ReactComponent as X } from "@assets/icons/x.svg";
 import {
   Button,
   Flex,
@@ -10,6 +12,8 @@ import {
   Spinner,
   Table,
   Tag,
+  TagLabel,
+  TagLeftIcon,
   Tbody,
   Td,
   Text,
@@ -22,7 +26,7 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
 import { RPCContext } from "./rpc";
-import { Package } from "./types";
+import { ConsentStatus, Package } from "./types";
 import { getRole } from "./utils/user";
 
 export default function CandidatesList() {
@@ -83,6 +87,10 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>#</Th>
             <Th color={colors.secondary[0]}>Name</Th>
             <Th color={colors.secondary[0]}>ID Number</Th>
+            {isRegistryOfficer ? (
+              <Th color={colors.secondary[0]}>Consent</Th>
+              ):("")
+            }
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
             {isRegistryOfficer ? (
               <Th color={colors.secondary[0]}></Th>
@@ -117,7 +125,22 @@ export default function CandidatesList() {
               <Td>
                 <Text>{candidate.person.personalIdCode}</Text>
               </Td>
-              <Td>
+              {isRegistryOfficer ? (
+                <Td>
+                  {(candidate.consent.status === ConsentStatus.GRANTED)?(
+                    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={colors.theme.success}>
+                      <TagLeftIcon boxSize='12px'as={CheckIcon} />
+                      <TagLabel>Granted</TagLabel>
+                    </Tag>
+                  ):(candidate.consent.status === ConsentStatus.NOT_GRANTED)?(
+                    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={colors.info[600]}>
+                      <TagLeftIcon boxSize='12px'as={X} />
+                      <TagLabel>Not Granted</TagLabel>
+                    </Tag>
+                  ):("Consent - N/A")}
+                </Td>
+              ):("")}
+              <Td borderEndRadius={isRegistryOfficer?0:16}>
                 {candidate.packages?.length > 0 ? (
                   <HStack gap=".625rem">
                     {candidate?.packages

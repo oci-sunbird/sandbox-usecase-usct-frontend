@@ -18,7 +18,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { RPCContext } from "../../driver-poc/rpc";
-import { Candidate } from "../../driver-poc/types";
+import { Candidate, ConsentStatus } from "../../driver-poc/types";
 
 export default function PersonalInformationEdit({
   candidatei,
@@ -62,6 +62,12 @@ export default function PersonalInformationEdit({
       financialModality: "",
     },
     packages: [],
+    consent: {
+      id: 0,
+      candidateId: 0,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
     });
 

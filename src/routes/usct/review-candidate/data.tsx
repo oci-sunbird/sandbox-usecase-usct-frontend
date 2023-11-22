@@ -2,7 +2,7 @@ import { ReactComponent as FileQuestionIcon } from "@assets/icons/file-question.
 import { ReactComponent as FileWarningIcon } from "@assets/icons/file-warning.svg";
 import { ReactComponent as FileXIcon } from "@assets/icons/file-x.svg";
 import { Flex, Tag, Text } from "@chakra-ui/react";
-import { Candidate } from "../../driver-poc/types";
+import { Candidate, ConsentStatus } from "../../driver-poc/types";
 
 export const personData = {
   fullName: "Thomas Anderson",
@@ -57,6 +57,12 @@ export const bankData: BankData = {
       financialModality: "",
     },
     packages: [],
+    consent: {
+      id: 1,
+      candidateId: 1,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
   },
 };
 
