@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.playground_frontend.name }}
+  name: {{ .Values.name }}
   labels:
-    {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
 spec:
-  replicas: {{ .Values.playground_frontend.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- toYaml .Values.playground_frontend.template.labels | nindent 6 }}
+      {{- toYaml .Values.template.labels | nindent 6 }}
   template:
     metadata:
       labels: 
-        {{- toYaml .Values.playground_frontend.template.labels | nindent 8 }}
+        {{- toYaml .Values.template.labels | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Values.playground_frontend.container.name }}
-          image: "{{ .Values.playground_frontend.container.image }}:{{ .Values.playground_frontend.container.imageTag }}"
-          imagePullPolicy: {{ .Values.playground_frontend.container.imagePullPolicy }}
+        - name: {{ .Values.container.name }}
+          image: "{{ .Values.container.image }}"
+          imagePullPolicy: {{ .Values.container.imagePullPolicy }}
           ports:
           - containerPort: 80
             name: server
@@ -32,15 +32,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.playground_frontend.service.name }}-service
+  name: {{ .Values.service.name }}
   labels:
-    {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
 spec:
-  type: {{ .Values.playground_frontend.service.type }}
+  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.playground_frontend.service.port }}
-      targetPort: {{ .Values.playground_frontend.service.targetPort }}
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: http
   selector:
-    {{- toYaml .Values.playground_frontend.labels | nindent 4 }}
+    {{- toYaml .Values.labels | nindent 4 }}
