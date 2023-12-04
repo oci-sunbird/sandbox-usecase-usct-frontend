@@ -1,6 +1,6 @@
 apiVersion: v2
-name: FrontendApp
-description: FrontendApp Helm chart for Kubernetes
+name: usct-frontend
+description: USCT front-end application
 
 type: application
 version: 0.0.1
