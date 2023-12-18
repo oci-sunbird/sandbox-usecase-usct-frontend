@@ -2,6 +2,7 @@ export interface Candidate {
   id: number;
   person: Person;
   packages: Package[];
+  consent: Consent;
   relative?: Candidate | null;
 }
 
@@ -15,6 +16,14 @@ export interface Relative {
   person: Person;
   relationshipType: string;
 }
+
+export interface Consent {
+  id: number;
+  candidateId: number;
+  status: ConsentStatus,
+  date: string
+}
+
 export interface Household {
   id: number;
   candidate: Candidate;
@@ -54,4 +63,9 @@ export interface PaymentInformation {
     | "IN_PROGRESS"
     | "REJECTED"
     | "CLOSED";
+}
+
+export enum ConsentStatus {
+  GRANTED = "GRANTED",
+  NOT_GRANTED = "NOT_GRANTED"
 }

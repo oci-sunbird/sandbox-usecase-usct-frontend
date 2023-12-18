@@ -1,8 +1,8 @@
 
 import { faker } from "@faker-js/faker";
-import BaseProvider from "./BaseProvider";
-import { Beneficiary, Candidate, Package } from "./types";
 import ObjectToTree from "../../objectToTree";
+import BaseProvider from "./BaseProvider";
+import { Beneficiary, Candidate, ConsentStatus, Package } from "./types";
 
 const localStorageVariable = "No such variable in mock storage";
 
@@ -64,6 +64,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[0], mockPackages[1], mockPackages[3]],
+    consent: {
+      id: 1,
+      candidateId: 1,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   },
   {
@@ -88,6 +94,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[1]],
+    consent: {
+      id: 2,
+      candidateId: 2,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   },
   {
@@ -112,6 +124,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[1], mockPackages[3]],
+    consent: {
+      id: 3,
+      candidateId: 3,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   },
   {
@@ -136,6 +154,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[0], mockPackages[2]],
+    consent: {
+      id: 4,
+      candidateId: 4,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   },
   {
@@ -160,6 +184,12 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [],
+    consent: {
+      id: 5,
+      candidateId: 5,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   },
 ];
@@ -294,6 +324,22 @@ export default class MockProvider extends BaseProvider {
   candidateList = [...mockCandidateList];
   packagesList: Package[] = [...mockPackages];
   beneficiaryList: Beneficiary[] = [...mockBeneficiaryList];
+  requestConsent(candidate: Candidate) {
+    return new Promise <boolean> ((resolve) =>
+        setTimeout(async () => {
+            resolve(true),
+            1000
+        })
+    );
+  }
+  getAuthMode(): Promise<string> {
+    return new Promise <string> ((resolve) =>
+        setTimeout(async () => {
+            resolve("mosip"),
+            1000
+        })
+    );
+  }
   getCandidateList() {
     return new Promise<Candidate[]>((resolve) =>
       setTimeout(() => {

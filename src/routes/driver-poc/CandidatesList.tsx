@@ -15,14 +15,15 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
+import { ConsentTag } from "../usct/consent/ConsentTag";
 import { RPCContext } from "./rpc";
-import { Package } from "./types";
+import { ConsentStatus, Package } from "./types";
 import { getRole } from "./utils/user";
 
 export default function CandidatesList() {
@@ -83,6 +84,10 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>#</Th>
             <Th color={colors.secondary[0]}>Name</Th>
             <Th color={colors.secondary[0]}>ID Number</Th>
+            {isRegistryOfficer ? (
+              <Th color={colors.secondary[0]}>Consent</Th>
+              ):("")
+            }
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
             {isRegistryOfficer ? (
               <Th color={colors.secondary[0]}></Th>
@@ -117,7 +122,20 @@ export default function CandidatesList() {
               <Td>
                 <Text>{candidate.person.personalIdCode}</Text>
               </Td>
-              <Td>
+              {isRegistryOfficer ? (
+                <Td>
+                  {candidate.consent?(
+                    (candidate.consent.status === ConsentStatus.GRANTED)?(
+                      <ConsentTag status={ConsentStatus.GRANTED} />
+                    ):(
+                      <ConsentTag status={ConsentStatus.NOT_GRANTED} />
+                    )
+                  ):(
+                    <ConsentTag status={ConsentStatus.NOT_GRANTED} />
+                  )}
+                </Td>
+              ):("")}
+              <Td borderEndRadius={isRegistryOfficer?0:16}>
                 {candidate.packages?.length > 0 ? (
                   <HStack gap=".625rem">
                     {candidate?.packages

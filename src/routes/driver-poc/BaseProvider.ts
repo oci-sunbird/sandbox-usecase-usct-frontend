@@ -17,4 +17,6 @@ export default abstract class BaseProvider {
   abstract createCandidate(candidate: Candidate): Promise<Candidate>;
   abstract updateCandidate(candidate: Candidate): Promise<Candidate>;
   abstract deleteCandidate(id: number): Promise<string>;
+  abstract requestConsent(candidate: Candidate): Promise<boolean>
+  abstract getAuthMode(): Promise<string>;
 }

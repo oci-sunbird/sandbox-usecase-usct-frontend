@@ -12,16 +12,17 @@ import {
   Spacer,
   Spinner,
   Text,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
+import Consent from "../usct/consent/Consent";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
-import { Package } from "./types";
+import { ConsentStatus, Package } from "./types";
 import { useAuthentication } from "./utils/useAuthentication";
 import { getRole } from "./utils/user";
 
@@ -140,6 +141,17 @@ export default function CandidateDetail() {
       {candidate ? (
         <>
           <PersonalInformation person={candidate.person} />
+          {(isRegistryOfficer)?(
+            candidate.consent?(
+              (candidate.consent.status === ConsentStatus.GRANTED)?(
+                <Consent status={ConsentStatus.GRANTED} candidate={candidate} />
+              ):(
+                <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
+              )
+            ):(
+              <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
+            )
+          ):("")}
           <BankInformation candidate={candidate} />
           {isEnrollmentOfficer ? (
           <Flex direction="column" gap="1.25rem">

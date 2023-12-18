@@ -1,16 +1,31 @@
 import { faker } from '@faker-js/faker';
-import BaseProvider from './BaseProvider';
-import { Beneficiary, Candidate, Package } from './types';
-import MockProvider from './MockProvider';
-import ObjectToTree from '../../objectToTree';
 import { isEmptyArray } from 'formik';
+import ObjectToTree from '../../objectToTree';
+import MockProvider from './MockProvider';
+import { Beneficiary, Candidate, Package } from './types';
 
-export default class StorageProvider extends BaseProvider {
+export default class StorageProvider extends MockProvider {
     objectToTree = new ObjectToTree();
-    mockProvider = new MockProvider();
     candidateList: Candidate[] = [];
     packagesList: Package[] = [];
     beneficiaryList: Beneficiary[] = [];
+    requestConsent(candidate: Candidate) {
+        return new Promise <boolean> ((resolve) =>
+            setTimeout(async () => {
+                const consent = await this.getLocalStorageItem("consent");
+                resolve((consent)?true:false),
+                1000
+            })
+        );
+    }
+    getAuthMode(): Promise<string> {
+        return new Promise <string> ((resolve) =>
+            setTimeout(async () => {
+                resolve(await this.getLocalStorageItem("authMode") as string),
+                1000
+            })
+        );
+    }
     getCandidateList() {
         return new Promise < Candidate[] > ((resolve) =>
             setTimeout(async () => {
@@ -119,7 +134,7 @@ export default class StorageProvider extends BaseProvider {
         return new Promise < string > (async (resolve) => {
             var item = localStorage.getItem(key);
             if (!item) {
-                item = await this.mockProvider.getMockItem(key);
+                item = await this.getMockItem(key);
                 this.setLocalStorageItem(key, item);
             }
             resolve(item);

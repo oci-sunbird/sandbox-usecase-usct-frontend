@@ -2,6 +2,30 @@ import BaseProvider from "./BaseProvider";
 import { Beneficiary, Candidate, Package } from "./types";
 
 export default class APIProvider extends BaseProvider {
+  async getAuthMode() {
+    try {
+      const req = await fetch(
+        `/api/authmode`,
+      );
+      if (req.ok) return req.text() as Promise<string>;
+      else throw "error"
+    } catch (error) {
+      return "error";
+    }
+  }
+
+  async requestConsent(candidate: Candidate) {
+    const req = await fetch(`/api/v1/consent`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(candidate)
+  });
+    return req.ok;
+  }
+
   async getCandidateList() {
     try {
       const req = await fetch(
@@ -9,7 +33,8 @@ export default class APIProvider extends BaseProvider {
           credentials: "include"
         }
       );
-      return req.json() as Promise<Candidate[]>;
+      if (req.ok) return req.json() as Promise<Candidate[]>;
+      else throw "error"
     } catch (error) {
       return [];
     }

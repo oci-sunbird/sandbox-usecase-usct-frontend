@@ -6,15 +6,31 @@ import { getRole } from "./user";
 export const useAuthentication = () => {
   const navigate = useNavigate();
   const rpc = useContext(RPCContext);
-  const login = async () => {
-    try {
-      const role = await rpc.getRoles();
-      sessionStorage.setItem("user", JSON.parse(role));
-      navigate("/driver-poc");
+
+  const login = async (username?: string) => {
+      try {
+        if (username)
+          fetch('/api/login', {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+              'username': username,
+              'password': 'password',
+          })
+        }).then(async () => {
+          window.location.replace("/driver-poc");
+        });
+        else {
+          const roles = await rpc.getRoles();
+          window.location.replace("/driver-poc");
+        }
     } catch (e) {
-      window.location.replace(`/api/oauth2/authorization/esignet`);
-    }
-  };
+        if (username) navigate('/driver-poc/login');
+        else window.location.replace(`/api/oauth2/authorization/esignet`);
+      }
+    };
 
   const logout = async () => {
     try {
@@ -27,19 +43,6 @@ export const useAuthentication = () => {
   const isAuthenticated = () => {
     return !!getRole();
   };
-  // async function callback() {
-  //   try {
-  //     isAuthenticated();
-  //     navigate('/driver-poc');
-  //   } catch (error) {
-  //     window.location.href = '/driver-poc/login';
-  //   }
-  // }
-  // useEffect(() => {
-  //   window.addEventListener('authenticationEvent', callback);
-  //   return () => {
-  //     window.removeEventListener('authenticationEvent', callback);
-  //   };
-  // }, []);
+
   return { login, isAuthenticated, logout } as const;
 };

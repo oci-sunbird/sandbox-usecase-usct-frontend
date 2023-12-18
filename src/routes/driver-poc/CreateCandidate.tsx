@@ -28,7 +28,7 @@ import BankInformationEdit from "../usct/personal/BankInformationEdit";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import PersonalInformationEdit from "../usct/personal/PersonalInformationEdit";
 import { RPCContext } from "./rpc";
-import { Candidate } from "./types";
+import { Candidate, ConsentStatus } from "./types";
 import { useAuthentication } from "./utils/useAuthentication";
 
 export default function CreateCandidate() {
@@ -58,6 +58,12 @@ export default function CreateCandidate() {
       financialModality: "",
     },
     packages: [],
+    consent: {
+      id: 0,
+      candidateId: 0,
+      status: ConsentStatus.NOT_GRANTED,
+      date: ""
+    },
     relative: null
   });
 
