@@ -1,7 +1,5 @@
-import { ReactComponent as CheckIcon } from "@assets/icons/check.svg";
 import { ReactComponent as EditIcon } from "@assets/icons/edit.svg";
 import { ReactComponent as PlusIcon } from "@assets/icons/plus.svg";
-import { ReactComponent as X } from "@assets/icons/x.svg";
 import {
   Button,
   Flex,
@@ -12,19 +10,18 @@ import {
   Spinner,
   Table,
   Tag,
-  TagLabel,
-  TagLeftIcon,
   Tbody,
   Td,
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
+import { ConsentTag } from "../usct/consent/ConsentTag";
 import { RPCContext } from "./rpc";
 import { ConsentStatus, Package } from "./types";
 import { getRole } from "./utils/user";
@@ -127,17 +124,15 @@ export default function CandidatesList() {
               </Td>
               {isRegistryOfficer ? (
                 <Td>
-                  {(candidate.consent.status === ConsentStatus.GRANTED)?(
-                    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={colors.theme.success}>
-                      <TagLeftIcon boxSize='12px'as={CheckIcon} />
-                      <TagLabel>Granted</TagLabel>
-                    </Tag>
-                  ):(candidate.consent.status === ConsentStatus.NOT_GRANTED)?(
-                    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={colors.info[600]}>
-                      <TagLeftIcon boxSize='12px'as={X} />
-                      <TagLabel>Not Granted</TagLabel>
-                    </Tag>
-                  ):("Consent - N/A")}
+                  {candidate.consent?(
+                    (candidate.consent.status === ConsentStatus.GRANTED)?(
+                      <ConsentTag status={ConsentStatus.GRANTED} />
+                    ):(
+                      <ConsentTag status={ConsentStatus.NOT_GRANTED} />
+                    )
+                  ):(
+                    <ConsentTag status={ConsentStatus.NOT_GRANTED} />
+                  )}
                 </Td>
               ):("")}
               <Td borderEndRadius={isRegistryOfficer?0:16}>

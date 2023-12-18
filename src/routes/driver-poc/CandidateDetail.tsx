@@ -1,10 +1,6 @@
 import { ReactComponent as InfoIcon } from "@assets/icons/info.svg";
 import { ReactComponent as DeleteIcon } from "@assets/icons/trash.svg";
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   Button,
   ButtonGroup,
@@ -16,13 +12,13 @@ import {
   Spacer,
   Spinner,
   Text,
-  VStack,
-  useToast
+  VStack
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useQuery } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { colors } from "../../chakra-overrides/colors";
+import Consent from "../usct/consent/Consent";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
@@ -37,10 +33,8 @@ export default function CandidateDetail() {
   const [selectedPackage, setSelectedPackage] = useState<Package>();
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
-  const [isPending, setPending] = useState(false);
   const isEnrollmentOfficer = getRole() === "ROLE_ENROLLMENT_OFFICER";
   const isRegistryOfficer = getRole() === "ROLE_REGISTRY_OFFICER";
-  const toast = useToast();
 
   const { data: packages } = useQuery("packages", rpc.getPackages);
 
@@ -147,63 +141,15 @@ export default function CandidateDetail() {
       {candidate ? (
         <>
           <PersonalInformation person={candidate.person} />
-
           {(isRegistryOfficer)?(
-            (isPending)?(
-              <>
-                <Alert borderRadius="10px" w="100%" status='warning'>
-                  <AlertIcon />
-                  <Box>
-                    <AlertTitle>Consent pending ...</AlertTitle>
-                    <AlertDescription>Consent request was sent on {new Date().toISOString()}</AlertDescription><br />
-                  </Box>
-                </Alert>
-              </>
-            ):(
+            candidate.consent?(
               (candidate.consent.status === ConsentStatus.GRANTED)?(
-                <>
-                  <Alert borderRadius="10px" w="100%" status='success'>
-                    <AlertIcon />
-                    <Box>
-                      <AlertTitle>Consent granted!</AlertTitle>
-                      <AlertDescription>Consent granted via digital consent (opt-in) on {candidate.consent.date}</AlertDescription><br />
-                      <Button variant="link" textColor="black"><u>Show history</u></Button>
-                    </Box><Spacer />
-                  </Alert>
-                </>
-              ):(candidate.consent.status === ConsentStatus.NOT_GRANTED)?(
-                <>
-                  <Alert borderRadius="10px" w="100%" status='error'>
-                    <AlertIcon />
-                    <Box>
-                      <AlertTitle>No consent granted!</AlertTitle>
-                      <AlertDescription>No consent has been granted yet!</AlertDescription><br />
-                      <Button variant="link" textColor="black"><u>Show history</u></Button>
-                    </Box><Spacer />
-                    <Button
-                      onClick={() => {
-                        const examplePromise = new Promise(async (resolve, reject) => {
-                          const req = await rpc.requestConsent(candidate);
-                          req?resolve(true):reject();
-                        });
-                        toast.promise(examplePromise, {
-                          success: { title: 'Request sent', description: 'Consent request has been sent!' },
-                          error: { title: 'Request failed', description: 'Something went wrong! Please try again' },
-                          loading: { title: 'Requesting consent', description: 'Please wait ...', containerStyle: {color: "white"}}});
-                          setPending(true);
-
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 3000)
-                      }
-                    }
-                      backgroundColor={"white"}
-                      variant="outline"
-                    >
-                      Request consent</Button>
-                  </Alert>
-                </>
-              ):(isPending?(""):("Consent - N/A"))
+                <Consent status={ConsentStatus.GRANTED} candidate={candidate} />
+              ):(
+                <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
+              )
+            ):(
+              <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
             )
           ):("")}
           <BankInformation candidate={candidate} />
