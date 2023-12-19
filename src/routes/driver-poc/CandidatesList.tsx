@@ -116,7 +116,7 @@ export default function CandidatesList() {
                 <Text>{candidate.person.personalIdCode}</Text>
               </Td>
               <Td>
-                {candidate.consent && <ConsentTag status={candidate.consent.status} /> }
+                {candidate.consent && <ConsentTag status={candidate.consent?(candidate.consent.status):ConsentStatus.NOT_GRANTED} /> }
               </Td>
               <Td borderEndRadius={0}>
                 {candidate.packages?.length > 0 ? (

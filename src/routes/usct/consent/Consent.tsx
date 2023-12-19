@@ -37,7 +37,7 @@ export default function Consent ({ allowRequest, status, candidate }: ConsentPro
         </Alert>
       );
 
-    case ConsentStatus.NOT_GRANTED:
+   default:
       return (
         <Alert borderRadius="10px" w="100%" status='error'>
           <AlertIcon />
