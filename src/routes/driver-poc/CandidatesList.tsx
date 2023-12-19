@@ -61,7 +61,7 @@ export default function CandidatesList() {
           CANDIDATES
         </Text>
         <Spacer />
-        {isRegistryOfficer ? (
+        {isRegistryOfficer && (
           <Flex>
             <Button
               onClick={() => navigate(`/driver-poc/candidate/create`)}
@@ -71,8 +71,6 @@ export default function CandidatesList() {
               Create Candidate
             </Button>
           </Flex>
-        ) : (
-          ""
         )}
       </Flex>
       <Table variant="simple">
@@ -86,13 +84,13 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>ID Number</Th>
             <Th color={colors.secondary[0]}>Consent</Th>
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
-            <Th color={colors.secondary[0]}></Th>
+            { isRegistryOfficer && <Th color={colors.secondary[0]}></Th> }
           </Tr>
         </Thead>
         <Tbody>
           {isLoading && (
             <Tr>
-              <Td colSpan={5}>
+              <Td colSpan={isRegistryOfficer?6:5}>
                 <Flex justifyContent="center" alignItems="center" w="100%">
                   <Spinner size="md" />
                 </Flex>
@@ -118,7 +116,7 @@ export default function CandidatesList() {
               <Td>
                 <ConsentTag consent={candidate.consent} />
               </Td>
-              <Td borderEndRadius={0}>
+              <Td borderEndRadius={isRegistryOfficer?0:16}>
                 {candidate.packages?.length > 0 ? (
                   <HStack gap=".625rem">
                     {candidate?.packages
@@ -150,16 +148,18 @@ export default function CandidatesList() {
                   </Tag>
                 )}
               </Td>
-              <Td borderEndRadius={16}>
-                <IconButton
-                  variant="borderless"
-                  aria-label="Edit candidate"
-                  icon={<EditIcon />}
-                  onClick={() =>
-                    navigate(`/driver-poc/candidate/${candidate.id}`)
-                  }
-                />
-              </Td>
+              {isRegistryOfficer &&
+                <Td borderEndRadius={16}>
+                  <IconButton
+                    variant="borderless"
+                    aria-label="Edit candidate"
+                    icon={<EditIcon />}
+                    onClick={() =>
+                      navigate(`/driver-poc/candidate/${candidate.id}`)
+                    }
+                  />
+                </Td>
+              }
             </Tr>
           ))}
         </Tbody>
