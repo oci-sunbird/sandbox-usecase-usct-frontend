@@ -84,22 +84,15 @@ export default function CandidatesList() {
             <Th color={colors.secondary[0]}>#</Th>
             <Th color={colors.secondary[0]}>Name</Th>
             <Th color={colors.secondary[0]}>ID Number</Th>
-            {isRegistryOfficer ? (
-              <Th color={colors.secondary[0]}>Consent</Th>
-              ):("")
-            }
+            <Th color={colors.secondary[0]}>Consent</Th>
             <Th color={colors.secondary[0]}>Eligible Packages</Th>
-            {isRegistryOfficer ? (
-              <Th color={colors.secondary[0]}></Th>
-            ) : (
-              ""
-            )}
+            <Th color={colors.secondary[0]}></Th>
           </Tr>
         </Thead>
         <Tbody>
           {isLoading && (
             <Tr>
-              <Td colSpan={isRegistryOfficer ? 5 : 4}>
+              <Td colSpan={5}>
                 <Flex justifyContent="center" alignItems="center" w="100%">
                   <Spinner size="md" />
                 </Flex>
@@ -122,20 +115,10 @@ export default function CandidatesList() {
               <Td>
                 <Text>{candidate.person.personalIdCode}</Text>
               </Td>
-              {isRegistryOfficer ? (
-                <Td>
-                  {candidate.consent?(
-                    (candidate.consent.status === ConsentStatus.GRANTED)?(
-                      <ConsentTag status={ConsentStatus.GRANTED} />
-                    ):(
-                      <ConsentTag status={ConsentStatus.NOT_GRANTED} />
-                    )
-                  ):(
-                    <ConsentTag status={ConsentStatus.NOT_GRANTED} />
-                  )}
-                </Td>
-              ):("")}
-              <Td borderEndRadius={isRegistryOfficer?0:16}>
+              <Td>
+                {candidate.consent && <ConsentTag status={candidate.consent.status} /> }
+              </Td>
+              <Td borderEndRadius={0}>
                 {candidate.packages?.length > 0 ? (
                   <HStack gap=".625rem">
                     {candidate?.packages
@@ -167,20 +150,16 @@ export default function CandidatesList() {
                   </Tag>
                 )}
               </Td>
-              {isRegistryOfficer ? (
-                <Td borderEndRadius={16}>
-                  <IconButton
-                    variant="borderless"
-                    aria-label="Edit candidate"
-                    icon={<EditIcon />}
-                    onClick={() =>
-                      navigate(`/driver-poc/candidate/${candidate.id}`)
-                    }
-                  />
-                </Td>
-              ) : (
-                ""
-              )}
+              <Td borderEndRadius={16}>
+                <IconButton
+                  variant="borderless"
+                  aria-label="Edit candidate"
+                  icon={<EditIcon />}
+                  onClick={() =>
+                    navigate(`/driver-poc/candidate/${candidate.id}`)
+                  }
+                />
+              </Td>
             </Tr>
           ))}
         </Tbody>
