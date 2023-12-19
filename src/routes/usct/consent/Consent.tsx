@@ -5,7 +5,7 @@ import { Candidate, ConsentStatus } from "../../driver-poc/types";
 
 interface ConsentProps {
   allowRequest: boolean;
-  status: ConsentStatus;
+  status: ConsentStatus | null;
   candidate: Candidate;
 }
 
@@ -25,19 +25,7 @@ export default function Consent ({ allowRequest, status, candidate }: ConsentPro
   )
 
   switch (status) {
-    case ConsentStatus.GRANTED:
-      return (
-        <Alert borderRadius="10px" w="100%" status='success'>
-          <AlertIcon />
-          <Box>
-              <AlertTitle>Consent granted!</AlertTitle>
-              <AlertDescription>Consent granted via digital consent (opt-in) on {candidate.consent.date}</AlertDescription><br />
-              <Button variant="link" textColor="black"><u>Show history</u></Button>
-          </Box><Spacer />
-        </Alert>
-      );
-
-   default:
+    default:
       return (
         <Alert borderRadius="10px" w="100%" status='error'>
           <AlertIcon />
@@ -69,6 +57,18 @@ export default function Consent ({ allowRequest, status, candidate }: ConsentPro
           >
           Request consent</Button>
           }
+        </Alert>
+      );
+
+      case ConsentStatus.GRANTED:
+      return (
+        <Alert borderRadius="10px" w="100%" status='success'>
+          <AlertIcon />
+          <Box>
+              <AlertTitle>Consent granted!</AlertTitle>
+              <AlertDescription>Consent granted via digital consent (opt-in) on {candidate.consent.date}</AlertDescription><br />
+              <Button variant="link" textColor="black"><u>Show history</u></Button>
+          </Box><Spacer />
         </Alert>
       );
   }

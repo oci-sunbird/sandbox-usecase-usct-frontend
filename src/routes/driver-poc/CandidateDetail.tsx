@@ -22,7 +22,7 @@ import Consent from "../usct/consent/Consent";
 import BankInformation from "../usct/personal/BankInformation";
 import PersonalInformation from "../usct/personal/PersonalInformation";
 import { RPCContext } from "./rpc";
-import { ConsentStatus, Package } from "./types";
+import { Package } from "./types";
 import { useAuthentication } from "./utils/useAuthentication";
 import { getRole } from "./utils/user";
 
@@ -141,9 +141,7 @@ export default function CandidateDetail() {
       {candidate ? (
         <>
         <PersonalInformation person={candidate.person} />
-          {candidate.consent &&
-            <Consent allowRequest={isRegistryOfficer} status={candidate.consent.status} candidate={candidate} />
-          }
+          <Consent allowRequest={isRegistryOfficer} status={candidate.consent.status} candidate={candidate} />
           <BankInformation candidate={candidate} />
           {isEnrollmentOfficer ? (
           <Flex direction="column" gap="1.25rem">

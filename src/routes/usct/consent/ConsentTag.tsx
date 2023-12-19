@@ -5,7 +5,7 @@ import { colors } from "../../../chakra-overrides/colors";
 import { ConsentStatus } from "../../driver-poc/types";
 
 interface ConsentStatusProps {
-  status: ConsentStatus;
+  status: ConsentStatus | null;
 }
 
 const statusConfig = {
@@ -22,10 +22,20 @@ const statusConfig = {
 }
 
 export function ConsentTag({ status }: ConsentStatusProps) {
-  return (
-    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[status].color}>
-      <TagLeftIcon boxSize='12px' as={statusConfig[status].icon} />
-      <TagLabel>{statusConfig[status].title}</TagLabel>
-    </Tag>
-  );
+  switch (status) {
+    default:
+      return (
+        <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[ConsentStatus.NOT_GRANTED].color}>
+          <TagLeftIcon boxSize='12px' as={statusConfig[ConsentStatus.NOT_GRANTED].icon} />
+          <TagLabel>{statusConfig[ConsentStatus.NOT_GRANTED].title}</TagLabel>
+        </Tag>
+      );
+    case ConsentStatus.GRANTED:
+      return (
+        <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[status].color}>
+          <TagLeftIcon boxSize='12px' as={statusConfig[status].icon} />
+          <TagLabel>{statusConfig[status].title}</TagLabel>
+        </Tag>
+      );
+  }
 }
