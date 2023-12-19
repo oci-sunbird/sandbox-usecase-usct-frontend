@@ -30,6 +30,11 @@ interface IUser {
 
 const users = [
   {
+    username: "jason.hans@gov.stack",
+    role: "Registry Officer",
+    value: "registry-officer",
+  },
+  {
     username: "max.bob@gov.stack",
     role: "Enrollment Officer",
     value: "enrollment-officer",
@@ -38,11 +43,6 @@ const users = [
     username: "susie.may@gov.stack",
     role: "Payment Officer",
     value: "payment-officer",
-  },
-  {
-    username: "jason.hans@gov.stack",
-    role: "Registry Officer",
-    value: "registry-officer",
   },
 ];
 

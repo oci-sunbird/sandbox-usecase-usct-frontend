@@ -140,18 +140,10 @@ export default function CandidateDetail() {
       {/* <Heading>Assign candidate to the program</Heading> */}
       {candidate ? (
         <>
-          <PersonalInformation person={candidate.person} />
-          {(isRegistryOfficer)?(
-            candidate.consent?(
-              (candidate.consent.status === ConsentStatus.GRANTED)?(
-                <Consent status={ConsentStatus.GRANTED} candidate={candidate} />
-              ):(
-                <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
-              )
-            ):(
-              <Consent status={ConsentStatus.NOT_GRANTED} candidate={candidate} />
-            )
-          ):("")}
+        <PersonalInformation person={candidate.person} />
+          {candidate.consent &&
+            <Consent allowRequest={isRegistryOfficer} status={candidate.consent.status} candidate={candidate} />
+          }
           <BankInformation candidate={candidate} />
           {isEnrollmentOfficer ? (
           <Flex direction="column" gap="1.25rem">

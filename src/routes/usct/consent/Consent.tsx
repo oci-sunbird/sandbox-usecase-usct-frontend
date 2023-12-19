@@ -4,11 +4,12 @@ import { RPCContext } from "../../driver-poc/rpc";
 import { Candidate, ConsentStatus } from "../../driver-poc/types";
 
 interface ConsentProps {
+  allowRequest: boolean;
   status: ConsentStatus;
   candidate: Candidate;
 }
 
-export default function Consent ({ status, candidate }: ConsentProps) {
+export default function Consent ({ allowRequest, status, candidate }: ConsentProps) {
   const rpc = useContext(RPCContext);
   const toast = useToast();
   const [isPending, setPending] = useState(false);
@@ -45,6 +46,7 @@ export default function Consent ({ status, candidate }: ConsentProps) {
             <AlertDescription>No consent has been granted yet!</AlertDescription><br />
             <Button variant="link" textColor="black"><u>Show history</u></Button>
           </Box><Spacer />
+          {allowRequest &&
           <Button
             onClick={() => {
               const examplePromise = new Promise(async (resolve, reject) => {
@@ -66,6 +68,7 @@ export default function Consent ({ status, candidate }: ConsentProps) {
             variant="outline"
           >
           Request consent</Button>
+          }
         </Alert>
       );
   }
