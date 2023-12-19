@@ -2,7 +2,7 @@ export interface Candidate {
   id: number;
   person: Person;
   packages: Package[];
-  consent: Consent;
+  consent: Consent | null;
   relative?: Candidate | null;
 }
 

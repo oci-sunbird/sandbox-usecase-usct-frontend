@@ -5,11 +5,10 @@ import { Candidate, ConsentStatus } from "../../driver-poc/types";
 
 interface ConsentProps {
   allowRequest: boolean;
-  status: ConsentStatus | null;
   candidate: Candidate;
 }
 
-export default function Consent ({ allowRequest, status, candidate }: ConsentProps) {
+export default function Consent ({ allowRequest, candidate }: ConsentProps) {
   const rpc = useContext(RPCContext);
   const toast = useToast();
   const [isPending, setPending] = useState(false);
@@ -24,52 +23,50 @@ export default function Consent ({ allowRequest, status, candidate }: ConsentPro
     </Alert>
   )
 
-  switch (status) {
-    default:
-      return (
-        <Alert borderRadius="10px" w="100%" status='error'>
-          <AlertIcon />
-          <Box>
-            <AlertTitle>No consent granted!</AlertTitle>
-            <AlertDescription>No consent has been granted yet!</AlertDescription><br />
-            <Button variant="link" textColor="black"><u>Show history</u></Button>
-          </Box><Spacer />
-          {allowRequest &&
-          <Button
-            onClick={() => {
-              const examplePromise = new Promise(async (resolve, reject) => {
-                const req = await rpc.requestConsent(candidate);
-                req?resolve(true):reject();
-              });
-              toast.promise(examplePromise, {
-                success: { title: 'Request sent', description: 'Consent request has been sent!' },
-                error: { title: 'Request failed', description: 'Something went wrong! Please try again' },
-                loading: { title: 'Requesting consent', description: 'Please wait ...', containerStyle: {color: "white"}}});
-                setPending(true);
+  if (!candidate.consent || candidate.consent.status == ConsentStatus.NOT_GRANTED) {
+    return (
+      <Alert borderRadius="10px" w="100%" status='error'>
+        <AlertIcon />
+        <Box>
+          <AlertTitle>No consent granted!</AlertTitle>
+          <AlertDescription>No consent has been granted yet!</AlertDescription><br />
+          <Button variant="link" textColor="black"><u>Show history</u></Button>
+        </Box><Spacer />
+        {allowRequest &&
+        <Button
+          onClick={() => {
+            const examplePromise = new Promise(async (resolve, reject) => {
+              const req = await rpc.requestConsent(candidate);
+              req?resolve(true):reject();
+            });
+            toast.promise(examplePromise, {
+              success: { title: 'Request sent', description: 'Consent request has been sent!' },
+              error: { title: 'Request failed', description: 'Something went wrong! Please try again' },
+              loading: { title: 'Requesting consent', description: 'Please wait ...', containerStyle: {color: "white"}}});
+              setPending(true);
 
-              setTimeout(() => {
-                  window.location.reload();
-              }, 3000)
-            }
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000)
           }
-            backgroundColor={"white"}
-            variant="outline"
-          >
-          Request consent</Button>
-          }
-        </Alert>
-      );
-
-      case ConsentStatus.GRANTED:
-      return (
-        <Alert borderRadius="10px" w="100%" status='success'>
-          <AlertIcon />
-          <Box>
-              <AlertTitle>Consent granted!</AlertTitle>
-              <AlertDescription>Consent granted via digital consent (opt-in) on {candidate.consent.date}</AlertDescription><br />
-              <Button variant="link" textColor="black"><u>Show history</u></Button>
-          </Box><Spacer />
-        </Alert>
-      );
+        }
+          backgroundColor={"white"}
+          variant="outline"
+        >
+        Request consent</Button>
+        }
+      </Alert>
+    );
+  } else {
+    return (
+      <Alert borderRadius="10px" w="100%" status='success'>
+        <AlertIcon />
+        <Box>
+          <AlertTitle>Consent granted!</AlertTitle>
+          <AlertDescription>Consent granted via digital consent (opt-in) on {candidate.consent.date}</AlertDescription><br />
+          <Button variant="link" textColor="black"><u>Show history</u></Button>
+        </Box><Spacer />
+      </Alert>
+    );
   }
 }

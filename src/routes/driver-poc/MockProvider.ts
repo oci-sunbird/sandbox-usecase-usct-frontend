@@ -67,8 +67,8 @@ const mockCandidateList: Candidate[] = [
     consent: {
       id: 1,
       candidateId: 1,
-      status: ConsentStatus.NOT_GRANTED,
-      date: ""
+      status: ConsentStatus.GRANTED,
+      date: "2023-11-20T12:30:00"
     },
     relative: null
   },
@@ -124,12 +124,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[1], mockPackages[3]],
-    consent: {
-      id: 3,
-      candidateId: 3,
-      status: ConsentStatus.NOT_GRANTED,
-      date: ""
-    },
+    consent: null,
     relative: null
   },
   {
@@ -154,12 +149,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [mockPackages[0], mockPackages[2]],
-    consent: {
-      id: 4,
-      candidateId: 4,
-      status: ConsentStatus.NOT_GRANTED,
-      date: ""
-    },
+    consent: null,
     relative: null
   },
   {
@@ -184,12 +174,7 @@ const mockCandidateList: Candidate[] = [
       financialModality: "Bank Account",
     },
     packages: [],
-    consent: {
-      id: 5,
-      candidateId: 5,
-      status: ConsentStatus.NOT_GRANTED,
-      date: ""
-    },
+    consent: null,
     relative: null
   },
 ];

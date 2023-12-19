@@ -2,10 +2,10 @@ import { ReactComponent as CheckIcon } from "@assets/icons/check.svg";
 import { ReactComponent as X } from "@assets/icons/x.svg";
 import { Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
 import { colors } from "../../../chakra-overrides/colors";
-import { ConsentStatus } from "../../driver-poc/types";
+import { Consent, ConsentStatus } from "../../driver-poc/types";
 
 interface ConsentStatusProps {
-  status: ConsentStatus | null;
+  consent: Consent | null;
 }
 
 const statusConfig = {
@@ -21,21 +21,11 @@ const statusConfig = {
   }
 }
 
-export function ConsentTag({ status }: ConsentStatusProps) {
-  switch (status) {
-    default:
-      return (
-        <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[ConsentStatus.NOT_GRANTED].color}>
-          <TagLeftIcon boxSize='12px' as={statusConfig[ConsentStatus.NOT_GRANTED].icon} />
-          <TagLabel>{statusConfig[ConsentStatus.NOT_GRANTED].title}</TagLabel>
-        </Tag>
-      );
-    case ConsentStatus.GRANTED:
-      return (
-        <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[status].color}>
-          <TagLeftIcon boxSize='12px' as={statusConfig[status].icon} />
-          <TagLabel>{statusConfig[status].title}</TagLabel>
-        </Tag>
-      );
-  }
+export function ConsentTag({ consent }: ConsentStatusProps) {
+  return (
+    <Tag textColor="#FFFFFF" variant='subtle' backgroundColor={statusConfig[consent?consent.status:ConsentStatus.NOT_GRANTED].color}>
+      <TagLeftIcon boxSize='12px' as={statusConfig[consent?consent.status:ConsentStatus.NOT_GRANTED].icon} />
+      <TagLabel>{statusConfig[consent?consent.status:ConsentStatus.NOT_GRANTED].title}</TagLabel>
+    </Tag>
+  );
 }

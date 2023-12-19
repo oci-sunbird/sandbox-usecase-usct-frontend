@@ -141,7 +141,7 @@ export default function CandidateDetail() {
       {candidate ? (
         <>
         <PersonalInformation person={candidate.person} />
-          <Consent allowRequest={isRegistryOfficer} status={candidate.consent.status} candidate={candidate} />
+          <Consent allowRequest={isRegistryOfficer} candidate={candidate} />
           <BankInformation candidate={candidate} />
           {isEnrollmentOfficer ? (
           <Flex direction="column" gap="1.25rem">
