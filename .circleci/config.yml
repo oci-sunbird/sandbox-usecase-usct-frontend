@@ -12,7 +12,6 @@ parameters:
     default: "app/usct/frontend"
 
 orbs:
-  aws-cli: circleci/aws-cli@4.1.2
   helm: circleci/helm@3.0.0
 
 commands:
@@ -74,12 +73,12 @@ jobs:
       - build_and_deploy:
           deploy: false
 
-  # build-and-deploy:
-  #   docker:
-  #     - image: cimg/aws:2023.09
-  #   steps:
-  #     - build_and_deploy:
-  #         deploy: true
+  build-and-deploy:
+    docker:
+      - image: cimg/aws:2023.09
+    steps:
+      - build_and_deploy:
+          deploy: true
 
 workflows:
   # build every commit
@@ -93,11 +92,11 @@ workflows:
           context: playground
 
   # build and deploy to playground depending on parameter
-  # "Build and deploy to playground":
-  #   when:
-  #     and:
-  #       - equal: [ true, << pipeline.parameters.playground >> ]
-  #       - equal: [ 'main', << pipeline.git.branch >> ]
-  #   jobs:
-  #     - build-and-deploy:
-  #         context: playground
+  "Build and deploy to playground":
+    when:
+      and:
+        - equal: [ false, << pipeline.parameters.playground >> ]
+        - equal: [ 'main', << pipeline.git.branch >> ]
+    jobs:
+      - build-and-deploy:
+          context: playground
