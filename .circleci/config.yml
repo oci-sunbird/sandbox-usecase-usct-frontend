@@ -63,6 +63,7 @@ commands:
                 command: |
                   export OCI_CLI_KEY_CONTENT=$(echo $OCI_CLI_KEY_CONTENT_B64 | base64 -d)
                   export KUBECONFIG=$HOME/.kube/config
+                  kubectl -n << pipeline.parameters.namespace >> create secret docker-registry ocirsecret --docker-server=${DOCKER_SERVER} --docker-username="${DOCKER_USERNAME}" --docker-password="${DOCKER_PASSWORD}"
                   DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE:latest)
                   DIGEST="${DIGEST#*@}"
                   helm upgrade --install --wait --dependency-update --create-namespace \

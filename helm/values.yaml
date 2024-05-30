@@ -1,4 +1,5 @@
 name: "frontend"
+imagepullsecrets: "ocirsecret"
 replicaCount: 1
 labels: 
   app: "frontend"

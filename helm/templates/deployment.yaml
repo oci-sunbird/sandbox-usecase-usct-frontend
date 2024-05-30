@@ -14,6 +14,10 @@ spec:
       labels: 
         {{- toYaml .Values.template.labels | nindent 8 }}
     spec:
+{{- if .Values.imagepullsecrets }}
+      imagePullSecrets:
+      - name: {{ .Values.imagepullsecrets }}
+{{- end }}
       containers:
         - name: {{ .Values.container.name }}
           image: "{{ .Values.container.image }}"
