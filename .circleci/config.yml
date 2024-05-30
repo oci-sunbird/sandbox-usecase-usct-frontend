@@ -46,11 +46,11 @@ commands:
                 command: |
                   pip3 install --upgrade pip
                   python3 -m pip install oci-cli
-            # - run:
-            #     name: Push image
-            #     command: |
-            #       aws ecr get-login-password | docker login --username AWS --password-stdin "${CONTAINER_REGISTRY}"
-            #       docker push "$IMAGE:latest"
+            - run:
+                name: Push image
+                command: |
+                  docker login ${DOCKER_SERVER} -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+                  docker push "$IMAGE:latest"
       #       - run:
       #           name: Update kubeconfig
       #           command: |
