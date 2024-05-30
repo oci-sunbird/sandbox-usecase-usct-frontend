@@ -38,19 +38,19 @@ commands:
           name: Check Helm Chart
           command: |
             helm lint ./helm
-      # - when:
-      #     condition: << parameters.deploy >>
-      #     steps:
-      #       - aws-cli/setup:
-      #           role_arn: "${AWS_CIRCLECI_ROLE_ARN}"
-      #           region: ${AWS_REGION}
-      #           role_session_name: CircleCISession
-      #           session_duration: '1800'
-      #       - run:
-      #           name: Push image
-      #           command: |
-      #             aws ecr get-login-password | docker login --username AWS --password-stdin "${CONTAINER_REGISTRY}"
-      #             docker push "$IMAGE:latest"
+      - when:
+          condition: << parameters.deploy >>
+          steps:
+            - run:
+                name: Install oci cli
+                command: |
+                  pip3 install --upgrade pip
+                  python3 -m pip install oci-cli
+            # - run:
+            #     name: Push image
+            #     command: |
+            #       aws ecr get-login-password | docker login --username AWS --password-stdin "${CONTAINER_REGISTRY}"
+            #       docker push "$IMAGE:latest"
       #       - run:
       #           name: Update kubeconfig
       #           command: |
@@ -82,14 +82,14 @@ jobs:
 
 workflows:
   # build every commit
-  "Just build":
-    when:
-      and:
-        - equal: [ false, << pipeline.parameters.playground >> ]
-        - equal: [ 'main', << pipeline.git.branch >> ]
-    jobs:
-      - build:
-          context: playground
+  # "Just build":
+  #   when:
+  #     and:
+  #       - equal: [ false, << pipeline.parameters.playground >> ]
+  #       - equal: [ 'main', << pipeline.git.branch >> ]
+  #   jobs:
+  #     - build:
+  #         context: playground
 
   # build and deploy to playground depending on parameter
   "Build and deploy to playground":
